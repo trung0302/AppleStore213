@@ -19,6 +19,11 @@ body {
 }
 
 @font-face {
+    font-family: LexendLight;
+    src: url('../../assets/font/Lexend-Light.ttf');
+}
+
+@font-face {
     font-family: LexendRegular;
     src: url('../../assets/font/Lexend-Regular.ttf');
 }
