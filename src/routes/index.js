@@ -20,6 +20,8 @@ const publicRoutes = [
     { path: "/customer/changePassword", component: <ChangePassword />},
     { path: "/customer/avatar", component: <Avatar />},
     { path: "/customer/productReviews", component: <ProductReviews />},
+    { path: "/detaiproduct", component: <DetailProduct />},
+
 ];
 
 export { publicRoutes };
