@@ -1,19 +1,20 @@
-import styles from "./Info.module.css";
+import styles from "../Customer.module.css";
 import PersonIcon from '@mui/icons-material/Person';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import LockIcon from '@mui/icons-material/Lock';
+import CropOriginalIcon from '@mui/icons-material/CropOriginal';
 import HistoryIcon from '@mui/icons-material/History';
 import { blue } from "@mui/material/colors";
-import SelectTag from "./Components/SelectTag";
-import NavTag from "./Components/NavTag";
-import LabelAndInput from "./Components/LabelAndInput";
+import SelectTag from "../Components/SelectTag";
+import NavTag from "../Components/NavTag";
+import LabelAndInput from "../Components/LabelAndInput";
 
 function Info()
 {
     return (
         <div>
-            <div className={styles.bg_primary + " flex justify-evenly text-3xl"}>
+            <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>
                 <div className={styles.bg_white +" rounded-lg w-1/4 my-12 lg:block hidden"}>
                     {/* <div className={styles.bg_blue +" rounded-lg px-4 py-8 mx-6 my-8"}>
                         <a href="#" className={styles.text_blue}>
@@ -23,13 +24,15 @@ function Info()
                     </div> */}
                     <NavTag DivCss={styles.bg_blue +" rounded-lg px-4 py-8 mx-6 my-8"} setHref={"#"} spanCss={"mx-4"} spanContent={"Thông tin tài khoản"}
                         aCss={styles.text_blue} setIcon={<PersonIcon sx={{ fontSize: 30, color: blue[700] }}></PersonIcon>} />
-                    <NavTag DivCss={"px-4 py-8"} setHref={"/Customer/Addresses"} spanCss={"mx-6"} spanContent={"Địa chỉ nhận hàng"}
+                    <NavTag DivCss={"px-4 py-8"} setHref={"/customer/addresses"} spanCss={"mx-6"} spanContent={"Địa chỉ nhận hàng"}
                         aCss={"mx-4 my-4"} setIcon={<LocationOnIcon sx={{ fontSize: 30 }}></LocationOnIcon>} />
-                    <NavTag DivCss={"px-4 py-8"} setHref={"/Customer/History"} spanCss={"mx-6"} spanContent={"Đơn đặt hàng"}
+                    <NavTag DivCss={"px-4 py-8"} setHref={"/customer/history"} spanCss={"mx-6"} spanContent={"Đơn đặt hàng"}
                         aCss={"mx-4 my-4"} setIcon={<AssignmentIcon sx={{ fontSize: 30 }}></AssignmentIcon>} />
-                    <NavTag DivCss={"px-4 py-8"} setHref={"/Customer/ChangePassword"} spanCss={"mx-6"} spanContent={"Đổi mặt khẩu"}
+                    <NavTag DivCss={"px-4 py-8"} setHref={"/customer/changePassword"} spanCss={"mx-6"} spanContent={"Đổi mặt khẩu"}
                         aCss={"mx-4 my-4"} setIcon={<LockIcon sx={{ fontSize: 30 }}></LockIcon>} />
-                    <NavTag DivCss={"px-4 py-8 mb-8"} setHref={"/Customer/ProductReviews"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
+                    <NavTag DivCss={"px-4 py-8"} setHref={"/customer/avatar"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
+                        aCss={"mx-4 my-4"} setIcon={<CropOriginalIcon sx={{ fontSize: 30 }}></CropOriginalIcon>} />
+                    <NavTag DivCss={"px-4 py-8 mb-8"} setHref={"/customer/productReviews"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
                         aCss={"mx-4 my-4"} setIcon={<HistoryIcon sx={{ fontSize: 30 }}></HistoryIcon>} />
                 </div>
                 <div className={styles.bg_white +" rounded-lg lg:w-2/5 my-12"}>
@@ -69,14 +72,14 @@ function Info()
                     </form>
                 </div>
             </div>
-            <div className={styles.bg_primary2 + " grid justify-items-center content-center py-20 text-3xl"}>
+            {/* <div className={styles.bg_primary2 + " grid justify-items-center content-center py-20 text-2xl"}>
                 <div className="text-5xl my-4 font-bold">Đăng ký nhận tin từ Shopdunk</div>
                 <p className="my-4 text-center">Thông tin sản phẩm mới nhất và chương trình khuyến mãi</p>
                 <div className="relative my-4 w-1/3">
                     <input type="text" className="w-full border-2 rounded-full px-6 py-4" placeholder="E-mail của bạn"/>
                     <button className="w-max border-2 rounded-full px-4 py-4 bg-sky-600 text-white absolute right-0">Đăng ký</button>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }
