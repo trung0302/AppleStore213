@@ -4,6 +4,8 @@ import { useState } from "react";
 
 import { DeleteOutline } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import ProductHint from "./Components/ProductHint/ProductHint";
+import Payment from "./Components/Payment/Payment";
 
 function Order() {
     const [qty, setQty] = useState(0);
@@ -247,7 +249,7 @@ function Order() {
                                 id="service"
                                 className="w-[20px] h-[20px] mr-4"
                             ></input>
-                            <label for="service" className="text-[14px]">
+                            <label htmlFor="service" className="text-[14px]">
                                 Tôi đã đọc và đồng ý với
                                 <span className="text-[#0066cc]">
                                     {" "}
@@ -265,8 +267,14 @@ function Order() {
                     {/* Gợi ý sản phẩm */}
                     <div className={styles.productHint + " col-span-2"}>
                         <label className="text-[24px] font-semibold">Gợi ý phụ kiện đi kèm</label>
+                        <ProductHint />
                     </div>
-
+                    <div></div>                        
+                    {/* Thông tin thanh toán */}
+                    <div className={styles.payment + " col-span-2"}>
+                        <label className="text-[24px] font-semibold">Thông tin thanh toán</label>
+                        <Payment />
+                    </div>
                 </div>
             </div>
         </div>
