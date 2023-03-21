@@ -1,6 +1,9 @@
 import React, { useState,useEffect } from "react";
 import classes from "./Login.module.css";
 import jwt_decode from "jwt-decode";
+import images from "../../assets/image";
+import ForgetPass from "./ForgetPass/ForgetPass";
+
 import { Link, useNavigate } from "react-router-dom";
 
 
@@ -157,7 +160,8 @@ const Login = () => {
                       <input  type="checkbox" id='remember'/>
                       <label className='ml-2 font-medium text-base' for="remember">Nhớ mật khẩu</label>
                   </div>
-                  <button className='font-medium text-base text-violet-500'>Quên mật khẩu?</button>
+                  <button  onClick={() => setModal(true)}
+                  className='font-medium text-base text-violet-500'>Quên mật khẩu?</button>
               </div>
               <div className='mt-8 flex flex-col gap-y-4'>
                     <button 
@@ -169,7 +173,7 @@ const Login = () => {
               <div className='mt-2 flex justify-center items-center'>
                   <p className='font-medium text-base'>Bạn chưa có tài khoản?</p>
                   <button 
-                      onClick={() => console.log("move to dk")}
+                      onClick={() => {navigate("/register")}}
                       className='ml-2 font-medium text-base text-violet-500'>Đăng kí ngay!</button>
               </div>
               <div className="flex items-center w-full my-4">
@@ -184,12 +188,24 @@ const Login = () => {
           </div>
       </div>
     </div>
-    <div className="hidden relative w-1/2 h-full lg:flex items-center justify-center bg-gray-200">
-    <div className="w-60 h-60 rounded-full bg-gradient-to-tr from-violet-500 to-pink-500 animate-spin"/> 
-        <div className="w-full h-1/2 absolute bottom-0 bg-white/10 backdrop-blur-lg" />
+    <div className="hidden relative w-1/2 h-full lg:flex items-center justify-center "
+    style={{backgroundImage: `url(${images.loginBG})`}}>
     </div>
+    {modal && (
+                <ForgetPass
+                    closewindow={setModal}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
+                    inputs={inputs}
+                    errors={errors}
+                ></ForgetPass>
+            )}
   </div>
   )
 }
 
 export default Login
+
+/**<div className="w-60 h-60 rounded-full bg-gradient-to-tr from-violet-500 to-pink-500 animate-spin"/> 
+        <div className="w-full h-1/2 absolute bottom-0 bg-white/10 backdrop-blur-lg" />
+     */

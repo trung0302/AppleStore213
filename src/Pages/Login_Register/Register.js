@@ -170,7 +170,7 @@ const Register = () => {
             <h3 className="text-7xl font-bold text-purple-600">SHOPDRUNK</h3>
           </a>
         </div>
-        <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
+        <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-4xl sm:rounded-lg">
           <form>
             <div>
               <label
@@ -322,14 +322,14 @@ const Register = () => {
                     <button 
                         onClick={handleSubmit}
                         className='active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg'>
-                        Đăng Nhập
+                        Đăng Kí
                     </button>
               </div>
           </form>
           <div className="mt-4 text-center text-grey-600">
             Bạn đã có tài khoản?{" "}
             <span>
-              <a className="text-purple-600 hover:underline" href="#">
+              <a className="text-purple-600 hover:underline" href="/login">
                 Đăng nhập
               </a>
             </span>
