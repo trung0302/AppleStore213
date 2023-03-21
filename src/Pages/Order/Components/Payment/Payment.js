@@ -3,6 +3,7 @@ import Select from "react-select";
 // import CreatableSelect from "react-select/creatable";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import images from "../../../../assets/image";
 
 function Payment() {
     const [provinces, setProvinces] = useState([]);
@@ -29,8 +30,6 @@ function Payment() {
                 console.log(error);
             });
     }, []);
-    // https://provinces.open-api.vn/api/p/1?depth=2
-    // https://provinces.open-api.vn/api/p/${selectedOption.code}?depth=2
 
     // Handle change province
     const handleChangeProvince = (selectedOption) => {
@@ -54,7 +53,7 @@ function Payment() {
     const handleChangeDistrict = (selectedOption) => {
         setSelectedDistrict(selectedOption);
     };
-    
+
     // Handle change radio input
     const handleChangeMethod = (e) => {
         setMethod(e.target.value);
@@ -73,7 +72,7 @@ function Payment() {
 
     return (
         <div>
-            <div className="w-full bg-white px-8 py-[16px] rounded-[8px] mt-6">
+            <div className="w-full bg-white p-8 rounded-[8px] mt-6">
                 {/* Thông tin khách hàng */}
                 <div className="grid grid-cols-2 gap-6 mb-6">
                     <input
@@ -182,16 +181,67 @@ function Payment() {
                         />
                     )}
                     {showAddress && (
-                        <Select
-                            className="text-[16px] col-span-2"
-                            value={selectedDistrict}
-                            onChange={handleChangeDistrict}
-                            options={districts}
-                            closeMenuOnSelect={true}
-                            styles={customStyles}
-                            placeholder="Chọn địa chỉ cửa hàng 2"
-                        />
+                        <div className="col-span-2">
+                            <div className="text-[14px] mb-3">Địa chỉ cụ thể:</div>
+                            <input
+                                type="text"
+                                // value="Trung"
+                                placeholder="Nhập địa chỉ nhận hàng"
+                                required
+                                className="h-[48px] w-full px-[16px] py-[8px] text-[16px] text-[#777]
+                             outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
+                            />
+                        </div>
                     )}
+                </div>
+            </div>
+
+            {/* Thông tin thanh toán */}
+            <div className="w-full bg-white p-8 rounded-[8px] mt-6">
+                <label className="font-semibold text-2xl">
+                    Thông tin thanh toán
+                </label>
+                <div className="text-[14px] text-[#777] mt-[8px] mb-4">
+                    Quý khách vui lòng lựa chọn các hình thức thanh toán dưới
+                    đây:
+                </div>
+                <div className="grid grid-cols-2 gap-6">
+                    <label
+                        htmlFor="momo"
+                        className="flex border border-solid border-[#ddd] rounded-[8px] py-5 px-10 items-center cursor-pointer"
+                    >
+                        <input
+                            type="radio"
+                            id="momo"
+                            name="method"
+                            value="momo"
+                        />
+                        <img
+                            src={images.momo}
+                            alt="Momo"
+                            className="h-[36px] w-[36px] rounded-[8px] mx-5"
+                        />
+                        <div className="text-[14px]">Thanh toán bằng Momo</div>
+                    </label>
+                    <label
+                        htmlFor="zalopay"
+                        className="flex border border-solid border-[#ddd] rounded-[8px] py-5 px-10 items-center cursor-pointer"
+                    >
+                        <input
+                            type="radio"
+                            id="zalopay"
+                            name="method"
+                            value="zalopay"
+                        />
+                        <img
+                            src={images.zalopay}
+                            alt="ZaloPay"
+                            className="h-[36px] w-[36px] rounded-[8px] mx-5"
+                        />
+                        <div className="text-[14px]">
+                            Thanh toán bằng ZaloPay
+                        </div>
+                    </label>
                 </div>
             </div>
         </div>
