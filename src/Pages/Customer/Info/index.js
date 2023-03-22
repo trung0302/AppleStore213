@@ -42,11 +42,11 @@ function Info()
                                 <label for="Name">Tên, Họ:</label><br/>
                                 <input type="text" name="Name" className="w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400" value="Dat lam"/>
                             </div> */}
-                            <LabelAndInput divCss={"my-4"} inputType={"text"} inputName={"Name"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={"Dat Lam"}/>
-                            <LabelAndInput divCss={"my-4"} inputType={"email"} inputName={"Email"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={"20520433@gmail.com"}/>
+                            <LabelAndInput divCss={"my-4"} labelContent={"Tên, Họ:"} inputType={"text"} inputName={"Name"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={"Dat Lam"}/>
+                            <LabelAndInput divCss={"my-4"} labelContent={"Email"} inputType={"email"} inputName={"Email"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={"20520433@gmail.com"}/>
                         </div>
                         <div className="grid grid-cols-2 gap-8 mx-8 my-4">
-                            <LabelAndInput inputType={"tel"} inputName={"Telephone"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={"0123456789"}/>
+                            <LabelAndInput inputType={"tel"} labelContent={"Số điện thoại"} inputName={"Telephone"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={"0123456789"}/>
                             <div className="grid grid-rows-2">
                                 <label for="Gender">Giới tính:</label>
                                 <div className="content-center gap-8">
