@@ -35,7 +35,7 @@ function DetailProduct() {
       },
     };
     return (
-
+    <div className={classes.container}>
         <section className={classes.detailproduct}>
             <section className={classes.product_splide}>
                 <Splide
@@ -71,10 +71,33 @@ function DetailProduct() {
                     </SplideSlide>
                 </Splide>
             </section>
-            <section className={classes.product_information}>
+            <section className={classes.overview}>
+                <div className={classes.wrapped_info}>
+                    <h1>
+                        <span>Macbook pro M1 2020</span>
+                    </h1>
+                    <div className={classes.wrapped_info_content}>
+                        <div className={classes.rating}></div>
+                        <a>Danh gia</a>
+                        <button>So sanh</button>
+                    </div>
+                    <div>
+                        <div className={classes.price}>
+                            <span>28.550.000</span>
+                        </div>
+
+                        <label>Dung lượng</label>
+                        <button>256GB</button>
+                        <button>512GB</button>
+                        <label>RAM</label>
+                        <label>Maù sắc</label>
+                    </div>
+                </div>
+                
 
             </section>
         </section>
+    </div>
     );
 }
 
