@@ -8,6 +8,8 @@ import History from "../Pages/Customer/History";
 import ChangePassword from "../Pages/Customer/ChangePassword";
 import Avatar from "../Pages/Customer/Avatar";
 import ProductReviews from "../Pages/Customer/ProductReviews";
+import Addaddress from "../Pages/Customer/addAddress";
+import Orderdetail from "../Pages/Customer/Orderdetail";
 
 const publicRoutes = [
     { path: "/", component: <Home /> },
@@ -16,11 +18,13 @@ const publicRoutes = [
     { path: "/cart", component: <Order /> },
     { path: "/customer/info", component: <Info />},
     { path: "/customer/addresses", component: <Addresses />},
+    { path: "/customer/addAddress", component: <Addaddress />},
     { path: "/customer/history", component: <History />},
     { path: "/customer/changePassword", component: <ChangePassword />},
     { path: "/customer/avatar", component: <Avatar />},
     { path: "/customer/productReviews", component: <ProductReviews />},
     { path: "/detaiproduct", component: <DetailProduct />},
+    { path: "customer/orderdetail/:madonhang", component: <Orderdetail />},
 
 ];
 

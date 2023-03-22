@@ -7,6 +7,7 @@ import CropOriginalIcon from '@mui/icons-material/CropOriginal';
 import HistoryIcon from '@mui/icons-material/History';
 import { blue } from "@mui/material/colors";
 import NavTag from "../Components/NavTag";
+import Orderbill from "../Components/Orderbill";
 
 function History () {
     return (
@@ -26,8 +27,10 @@ function History () {
                     <NavTag DivCss={"px-4 py-8 mb-8"} setHref={"/customer/productReviews"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
                         aCss={"mx-4 my-4"} setIcon={<HistoryIcon sx={{ fontSize: 30 }}></HistoryIcon>} />
                 </div>
-                <div className={styles.bg_white +" rounded-lg lg:w-2/5 my-12"}>
-                    <p>Chưa có gì cả</p>
+                <div className={"lg:w-2/5 my-12"}>
+                    <Orderbill madonhang={"4618"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ngân hàng" status={"red"}></Orderbill>
+                    <Orderbill madonhang={"4618"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ngân hàng" status={"green"}></Orderbill>
+                    <Orderbill madonhang={"4618"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ngân hàng" status={"yellow"}></Orderbill>
                 </div>
             </div>
         </div>

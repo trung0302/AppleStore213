@@ -7,6 +7,8 @@ import CropOriginalIcon from '@mui/icons-material/CropOriginal';
 import HistoryIcon from '@mui/icons-material/History';
 import { blue } from "@mui/material/colors";
 import NavTag from "../Components/NavTag";
+import LabelAndInput from "../Components/LabelAndInput";
+import Notice from "../Components/Notice";
 
 function ChangePassword () {
     return (
@@ -27,7 +29,15 @@ function ChangePassword () {
                         aCss={"mx-4 my-4"} setIcon={<HistoryIcon sx={{ fontSize: 30 }}></HistoryIcon>} />
                 </div>
                 <div className={styles.bg_white +" rounded-lg lg:w-2/5 my-12"}>
-                    <p>Chưa có gì cả</p>
+                    <Notice divCss={"mx-4 mt-8 mb-4 bg-slate-200 px-3 py-3 rounded-lg w-fit"} labelCss={"text-xl"} labelContent={"Lưu ý: Mật khẩu phải có tối thiểu 8 ký tự bao gồm chữ, số và các ký tự đặc biệt"}></Notice>
+                    <form action="">
+                        <LabelAndInput divCss={"w-full px-4 py-4"} inputName={"oldPassword"} inputType={"password"} inputCss={"border-2 rounded-lg w-full my-4 px-2 py-3"} labelContent={"Mật khẩu cũ:"}/>
+                        <LabelAndInput divCss={"w-full px-4 py-4"} inputName={"newPassword"} inputType={"password"} inputCss={"border-2 rounded-lg w-full my-4 px-2 py-3"} labelContent={"Mật khẩu mới:"}/>
+                        <LabelAndInput divCss={"w-full px-4 py-4"} inputName={"accessPassword"} inputType={"password"} inputCss={"border-2 rounded-lg w-full my-4 px-2 py-3"} labelContent={"Xác nhận mật khẩu:"}/>
+                        <div className="flex justify-center">
+                            <button className="border-2 rounded-lg px-4 py-4 mb-5 bg-sky-600 text-white">Đổi mật khẩu</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
