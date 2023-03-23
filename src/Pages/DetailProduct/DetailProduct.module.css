@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    justify-content: center;
+  }
+.detailproduct {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+.product_splide, .overview{
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+}
+.product_splide {
+    background-color: #E8E8E8;
+}
+.overview {
+    background-color: blue;
+}

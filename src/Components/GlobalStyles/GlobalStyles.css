@@ -1,3 +1,8 @@
+/* Tailwind config */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* CSS global */
 * {
     margin: 0;
@@ -11,6 +16,11 @@ html {
 
 body {
     font-family: LexendRegular;
+}
+
+@font-face {
+    font-family: LexendLight;
+    src: url('../../assets/font/Lexend-Light.ttf');
 }
 
 @font-face {
