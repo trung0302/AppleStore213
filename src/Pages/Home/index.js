@@ -1,7 +1,11 @@
 import "./Home.module.css";
-
+import AdvertisementSlide from "./Components/AdvertisementSlide";
 function Home() {
-    return <div>Home</div>;
+    return(
+    <div className="w-full">
+       <AdvertisementSlide/>
+    </div>
+    );
 }
 
 export default Home;

@@ -6,6 +6,12 @@ const images = {
     momo: require("./momo.png"),
     zalopay: require("./zalopay.png"),
     loginBG: require('./loginbg.jpg'),
+    banner1: require('./banner1.webp'),
+    banner2: require('./banner2.jpeg'),
+    banner3: require('./banner3.jpeg'),
+    banner4: require('./banner4.jpeg'),
+    banner5: require('./banner5.jpeg'),
+    banner6: require('./banner6.webp')
     MomoQR: require("./MomoQR.jpg"),
     ZalopayQR: require("./ZalopayQR.jpg"),
 };
