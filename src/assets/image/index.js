@@ -11,7 +11,7 @@ const images = {
     banner3: require('./banner3.jpeg'),
     banner4: require('./banner4.jpeg'),
     banner5: require('./banner5.jpeg'),
-    banner6: require('./banner6.webp')
+    banner6: require('./banner6.webp'),
     MomoQR: require("./MomoQR.jpg"),
     ZalopayQR: require("./ZalopayQR.jpg"),
 };
