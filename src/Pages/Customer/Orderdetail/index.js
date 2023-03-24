@@ -14,7 +14,7 @@ import Orderbilldetail from "../Components/Orderbilldetail";
 
 function Orderdetail () {
     
-    const { madonhang } = useParams();
+    const { madonhang, status } = useParams();
 
     return (
         <div>
@@ -39,7 +39,7 @@ function Orderdetail () {
                         <a href="/customer/history">Trở lại</a>
                     </div>
                     <div>
-                        <Orderbilldetail madonhang={madonhang}></Orderbilldetail>
+                        <Orderbilldetail madonhang={madonhang} status={status}></Orderbilldetail>
                     </div>
                 </div>
             </div>
