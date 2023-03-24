@@ -5,7 +5,9 @@ const images = {
     airpod2: require("./airpod2.jpeg"),
     momo: require("./momo.png"),
     zalopay: require("./zalopay.png"),
-    loginBG: require('./loginbg.jpg')
+    loginBG: require('./loginbg.jpg'),
+    MomoQR: require("./MomoQR.jpg"),
+    ZalopayQR: require("./ZalopayQR.jpg"),
 };
 
 export default images;
