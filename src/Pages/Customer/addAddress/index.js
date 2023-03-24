@@ -8,6 +8,7 @@ import HistoryIcon from '@mui/icons-material/History';
 import { blue } from "@mui/material/colors";
 import NavTag from "../Components/NavTag";
 import LabelAndInput from "../Components/LabelAndInput";
+import CitySelect from "../Components/CitySelect";
 
 function Addaddress () {
     return (
@@ -36,20 +37,14 @@ function Addaddress () {
                             <div className="px-5 py-5">
                                 <label>Quốc gia</label><br/>
                                 <select className="w-full border-2 rounded-lg px-3 py-3 my-4 mr-8">
-                                    <option value="0">Chọn quốc gia</option>
+                                    <option value="">Chọn quốc gia</option>
                                     <option value="VN">Việt Nam</option>
-                                    <option value="Cam">Cam pu chia</option>
-                                    <option value="Thai">Thái Lan</option>
+                                    {/* <option value="Cam">Cam pu chia</option>
+                                    <option value="Thai">Thái Lan</option> */}
                                 </select>
                             </div>
                             <div className="px-5 py-5">
-                                <label>Tỉnh, thành phố</label><br/>
-                                <select className="w-full border-2 rounded-lg px-3 py-3 my-4 mr-8">
-                                    <option value="0">Chọn tỉnh, thành phố</option>
-                                    <option value="VN">Việt Nam</option>
-                                    <option value="Cam">Cam pu chia</option>
-                                    <option value="Thai">Thái Lan</option>
-                                </select>
+                                <CitySelect></CitySelect>
                             </div>
                             <LabelAndInput divCss={"px-5 py-5"} inputType={"text"} labelContent={"Quận, huyện:"} inputName={"Quan"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>
                             <LabelAndInput divCss={"px-5 py-5"} inputType={"text"} labelContent={"Phường, xã:"} inputName={"Phuong"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>

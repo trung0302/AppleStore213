@@ -29,8 +29,8 @@ function History () {
                 </div>
                 <div className={"lg:w-2/5 my-12"}>
                     <Orderbill madonhang={"4618"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ngân hàng" status={"red"}></Orderbill>
-                    <Orderbill madonhang={"4618"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ngân hàng" status={"green"}></Orderbill>
-                    <Orderbill madonhang={"4618"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ngân hàng" status={"yellow"}></Orderbill>
+                    <Orderbill madonhang={"2013"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ngân hàng" status={"green"}></Orderbill>
+                    <Orderbill madonhang={"2020"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ngân hàng" status={"yellow"}></Orderbill>
                 </div>
             </div>
         </div>
