@@ -12,6 +12,10 @@ import ProductReviews from "../Pages/Customer/ProductReviews";
 import Addaddress from "../Pages/Customer/addAddress";
 import Orderdetail from "../Pages/Customer/Orderdetail";
 
+import Billdetail from "../Pages/Payment/Billdetail";
+import PaymentInfo from "../Pages/Payment/PaymentInfo";
+
+
 import Login from "../Pages/Login_Register/Login";
 import Register from "../Pages/Login_Register/Register";
 import Policy from "../Pages/Policy";
@@ -31,7 +35,9 @@ const publicRoutes = [
     { path: "/customer/avatar", component: <Avatar />},
     { path: "/customer/productReviews", component: <ProductReviews />},
     { path: "/detaiproduct", component: <DetailProduct />},
-    { path: "customer/orderdetail/:madonhang", component: <Orderdetail />},
+    { path: "/customer/orderdetail/:madonhang/:status", component: <Orderdetail />},
+    { path: "/billdetail", component: <Billdetail />},
+    { path: "/paymentinfo", component: <PaymentInfo />},
 
     { path: "/login", component: <Login /> },
     { path: "/register", component: <Register /> },
