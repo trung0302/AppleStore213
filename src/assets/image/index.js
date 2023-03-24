@@ -14,6 +14,11 @@ const images = {
     banner6: require('./banner6.webp'),
     MomoQR: require("./MomoQR.jpg"),
     ZalopayQR: require("./ZalopayQR.jpg"),
+    BonusBanner1: require('./BonusBanner1.webp'),
+    BonusBanner2: require('./BonusBanner2.webp'),
+    BonusBanner3: require('./BonusBanner3.webp'),
+
+
 };
 
 export default images;
