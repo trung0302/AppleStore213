@@ -17,6 +17,9 @@ const images = {
     BonusBanner1: require('./BonusBanner1.webp'),
     BonusBanner2: require('./BonusBanner2.webp'),
     BonusBanner3: require('./BonusBanner3.webp'),
+    BannerBottom: require('./BannerBottom.webp'),
+    khaitruong: require('./khaitruong.webp'),
+
 
 
 };

@@ -9,31 +9,36 @@ function Home() {
             image: images.ip14prm,
             name: 'Iphone 14 Pro Max 6 inch Wifi 64GB',
             newPrice: 6990000,
-            oldPrice: 9990000
+            oldPrice: 9990000,
+            note: images.khaitruong
         },
         {
             image: images.ip14prm,
             name: 'Iphone 14 Pro Max 6 inch Wifi 64GB',
             newPrice: 6990000,
-            oldPrice: 9990000
+            oldPrice: 9990000,
+            note: images.khaitruong
+
         },
         {
             image: images.ip14prm,
             name: 'Iphone 14 Pro Max 6 inch Wifi 64GB',
             newPrice: 6990000,
-            oldPrice: 9990000
+            oldPrice: 9990000,
+            note: images.khaitruong
         },
         {
             image: images.ip14prm,
             name: 'Iphone 14 Pro Max 6 inch Wifi 64GB',
             newPrice: 6990000,
-            oldPrice: 9990000
+            oldPrice: 9990000,
+            note: images.khaitruong
         }
     ];
     const itemUI=[
         {
             title: "iPhone",
-            datas: iphone
+            datas: iphone,
         },
         {
             title: "iPad",
@@ -61,6 +66,9 @@ function Home() {
             <ItemComponent data={item} key={index}/>
         ))
        }
+       <a  href="#" className=" block h-[432px]">
+            <img  className="p-12" src={images.BannerBottom} alt={images.BannerBottom}></img>
+       </a>
     </div>
     );
 }
