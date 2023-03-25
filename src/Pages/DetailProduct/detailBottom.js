@@ -9,6 +9,7 @@ function DetailBottom() {
     }
 
     return <div>Detail Product Bottom
+        <p className="text-lg">Hello world</p>
           <div className="container">
                 <div className="tab-bar">
                     <div className={tongleState === 1 ? "tab-item tab-item-active":"tab-item"}

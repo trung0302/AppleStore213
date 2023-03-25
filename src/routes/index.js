@@ -21,6 +21,8 @@ import Register from "../Pages/Login_Register/Register";
 import Policy from "../Pages/Policy";
 import NewPass from "../Pages/Login_Register/ForgetPass/NewPass";
 
+import SearchResults from "../Pages/SearchResults";
+
 const publicRoutes = [
     { path: "/", component: <Home /> },
     { path: "/detailproduct", component: <DetailProduct /> },
@@ -44,7 +46,7 @@ const publicRoutes = [
     { path: "/resetpass/:token", component: <NewPass /> },
     { path: "/policy", component: <Policy /> },
 
-
+    { path: "/search", component: <SearchResults/>},
 
 ];
 
