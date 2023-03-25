@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "../Customer.module.css";
 import PersonIcon from '@mui/icons-material/Person';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -12,6 +13,12 @@ import LabelAndInput from "../Components/LabelAndInput";
 
 function Info()
 {
+    const [selectedGender, setSelectedGender] = useState("Nam");
+
+    const handleGenderChange = (event) => {
+        setSelectedGender(event.target.value);
+    };
+    
     return (
         <div>
             <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>
@@ -48,10 +55,12 @@ function Info()
                         <div className="grid grid-cols-2 gap-8 mx-8 my-4">
                             <LabelAndInput inputType={"tel"} labelContent={"Số điện thoại"} inputName={"Telephone"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={"0123456789"}/>
                             <div className="grid grid-rows-2">
-                                <label for="Gender">Giới tính:</label>
+                                <label htmlFor="Gender">Giới tính:</label>
                                 <div className="content-center gap-8">
-                                    <input type="radio" name="Gender" value="Nam" checked/><label className="mr-8 ml-4">Nam</label>
-                                    <input type="radio" name="Gender" value="Nu"/><label className="ml-4">Nữ</label>
+                                    <input type="radio" name="Gender" value="Nam" checked={selectedGender === "Nam"} onChange={handleGenderChange}/>
+                                    <label className="mr-8 ml-4">Nam</label>
+                                    <input type="radio" name="Gender" value="Nu" checked={selectedGender === "Nu"} onChange={handleGenderChange}/>
+                                    <label className="ml-4">Nữ</label>
                                 </div>
                             </div>
                         </div>

@@ -1,3 +1,5 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from "../Customer.module.css";
 import Status from "./Status";
 
@@ -23,7 +25,8 @@ export default ({madonhang, date, total, method, status}) => {
                         <b>{method}</b>
                     </li>
                 </ul>
-                <a href={"/customer/orderdetail/"+{madonhang}} className="mx-3 mb-4 text-sky-600">Xem chi tiết</a>
+                {/* <a href={'/customer/orderdetail'} onClick={handleClick} className="mx-3 mb-4 text-sky-600">Xem chi tiết</a> */}
+                <Link to={{ pathname: `/customer/orderdetail/${madonhang}/${status}` }} className="mx-3 mb-4 text-sky-600">Xem chi tiết</Link>
             </div>
             <div className="absolute top-0 right-0">
                 <Status status={status}></Status>

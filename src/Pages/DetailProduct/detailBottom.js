@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./DetailBottom.css";
-import "../../Components/GlobalStyles/GlobalStyles.module.css";
 
 function DetailBottom() {
     const [tongleState, setTongleState] = useState(1);
@@ -11,7 +10,6 @@ function DetailBottom() {
 
     return <div>Detail Product Bottom
           <div className="container">
-            <h1 className="underline">Hello world</h1>
                 <div className="tab-bar">
                     <div className={tongleState === 1 ? "tab-item tab-item-active":"tab-item"}
                         onClick={() => tongleTab(1)}>

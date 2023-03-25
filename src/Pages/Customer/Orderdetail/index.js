@@ -1,3 +1,5 @@
+import React from 'react';
+import { useParams } from 'react-router-dom'
 import styles from "../Customer.module.css";
 import PersonIcon from '@mui/icons-material/Person';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -11,6 +13,9 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Orderbilldetail from "../Components/Orderbilldetail";
 
 function Orderdetail () {
+    
+    const { madonhang, status } = useParams();
+
     return (
         <div>
             <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>
@@ -34,7 +39,7 @@ function Orderdetail () {
                         <a href="/customer/history">Trở lại</a>
                     </div>
                     <div>
-                        <Orderbilldetail madonhang={"1234"}></Orderbilldetail>
+                        <Orderbilldetail madonhang={madonhang} status={status}></Orderbilldetail>
                     </div>
                 </div>
             </div>

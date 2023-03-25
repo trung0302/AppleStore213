@@ -35,6 +35,7 @@ function DetailProduct() {
         },
       },
     };
+
     return (
     <div className={classes.container}>
         <section className={classes.detailproduct}>
@@ -98,6 +99,9 @@ function DetailProduct() {
 
             </section>
         </section>
+        <div>
+            <DetailBottom />
+        </div>
     </div>
     );
 }

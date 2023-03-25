@@ -1,7 +1,7 @@
 import styles from "../Customer.module.css";
 import Status from "./Status";
 
-export default ({madonhang}) => {
+export default ({madonhang, status}) => {
     return(
         <div>
             <div className={styles.bg_white +" rounded-lg w-full mb-8 px-8 py-10"}>
@@ -18,7 +18,7 @@ export default ({madonhang}) => {
                     <hr/>
                     <li className="flex justify-between mt-4 mb-4">
                         <label>Tình trạng đặt hàng:</label>
-                        <Status status={"green"}></Status>
+                        <Status status={status}></Status>
                     </li>
                 </ul>
                 <div className="flex items-center justify-center">
@@ -51,9 +51,30 @@ export default ({madonhang}) => {
                         <label>Phương thức thanh toán:</label>
                         <span>Chuyển khoản ngân hàng</span>
                     </li>
-                    <li className="flex justify-between mt-4 mb-4">
-                        <label>Tình trạng thanh toán:</label>
-                        <span>Đang chờ xử lý</span>
+                    <li className="mt-4 mb-4">
+                        <div className="flex justify-between">
+                            <label>Tình trạng thanh toán:</label>
+                            {(()=>{
+                                if(status == "green")return (<span>Thành công</span>);
+                                else if (status=="red") return (<span>Đã hủy</span>);
+                                else return (<span>Đang xử lý</span>);
+                            })()}
+                        </div>
+                        { 
+                            (() => {
+                                if (status == "yellow") {
+                                return (
+                                    <div className="text-center">
+                                        <button className="border-2 rounded-lg px-8 py-4 mt-8 mb-8 mx-auto bg-sky-600 text-white">Thử thanh toán lại</button>
+                                        <p className="text-lg text-slate-400">Đơn đặt hàng này chưa được thanh toán. Để thanh toán ngay bây giờ, hãy nhấn vào nút "Thử thanh toán lại".</p>
+                                    </div>
+                                );
+                                } else {
+                                return null;
+                                }
+                            })()
+                        }
+                        
                     </li>
                     <li className="mt-4 mb-4">
                         <label>Sản phẩm</label>
