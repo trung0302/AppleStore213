@@ -1,4 +1,4 @@
-import DetailBottom from "./DetailBottom";
+import DetailBottom from "./detailBottom";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { useRef } from "react";
 import images from "../../assets/image";
@@ -83,18 +83,35 @@ function DetailProduct() {
                         <a>Danh gia</a>
                         <button>So sanh</button>
                     </div>
+                </div>
                     <div>
                         <div className={classes.price}>
-                            <span>28.550.000</span>
+                            <span className={classes.currentPrice}>28.550.000</span>
+                            <span className={classes.oldPrice}>30.990.00</span>
                         </div>
+                        <div className={classes.detail_info}>
+                            <label>Dung lượng</label>
+                            <div>
+                                <span>256GB</span>
+                                <span>512GB</span>
+                            </div>
+                            
+                            <label>RAM</label>
+                            <span className={classes.rounded} >8GB</span>
+                            <label>Maù sắc</label>
+                            <div>
+                                <span>Red</span>
+                                <span>Pink</span>
+                            </div>
+                        </div>
+                        <div className={classes.confirm}>
+                            <label>Xem cửa hàng có sẵn sản phẩm</label>
+                            <button>Mua ngay</button>
+                        </div>
+                        
 
-                        <label>Dung lượng</label>
-                        <button>256GB</button>
-                        <button>512GB</button>
-                        <label>RAM</label>
-                        <label>Maù sắc</label>
                     </div>
-                </div>
+                
                 
 
             </section>
