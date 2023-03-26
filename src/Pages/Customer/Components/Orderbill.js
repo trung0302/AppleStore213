@@ -25,7 +25,6 @@ export default ({madonhang, date, total, method, status}) => {
                         <b>{method}</b>
                     </li>
                 </ul>
-                {/* <a href={'/customer/orderdetail'} onClick={handleClick} className="mx-3 mb-4 text-sky-600">Xem chi tiết</a> */}
                 <Link to={{ pathname: `/customer/orderdetail/${madonhang}/${status}` }} className="mx-3 mb-4 text-sky-600">Xem chi tiết</Link>
             </div>
             <div className="absolute top-0 right-0">

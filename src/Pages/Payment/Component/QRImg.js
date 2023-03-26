@@ -12,7 +12,7 @@ export default ({bank}) => {
                     <span>0123456789</span>
                 </div>
                 <div className="my-4">
-                    <label className="pr-4">Ngân hàng/ Ví điện tử:</label>
+                    <label className="pr-4">Ví điện tử:</label>
                     <span>{bank === "MomoQR" ? "Momo" : "Zalopay"}</span>
                 </div>
                 <div className="my-4">
