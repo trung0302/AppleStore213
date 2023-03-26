@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom'
 import styles from "../Customer.module.css";
 import PersonIcon from '@mui/icons-material/Person';
@@ -36,7 +37,7 @@ function Orderdetail () {
                 <div className={"lg:w-2/5 my-12"}>
                     <div className="text-sky-600">
                         <ChevronLeftIcon sx={{ fontSize: 30}}></ChevronLeftIcon>
-                        <a href="/customer/history">Trở lại</a>
+                        <Link to="/customer/history">Trở lại</Link>
                     </div>
                     <div>
                         <Orderbilldetail madonhang={madonhang} status={status}></Orderbilldetail>
