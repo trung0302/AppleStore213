@@ -1,4 +1,5 @@
 import styles from "../Payment.module.css";
+import { Link } from "react-router-dom";
 
 function Billdetail () {
     return (
@@ -8,44 +9,44 @@ function Billdetail () {
                 <div className=" px-10 py-4">
                     <ul className="mb-10">
                         <li className="flex justify-between my-4">
-                            <lable className="text-slate-500">Mã đơn hàng:</lable>
-                            <span>123</span>
+                            <p className="text-slate-500">Mã đơn hàng:</p>
+                            <span name="madonhang">123</span>
                         </li>
                         <li className="flex justify-between my-4">
-                            <lable className="text-slate-500">Ngày đặt hàng:</lable>
-                            <span>22/12/2023</span>
+                            <p className="text-slate-500">Ngày đặt hàng:</p>
+                            <span name="date">22/12/2023</span>
                         </li>
                         <li className="flex justify-between my-4">
-                            <lable className="text-slate-500">Tình trạng:</lable>
-                            <span className="text-green-500">Đang xử lý</span>
+                            <p className="text-slate-500">Tình trạng:</p>
+                            <span name="status" className="text-green-500">Đang xử lý</span>
                         </li>
                         <li className="flex justify-between my-4">
-                            <lable className="text-slate-500">Tên khách hàng:</lable>
-                            <span>lam quoc dat</span>
+                            <p className="text-slate-500">Tên khách hàng:</p>
+                            <span name="tenkhachhang">lam quoc dat</span>
                         </li>
                         <li className="flex justify-between my-4">
-                            <lable className="text-slate-500">Số điện thoại:</lable>
-                            <span>0123456789</span>
+                            <p className="text-slate-500">Số điện thoại:</p>
+                            <span name="sdt">0123456789</span>
                         </li>
                         <li className="flex justify-between my-4">
-                            <lable className="text-slate-500">Email:</lable>
-                            <span>nguyenvana@gmail.com</span>
+                            <p className="text-slate-500">Email:</p>
+                            <span name="email">nguyenvana@gmail.com</span>
                         </li>
                         <hr/>
                         <li className="flex justify-between my-4">
-                            <lable className="text-slate-500">Phương thức thanh toán:</lable>
-                            <span>Chuyển khoảng ngân hàng</span>
+                            <p className="text-slate-500">Phương thức thanh toán:</p>
+                            <span name="method">Chuyển khoảng ví điện tử</span>
                         </li>
                         <li className="flex justify-between my-4">
-                            <lable className="text-slate-500">Tình trạng thanh toán</lable>
-                            <span className="text-green-500">Đang xử lý</span>
+                            <p className="text-slate-500">Tình trạng thanh toán</p>
+                            <span name="method_status" className="text-green-500">Đang xử lý</span>
                         </li>
                         <hr/>
                         <li className=" my-4">
-                            <lable className="text-slate-500">Sản phẩm</lable>
-                            <div className="rounded-lg my-4 px-4 py-4 border-2 flex justify-between">
+                            <p className="text-slate-500">Sản phẩm</p>
+                            <div name="product" className="rounded-lg my-4 px-4 py-4 border-2 flex justify-between">
                                 <div>
-                                    <label>Pin sạc dự phòng</label><br/>
+                                    <p>Pin sạc dự phòng</p><br/>
                                     <span>Màu: </span>Đen
                                 </div>
                                 <div>
@@ -55,15 +56,15 @@ function Billdetail () {
                             </div>
                         </li>
                         <li className="flex justify-between my-4">
-                            <lable className="text-slate-500">Tổng số tiền đã đặt hàng:</lable>
-                            <b className="text-blue-600 text-3xl">350.000₫</b>
+                            <p className="text-slate-500">Tổng số tiền đã đặt hàng:</p>
+                            <p className="text-blue-600 text-3xl">350.000₫</p>
                         </li>
                     </ul>
                     <div className="text-center">
-                        <a href="#" className="text-blue-500">Nhấp vào đây để xem chi tiết đơn hàng</a>
+                        <Link to="#" className="text-blue-500">Nhấp vào đây để xem chi tiết đơn hàng</Link>
                         <div className="flex mt-10">
-                            <a href="#" className="rounded-lg w-1/2 px-4 py-4 mx-4 my-4 bg-blue-600 text-white">Tiếp tục mua hàng</a>
-                            <a href="/paymentinfo" className="rounded-lg w-1/2 px-4 py-4 mx-4 my-4 bg-blue-600 text-white">Thanh toán</a>
+                            <Link to="#" className="rounded-lg w-1/2 px-4 py-4 mx-4 my-4 bg-blue-600 text-white">Tiếp tục mua hàng</Link>
+                            <Link to="/paymentinfo" className="rounded-lg w-1/2 px-4 py-4 mx-4 my-4 bg-blue-600 text-white">Thanh toán</Link>
                         </div>
                     </div>
                 </div>

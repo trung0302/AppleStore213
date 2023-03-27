@@ -1,4 +1,5 @@
 import styles from "../Customer.module.css";
+import { Link } from "react-router-dom";
 import PersonIcon from '@mui/icons-material/Person';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AssignmentIcon from '@mui/icons-material/Assignment';
@@ -34,7 +35,7 @@ function Addresses () {
                     </div>
                     <div className="flex justify-center">
                         <button className="border-2 rounded-lg px-4 py-4 bg-sky-600 text-white">
-                            <a href="/customer/addAddress">Thêm mới</a>
+                            <Link to="/customer/addAddress">Thêm mới</Link>
                         </button>
                     </div>
                 </div>
