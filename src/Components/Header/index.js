@@ -6,10 +6,8 @@ import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 
 
 function Header() {
-    return <div className={styles.container}>
-        <a href='/' className={styles.logo}>
-            <img src='https://shopdunk.com/images/thumbs/0012445_Logo_ShopDunk.png' alt="logo" />
-        </a>
+    return <div className={styles.container + " z-10"}>
+        <img src='https://shopdunk.com/images/thumbs/0012445_Logo_ShopDunk.png' alt="logo" className={styles.logo} />
         <ul className={styles.menu}>
             <li className={styles.menuItem}>
                 <a href="/iphone" className={styles.menuItemLink}>iPhone</a>
