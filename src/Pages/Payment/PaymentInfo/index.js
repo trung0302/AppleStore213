@@ -1,4 +1,5 @@
 import styles from "../Payment.module.css";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import images from "../../../assets/image";
 import QRImg from "../Component/QRImg";
@@ -10,6 +11,8 @@ function PaymentInfo () {
         setbank(event.target.value);
     }
 
+    const madonhang = "1234";
+    
     return (
         <div className={styles.bg_primary + " flex justify-center text-2xl"}>
             <div className="w-1/2">
@@ -17,7 +20,7 @@ function PaymentInfo () {
                 <h1 className="text-4xl text-center px-4 py-4 mt-10">Thông tin thanh toán</h1>
 
                 <div className="rounded-lg my-12 bg-white px-4 py-4">
-                    <p className="text-center mt-4">Quý khách vui lòng chọn ngân hàng để thực hiện chuyển khoảng</p>
+                    <p className="text-center mt-4">Quý khách vui lòng chọn ví điện tử để thực hiện chuyển khoảng</p>
                     <div className="grid grid-cols-2 gap-6 mt-10">
                         <label htmlFor="momo" className="flex border border-solid border-[#ddd] rounded-[8px] py-5 px-10 items-center cursor-pointer">
                             <input type="radio" id="momo" name="method" value="MomoQR" checked={bank === "MomoQR"} onChange={handleSelectChange}/>
@@ -43,7 +46,7 @@ function PaymentInfo () {
                     </div>
                 </div>
                 <div className="text-center mb-20">
-                    <a href="#" className="rounded-lg w-1/2 px-4 py-4 mx-4 my-4 bg-blue-600 text-white">Xác nhận</a>
+                    <Link to={{ pathname: `/paymentfinish/${madonhang}` }} className="rounded-lg w-1/2 px-4 py-4 mx-4 my-4 bg-blue-600 text-white">Xác nhận</Link>
                 </div>
             </div>
         </div>
