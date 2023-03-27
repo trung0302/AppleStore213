@@ -203,7 +203,8 @@ const Register = () => {
                   name="gioitinh"
                   value="Nữ"
                   checked={inputs.gioitinh === "Nữ"}
-                    onChange={handleChange}
+                  onChange={handleChange}
+                  className="ml-10"
                 />
                 <label
                   htmlFor="unemployed"
@@ -220,6 +221,7 @@ const Register = () => {
                   value="Nam"
                   checked={inputs.gioitinh === "Nam"}
                     onChange={handleChange}
+                    className="ml-10"
                 />
                 <label
                   htmlFor="part-time"
