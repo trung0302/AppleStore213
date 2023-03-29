@@ -11,7 +11,7 @@ export default function ProductList({ type }) {
             <TopSection type={type} />
             <Banner type={type} />
             <ProductSection type={type} />
-            <DetailSection />
+            <DetailSection type={type} />
             <SubcribeSection />
         </div >
     )

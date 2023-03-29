@@ -69,6 +69,20 @@ const publicRoutes = [
     { path: "/loa-google", component: <AnotherProductList type="Âm thanh" /> },
 
     { path: "/phu-kien", component: <ProductList type="Phụ kiện" /> },
+    { path: "/cuong-luc-bao-ve", component: <AnotherProductList type="Phụ kiện" /> },
+    { path: "/sac-cap", component: <AnotherProductList type="Phụ kiện" /> },
+    { path: "/bao-da-op-lung", component: <AnotherProductList type="Phụ kiện" /> },
+    { path: "/sac-du-phong", component: <AnotherProductList type="Phụ kiện" /> },
+    { path: "/balo-tui-chong-soc", component: <AnotherProductList type="Phụ kiện" /> },
+    { path: "/chuot-ban-phim", component: <AnotherProductList type="Phụ kiện" /> },
+    { path: "/but-apple-pencil", component: <AnotherProductList type="Phụ kiện" /> },
+    { path: "/day-deo-apple-watch", component: <AnotherProductList type="Phụ kiện" /> },
+    { path: "/airtags", component: <AnotherProductList type="Phụ kiện" /> },
+    { path: "/may-anh", component: <AnotherProductList type="Phụ kiện" /> },
+    { path: "/may-doc-sach", component: <AnotherProductList type="Phụ kiện" /> },
+    { path: "/apple-tv", component: <AnotherProductList type="Phụ kiện" /> },
+    { path: "/dong-ho-garmin", component: <AnotherProductList type="Phụ kiện" /> },
+
 
 
     { path: "/customer/info", component: <Info /> },

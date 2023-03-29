@@ -40,6 +40,29 @@ const images = {
 
     compareIphone: require('./compare-iphone.webp'),
     iphoneAccessory: require('./iphone-accessory.webp'),
+
+    compareIpad: require('./compare-ipad.webp'),
+    ipadAccessory: require('./ipad-accessory.png'),
+
+    compareMac: require('./compare-mac.png'),
+    macAccessory: require('./mac-accessory.png'),
+
+    compareWatch: require('./compare-watch.png'),
+    watchAccessory: require('./watch-accessory.png'),
+
+    airtags: require('./accessoryCategories/airtags.png'),
+    appleTv: require('./accessoryCategories/apple-tv.png'),
+    balo: require('./accessoryCategories/balo-tui-chong-soc.png'),
+    opLung: require('./accessoryCategories/bao-da-op-lung.png'),
+    applePencil: require('./accessoryCategories/but-apple-pencil.png'),
+    chuot: require('./accessoryCategories/chuot-ban-phim.png'),
+    cuongLuc: require('./accessoryCategories/cuong-luc-bao-ve.png'),
+    dayDeo: require('./accessoryCategories/day-deo-apple-watch.png'),
+    garmin: require('./accessoryCategories/dong-ho-garmin.png'),
+    mayAnh: require('./accessoryCategories/may-anh.png'),
+    mayDocSach: require('./accessoryCategories/may-doc-sach.png'),
+    sacCap: require('./accessoryCategories/sac-cap.png'),
+    sacDuPhong: require('./accessoryCategories/sac-du-phong.png'),
 };
 
 export default images;
