@@ -20,8 +20,49 @@ const images = {
     BannerBottom: require('./BannerBottom.webp'),
     khaitruong: require('./khaitruong.webp'),
 
+    iphoneBanner1: require('./iphoneBanner/iphonebanner1.webp'),
+    iphoneBanner2: require('./iphoneBanner/iphonebanner2.webp'),
 
+    ipadBanner1: require('./ipadBanner/ipadbanner1.webp'),
+    ipadBanner2: require('./ipadBanner/ipadbanner2.webp'),
 
+    macBanner1: require('./macBanner/macbanner1.webp'),
+    macBanner2: require('./macBanner/macbanner2.webp'),
+    macBanner3: require('./macBanner/macbanner3.webp'),
+    macBanner4: require('./macBanner/macbanner4.webp'),
+
+    watchBanner1: require('./watchBanner/watchbanner1.webp'),
+    watchBanner2: require('./watchBanner/watchbanner2.webp'),
+
+    soundBanner1: require('./soundBanner/soundbanner1.webp'),
+
+    accessoryBanner: require('./accessoryBanner/accessorybanner.webp'),
+
+    compareIphone: require('./compare-iphone.webp'),
+    iphoneAccessory: require('./iphone-accessory.webp'),
+
+    compareIpad: require('./compare-ipad.webp'),
+    ipadAccessory: require('./ipad-accessory.png'),
+
+    compareMac: require('./compare-mac.png'),
+    macAccessory: require('./mac-accessory.png'),
+
+    compareWatch: require('./compare-watch.png'),
+    watchAccessory: require('./watch-accessory.png'),
+
+    airtags: require('./accessoryCategories/airtags.png'),
+    appleTv: require('./accessoryCategories/apple-tv.png'),
+    balo: require('./accessoryCategories/balo-tui-chong-soc.png'),
+    opLung: require('./accessoryCategories/bao-da-op-lung.png'),
+    applePencil: require('./accessoryCategories/but-apple-pencil.png'),
+    chuot: require('./accessoryCategories/chuot-ban-phim.png'),
+    cuongLuc: require('./accessoryCategories/cuong-luc-bao-ve.png'),
+    dayDeo: require('./accessoryCategories/day-deo-apple-watch.png'),
+    garmin: require('./accessoryCategories/dong-ho-garmin.png'),
+    mayAnh: require('./accessoryCategories/may-anh.png'),
+    mayDocSach: require('./accessoryCategories/may-doc-sach.png'),
+    sacCap: require('./accessoryCategories/sac-cap.png'),
+    sacDuPhong: require('./accessoryCategories/sac-du-phong.png'),
 };
 
 export default images;
