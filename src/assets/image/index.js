@@ -20,8 +20,26 @@ const images = {
     BannerBottom: require('./BannerBottom.webp'),
     khaitruong: require('./khaitruong.webp'),
 
+    iphoneBanner1: require('./iphoneBanner/iphonebanner1.webp'),
+    iphoneBanner2: require('./iphoneBanner/iphonebanner2.webp'),
 
+    ipadBanner1: require('./ipadBanner/ipadbanner1.webp'),
+    ipadBanner2: require('./ipadBanner/ipadbanner2.webp'),
 
+    macBanner1: require('./macBanner/macbanner1.webp'),
+    macBanner2: require('./macBanner/macbanner2.webp'),
+    macBanner3: require('./macBanner/macbanner3.webp'),
+    macBanner4: require('./macBanner/macbanner4.webp'),
+
+    watchBanner1: require('./watchBanner/watchbanner1.webp'),
+    watchBanner2: require('./watchBanner/watchbanner2.webp'),
+
+    soundBanner1: require('./soundBanner/soundbanner1.webp'),
+
+    accessoryBanner: require('./accessoryBanner/accessorybanner.webp'),
+
+    compareIphone: require('./compare-iphone.webp'),
+    iphoneAccessory: require('./iphone-accessory.webp'),
 };
 
 export default images;
