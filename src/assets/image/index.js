@@ -7,7 +7,7 @@ const images = {
     loginBG: require('./loginbg.jpg'),
     adress1: require("./adress1.png"),
     adress2: require("./adress2.png"),
-    registerbg: require("./RegiterBG.jpeg")
+    registerbg: require("./RegiterBG.jpeg"),
 
     momo: require("./momo.png"),
     zalopay: require("./zalopay.png"),
