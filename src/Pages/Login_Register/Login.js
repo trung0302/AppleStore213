@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
-import classes from "./Login.module.css";
+//import classes from "./Login.module.css";
 import jwt_decode from "jwt-decode";
-import images from "../../assets/image";
+//import images from "../../assets/image";
 import ForgetPass from "./ForgetPass/ForgetPass";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -34,7 +34,7 @@ const Login = () => {
                 { type: "standard",
                 theme: "outline",
                 size: "large",
-                width: document.getElementById("signInDiv").offsetWidth,
+                width: "900",
                 height: document.getElementById("signInDiv").offsetHeight, }
              )
          }else{
@@ -120,18 +120,26 @@ const Login = () => {
         }
     };
 
-
+//style={{backgroundImage: `url(${images.loginBG})`}}
 
 
   return (
     <div className="flex w-full h-screen">
+        /*<div className="hidden relative w-1/2 h-full lg:flex items-center justify-center "
+    >
+        <div className="w-60 h-60 rounded-full bg-gradient-to-tr from-violet-500 to-pink-500 animate-spin"/> 
+        <div className="w-full h-1/2 absolute bottom-0 bg-white/10 backdrop-blur-lg" />
+    </div>
     <div className="w-full flex items-center justify-center lg:w-1/2">
     <div className=' w-11/12 max-w-[700px] px-10 py-20 rounded-3xl bg-white border-2 border-gray-100'>
           <h1 className='text-5xl font-semibold'>Đăng Nhập</h1>
-          <p className='font-medium text-lg text-gray-500 mt-4'>Chào mừng trở lại với Shopdrunk!</p>
+          <p className='font-medium text-lg text-gray-500 mt-4'>Chào mừng trở lại với Appledunk!</p>
           <div className='mt-8'>
               <div className='flex flex-col'>
-                  <label className='text-lg font-medium'>Email</label>
+              <div className='flex'>
+                  <label className='text-2xl font-medium w-1/2'>Email</label>
+                  <p className='text-2xl font-medium w-1/2 text-right text-red-600'>{errors.emailError}</p>
+            </div>
                   <input 
                        value={inputs.email}
                        type="email"
@@ -139,18 +147,21 @@ const Login = () => {
                        onChange={handleChange}
                        onBlur={handleBlur}
                        required
-                      className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
+                      className='w-full text-2xl border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
                       placeholder="Nhập email của bạn"/>
               </div>
               <div className='flex flex-col mt-4'>
-                  <label className='text-lg font-medium'>Mật Khẩu</label>
+              <div className='flex'>
+                  <label className='text-2xl font-medium w-1/2'>Mật Khẩu</label>
+                  <p className='text-2xl font-medium w-1/2 text-right text-red-600'>{errors.passwordError}</p>
+            </div>
                   <input 
                       value={inputs.password}
                       type="password"
                       name="password"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
+                      className='text-2xl w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
                       placeholder="Nhập mật khẩu của bạn"
                       
                   />
@@ -166,31 +177,30 @@ const Login = () => {
               <div className='mt-8 flex flex-col gap-y-4'>
                     <button 
                         onClick={handleSubmit}
-                        className='active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg'>
+                        className='text-2xl active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold '>
                         Đăng Nhập
                     </button>
               </div>
               <div className='mt-2 flex justify-center items-center'>
-                  <p className='font-medium text-base'>Bạn chưa có tài khoản?</p>
+                  <p className='font-medium text-lg'>Bạn chưa có tài khoản?</p>
                   <button 
                       onClick={() => {navigate("/register")}}
-                      className='ml-2 font-medium text-base text-violet-500'>Đăng kí ngay!</button>
+                      className='ml-2 font-medium text-lg text-violet-500'>Đăng kí ngay!</button>
               </div>
               <div className="flex items-center w-full my-4">
             <hr className="w-full" />
             <p className="px-3 ">Hoặc</p>
             <hr className="w-full" />
-          </div>
-              <div id="signInDiv" style={{width:"100%"}}>
+          </div >
+          <div style={{alignContent:"center"}}>
+              <div id="signInDiv" style={{padding:"0 90px"}}>
                   
               </div>
-              
+              </div>
           </div>
       </div>
     </div>
-    <div className="hidden relative w-1/2 h-full lg:flex items-center justify-center "
-    style={{backgroundImage: `url(${images.loginBG})`}}>
-    </div>
+    
     {modal && (
                 <ForgetPass
                     closewindow={setModal}
