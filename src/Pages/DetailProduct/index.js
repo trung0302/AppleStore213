@@ -1,4 +1,4 @@
-import DetailBottom from "./detailBottom";
+import DetailBottom from "./DetailBottom";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { useRef } from "react";
 import images from "../../assets/image";
@@ -37,7 +37,7 @@ function DetailProduct() {
     };
 
     return (
-    <div className={classes.container}>
+    <div className="grid grid-cols-1 justify-items-center">
         <section className={classes.detailproduct}>
             <section className={classes.product_splide}>
                 <Splide
@@ -99,9 +99,9 @@ function DetailProduct() {
 
             </section>
         </section>
-        <div>
-            <DetailBottom />
-        </div>
+        <section className={classes.detailproduct}>
+            <DetailBottom/>
+        </section>
     </div>
     );
 }
