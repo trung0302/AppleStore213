@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./DetailBottom.css";
 import { Description } from "@mui/icons-material";
-
+import StarRating from "./StarRating";
+import RatedStar from "./RatingStar/RatedStar";
 function DetailBottom() {
     const [tongleState, setTongleState] = useState(1);
 
@@ -69,7 +70,14 @@ function DetailBottom() {
         ]
     }
 
+    const modalDanhGia = <div className="fixed w-full h-full bg-black opacity-70 z-10014">
+
+    </div>;
+
     return (<div className="grid grid-cols-1 my-[50px]">
+        {/* <div className="fixed w-full h-full top-0 left-0 bg-black opacity-70">
+
+</div> */}
     <div className="w-[800px] place-self-center">
                 <div className="tab-bar">
                     <div className={tongleState === 1 ? "tab-item tab-item-active":"tab-item"}
@@ -128,16 +136,24 @@ function DetailBottom() {
                 {/* Đánh giá sản phẩm */}
                 <div className="place-self-start mt-[40px] w-full py-[16px] rounded-[7px] border-[2px] border-slate-300 boder-solid">
                     {/* Title */}
-                    <div className="px-[16px] pb-[16px] text-[18px] text-slate-800 font-semi-bold border-b-[2px] border-slate-300">Đánh giá sản phẩm</div>
-                    <div className="grid grid-cols-3 justify-items-stretch">
+                    <div className="px-[16px] pb-[16px] text-[18px] text-slate-700 font-semi-bold border-b-[2px] border-slate-300">Đánh giá sản phẩm</div>
+                    <div className="grid grid-cols-3 justify-items-stretch text-[16px] py-[20px] border-b-[2px] border-slate-300">
                         <div className="text-center">
-                            <div className="text-[16px]">Đánh giá trung bình</div>
-                            <div className="text-[26px]">5/5</div>
+                            <div className="text-slate-700">Đánh giá trung bình</div>
+                            <div className="text-[36px] text-red-600">5/5</div>
+                            <StarRating/>
+                            <div>1014 đánh giá</div>
                         </div>
-                        <div></div>
-                        <div></div>
+                        <div className="my-auto">
+                            <RatedStar/>
+                        </div>
+                        <div className="text-center my-auto">
+                            <div className="text-[16px] my-[10px]">Bạn đã dùng sản phẩm này</div>
+                            <button className="text-[16px] text-white bg-blue-600 rounded-[5px] font-extralight p-[10px]">GỬI ĐÁNH GIÁ</button>
+                        </div>
                     </div>
                 </div>
+    
     </div>);
 }
 export default DetailBottom;
