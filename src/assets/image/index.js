@@ -3,6 +3,12 @@ const images = {
     notFoundGif: require("./notfound.gif"),
     ip14prm: require("./ip14prm.png"),
     airpod2: require("./airpod2.jpeg"),
+
+    loginBG: require('./loginbg.jpg'),
+    adress1: require("./adress1.png"),
+    adress2: require("./adress2.png"),
+    registerbg: require("./RegiterBG.jpeg")
+
     momo: require("./momo.png"),
     zalopay: require("./zalopay.png"),
     loginBG: require('./loginbg.jpg'),
@@ -19,6 +25,7 @@ const images = {
     BonusBanner3: require('./BonusBanner3.webp'),
     BannerBottom: require('./BannerBottom.webp'),
     khaitruong: require('./khaitruong.webp'),
+
 
     iphoneBanner1: require('./iphoneBanner/iphonebanner1.webp'),
     iphoneBanner2: require('./iphoneBanner/iphonebanner2.webp'),
