@@ -1,3 +1,4 @@
+import DetailBottom from "./detailBottom";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { useRef } from "react";
 import images from "../../assets/image";
@@ -34,6 +35,7 @@ function DetailProduct() {
         },
       },
     };
+
     return (
     <div className={classes.container}>
         <section className={classes.detailproduct}>
@@ -97,6 +99,9 @@ function DetailProduct() {
 
             </section>
         </section>
+        <div>
+            <DetailBottom />
+        </div>
     </div>
     );
 }

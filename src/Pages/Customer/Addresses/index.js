@@ -1,4 +1,5 @@
 import styles from "../Customer.module.css";
+import { Link } from "react-router-dom";
 import PersonIcon from '@mui/icons-material/Person';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AssignmentIcon from '@mui/icons-material/Assignment';
@@ -7,6 +8,7 @@ import CropOriginalIcon from '@mui/icons-material/CropOriginal';
 import HistoryIcon from '@mui/icons-material/History';
 import { blue } from "@mui/material/colors";
 import NavTag from "../Components/NavTag";
+import AddressItem from "../Components/AddressItem";
 
 function Addresses () {
     return (
@@ -26,8 +28,16 @@ function Addresses () {
                     <NavTag DivCss={"px-4 py-8 mb-8"} setHref={"/customer/productReviews"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
                         aCss={"mx-4 my-4"} setIcon={<HistoryIcon sx={{ fontSize: 30 }}></HistoryIcon>} />
                 </div>
-                <div className={styles.bg_white +" rounded-lg lg:w-2/5 my-12"}>
-                    <p>Chưa có gì cả</p>
+                <div className={"lg:w-2/5 my-12"}>
+                    <div>
+                        <AddressItem name="Lam Quoc Dat" email="20520433@gmail.com" sdt="0123456789" address="khu pho 6, linh trung, thu duc, thanh pho ho chi minh"></AddressItem>
+                        <AddressItem name="nguyen van a" email="anguyenvan" sdt="0123456789" address="khu pho 6, linh trung, thu duc, thanh pho ho chi minh"></AddressItem>
+                    </div>
+                    <div className="flex justify-center">
+                        <button className="border-2 rounded-lg px-4 py-4 bg-sky-600 text-white">
+                            <Link to="/customer/addAddress">Thêm mới</Link>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

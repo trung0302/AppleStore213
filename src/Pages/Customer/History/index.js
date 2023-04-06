@@ -7,6 +7,7 @@ import CropOriginalIcon from '@mui/icons-material/CropOriginal';
 import HistoryIcon from '@mui/icons-material/History';
 import { blue } from "@mui/material/colors";
 import NavTag from "../Components/NavTag";
+import Orderbill from "../Components/Orderbill";
 
 function History () {
     return (
@@ -26,8 +27,20 @@ function History () {
                     <NavTag DivCss={"px-4 py-8 mb-8"} setHref={"/customer/productReviews"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
                         aCss={"mx-4 my-4"} setIcon={<HistoryIcon sx={{ fontSize: 30 }}></HistoryIcon>} />
                 </div>
-                <div className={styles.bg_white +" rounded-lg lg:w-2/5 my-12"}>
-                    <p>Chưa có gì cả</p>
+                <div className={"lg:w-2/5 my-12"}>
+                    <div className="flex justify-end">
+                        <select className={styles.bg_white+ " text-sky-600 border-sky-600 focus:border-sky-600 border-2 rounded-lg px-10 py-2 mb-10"} name="filter_status">
+                            <option value="">Tất cả</option>
+                            <option value="green">Thành công</option>
+                            <option value="blue">Đang giao</option>
+                            <option value="yellow">Đang xử lý</option>
+                            <option value="red">Đã hủy</option>
+                        </select>
+                    </div>
+                    <Orderbill madonhang={"4618"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"red"}></Orderbill>
+                    <Orderbill madonhang={"2013"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"green"}></Orderbill>
+                    <Orderbill madonhang={"2020"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"yellow"}></Orderbill>
+                    <Orderbill madonhang={"2020"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"blue"}></Orderbill>
                 </div>
             </div>
         </div>

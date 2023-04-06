@@ -7,6 +7,7 @@ import CropOriginalIcon from '@mui/icons-material/CropOriginal';
 import HistoryIcon from '@mui/icons-material/History';
 import { blue } from "@mui/material/colors";
 import NavTag from "../Components/NavTag";
+import AvatarImg from "../Components/AvatarImg";
 
 function Avatar () {
     return (
@@ -26,8 +27,15 @@ function Avatar () {
                     <NavTag DivCss={"px-4 py-8 mb-8"} setHref={"/customer/productReviews"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
                         aCss={"mx-4 my-4"} setIcon={<HistoryIcon sx={{ fontSize: 30 }}></HistoryIcon>} />
                 </div>
-                <div className={styles.bg_white +" rounded-lg lg:w-2/5 my-12"}>
-                    <p>Chưa có gì cả</p>
+                <div className={styles.bg_white +" h-fit grid grid-cols-2 rounded-lg lg:w-2/5 my-12"}>
+                    <div className="mx-4 my-4 flex flex-col h-fit">
+                        <AvatarImg src="http://webcoban.vn/image/flower.gif" alt="Ảnh avatar"></AvatarImg>
+                        <input type="file" accept=".jpg, .png" name="Avatar" className="mx-3 my-3 h-fit"/>
+                    </div>
+                    <div className="mx-4 my-4 flex flex-col h-fit" >
+                        <button className="border-2 w-3/4 rounded-lg px-4 py-4 mb-5 bg-sky-600 text-white">Tải lên</button>
+                        <button className="border-2 w-3/4 rounded-lg px-4 py-4 mb-5 border-pink-500 text-red-500">Xóa ảnh</button>
+                    </div>
                 </div>
             </div>
         </div>
