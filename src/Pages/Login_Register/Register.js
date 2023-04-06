@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
-
+import images from "../../assets/image";
 const Register = () => {
   const [first, setfirst] = useState(0)
     //setfirst(window.google);
@@ -162,23 +162,23 @@ const Register = () => {
     }
   };
 
+  //style={{backgroundImage: `url(${images.loginBG})`}}
+
   return (
     <div>
-      <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
+      <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50" style={{backgroundImage: `url(${images.registerbg})`,backgroundRepeat:"no-repeat",backgroundPosition:"center",backgroundSize:"cover"}}>
         <div>
           <a href="/">
-            <h3 className="text-7xl font-bold text-purple-600">SHOPDRUNK</h3>
+            <h3 className="text-7xl font-bold text-purple-800">APPLEDUNK</h3>
           </a>
         </div>
-        <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-4xl sm:rounded-lg">
+        <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white bg-opacity-90 shadow-md sm:max-w-4xl sm:rounded-lg">
           <form>
             <div>
-              <label
-                htmlFor="name"
-                className="block text-2xl font-medium text-gray-700 undefined"
-              >
-                Tên
-              </label>
+            <div className='flex'>
+                  <label className='text-2xl font-medium w-1/2'>Tên</label>
+                  <p className='text-2xl font-medium w-1/2 text-right text-red-600'>{errors.nameError}</p>
+            </div>
               <div className="flex flex-col items-start">
                 <input
                   value={inputs.name}
@@ -187,14 +187,14 @@ const Register = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   required
-                  className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
+                  className="w-full text-2xl border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
                   placeholder="Nhập tên"
                 />
               </div>
             </div>
             <div className="mt-4">
               <fieldset className="flex">
-                <label className="block text-2xl font-medium text-gray-700 undefined">
+                <label className='text-2xl font-medium'>
                   Giới tính:{" "}
                 </label>
                 <input
@@ -232,21 +232,12 @@ const Register = () => {
                 <br />
               </fieldset>
             </div>
-            <div className="flex flex-col mt-2 items-start">
-            <label
-                htmlFor="email"
-                className="block text-2xl font-medium text-gray-700 undefined"
-              >
-                Ngày Sinh:
-              </label>
-              </div>
+           
             <div className="mt-4">
-              <label
-                htmlFor="email"
-                className="block text-2xl font-medium text-gray-700 undefined"
-              >
-                Email
-              </label>
+            <div className='flex'>
+                  <label className='text-2xl font-medium w-1/2'>Email</label>
+                  <p className='text-2xl font-medium w-1/2 text-right text-red-600'>{errors.emailError}</p>
+            </div>
               <div className="flex flex-col items-start">
                 <input
                   value={inputs.email}
@@ -255,7 +246,7 @@ const Register = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   required
-                  className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
+                  className="w-full text-2xl border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
                   placeholder="Nhập email"
                 />
               </div>
@@ -263,7 +254,7 @@ const Register = () => {
             <div className="mt-4">
               <label
                 htmlFor="email"
-                className="block text-2xl font-medium text-gray-700 undefined"
+                className='text-2xl font-medium w-1/2'
               >
                 Số Điện Thoại
               </label>
@@ -275,18 +266,16 @@ const Register = () => {
                   onChange={handleChange}
                   //onBlur={handleBlur}
                   required
-                  className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
+                  className="w-full border-2 text-2xl border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
                   placeholder="Nhập số điện thoại"
                 />
               </div>
             </div>
             <div className="mt-4">
-              <label
-                htmlFor="password"
-                className="block text-2xl font-medium text-gray-700 undefined"
-              >
-                Mật Khẩu
-              </label>
+            <div className='flex'>
+                  <label className='text-2xl font-medium w-1/2'>Mật Khẩu</label>
+                  <p className='text-2xl font-medium w-1/2 text-right text-red-600'>{errors.passwordError}</p>
+            </div>
               <div className="flex flex-col items-start">
                 <input
                   value={inputs.password}
@@ -294,7 +283,7 @@ const Register = () => {
                   name="password"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
+                  className="w-full border-2 text-2xl border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
                   placeholder="Nhập mật khẩu"
                 />
                
@@ -302,19 +291,17 @@ const Register = () => {
             </div>
 
             <div className="mt-4">
-              <label
-                htmlFor="password_confirmation"
-                className="block text-2xl  font-medium text-gray-700 undefined"
-              >
-                Xác Nhận Mật Khẩu
-              </label>
+            <div className='flex'>
+                  <label className='text-2xl font-medium w-1/2'>Xác Nhận Mật Khẩu</label>
+                  <p className='text-2xl font-medium w-1/2 text-right text-red-600'>{errors.confirmError}</p>
+            </div>
               <div className="flex flex-col items-start">
                 <input
                   type="password"
                   name="password2"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
+                  className="w-full border-2 text-2xl border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
                   placeholder="Xác nhận mật khẩu"
                 />
               </div>
@@ -323,15 +310,15 @@ const Register = () => {
             <div className='mt-8 flex flex-col gap-y-4'>
                     <button 
                         onClick={handleSubmit}
-                        className='active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg'>
+                        className='text-2xl active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold'>
                         Đăng Kí
                     </button>
               </div>
           </form>
-          <div className="mt-4 text-center text-grey-600">
+          <div className="mt-4 text-lg text-center text-grey-600">
             Bạn đã có tài khoản?{" "}
             <span>
-              <a className="text-purple-600 hover:underline" href="/login">
+              <a className="text-lg text-purple-600 hover:underline" href="/login">
                 Đăng nhập
               </a>
             </span>
