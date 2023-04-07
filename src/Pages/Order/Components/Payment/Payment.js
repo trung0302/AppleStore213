@@ -4,16 +4,60 @@ import Select from "react-select";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import images from "../../../../assets/image";
+import { Store } from "./Store";
 
-function Payment() {
+function Payment(props) {
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
+    const [wards, setWards] = useState([]);
+    const [stores, setStores] = useState([]);
+
     const [selectedProvince, setSelectedProvince] = useState(null);
     const [selectedDistrict, setSelectedDistrict] = useState(null);
+    const [selectedWard, setSelectedWard] = useState(null);
+    const [selectedStore, setSelectedStore] = useState(null);
+    const [name, setName] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [phone, setPhone] = useState(null);
+    const [payment, setPayment] = useState(null);
+    const [address, setAddress] = useState(null);
+
     const [method, setMethod] = useState("Store");
 
     const [showStore, setShowStore] = useState(true);
     const [showAddress, setShowAddress] = useState(false);
+    const { handleGetData } = props;
+    const dataParent = [
+        name,
+        phone,
+        email,
+        selectedProvince,
+        selectedDistrict,
+        method,
+        selectedStore,
+        selectedWard,
+        address,
+        payment,
+    ];
+
+    useEffect(() => {
+        handleGetData(dataParent);
+    }, []);
+
+    useEffect(() => {
+        handleGetData(dataParent);
+    }, [
+        selectedWard,
+        selectedStore,
+        selectedProvince,
+        selectedDistrict,
+        method,
+        name,
+        email,
+        phone,
+        payment,
+        address
+    ]);
 
     // Render tên tỉnh, tpho
     useEffect(() => {
@@ -35,6 +79,7 @@ function Payment() {
     const handleChangeProvince = (selectedOption) => {
         setSelectedProvince(selectedOption);
         setSelectedDistrict(null);
+        setSelectedWard(null);
         axios
             .get(
                 `https://provinces.open-api.vn/api/p/${selectedOption.code}?depth=2`
@@ -49,9 +94,51 @@ function Payment() {
             });
     };
 
+    // Call handleChangDistrict khi method thay đổi
+    useEffect(() => {
+        if (selectedDistrict) {
+            handleChangeDistrict(selectedDistrict);
+        }
+    }, [method]);
+
     // Handle change District
     const handleChangeDistrict = (selectedOption) => {
         setSelectedDistrict(selectedOption);
+        console.log(selectedOption);
+        setSelectedWard(null);
+        setSelectedStore(null);
+        if (method === "Ship") {
+            axios
+                .get(
+                    `https://provinces.open-api.vn/api/d/${selectedOption.value}?depth=2`
+                )
+                .then((response) => {
+                    console.log(response.data);
+                    const options = response.data.wards.map((item) => ({
+                        value: item.code,
+                        label: item.name,
+                    }));
+                    setWards(options);
+                });
+        } else {
+            const options = Store?.find(
+                (item) => item.code === selectedOption.value
+            )?.stores.map((item) => ({
+                value: item.code,
+                label: item.name,
+            }));
+            setStores(options);
+        }
+    };
+
+    // Handle change Ward
+    const handleChangeWard = (selectedOption) => {
+        setSelectedWard(selectedOption);
+    };
+
+    // Handle change Store
+    const handleChangeStore = (selectedOption) => {
+        setSelectedStore(selectedOption);
     };
 
     // Handle change radio input
@@ -59,9 +146,38 @@ function Payment() {
         setMethod(e.target.value);
         setShowStore(!showStore);
         setShowAddress(!showAddress);
+        // if (selectedDistrict) {
+        //     console.log(selectedDistrict);
+        //     handleChangeDistrict(selectedDistrict);
+        // }
         console.log(e.target.value);
     };
 
+    // Handle change name input
+    const handleNameChange = (e) => {
+        setName(e.target.value);
+    };
+
+    // Handle change phone input
+    const handlePhoneChange = (e) => {
+        setPhone(e.target.value);
+    };
+
+    // Handle change email input
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    };
+
+    // Handle change payment
+    const handlePaymentChange = (e) => {
+        setPayment(e.target.value);
+    };
+    
+
+    // Handle change payment
+    const handleAddressChange = (e) => {
+        setAddress(e.target.value);
+    };
     // Custome select style
     const customStyles = {
         control: (provided, state) => ({
@@ -77,15 +193,19 @@ function Payment() {
                 <div className="grid grid-cols-2 gap-6 mb-6">
                     <input
                         type="text"
-                        value="Trung"
+                        value={name}
+                        onChange={handleNameChange}
                         placeholder="Nhập họ tên"
+                        // defaultValue="Trung"
                         required
                         className="col-span-2 h-[48px] px-[16px] py-[8px] text-[16px] text-[#777]
                          outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
                     />
                     <input
                         type="text"
-                        value="090010008"
+                        value={phone}
+                        // defaultValue="123456789"
+                        onChange={handlePhoneChange}
                         placeholder="Nhập số điện thoại"
                         required
                         className="h-[48px] px-[16px] py-[8px] text-[16px] text-[#777] 
@@ -93,7 +213,9 @@ function Payment() {
                     />
                     <input
                         type="text"
-                        value="uit@gmail.com"
+                        value={email}
+                        // defaultValue="uit@gm.uit.edu.vn"
+                        onChange={handleEmailChange}
                         placeholder="Nhập Email"
                         required
                         className="h-[48px] px-[16px] py-[8px] text-[16px] text-[#777] 
@@ -142,8 +264,8 @@ function Payment() {
                             Tỉnh, thành phố:
                         </div>
                         <Select
-                            options={provinces}
                             // isClearable
+                            options={provinces}
                             className="text-[16px]"
                             closeMenuOnSelect={true}
                             getOptionLabel={(option) => option.label}
@@ -165,6 +287,8 @@ function Payment() {
                             closeMenuOnSelect={true}
                             isDisabled={!selectedProvince}
                             styles={customStyles}
+                            getOptionLabel={(option) => option.label}
+                            getOptionValue={(option) => option.code}
                             placeholder="Chọn quận/huyện"
                         />
                     </div>
@@ -176,28 +300,47 @@ function Payment() {
                             </div>
                             <Select
                                 className="text-[16px]"
-                                value={selectedDistrict}
-                                onChange={handleChangeDistrict}
-                                options={districts}
+                                value={selectedStore}
+                                onChange={handleChangeStore}
+                                options={stores}
                                 closeMenuOnSelect={true}
+                                isDisabled={!selectedDistrict}
                                 styles={customStyles}
                                 placeholder="Chọn địa chỉ cửa hàng"
                             />
                         </div>
                     )}
                     {showAddress && (
-                        <div className="col-span-2">
-                            <div className="text-[14px] mb-3">
-                                Địa chỉ cụ thể:
+                        <div className="col-span-2 transition-all">
+                            <div>
+                                <div className="text-[14px] font-light mb-[8px]">
+                                    Phường, xã, thị trấn:
+                                </div>
+                                <Select
+                                    className="text-[16px]"
+                                    value={selectedWard}
+                                    onChange={handleChangeWard}
+                                    options={wards}
+                                    closeMenuOnSelect={true}
+                                    isDisabled={!selectedDistrict}
+                                    styles={customStyles}
+                                    placeholder="Chọn phường, xã, thị trấn"
+                                />
                             </div>
-                            <input
-                                type="text"
-                                // value="Trung"
-                                placeholder="Nhập số nhà, tên đường"
-                                required
-                                className="h-[48px] w-full px-[16px] py-[8px] text-[16px] text-[#777]
-                             outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
-                            />
+                            <div className="">
+                                <div className="text-[14px] mt-[15px] mb-[8px]">
+                                    Địa chỉ cụ thể:
+                                </div>
+                                <input
+                                    type="text"
+                                    // value="Trung"
+                                    onChange={handleAddressChange}
+                                    placeholder="Nhập số nhà, tên đường"
+                                    required
+                                    className="h-[48px] w-full px-[16px] py-[8px] text-[16px] text-[#777]
+                                outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
+                                />
+                            </div>
                         </div>
                     )}
                 </div>
@@ -222,6 +365,7 @@ function Payment() {
                             id="momo"
                             name="method"
                             value="momo"
+                            onChange={handlePaymentChange}
                         />
                         <img
                             src={images.momo}
@@ -239,6 +383,7 @@ function Payment() {
                             id="zalopay"
                             name="method"
                             value="zalopay"
+                            onChange={handlePaymentChange}
                         />
                         <img
                             src={images.zalopay}
@@ -258,6 +403,7 @@ function Payment() {
                             id="shipcod"
                             name="method"
                             value="shipcod"
+                            onChange={handlePaymentChange}
                         />
                         <img
                             src={images.shipcod}
