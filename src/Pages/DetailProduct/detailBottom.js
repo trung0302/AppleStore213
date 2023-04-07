@@ -3,12 +3,27 @@ import "./DetailBottom.css";
 import { Description } from "@mui/icons-material";
 import StarRating from "./StarRating";
 import RatedStar from "./RatingStar/RatedStar";
+import RatingModal from "./RatingStar/RatingModal";
+import CheckIcon from '@mui/icons-material/Check';
+import StaticRatedStar from "./RatingStar/StaticRatedStar.js";
+
 function DetailBottom() {
     const [tongleState, setTongleState] = useState(1);
+    const [filterIndex, setFilterIndex] = useState(0);
 
+    // hàm set giá trị cho tab được chon
     const tongleTab = function(index) {
         setTongleState(index);
     }
+
+    // ham set gia tri cho loc comment: da mua hang, 5 sao, 4 sao, ...
+
+
+    // Biến để quyết định việc bật tắt modal, 1 là tắt, 0 là mở
+    const [closeRatingModal, setCloseRatingModal] = useState(1);
+
+    // Lấy giá trị rating
+    const [ratingOut, setRatingOut] = useState(null);
 
     const demoProduct = {
         name: "iPhone 14 Pro Max 128GB",
@@ -75,9 +90,8 @@ function DetailBottom() {
     </div>;
 
     return (<div className="grid grid-cols-1 my-[50px]">
-        {/* <div className="fixed w-full h-full top-0 left-0 bg-black opacity-70">
-
-</div> */}
+       
+    {/* <div className="overlay"></div> */}
     <div className="w-[800px] place-self-center">
                 <div className="tab-bar">
                     <div className={tongleState === 1 ? "tab-item tab-item-active":"tab-item"}
@@ -137,11 +151,13 @@ function DetailBottom() {
                 <div className="place-self-start mt-[40px] w-full py-[16px] rounded-[7px] border-[2px] border-slate-300 boder-solid">
                     {/* Title */}
                     <div className="px-[16px] pb-[16px] text-[18px] text-slate-700 font-semi-bold border-b-[2px] border-slate-300">Đánh giá sản phẩm</div>
-                    <div className="grid grid-cols-3 justify-items-stretch text-[16px] py-[20px] border-b-[2px] border-slate-300">
+                    <div className="grid grid-cols-3 justify-items-stretch text-[16px] py-[20px] border-b-[2px] border-slate-100">
                         <div className="text-center">
                             <div className="text-slate-700">Đánh giá trung bình</div>
                             <div className="text-[36px] text-red-600">5/5</div>
-                            <StarRating/>
+                            <StaticRatedStar
+                                size={20}
+                                rating={5}/>
                             <div>1014 đánh giá</div>
                         </div>
                         <div className="my-auto">
@@ -149,11 +165,35 @@ function DetailBottom() {
                         </div>
                         <div className="text-center my-auto">
                             <div className="text-[16px] my-[10px]">Bạn đã dùng sản phẩm này</div>
-                            <button className="text-[16px] text-white bg-blue-600 rounded-[5px] font-extralight p-[10px]">GỬI ĐÁNH GIÁ</button>
+                            <button className="text-[16px] text-white bg-blue-600 
+                            rounded-[5px] font-extralight p-[10px]"
+                            onClick={()=>setCloseRatingModal(0)}>GỬI ĐÁNH GIÁ</button>
                         </div>
                     </div>
+                    <div className="px-[25px] h-[56px] text-[14px] text-slate-500 bg-slate-100 flex items-center">
+                        <div>Lọc xem theo:</div>
+                        <div className={filterIndex === 6 ? "px-[10px] py-[3px] mx-[10px] rounded-[4px] align-middle cursor-pointer border-[1px] border-blue-400 hover:bg-blue-400 hover:text-white text-blue-400" 
+                        :"px-[10px] py-[3px] mx-[10px] rounded-[4px] align-middle scursor-pointer border-[1px] border-slate-300 hover:bg-slate-300"}
+                            onClick={()=>setFilterIndex(6)}>
+                                <span className={filterIndex === 6 ? "font-bold": "hidden"}><CheckIcon fontSize="20"/></span>
+                                <span>Đã mua hàng</span>
+                            </div>
+
+                        {[...Array(5)].map((filterbtn, index) => {
+                            const star = index + 1;
+                            return <div className={filterIndex === star ?"px-[8px] py-[3px] mr-[10px] rounded-[4px] align-middle cursor-pointer border-[1px] border-blue-400 hover:bg-blue-400 hover:text-white text-blue-400" 
+                        :"px-[8px] py-[3px] mr-[10px] rounded-[4px] align-middle cursor-pointer border-[1px] border-slate-300 hover:bg-slate-300"}
+                            onClick={()=> setFilterIndex(star)}>
+                                <span className={filterIndex === star ? "font-bold": "hidden"}><CheckIcon fontSize="20"/></span>
+                                <span className="">{star} sao</span>
+                            </div>
+                        })}
+                    </div>
                 </div>
-    
+            <RatingModal 
+                closeRatingModal = {closeRatingModal}
+                setCloseRatingModal = {setCloseRatingModal}/>
+            
     </div>);
 }
 export default DetailBottom;
