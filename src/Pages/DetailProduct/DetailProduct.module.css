@@ -1,20 +1,18 @@
 .container {
-    margin-top: 50px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-.detailproduct {
-    width: 70%;
-    height: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 30px;
 
 }
+.detailproduct {
+    display: flex;  
+    justify-content: center;   
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto  ;
+  }
 .product_splide, .overview{
     display: inline-block;
     width: 50%;
-    vertical-align: top;
+    
     
 }
 .product_splide {
@@ -25,17 +23,24 @@
     justify-content: center;
 }
 .wrapped_info {
-    margin-left: 20px;
+    margin-left: 30px;
     margin-top: 15px;
 }
 .wrapped_info h1 {
-    font-size: 20px;
+    font-size: 30px;
+    font-weight: bold;
 }
 .wrapped_info_content {
-    
+    display: flex;      
+}
+.wrapped_info_content a{
+    margin-right: 26px;      
+}
+.rating {
+    margin-right: 26px;
 }
 .price {
-   margin-left: 200px;
+    margin-left: 30px;
 }
 .currentPrice {
     font-size: 35px;
@@ -49,25 +54,54 @@
     margin-left: 30px;
 }
 .detail_info label {
-    font-size: 10px;
+    
+    font-size: 15px;
+    padding-bottom: 20px;
+    color: gray;
 }
+.detail_info ul {
+    display: flex;
+    
+}
+.detail_info ul li {
+    
+    margin-right: 50px;
+}
+.detail_info ul li {
+    border: 2px solid gray;
+    border-radius: 4px;
+    min-width: 55px;
+}
+
 .detail_info div {
     display: flex;
-    justify-content: space-around;
+    
+}
+.detail_info span {
+    height: 40px;
+    width: 70px;
+    border-radius: 10px;
+    border-width: 1px;
 }
 .detail_info div span{
     height: 40px;
     width: 70px;
     border-radius: 10px;
     border-width: 1px;
+    
 }
 .confirm label{
     color: rgb(83, 83, 231);
+    margin-top: 200px;
+    margin-left: 30px;
 }
 .confirm button {
+    margin-top: 170px;
     margin-left: 30px;
     width: 100%;
-    height: 70px;
-    border-radius: 20px;
-    background-color: rgb(42, 42, 255);
+    height: 50px;
+    border-radius: 15px;
+    background-color: rgb(82, 82, 255);
+    color: #E8E8E8;
+    font-size: 20px;
 }
