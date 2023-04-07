@@ -1,6 +1,8 @@
 import styles from "./Order.module.css";
 import images from "../../assets/image/index";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import { DeleteOutline } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
@@ -9,6 +11,14 @@ import Payment from "./Components/Payment/Payment";
 
 function Order() {
     const [qty, setQty] = useState(0);
+    const [isChecked, setIsChecked] = useState(false);
+    const [dataPayment, setDataPayment] = useState(null);
+    const navigate = useNavigate();
+
+    const handleGetData = (data) => {
+        setDataPayment(data);
+    };
+    console.log(dataPayment);
 
     const increaseQty = () => {
         setQty((prev) => Number(prev) + 1);
@@ -22,6 +32,92 @@ function Order() {
 
     const handleQtyChange = (e) => {
         setQty(e.target.value);
+    };
+
+    const handleCheckBoxChange = (e) => {
+        setIsChecked(e.target.checked);
+    };
+
+    const handleFailOrder = () => {
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Vui lòng chọn và điền đầy đủ thông tin trước khi thanh toán!",
+            showConfirmButton: false,
+            timer: 1500,
+            padding: "0 0 20px 0",
+        });
+    };
+    const handleOrder = (e) => {
+        if (dataPayment.name) {
+            if (dataPayment.phone) {
+                if (dataPayment.gmail) {
+                    if (
+                        Object.keys(dataPayment.selectedProvince).length !== 0
+                    ) {
+                        if (
+                            Object.keys(dataPayment.selectedDistrict).length !==
+                            0
+                        ) {
+                            if (dataPayment.method === "Store") {
+                                if (
+                                    Object.keys(dataPayment.selectedStore)
+                                        .length !== 0
+                                ) {
+                                    if (dataPayment.payment) {
+                                        if (isChecked) {
+                                            navigate("/billdetail");
+                                        } else {
+                                            Swal.fire({
+                                                position: "center",
+                                                icon: "error",
+                                                title: "Vui lòng chấp nhận các điều khoản và điều kiện!",
+                                                showConfirmButton: false,
+                                                timer: 1500,
+                                                padding: "0 0 20px 0",
+                                            });
+                                        }
+                                    } else handleFailOrder();
+                                }
+                            } else if (dataPayment.method === "Ship") {
+                                if (
+                                    Object.keys(dataPayment.selectedWard)
+                                        .length !== 0 &&
+                                    dataPayment.address
+                                ) {
+                                    if (dataPayment.payment) {
+                                        if (isChecked) {
+                                            navigate("/billdetail");
+                                        } else {
+                                            Swal.fire({
+                                                position: "center",
+                                                icon: "error",
+                                                title: "Vui lòng chấp nhận các điều khoản và điều kiện!",
+                                                showConfirmButton: false,
+                                                timer: 1500,
+                                                padding: "0 0 20px 0",
+                                            });
+                                        }
+                                    } else handleFailOrder();
+                                } else handleFailOrder();
+                            }
+                        } else handleFailOrder();
+                    } else handleFailOrder();
+                } else handleFailOrder();
+            } else handleFailOrder();
+        } else handleFailOrder();
+        // if (isChecked) {
+        //     navigate("/billdetail");
+        // } else {
+        //     Swal.fire({
+        //         position: "center",
+        //         icon: "error",
+        //         title: "Vui lòng chấp nhận các điều khoản và điều kiện!",
+        //         showConfirmButton: false,
+        //         timer: 1500,
+        //         padding: "0 0 20px 0",
+        //     });
+        // }
     };
 
     return (
@@ -248,6 +344,8 @@ function Order() {
                                 type="checkbox"
                                 id="service"
                                 className="w-[20px] h-[20px] mr-4"
+                                checked={isChecked}
+                                onChange={handleCheckBoxChange}
                             ></input>
                             <label htmlFor="service" className="text-[14px]">
                                 Tôi đã đọc và đồng ý với
@@ -259,21 +357,33 @@ function Order() {
                             </label>
                         </div>
 
-                        <button className="w-full h-[48px] px-8 py-4 text-[16px] text-white bg-[#0066CC] rounded-[8px]">Tiến hành đặt hàng</button>
+                        <button
+                            className="w-full h-[48px] px-8 py-4 text-[16px] text-white bg-[#0066CC] rounded-[8px]"
+                            onClick={handleOrder}
+                        >
+                            Tiến hành đặt hàng
+                        </button>
 
-                        <div className="text-[#e4434b] text-[14px] pr-4 font-light mt-6">&#40;&#42;&#41; Phí phụ thu sẽ được tính khi bạn tiến hành thanh toán.</div>
+                        <div className="text-[#e4434b] text-[14px] pr-4 font-light mt-6">
+                            &#40;&#42;&#41; Phí phụ thu sẽ được tính khi bạn
+                            tiến hành thanh toán.
+                        </div>
                     </div>
 
                     {/* Gợi ý sản phẩm */}
                     <div className={styles.productHint + " col-span-2"}>
-                        <label className="text-[24px] font-semibold">Gợi ý phụ kiện đi kèm</label>
+                        <label className="text-[24px] font-semibold">
+                            Gợi ý phụ kiện đi kèm
+                        </label>
                         <ProductHint />
                     </div>
-                    <div></div>                        
+                    <div></div>
                     {/* Thông tin thanh toán */}
                     <div className={styles.payment + " col-span-2"}>
-                        <label className="text-[24px] font-semibold">Thông tin thanh toán</label>
-                        <Payment />
+                        <label className="text-[24px] font-semibold">
+                            Thông tin thanh toán
+                        </label>
+                        <Payment handleGetData={handleGetData} />
                     </div>
                 </div>
             </div>
