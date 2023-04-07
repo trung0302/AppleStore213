@@ -53,7 +53,7 @@ const ForgetPass = (props) => {
         <>
             <div className={classes.forgetpass}>
                 <form className={classes.form}>
-                    <h2 style={{color:"black", fontWeight:"bold", fontSize:"25px"}}>Quên mật khẩu?</h2>
+                    <h2 style={{color:"black", fontWeight:"bold", fontSize:"25px",textAlign:"center"}}>Quên mật khẩu?</h2>
                     <p
                         style={{
                             padding: "10px 0",
@@ -99,7 +99,7 @@ const ForgetPass = (props) => {
                     )}
                     <p style={{ textAlign: "center", fontSize: "16px" }}>
                         <button
-                            className='mb-5 active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg'
+                            className='mb-5 p-64 active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-2xl'
                             id="sub_btn"
                             type="submit"
                             onClick={submitEmail}
@@ -107,7 +107,7 @@ const ForgetPass = (props) => {
                             Gửi Email
                         </button>
                         <br />
-                        <p className={classes.direct} onClick={handleClick}>
+                        <p className="text-1xl underline" onClick={handleClick}>
                             Quay về đăng nhập
                         </p>
                     </p>

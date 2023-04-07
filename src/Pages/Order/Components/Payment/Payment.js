@@ -105,6 +105,37 @@ function Payment() {
                 <label className="font-semibold text-2xl">
                     Hình thức nhận hàng
                 </label>
+                <div className="flex items-center mt-[8px]">
+                    <input
+                        id="store"
+                        type="radio"
+                        name="store"
+                        value="Store"
+                        onChange={handleChangeMethod}
+                        checked={method === "Store"}
+                    />
+                    <label
+                        htmlFor="store"
+                        className="text-2xl ml-[4px] mt-[2px]"
+                    >
+                        Nhận tại cửa hàng
+                    </label>
+                    <input
+                        id="address"
+                        name="store"
+                        type="radio"
+                        className="ml-8"
+                        onChange={handleChangeMethod}
+                        value="Ship"
+                        checked={method === "Ship"}
+                    />
+                    <label
+                        htmlFor="address"
+                        className="text-2xl ml-[4px] mb-[2px]"
+                    >
+                        Giao hàng tận nơi
+                    </label>
+                </div>
                 <div className="grid grid-cols-2 gap-6">
                     <div>
                         <div className="text-[14px] font-light my-[8px]">
@@ -137,56 +168,32 @@ function Payment() {
                             placeholder="Chọn quận/huyện"
                         />
                     </div>
-                    <div className="flex items-center">
-                        <input
-                            id="store"
-                            type="radio"
-                            name="store"
-                            value="Store"
-                            onChange={handleChangeMethod}
-                            checked={method === "Store"}
-                        />
-                        <label
-                            htmlFor="store"
-                            className="text-2xl ml-[4px] mb-[2px]"
-                        >
-                            Nhận tại cửa hàng
-                        </label>
-                        <input
-                            id="address"
-                            name="store"
-                            type="radio"
-                            className="ml-8"
-                            onChange={handleChangeMethod}
-                            value="Ship"
-                            checked={method === "Ship"}
-                        />
-                        <label
-                            htmlFor="address"
-                            className="text-2xl ml-[4px] mb-[2px]"
-                        >
-                            Giao hàng tận nơi
-                        </label>
-                    </div>
-                    <div></div>
+
                     {showStore && (
-                        <Select
-                            className="text-[16px] col-span-2"
-                            value={selectedDistrict}
-                            onChange={handleChangeDistrict}
-                            options={districts}
-                            closeMenuOnSelect={true}
-                            styles={customStyles}
-                            placeholder="Chọn địa chỉ cửa hàng"
-                        />
+                        <div className="col-span-2">
+                            <div className="text-[14px] font-light mb-[8px]">
+                                Cửa hàng:
+                            </div>
+                            <Select
+                                className="text-[16px]"
+                                value={selectedDistrict}
+                                onChange={handleChangeDistrict}
+                                options={districts}
+                                closeMenuOnSelect={true}
+                                styles={customStyles}
+                                placeholder="Chọn địa chỉ cửa hàng"
+                            />
+                        </div>
                     )}
                     {showAddress && (
                         <div className="col-span-2">
-                            <div className="text-[14px] mb-3">Địa chỉ cụ thể:</div>
+                            <div className="text-[14px] mb-3">
+                                Địa chỉ cụ thể:
+                            </div>
                             <input
                                 type="text"
                                 // value="Trung"
-                                placeholder="Nhập địa chỉ nhận hàng"
+                                placeholder="Nhập số nhà, tên đường"
                                 required
                                 className="h-[48px] w-full px-[16px] py-[8px] text-[16px] text-[#777]
                              outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
@@ -240,6 +247,25 @@ function Payment() {
                         />
                         <div className="text-[14px]">
                             Thanh toán bằng ZaloPay
+                        </div>
+                    </label>
+                    <label
+                        htmlFor="shipcod"
+                        className="flex border border-solid border-[#ddd] rounded-[8px] py-5 px-10 items-center cursor-pointer"
+                    >
+                        <input
+                            type="radio"
+                            id="shipcod"
+                            name="method"
+                            value="shipcod"
+                        />
+                        <img
+                            src={images.shipcod}
+                            alt="COD"
+                            className="h-[36px] w-[36px] rounded-[8px] mx-5"
+                        />
+                        <div className="text-[14px]">
+                            Thanh toán khi nhận hàng
                         </div>
                     </label>
                 </div>

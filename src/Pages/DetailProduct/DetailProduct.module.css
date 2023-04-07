@@ -1,7 +1,10 @@
+
 .container {
     padding: 30px;
 
 }
+
+
 .detailproduct {
     display: flex;  
     justify-content: center;   

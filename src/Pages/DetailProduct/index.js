@@ -39,6 +39,7 @@ function DetailProduct() {
     };
 
     return (
+
         <div className={classes.container}>
             <section className={classes.detailproduct}>
                 <section className={classes.product_splide}>
@@ -92,6 +93,7 @@ function DetailProduct() {
                     </div>
                     <div className={classes.price}>
                         <span className={classes.currentPrice}>28.550.000</span>
+
                     </div>
                     <div className={classes.attribute}>
                         <div className={classes.detail_info}>
@@ -139,6 +141,7 @@ function DetailProduct() {
 
 
         </div>
+
     );
 }
 

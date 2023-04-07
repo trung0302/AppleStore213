@@ -1,4 +1,5 @@
 import styles from "../Customer.module.css";
+import { Link } from "react-router-dom";
 import Status from "./Status";
 
 export default ({madonhang, status}) => {
@@ -57,6 +58,7 @@ export default ({madonhang, status}) => {
                             {(()=>{
                                 if(status == "green")return (<span>Thành công</span>);
                                 else if (status=="red") return (<span>Đã hủy</span>);
+                                else if (status=="blue") return (<span>Đang giao</span>);
                                 else return (<span>Đang xử lý</span>);
                             })()}
                         </div>
@@ -80,7 +82,7 @@ export default ({madonhang, status}) => {
                         <label>Sản phẩm</label>
                         <div className="mt-4 mb-4 rounded-lg border-2 px-4 py-3 flex justify-between">
                             <div>
-                                <a href="#" className="">Iphone 12 Promax</a>
+                                <Link to="#" className="">Iphone 12 Promax</Link>
                                 <div>
                                     <label>Màu sắc: Green </label>
                                 </div>

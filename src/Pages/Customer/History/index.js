@@ -28,9 +28,19 @@ function History () {
                         aCss={"mx-4 my-4"} setIcon={<HistoryIcon sx={{ fontSize: 30 }}></HistoryIcon>} />
                 </div>
                 <div className={"lg:w-2/5 my-12"}>
-                    <Orderbill madonhang={"4618"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ngân hàng" status={"red"}></Orderbill>
-                    <Orderbill madonhang={"2013"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ngân hàng" status={"green"}></Orderbill>
-                    <Orderbill madonhang={"2020"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ngân hàng" status={"yellow"}></Orderbill>
+                    <div className="flex justify-end">
+                        <select className={styles.bg_white+ " text-sky-600 border-sky-600 focus:border-sky-600 border-2 rounded-lg px-10 py-2 mb-10"} name="filter_status">
+                            <option value="">Tất cả</option>
+                            <option value="green">Thành công</option>
+                            <option value="blue">Đang giao</option>
+                            <option value="yellow">Đang xử lý</option>
+                            <option value="red">Đã hủy</option>
+                        </select>
+                    </div>
+                    <Orderbill madonhang={"4618"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"red"}></Orderbill>
+                    <Orderbill madonhang={"2013"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"green"}></Orderbill>
+                    <Orderbill madonhang={"2020"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"yellow"}></Orderbill>
+                    <Orderbill madonhang={"2020"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"blue"}></Orderbill>
                 </div>
             </div>
         </div>
