@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import images from "../../../../assets/image";
 import { Store } from "./Store";
+import styles from "./Payment.module.css";
 
 function Payment(props) {
     const [provinces, setProvinces] = useState([]);
@@ -27,7 +28,7 @@ function Payment(props) {
     const [showStore, setShowStore] = useState(true);
     const [showAddress, setShowAddress] = useState(false);
     const { handleGetData } = props;
-    const dataParent = [
+    const dataParent = {
         name,
         phone,
         email,
@@ -38,7 +39,7 @@ function Payment(props) {
         selectedWard,
         address,
         payment,
-    ];
+    };
 
     useEffect(() => {
         handleGetData(dataParent);
@@ -56,7 +57,7 @@ function Payment(props) {
         email,
         phone,
         payment,
-        address
+        address,
     ]);
 
     // Render tên tỉnh, tpho
@@ -146,10 +147,6 @@ function Payment(props) {
         setMethod(e.target.value);
         setShowStore(!showStore);
         setShowAddress(!showAddress);
-        // if (selectedDistrict) {
-        //     console.log(selectedDistrict);
-        //     handleChangeDistrict(selectedDistrict);
-        // }
         console.log(e.target.value);
     };
 
@@ -172,7 +169,6 @@ function Payment(props) {
     const handlePaymentChange = (e) => {
         setPayment(e.target.value);
     };
-    
 
     // Handle change payment
     const handleAddressChange = (e) => {
@@ -191,36 +187,53 @@ function Payment(props) {
             <div className="w-full bg-white p-8 rounded-[8px] mt-6">
                 {/* Thông tin khách hàng */}
                 <div className="grid grid-cols-2 gap-6 mb-6">
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={handleNameChange}
-                        placeholder="Nhập họ tên"
-                        // defaultValue="Trung"
-                        required
-                        className="col-span-2 h-[48px] px-[16px] py-[8px] text-[16px] text-[#777]
+                    <div className="col-span-2">
+                        <div className="text-[14px] font-light mb-[8px]">
+                            Họ tên:
+                        </div>
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={handleNameChange}
+                            placeholder="Nhập họ tên"
+                            // defaultValue="Trung"
+                            required
+                            className="h-[48px] w-full px-[16px] py-[8px] text-[16px] text-[#777]
                          outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
-                    />
-                    <input
-                        type="text"
-                        value={phone}
-                        // defaultValue="123456789"
-                        onChange={handlePhoneChange}
-                        placeholder="Nhập số điện thoại"
-                        required
-                        className="h-[48px] px-[16px] py-[8px] text-[16px] text-[#777] 
-                        outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
-                    />
-                    <input
-                        type="text"
-                        value={email}
-                        // defaultValue="uit@gm.uit.edu.vn"
-                        onChange={handleEmailChange}
-                        placeholder="Nhập Email"
-                        required
-                        className="h-[48px] px-[16px] py-[8px] text-[16px] text-[#777] 
-                        outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
-                    />
+                        />
+                    </div>
+                    <div>
+                        <div className="text-[14px] font-light mb-[8px]">
+                            Số điện thoại:
+                        </div>
+                        <input
+                            type="number"
+                            value={phone}
+                            // defaultValue="123456789"
+                            onChange={handlePhoneChange}
+                            placeholder="Nhập số điện thoại"
+                            required
+                            className={
+                                styles.noSpinner +
+                                " h-[48px] w-full px-[16px] py-[8px] text-[16px] text-[#777] appearance-none outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
+                            }
+                        />
+                    </div>
+                    <div>
+                        <div className="text-[14px] font-light mb-[8px]">
+                            Email:
+                        </div>
+                        <input
+                            type="email"
+                            value={email}
+                            // defaultValue="uit@gm.uit.edu.vn"
+                            onChange={handleEmailChange}
+                            placeholder="Nhập Email"
+                            required
+                            className="h-[48px] w-full px-[16px] py-[8px] text-[16px] text-[#777] outline-none border
+                             border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
+                        />
+                    </div>
                 </div>
 
                 {/* Hình thức nhận hàng */}

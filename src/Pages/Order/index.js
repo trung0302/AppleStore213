@@ -14,6 +14,7 @@ function Order() {
     const [isChecked, setIsChecked] = useState(false);
     const [dataPayment, setDataPayment] = useState(null);
     const navigate = useNavigate();
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     const handleGetData = (data) => {
         setDataPayment(data);
@@ -48,76 +49,62 @@ function Order() {
             padding: "0 0 20px 0",
         });
     };
+    console.log(typeof dataPayment?.selectedProvince);
     const handleOrder = (e) => {
-        if (dataPayment.name) {
-            if (dataPayment.phone) {
-                if (dataPayment.gmail) {
-                    if (
-                        Object.keys(dataPayment.selectedProvince).length !== 0
-                    ) {
-                        if (
-                            Object.keys(dataPayment.selectedDistrict).length !==
-                            0
-                        ) {
-                            if (dataPayment.method === "Store") {
-                                if (
-                                    Object.keys(dataPayment.selectedStore)
-                                        .length !== 0
-                                ) {
-                                    if (dataPayment.payment) {
-                                        if (isChecked) {
-                                            navigate("/billdetail");
-                                        } else {
-                                            Swal.fire({
-                                                position: "center",
-                                                icon: "error",
-                                                title: "Vui lòng chấp nhận các điều khoản và điều kiện!",
-                                                showConfirmButton: false,
-                                                timer: 1500,
-                                                padding: "0 0 20px 0",
-                                            });
-                                        }
-                                    } else handleFailOrder();
-                                }
-                            } else if (dataPayment.method === "Ship") {
-                                if (
-                                    Object.keys(dataPayment.selectedWard)
-                                        .length !== 0 &&
-                                    dataPayment.address
-                                ) {
-                                    if (dataPayment.payment) {
-                                        if (isChecked) {
-                                            navigate("/billdetail");
-                                        } else {
-                                            Swal.fire({
-                                                position: "center",
-                                                icon: "error",
-                                                title: "Vui lòng chấp nhận các điều khoản và điều kiện!",
-                                                showConfirmButton: false,
-                                                timer: 1500,
-                                                padding: "0 0 20px 0",
-                                            });
-                                        }
-                                    } else handleFailOrder();
-                                } else handleFailOrder();
-                            }
-                        } else handleFailOrder();
+        e.preventDefault();
+        if (
+            dataPayment.name &&
+            dataPayment.phone &&
+            dataPayment.email &&
+            dataPayment.selectedProvince &&
+            dataPayment.selectedDistrict &&
+            dataPayment.method &&
+            dataPayment.payment
+        ) {
+            if (emailRegex.test(dataPayment.email)) {
+                if (dataPayment.method === "Ship") {
+                    if (dataPayment.address && dataPayment.selectedWard) {
+                        if (isChecked) {
+                            navigate("/billdetail");
+                        } else {
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: "Vui lòng chấp nhận các điều khoản và điều kiện!",
+                                showConfirmButton: false,
+                                timer: 1500,
+                                padding: "0 0 20px 0",
+                            });
+                        }
                     } else handleFailOrder();
-                } else handleFailOrder();
-            } else handleFailOrder();
+                } else if (dataPayment.method === "Store") {
+                    if (dataPayment.selectedStore) {
+                        if (isChecked) {
+                            navigate("/billdetail");
+                        } else {
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: "Vui lòng chấp nhận các điều khoản và điều kiện!",
+                                showConfirmButton: false,
+                                timer: 1500,
+                                padding: "0 0 20px 0",
+                            });
+                        }
+                    } else handleFailOrder();
+                }
+            } 
+            else {
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Vui lòng nhập đúng format Email!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    padding: "0 0 20px 0",
+                });
+            }
         } else handleFailOrder();
-        // if (isChecked) {
-        //     navigate("/billdetail");
-        // } else {
-        //     Swal.fire({
-        //         position: "center",
-        //         icon: "error",
-        //         title: "Vui lòng chấp nhận các điều khoản và điều kiện!",
-        //         showConfirmButton: false,
-        //         timer: 1500,
-        //         padding: "0 0 20px 0",
-        //     });
-        // }
     };
 
     return (
