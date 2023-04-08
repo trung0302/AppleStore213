@@ -1,10 +1,7 @@
-
 .container {
     padding: 30px;
 
 }
-
-
 .detailproduct {
     display: flex;  
     justify-content: center;   
@@ -21,31 +18,38 @@
 .product_splide {
     background-color: #E8E8E8;
 }
+
+
+
 .overview {
-    
+    padding-left: 30px;
     justify-content: center;
 }
+
 .wrapped_info {
-    margin-left: 30px;
     margin-top: 15px;
 }
 .wrapped_info h1 {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bold;
 }
-.wrapped_info_content {
+.wrapped_info .wrapped_info_content {
     display: flex;      
 }
-.wrapped_info_content a{
-    margin-right: 26px;      
-}
-.rating {
+.wrapped_info .wrapped_info_content .rating {
     margin-right: 26px;
 }
-.price {
-    margin-left: 30px;
+.wrapped_info .wrapped_info_content a{
+    color: #0066CC;
+    margin-right: 26px;  
+    box-sizing: border-box;    
 }
-.currentPrice {
+
+
+
+
+
+.price .currentPrice {
     font-size: 35px;
     font-weight: 500;
     color: blue;
@@ -53,13 +57,14 @@
 .detail_info {
     display: flex;
     flex-direction: column;
-    font-size: 20px;
-    margin-left: 30px;
-}
-.detail_info label {
     
-    font-size: 15px;
-    padding-bottom: 20px;
+    
+}
+ .detail_info label {
+    margin-top: 20px;
+    padding-bottom: 10px;
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
     color: gray;
 }
 .detail_info ul {
@@ -67,14 +72,15 @@
     
 }
 .detail_info ul li {
-    
-    margin-right: 50px;
-}
-.detail_info ul li {
     border: 2px solid gray;
     border-radius: 4px;
-    min-width: 55px;
+    min-width: 60px;
+    min-height: 30px;
+    margin-right: 30px;
+    text-align: center;
 }
+
+
 
 .detail_info div {
     display: flex;
@@ -93,18 +99,18 @@
     border-width: 1px;
     
 }
-.confirm label{
+.confirm {
+    margin-top: 100px;
+}
+.confirm a{
     color: rgb(83, 83, 231);
-    margin-top: 200px;
-    margin-left: 30px;
 }
 .confirm button {
-    margin-top: 170px;
-    margin-left: 30px;
+    margin-top: 30px;
     width: 100%;
     height: 50px;
-    border-radius: 15px;
-    background-color: rgb(82, 82, 255);
+    border-radius: 8px;
+    background-color: #0066CC;
     color: #E8E8E8;
     font-size: 20px;
 }
