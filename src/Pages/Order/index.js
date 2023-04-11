@@ -10,7 +10,7 @@ import ProductHint from "./Components/ProductHint/ProductHint";
 import Payment from "./Components/Payment/Payment";
 
 function Order() {
-    const [qty, setQty] = useState(0);
+    const [qty, setQty] = useState(1);
     const [isChecked, setIsChecked] = useState(false);
     const [dataPayment, setDataPayment] = useState(null);
     const navigate = useNavigate();
@@ -26,7 +26,7 @@ function Order() {
     };
 
     const decreaseQty = () => {
-        if (qty > 0) {
+        if (qty > 1) {
             setQty((prev) => Number(prev) - 1);
         }
     };
@@ -49,7 +49,7 @@ function Order() {
             padding: "0 0 20px 0",
         });
     };
-    console.log(typeof dataPayment?.selectedProvince);
+    // console.log(typeof dataPayment?.selectedProvince);
     const handleOrder = (e) => {
         e.preventDefault();
         if (
