@@ -91,7 +91,7 @@ function DetailProduct() {
                             <a>So sanh</a>
                         </div>
                         <hr />
-                        
+
                     </div>
                     <div className={classes.price}>
                         <span className={classes.currentPrice}>28.550.000</span>
