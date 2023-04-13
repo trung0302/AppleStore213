@@ -10,16 +10,23 @@ import ProductHint from "./Components/ProductHint/ProductHint";
 import Payment from "./Components/Payment/Payment";
 
 function Order() {
-    const [qty, setQty] = useState(0);
+    const [qty, setQty] = useState(1);
     const [isChecked, setIsChecked] = useState(false);
+    const [dataPayment, setDataPayment] = useState(null);
     const navigate = useNavigate();
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+    const handleGetData = (data) => {
+        setDataPayment(data);
+    };
+    console.log(dataPayment);
 
     const increaseQty = () => {
         setQty((prev) => Number(prev) + 1);
     };
 
     const decreaseQty = () => {
-        if (qty > 0) {
+        if (qty > 1) {
             setQty((prev) => Number(prev) - 1);
         }
     };
@@ -32,19 +39,72 @@ function Order() {
         setIsChecked(e.target.checked);
     };
 
+    const handleFailOrder = () => {
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Vui lòng chọn và điền đầy đủ thông tin trước khi thanh toán!",
+            showConfirmButton: false,
+            timer: 1500,
+            padding: "0 0 20px 0",
+        });
+    };
+    // console.log(typeof dataPayment?.selectedProvince);
     const handleOrder = (e) => {
-        if (isChecked) {
-            navigate("/billdetail");
-        } else {
-            Swal.fire({
-                position: "center",
-                icon: "error",
-                title: "Vui lòng chấp nhận các điều khoản và điều kiện!",
-                showConfirmButton: false,
-                timer: 1500,
-                padding: "0 0 20px 0",
-            });
-        }
+        e.preventDefault();
+        if (
+            dataPayment.name &&
+            dataPayment.phone &&
+            dataPayment.email &&
+            dataPayment.selectedProvince &&
+            dataPayment.selectedDistrict &&
+            dataPayment.method &&
+            dataPayment.payment
+        ) {
+            if (emailRegex.test(dataPayment.email)) {
+                if (dataPayment.method === "Ship") {
+                    if (dataPayment.address && dataPayment.selectedWard) {
+                        if (isChecked) {
+                            navigate("/billdetail");
+                        } else {
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: "Vui lòng chấp nhận các điều khoản và điều kiện!",
+                                showConfirmButton: false,
+                                timer: 1500,
+                                padding: "0 0 20px 0",
+                            });
+                        }
+                    } else handleFailOrder();
+                } else if (dataPayment.method === "Store") {
+                    if (dataPayment.selectedStore) {
+                        if (isChecked) {
+                            navigate("/billdetail");
+                        } else {
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: "Vui lòng chấp nhận các điều khoản và điều kiện!",
+                                showConfirmButton: false,
+                                timer: 1500,
+                                padding: "0 0 20px 0",
+                            });
+                        }
+                    } else handleFailOrder();
+                }
+            } 
+            else {
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Vui lòng nhập đúng format Email!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    padding: "0 0 20px 0",
+                });
+            }
+        } else handleFailOrder();
     };
 
     return (
@@ -310,7 +370,7 @@ function Order() {
                         <label className="text-[24px] font-semibold">
                             Thông tin thanh toán
                         </label>
-                        <Payment />
+                        <Payment handleGetData={handleGetData} />
                     </div>
                 </div>
             </div>

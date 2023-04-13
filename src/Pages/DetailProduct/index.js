@@ -1,8 +1,11 @@
+// import DetailBottom from "./DetailBottom";
 import DetailBottom from "./detailBottom";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { useRef } from "react";
 import images from "../../assets/image";
 import classes from "./DetailProduct.module.css";
+import Rating from "@mui/material/Rating";
+
 function DetailProduct() {
     const mainCarouselRef = useRef(null);
     const thumbnailCarouselRef = useRef(null);
@@ -37,7 +40,8 @@ function DetailProduct() {
     };
 
     return (
-        <div className="grid grid-cols-1 justify-items-center">
+
+        <div className={classes.container}>
             <section className={classes.detailproduct}>
                 <section className={classes.product_splide}>
                     <Splide
@@ -73,36 +77,72 @@ function DetailProduct() {
                         </SplideSlide>
                     </Splide>
                 </section>
-                <section className={classes.overview}>
+
+                <div className={classes.overview}>
                     <div className={classes.wrapped_info}>
                         <h1>
-                            <span>Macbook pro M1 2020</span>
+                            <span>MacBook Pro M1 2020</span>
                         </h1>
                         <div className={classes.wrapped_info_content}>
-                            <div className={classes.rating}></div>
-                            <a>Danh gia</a>
-                            <button>So sanh</button>
-                        </div>
-                        <div>
-                            <div className={classes.price}>
-                                <span>28.550.000</span>
+                            <div className={classes.rating}>
+                                <Rating name="size-small" defaultValue={2} size="big" />
                             </div>
-
-                            <label>Dung lượng</label>
-                            <button>256GB</button>
-                            <button>512GB</button>
-                            <label>RAM</label>
-                            <label>Maù sắc</label>
+                            <a>Danh gia</a>
+                            <a>So sanh</a>
                         </div>
+                        <hr />
+
+                    </div>
+                    <div className={classes.price}>
+                        <span className={classes.currentPrice}>28.550.000</span>
+                    </div>
+                    <div className={classes.attribute}>
+                        <div className={classes.detail_info}>
+                            <label>Dung lượng</label>
+                            <ul>
+                                <li>
+                                    <label>256GB</label>
+                                </li>
+
+                                <li>
+                                    <label>512GB</label>
+                                </li>
+                            </ul>
+
+                            <label>RAM</label>
+                            <ul>
+                                <li>8GB</li>
+                            </ul>
+                            <label>Màu sắc</label>
+                            <ul>
+                                <li>
+                                    <label>Pink</label>
+                                </li>
+
+                                <li>
+                                    <label>Red</label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className={classes.confirm}>
+                            <a>Xem cửa hàng có sẵn sản phẩm</a>
+                            <button>MUA NGAY</button>
+                        </div>
+
+
                     </div>
 
 
-                </section>
+
+                </div>
             </section>
-            <section className={classes.detailproduct}>
+            <div>
                 <DetailBottom />
-            </section>
+            </div>
+
+
         </div>
+
     );
 }
 
