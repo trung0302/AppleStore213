@@ -1,24 +1,33 @@
 import styles from "./Order.module.css";
 import images from "../../assets/image/index";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-import { DeleteOutline } from "@mui/icons-material";
+import { DeleteOutline, Receipt, ReceiptOutlined } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import ProductHint from "./Components/ProductHint/ProductHint";
 import Payment from "./Components/Payment/Payment";
+import Promotion from "./Components/PromotionList";
+import PromotionList from "./Components/PromotionList";
 
 function Order() {
     const [qty, setQty] = useState(1);
+    const [promotion, setPromotion] = useState(true);
     const [isChecked, setIsChecked] = useState(false);
+    const [voucherDisplay, setVoucherDisplay] = useState(false);
     const [dataPayment, setDataPayment] = useState(null);
+    // const [dataSend, setDataSend] = useState(null);
+
     const navigate = useNavigate();
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     const handleGetData = (data) => {
         setDataPayment(data);
     };
+
+    // const products = [];
+
     console.log(dataPayment);
 
     const increaseQty = () => {
@@ -65,7 +74,7 @@ function Order() {
                 if (dataPayment.method === "Ship") {
                     if (dataPayment.address && dataPayment.selectedWard) {
                         if (isChecked) {
-                            navigate("/billdetail");
+                            navigate("/billdetail", { state: { dataPayment } });
                         } else {
                             Swal.fire({
                                 position: "center",
@@ -93,8 +102,7 @@ function Order() {
                         }
                     } else handleFailOrder();
                 }
-            } 
-            else {
+            } else {
                 Swal.fire({
                     position: "center",
                     icon: "error",
@@ -105,6 +113,10 @@ function Order() {
                 });
             }
         } else handleFailOrder();
+    };
+
+    const handleDisplayVoucher = () => {
+        setVoucherDisplay(true);
     };
 
     return (
@@ -300,6 +312,28 @@ function Order() {
                                 Áp dụng
                             </button>
                         </div>
+                        {/* Mã giảm giá */}
+                        <div className=" mb-[16px] flex justify-between">
+                            <div className="flex items-center">
+                                <ReceiptOutlined
+                                    sx={{
+                                        marginRight: "6px",
+                                        fontSize: "20px",
+                                        color: "#0066cc",
+                                    }}
+                                />
+                                <div className="text-2xl">
+                                    AppleDunk voucher
+                                </div>
+                            </div>
+                            <button
+                                className="border border-solid border-[#0066cc] rounded-[4px] px-3 py-1 
+                            text-[10px] text-[#0066cc] hover:bg-sky-100"
+                                onClick={handleDisplayVoucher}
+                            >
+                                Chọn mã giảm giá
+                            </button>
+                        </div>
 
                         {/* Tổng giá */}
                         <div className={styles.totals}>
@@ -313,6 +347,18 @@ function Order() {
                                             "đ"}
                                     </div>
                                 </div>
+                                {promotion && (
+                                    <div className="flex justify-between py-2">
+                                        <div className="text-2xl  text-[#86868B]">
+                                            Voucher giảm giá:
+                                        </div>
+                                        <div className="text-[16px]">
+                                            &minus;{" "}
+                                            {Number(45000000).toLocaleString() +
+                                                "đ"}
+                                        </div>
+                                    </div>
+                                )}
                                 <div className="flex justify-between py-4 mb-6">
                                     <div className="text-[18px] font-semibold text-black">
                                         Tổng cộng:
@@ -374,6 +420,13 @@ function Order() {
                     </div>
                 </div>
             </div>
+
+            {
+                <PromotionList
+                    display={voucherDisplay}
+                    setDisplay={setVoucherDisplay}
+                />
+            }
         </div>
     );
 }

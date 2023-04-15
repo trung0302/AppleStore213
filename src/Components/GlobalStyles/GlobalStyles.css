@@ -19,6 +19,21 @@ body {
 }
 
 @font-face {
+    font-family: SFRegular;
+    src: url('../../assets/font/SF-Pro-Display-Regular.otf');
+}
+
+@font-face {
+    font-family: SFMedium;
+    src: url('../../assets/font/SF-Pro-Display-Medium.otf');
+}
+
+@font-face {
+    font-family: SFBold;
+    src: url('../../assets/font/SF-Pro-Display-Bold.otf');
+}
+
+@font-face {
     font-family: LexendLight;
     src: url('../../assets/font/Lexend-Light.ttf');
 }
