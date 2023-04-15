@@ -20,7 +20,6 @@ import Login from "../Pages/Login_Register/Login";
 import Register from "../Pages/Login_Register/Register";
 import Policy from "../Pages/Policy";
 import NewPass from "../Pages/Login_Register/ForgetPass/NewPass";
-
 import SearchResults from "../Pages/SearchResults";
 import ProductList from '../Pages/ProductList'
 import AnotherProductList from '../Pages/ProductList/Components/AnotherProductList'
@@ -104,6 +103,7 @@ const publicRoutes = [
     { path: "/policy", component: <Policy /> },
 
     { path: "/search", component: <SearchResults /> },
+    
 ];
 
 export { publicRoutes };
