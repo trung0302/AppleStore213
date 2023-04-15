@@ -66,57 +66,58 @@ function Banner({ type }) {
         paginationKeyboard: true,
     };
     return (
-        <div className="w-full">
-
-            <Splide hasTrack={false} options={options} aria-label="Slider Product">
-                <div className="">
-                    <SplideTrack>
-                        {type === 'iPhone' && iphoneBanners.map((item, index) => (
-                            <SplideSlide key={index}>
-                                <div>
-                                    <img src={item.image} alt={item.image} className='mx-auto'></img>
-                                </div>
-                            </SplideSlide>
-                        ))}
-                        {type === 'iPad' && ipadBanners.map((item, index) => (
-                            <SplideSlide key={index}>
-                                <div>
-                                    <img src={item.image} alt={item.image} className='mx-auto'></img>
-                                </div>
-                            </SplideSlide>
-                        ))}
-                        {type === 'Mac' && macBanners.map((item, index) => (
-                            <SplideSlide key={index}>
-                                <div>
-                                    <img src={item.image} alt={item.image} className='mx-auto'></img>
-                                </div>
-                            </SplideSlide>
-                        ))}
-                        {type === 'Watch' && watchBanners.map((item, index) => (
-                            <SplideSlide key={index}>
-                                <div>
-                                    <img src={item.image} alt={item.image} className='mx-auto'></img>
-                                </div>
-                            </SplideSlide>
-                        ))}
-                        {type === 'Âm thanh' && soundBanners.map((item, index) => (
-                            <SplideSlide key={index}>
-                                <div>
-                                    <img src={item.image} alt={item.image} className='mx-auto'></img>
-                                </div>
-                            </SplideSlide>
-                        ))}
-                        {type === 'Phụ kiện' && accessoryBanners.map((item, index) => (
-                            <SplideSlide key={index}>
-                                <div>
-                                    <img src={item.image} alt={item.image} className='mx-auto'></img>
-                                </div>
-                            </SplideSlide>
-                        ))}
-                    </SplideTrack>
-                </div>
-            </Splide>
-        </div>
+        <di className="w-full">
+            <div className="w-[1200px] m-auto">
+                <Splide hasTrack={false} options={options} aria-label="Slider Product">
+                    <div className="">
+                        <SplideTrack>
+                            {type === 'iPhone' && iphoneBanners.map((item, index) => (
+                                <SplideSlide key={index}>
+                                    <div>
+                                        <img src={item.image} alt={item.image} className='mx-auto'></img>
+                                    </div>
+                                </SplideSlide>
+                            ))}
+                            {type === 'iPad' && ipadBanners.map((item, index) => (
+                                <SplideSlide key={index}>
+                                    <div>
+                                        <img src={item.image} alt={item.image} className='mx-auto'></img>
+                                    </div>
+                                </SplideSlide>
+                            ))}
+                            {type === 'Mac' && macBanners.map((item, index) => (
+                                <SplideSlide key={index}>
+                                    <div>
+                                        <img src={item.image} alt={item.image} className='mx-auto'></img>
+                                    </div>
+                                </SplideSlide>
+                            ))}
+                            {type === 'Watch' && watchBanners.map((item, index) => (
+                                <SplideSlide key={index}>
+                                    <div>
+                                        <img src={item.image} alt={item.image} className='mx-auto'></img>
+                                    </div>
+                                </SplideSlide>
+                            ))}
+                            {type === 'Âm thanh' && soundBanners.map((item, index) => (
+                                <SplideSlide key={index}>
+                                    <div>
+                                        <img src={item.image} alt={item.image} className='mx-auto'></img>
+                                    </div>
+                                </SplideSlide>
+                            ))}
+                            {type === 'Phụ kiện' && accessoryBanners.map((item, index) => (
+                                <SplideSlide key={index}>
+                                    <div>
+                                        <img src={item.image} alt={item.image} className='mx-auto'></img>
+                                    </div>
+                                </SplideSlide>
+                            ))}
+                        </SplideTrack>
+                    </div>
+                </Splide>
+            </div>
+        </di >
     );
 }
 export default Banner;

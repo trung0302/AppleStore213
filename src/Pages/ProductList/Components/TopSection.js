@@ -181,36 +181,43 @@ const accessoryNavigation = [
 
 export default function TopSection({ type }) {
     const [detail, setDetail] = useState();
+    const [typeLink, setTypeLink] = useState();
     const location = useLocation();
 
     useEffect(() => {
         switch (type) {
             case "iPhone":
+                setTypeLink("/iphone")
                 setDetail(iphoneNavigation.find(obj => {
                     return obj.path === location.pathname
                 }))
                 break;
             case "iPad":
+                setTypeLink("/ipad")
                 setDetail(ipadNavigation.find(obj => {
                     return obj.path === location.pathname
                 }))
                 break;
             case "Mac":
+                setTypeLink("/mac")
                 setDetail(macnavigation.find(obj => {
                     return obj.path === location.pathname
                 }))
                 break;
             case "Watch":
+                setTypeLink("/watch")
                 setDetail(watchNavigation.find(obj => {
                     return obj.path === location.pathname
                 }))
                 break;
             case "Âm thanh":
+                setTypeLink("/am-thanh")
                 setDetail(soundNavigation.find(obj => {
                     return obj.path === location.pathname
                 }))
                 break;
             default:
+                setTypeLink("/phu-kien")
                 setDetail(accessoryNavigation.find(obj => {
                     return obj.path === location.pathname
                 }))
@@ -232,7 +239,7 @@ export default function TopSection({ type }) {
                     </a>
                     <div className="px-[5px] py-0">&gt;</div>
                     <a
-                        href={`/${type.toLowerCase()}`}
+                        href={typeLink}
                         className="text-[14px] text-[#515154] hover:text-[#0066cc]"
                     >
                         {type}

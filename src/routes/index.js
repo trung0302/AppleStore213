@@ -2,6 +2,7 @@ import Home from "../Pages/Home";
 import DetailProduct from "../Pages/DetailProduct";
 import NotFound from "../Pages/NotFound";
 import Order from "../Pages/Order";
+import News from '../Pages/News'
 
 import Info from "../Pages/Customer/Info";
 import Addresses from "../Pages/Customer/Addresses";
@@ -24,6 +25,7 @@ import NewPass from "../Pages/Login_Register/ForgetPass/NewPass";
 import SearchResults from "../Pages/SearchResults";
 import ProductList from '../Pages/ProductList'
 import AnotherProductList from '../Pages/ProductList/Components/AnotherProductList'
+import NewsCategory from "../Pages/NewsCategory";
 
 const publicRoutes = [
     { path: "/", component: <Home /> },
@@ -83,7 +85,14 @@ const publicRoutes = [
     { path: "/apple-tv", component: <AnotherProductList type="Phụ kiện" /> },
     { path: "/dong-ho-garmin", component: <AnotherProductList type="Phụ kiện" /> },
 
-
+    { path: "/tin-tuc", component: <News /> },
+    { path: "/tin-tuc/:title", component: <NewsCategory isPage={true} /> },
+    { path: "/apple-news", component: <NewsCategory /> },
+    { path: "/news-review", component: <NewsCategory /> },
+    { path: "/tin-kham-pha", component: <NewsCategory /> },
+    { path: "/thu-thuat", component: <NewsCategory /> },
+    { path: "/khuyen-mai", component: <NewsCategory /> },
+    { path: "/tin-khac", component: <NewsCategory /> },
 
     { path: "/customer/info", component: <Info /> },
     { path: "/customer/addresses", component: <Addresses /> },

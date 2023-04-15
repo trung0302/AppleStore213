@@ -1,4 +1,5 @@
 import DetailBottom from "./DetailBottom";
+
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { useRef } from "react";
 import images from "../../assets/image";
@@ -84,16 +85,16 @@ function DetailProduct() {
                         </h1>
                         <div className={classes.wrapped_info_content}>
                             <div className={classes.rating}>
-                            <Rating name="size-small" defaultValue={2} size="big" />
+                                <Rating name="size-small" defaultValue={2} size="big" />
                             </div>
                             <a>Danh gia</a>
-                            <button>So sanh</button>
+                            <a>So sanh</a>
                         </div>
                         <hr />
+
                     </div>
                     <div className={classes.price}>
                         <span className={classes.currentPrice}>28.550.000</span>
-
                     </div>
                     <div className={classes.attribute}>
                         <div className={classes.detail_info}>
@@ -124,7 +125,7 @@ function DetailProduct() {
                             </ul>
                         </div>
                         <div className={classes.confirm}>
-                            <label>Xem cửa hàng có sẵn sản phẩm</label>
+                            <a>Xem cửa hàng có sẵn sản phẩm</a>
                             <button>MUA NGAY</button>
                         </div>
 
