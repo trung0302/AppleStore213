@@ -13,7 +13,7 @@ function AdvertisementItem(){
         }
     ];
     return (
-        <div className="flex flex-wrap justify-around px-8  pb-28">
+        <div className="flex flex-wrap justify-center pb-28">
            {data.map((product, index) => (
                         // eslint-disable-next-line jsx-a11y/anchor-is-valid
                         <a href="#" key={index} className="lg:pt-20 pt-8">
