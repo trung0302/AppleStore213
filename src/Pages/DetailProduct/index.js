@@ -25,8 +25,8 @@ function DetailProduct() {
     const thumbnailCarouselOptions = {
         fixedWidth: 100,
         fixedHeight: 100,
-        gap: '0.5rem',
-        cover: false,
+        gap: '0.1rem',
+        cover: true,
         pagination: false,
         arrows: true,
         focus: 'center',
@@ -124,11 +124,11 @@ function DetailProduct() {
                             <label>Dung lượng</label>
                             <ul>
                                 <li>
-                                    <label>256GB</label>
+                                    256GB
                                 </li>
 
                                 <li>
-                                    <label>512GB</label>
+                                    512GB
                                 </li>
                             </ul>
 
@@ -139,11 +139,8 @@ function DetailProduct() {
                             <label>Màu sắc</label>
                             <ul className={classes.itemColor}>
                                 <li>
-                                    <span></span>
                                 </li>
-
                                 <li>
-                                    <span></span>
                                 </li>
                             </ul>
                         </div>
