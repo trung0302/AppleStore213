@@ -110,8 +110,9 @@ function DetailProduct() {
                             <div className={classes.rating}>
                                 <Rating name="size-small" defaultValue={2} size="big" />
                             </div>
-                            <a>Danh gia</a>
-                            <a>So sanh</a>
+                            <a>Đánh giá</a>
+                            <a>|</a>
+                            <a>So sánh</a>
                         </div>
                         <hr />
                         
@@ -137,13 +138,21 @@ function DetailProduct() {
                                 <li>8GB</li>
                             </ul>
                             <label>Màu sắc</label>
-                            <ul className={classes.itemColor}>
-                                <li>
-                                </li>
-                                <li>
-                                </li>
-                            </ul>
+                            
                         </div>
+                        <div className={classes.itemColor}>
+                        <ul >
+                                <li className={classes.red}>
+                                </li>
+                                <li className={classes.pink}>
+                                </li>
+                                <li className={classes.green}>
+                                </li>
+                                <li className={classes.yellow}>
+                                </li>
+                        </ul>
+                        </div>
+                        
                         <div className={classes.confirm}>
                             <a>Xem cửa hàng có sẵn sản phẩm</a>
                             <button>MUA NGAY</button>
