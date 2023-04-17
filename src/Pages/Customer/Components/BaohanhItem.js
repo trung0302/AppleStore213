@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 import styles from "../Customer.module.css";
+import React, { useState } from 'react';
+
 export default ({id, name, ngmua, nghethan})=>{
+    const [isOpen, setIsOpen] = useState(false);
+
+    const togglePopup = () => {
+      setIsOpen(!isOpen);
+    };
 
     const dateParts = nghethan.split('/');
     const year = dateParts[2];
@@ -10,7 +17,7 @@ export default ({id, name, ngmua, nghethan})=>{
 
     const currentDate = new Date();
     return (
-        <div className={styles.bg_white +" rounded-lg w-full my-4 "}>
+        <div className={styles.bg_white +" rounded-lg w-full my-4 drop-shadow-lg"}>
             <div className="px-4 py-4 relative">
                 <strong className="my-3">{name}</strong>
                 <p className="my-3">Ngày mua: {ngmua}</p>

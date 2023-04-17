@@ -14,7 +14,7 @@ import SearchIcon from '@mui/icons-material/Search';
 function Baohanh () {
     return (
         <div>
-            <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>
+            <div className={styles.bg_primary + " flex justify-evenly text-2xl relative"}>
                 <div className={styles.bg_white +" rounded-lg w-1/4 my-12 lg:block hidden"}>
                     <NavTag DivCss={"px-4 py-8"} setHref={"/customer/info"} spanCss={"mx-6"} spanContent={"Thông tin tài khoản"}
                         aCss={"mx-4 my-4"} setIcon={<PersonIcon sx={{ fontSize: 30 }}></PersonIcon>} />

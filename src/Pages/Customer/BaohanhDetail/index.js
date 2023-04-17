@@ -34,7 +34,7 @@ function BaohanhDetail () {
                         aCss={styles.text_blue} setIcon={<GppGoodIcon sx={{ fontSize: 30, color: blue[700] }}></GppGoodIcon>} />
                 </div>
                 <div className={"lg:w-2/5 my-12"}>
-                    <div className={styles.bg_white +" rounded-lg w-full my-4"}>
+                    <div className={styles.bg_white +" rounded-lg w-full my-4 drop-shadow-lg"}>
                         <div className="px-4 py-4">
                             <strong className="my-3">Iphone 12 pro max</strong>
                             <p className="my-3">Ngày mua: 1/4/2023</p>

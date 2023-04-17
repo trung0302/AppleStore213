@@ -72,6 +72,7 @@ const images = {
     mayDocSach: require('./accessoryCategories/may-doc-sach.png'),
     sacCap: require('./accessoryCategories/sac-cap.png'),
     sacDuPhong: require('./accessoryCategories/sac-du-phong.png'),
+    sale: require("./sale.jpg"),
 };
 
 export default images;
