@@ -12,6 +12,7 @@ import Avatar from "../Pages/Customer/Avatar";
 import ProductReviews from "../Pages/Customer/ProductReviews";
 import Addaddress from "../Pages/Customer/addAddress";
 import Orderdetail from "../Pages/Customer/Orderdetail";
+import Baohanh from "../Pages/Customer/Baohanh";
 
 import Billdetail from "../Pages/Payment/Billdetail";
 import PaymentInfo from "../Pages/Payment/PaymentInfo";
@@ -25,6 +26,7 @@ import SearchResults from "../Pages/SearchResults";
 import ProductList from '../Pages/ProductList'
 import AnotherProductList from '../Pages/ProductList/Components/AnotherProductList'
 import NewsCategory from "../Pages/NewsCategory";
+import BaohanhDetail from "../Pages/Customer/BaohanhDetail";
 
 const publicRoutes = [
     { path: "/", component: <Home /> },
@@ -100,6 +102,9 @@ const publicRoutes = [
     { path: "/customer/changePassword", component: <ChangePassword /> },
     { path: "/customer/avatar", component: <Avatar /> },
     { path: "/customer/productReviews", component: <ProductReviews /> },
+    { path: "/customer/baohanh", component: <Baohanh /> },
+    { path: "/customer/baohanh/detail/:id", component: <BaohanhDetail /> },
+
     { path: "/detaiproduct", component: <DetailProduct /> },
     { path: "/customer/orderdetail/:madonhang/:status", component: <Orderdetail /> },
     { path: "/billdetail", component: <Billdetail /> },
