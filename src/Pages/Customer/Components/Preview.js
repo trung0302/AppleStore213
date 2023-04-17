@@ -18,7 +18,7 @@ export default ({ productname, date, star, comment}) => {
     }
 
     return (
-        <div className={styles.bg_white +" rounded-lg w-full mb-8"}>
+        <div className={styles.bg_white +" rounded-lg w-full mb-8 drop-shadow-lg"}>
             <div className="px-4 py-4">
                 <ul>
                     <li className="mb-4">

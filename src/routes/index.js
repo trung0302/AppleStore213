@@ -27,6 +27,7 @@ import ProductList from '../Pages/ProductList'
 import AnotherProductList from '../Pages/ProductList/Components/AnotherProductList'
 import NewsCategory from "../Pages/NewsCategory";
 import BaohanhDetail from "../Pages/Customer/BaohanhDetail";
+import KhuyenMai from "../Pages/KhuyenMai";
 
 const publicRoutes = [
     { path: "/", component: <Home /> },
@@ -104,6 +105,7 @@ const publicRoutes = [
     { path: "/customer/productReviews", component: <ProductReviews /> },
     { path: "/customer/baohanh", component: <Baohanh /> },
     { path: "/customer/baohanh/detail/:id", component: <BaohanhDetail /> },
+    { path: "/khuyenmai", component: <KhuyenMai /> },
 
     { path: "/detaiproduct", component: <DetailProduct /> },
     { path: "/customer/orderdetail/:madonhang/:status", component: <Orderdetail /> },

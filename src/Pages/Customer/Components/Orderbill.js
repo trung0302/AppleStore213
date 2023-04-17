@@ -5,7 +5,7 @@ import Status from "./Status";
 
 export default ({madonhang, date, total, method, status}) => {
     return (
-        <div className={styles.bg_white +" rounded-lg w-full mb-8 relative"}>
+        <div className={styles.bg_white +" rounded-lg w-full mb-8 relative drop-shadow-lg"}>
             <div className="px-4 py-4">
                 <ul>
                     <li className="mx-3 mb-4">
