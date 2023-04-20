@@ -63,10 +63,10 @@ function AdvertisementSlide(){
             </div> */}
           <div className="splide__arrows">
                 <button className="splide__arrow splide__arrow--prev  border-none bg-slate-400 opacity-50 ml-[80px] w-[60px] h-[60px]">
-                    <NavigateNextIcon />
+                    <NavigateNextIcon sx={{ width: 24, height: 24 }} />
                 </button>
                 <button className="splide__arrow splide__arrow--next  border-none bg-slate-400 opacity-50 mr-[80px] w-[60px] h-[60px]">
-                    <NavigateNextIcon />
+                    <NavigateNextIcon sx={{ width: 24, height: 24 }} />
                 </button>
           </div>
         </Splide>

@@ -12,6 +12,7 @@ import Avatar from "../Pages/Customer/Avatar";
 import ProductReviews from "../Pages/Customer/ProductReviews";
 import Addaddress from "../Pages/Customer/addAddress";
 import Orderdetail from "../Pages/Customer/Orderdetail";
+import Baohanh from "../Pages/Customer/Baohanh";
 
 import Billdetail from "../Pages/Payment/Billdetail";
 import PaymentInfo from "../Pages/Payment/PaymentInfo";
@@ -21,11 +22,12 @@ import Login from "../Pages/Login_Register/Login";
 import Register from "../Pages/Login_Register/Register";
 import Policy from "../Pages/Policy";
 import NewPass from "../Pages/Login_Register/ForgetPass/NewPass";
-
 import SearchResults from "../Pages/SearchResults";
 import ProductList from '../Pages/ProductList'
 import AnotherProductList from '../Pages/ProductList/Components/AnotherProductList'
 import NewsCategory from "../Pages/NewsCategory";
+import BaohanhDetail from "../Pages/Customer/BaohanhDetail";
+import KhuyenMai from "../Pages/KhuyenMai";
 
 const publicRoutes = [
     { path: "/", component: <Home /> },
@@ -101,6 +103,10 @@ const publicRoutes = [
     { path: "/customer/changePassword", component: <ChangePassword /> },
     { path: "/customer/avatar", component: <Avatar /> },
     { path: "/customer/productReviews", component: <ProductReviews /> },
+    { path: "/customer/baohanh", component: <Baohanh /> },
+    { path: "/customer/baohanh/detail/:id", component: <BaohanhDetail /> },
+    { path: "/khuyenmai", component: <KhuyenMai /> },
+
     { path: "/detaiproduct", component: <DetailProduct /> },
     { path: "/customer/orderdetail/:madonhang/:status", component: <Orderdetail /> },
     { path: "/billdetail", component: <Billdetail /> },
@@ -109,10 +115,11 @@ const publicRoutes = [
 
     { path: "/login", component: <Login /> },
     { path: "/register", component: <Register /> },
-    { path: "/resetpass/:token", component: <NewPass /> },
+    { path: "/resetpass/:id/:token", component: <NewPass /> },
     { path: "/policy", component: <Policy /> },
 
     { path: "/search", component: <SearchResults /> },
+    
 ];
 
 export { publicRoutes };

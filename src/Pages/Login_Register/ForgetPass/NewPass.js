@@ -73,14 +73,14 @@ const NewPass = () => {
         }
     }
     const authAxios = axios.create({
-      baseURL: 'https://showroomcar104.onrender.com/users',
+      baseURL: 'http://localhost:3001/auth',
       headers:{
         Authorization:`Bearer ${token}`
       }
     })
     const sendRequestSU = async ()=>{
         const res = await authAxios
-        .put(`/resetPassword`,{
+        .post(`/resetpass`,{
           password:String(inputs.password),
           verifyToken:String(token)
         })
