@@ -1,21 +1,22 @@
-import DetailBottom from "./DetailBottom";
 
 import { Splide, SplideSlide } from "@splidejs/react-splide";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import images from "../../assets/image";
 import classes from "./DetailProduct.module.css";
 import Rating from "@mui/material/Rating";
+import DetailBottom from "./detailBottom";
 
 function DetailProduct() {
+    const [currentSlide,setCurrentSlide] = useState(0);
     const mainCarouselRef = useRef(null);
     const thumbnailCarouselRef = useRef(null);
 
     const mainCarouselOptions = {
         perPage: 1,
         pagination: false,
-        arrows: true,
+        arrows: false,
         rewind: true,
-        gap: '1rem',
+        gap: '2rem',
         onMove: () => {
             thumbnailCarouselRef.current.go(mainCarouselRef.current.index);
         }
@@ -24,12 +25,12 @@ function DetailProduct() {
     const thumbnailCarouselOptions = {
         fixedWidth: 100,
         fixedHeight: 100,
-        gap: '0.5rem',
-        cover: false,
+        gap: '0.1rem',
+        cover: true,
         pagination: false,
         arrows: true,
         focus: 'center',
-        updateOnMove: true,
+        updateOnMove: false,
         perPage: 3,
         breakpoints: {
             768: {
@@ -38,28 +39,40 @@ function DetailProduct() {
             },
         },
     };
-
+    const handleThumbnailClick = (index) => {
+        setCurrentSlide(index);
+        mainCarouselRef.current.go(index);
+      };
     return (
 
         <div className={classes.container}>
             <section className={classes.detailproduct}>
                 <section className={classes.product_splide}>
                     <Splide
+                        className={classes.mainSplide}
                         options={mainCarouselOptions}
                         ref={mainCarouselRef}
                     >
                         <SplideSlide>
-                            <img src={images.ip14prm} alt="Image 1" />
+                            
+                                <img src={images.ip14prm} alt="Image 1" />
                         </SplideSlide>
                         <SplideSlide>
-                            <img src={images.airpod2} alt="Image 2" />
+                                <img src={images.airpod2} alt="Image 2" />
                         </SplideSlide>
                         <SplideSlide>
-                            <img src={images.ip14prm} alt="Image 3" />
+                                <img src={images.ip14prm} alt="Image 3" />
+                        </SplideSlide>
+                        <SplideSlide>
+                            <img src={images.mayAnh} alt="Image 4" />
+                        </SplideSlide>
+                        <SplideSlide>
+                            <img src={images.ip14prm} alt="Image 5" />
                         </SplideSlide>
                     </Splide>
 
                     <Splide
+                        className={classes.optionSplide}
                         options={thumbnailCarouselOptions}
                         ref={thumbnailCarouselRef}
                         onFirstInit={() => {
@@ -67,13 +80,23 @@ function DetailProduct() {
                         }}
                     >
                         <SplideSlide>
-                            <img src={images.ip14prm} alt="Thumbnail 1" />
+                            <div>
+                                <img src={images.ip14prm} alt="Thumbnail 1"
+                                onClick={() => handleThumbnailClick(0)} />
+                            </div>
+                            
                         </SplideSlide>
                         <SplideSlide>
-                            <img src={images.airpod2} alt="Thumbnail 2" />
+                            <div>
+                                <img src={images.airpod2} alt="Thumbnail 2" 
+                                onClick={() => handleThumbnailClick(1)}/>
+                            </div>
                         </SplideSlide>
                         <SplideSlide>
-                            <img src={images.ip14prm} alt="Thumbnail 3" />
+                            <div>
+                                <img src={images.ip14prm} alt="Thumbnail 3" 
+                                onClick={() => handleThumbnailClick(2)}/>
+                            </div>           
                         </SplideSlide>
                     </Splide>
                 </section>
@@ -87,8 +110,9 @@ function DetailProduct() {
                             <div className={classes.rating}>
                                 <Rating name="size-small" defaultValue={2} size="big" />
                             </div>
-                            <a>Danh gia</a>
-                            <a>So sanh</a>
+                            <a>Đánh giá</a>
+                            <a>|</a>
+                            <a>So sánh</a>
                         </div>
                         <hr />
 
@@ -101,11 +125,11 @@ function DetailProduct() {
                             <label>Dung lượng</label>
                             <ul>
                                 <li>
-                                    <label>256GB</label>
+                                    256GB
                                 </li>
 
                                 <li>
-                                    <label>512GB</label>
+                                    512GB
                                 </li>
                             </ul>
 
@@ -114,16 +138,21 @@ function DetailProduct() {
                                 <li>8GB</li>
                             </ul>
                             <label>Màu sắc</label>
-                            <ul>
-                                <li>
-                                    <label>Pink</label>
-                                </li>
-
-                                <li>
-                                    <label>Red</label>
-                                </li>
-                            </ul>
+                            
                         </div>
+                        <div className={classes.itemColor}>
+                        <ul >
+                                <li className={classes.red}>
+                                </li>
+                                <li className={classes.pink}>
+                                </li>
+                                <li className={classes.green}>
+                                </li>
+                                <li className={classes.yellow}>
+                                </li>
+                        </ul>
+                        </div>
+                        
                         <div className={classes.confirm}>
                             <a>Xem cửa hàng có sẵn sản phẩm</a>
                             <button>MUA NGAY</button>

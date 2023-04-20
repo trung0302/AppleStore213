@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 export default ({name, email, sdt, address}) => {
     return (
-        <div className={styles.bg_white +" rounded-lg w-full mb-8"}>
+        <div className={styles.bg_white +" rounded-lg w-full mb-8 drop-shadow-lg"}>
             <div className="flex justify-between items-center">
                 <div className="px-4 py-4 ">
                     <LocationOnIcon sx={{ fontSize: 20}}></LocationOnIcon>

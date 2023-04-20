@@ -9,6 +9,7 @@ import HistoryIcon from '@mui/icons-material/History';
 import { blue } from "@mui/material/colors";
 import NavTag from "../Components/NavTag";
 import Preview from "../Components/Preview";
+import GppGoodIcon from '@mui/icons-material/GppGood';
 
 function ProductReviews () {
 
@@ -26,8 +27,10 @@ function ProductReviews () {
                         aCss={"mx-4 my-4"} setIcon={<LockIcon sx={{ fontSize: 30 }}></LockIcon>} />
                     <NavTag DivCss={"px-4 py-8"} setHref={"/customer/avatar"} spanCss={"mx-6"} spanContent={"Ảnh đại diện"}
                         aCss={"mx-4 my-4"} setIcon={<CropOriginalIcon sx={{ fontSize: 30 }}></CropOriginalIcon>} />
-                    <NavTag DivCss={styles.bg_blue +" rounded-lg px-4 py-8 mx-6 my-8 mb-8"} setHref={"#"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
+                    <NavTag DivCss={styles.bg_blue +" rounded-lg px-4 py-8 mx-6 my-8"} setHref={"#"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
                         aCss={styles.text_blue} setIcon={<HistoryIcon sx={{ fontSize: 30, color: blue[700] }}></HistoryIcon>} />
+                    <NavTag DivCss={"px-4 py-8 mb-8"}  setHref={"/customer/baohanh"} spanCss={"mx-6"} spanContent={"Bảo hành"}
+                        aCss={"mx-4 my-4"} setIcon={<GppGoodIcon sx={{ fontSize: 30 }}></GppGoodIcon>} />
                 </div>
                 <div className={"lg:w-2/5 my-12"}>
                     <div className="flex justify-end">
