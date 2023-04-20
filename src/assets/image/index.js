@@ -1,5 +1,5 @@
 const images = {
-
+    // logo: require("./logo.png"),
     notFoundGif: require("./notfound.gif"),
     ip14prm: require("./ip14prm.png"),
     airpod2: require("./airpod2.jpeg"),
@@ -11,6 +11,7 @@ const images = {
 
     momo: require("./momo.png"),
     zalopay: require("./zalopay.png"),
+    shipcod: require("./shipcod.jpg"),
     loginBG: require('./loginbg.jpg'),
     banner1: require('./banner1.webp'),
     banner2: require('./banner2.jpeg'),
@@ -25,6 +26,7 @@ const images = {
     BonusBanner3: require('./BonusBanner3.webp'),
     BannerBottom: require('./BannerBottom.webp'),
     khaitruong: require('./khaitruong.webp'),
+    tintuc: require('./tintuc.jpeg'),
 
 
     iphoneBanner1: require('./iphoneBanner/iphonebanner1.webp'),
@@ -70,6 +72,7 @@ const images = {
     mayDocSach: require('./accessoryCategories/may-doc-sach.png'),
     sacCap: require('./accessoryCategories/sac-cap.png'),
     sacDuPhong: require('./accessoryCategories/sac-du-phong.png'),
+    sale: require("./sale.jpg"),
 };
 
 export default images;

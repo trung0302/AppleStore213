@@ -65,13 +65,7 @@
 }
 
 .active {
-    display: block;
+    display: inline-block;
 }
 
-.active h2{
-    font-size: 30px;
-}
 
-.active p {
-    font-size: 24px;
-}

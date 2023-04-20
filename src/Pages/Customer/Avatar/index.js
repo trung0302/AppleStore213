@@ -8,6 +8,7 @@ import HistoryIcon from '@mui/icons-material/History';
 import { blue } from "@mui/material/colors";
 import NavTag from "../Components/NavTag";
 import AvatarImg from "../Components/AvatarImg";
+import GppGoodIcon from '@mui/icons-material/GppGood';
 
 function Avatar () {
     return (
@@ -24,8 +25,10 @@ function Avatar () {
                         aCss={"mx-4 my-4"} setIcon={<LockIcon sx={{ fontSize: 30 }}></LockIcon>} />
                     <NavTag DivCss={styles.bg_blue +" rounded-lg px-4 py-8 mx-6 my-8"} setHref={"#"} spanCss={"mx-6"} spanContent={"Ảnh đại diện"}
                         aCss={styles.text_blue} setIcon={<CropOriginalIcon sx={{ fontSize: 30, color: blue[700] }}></CropOriginalIcon>} />
-                    <NavTag DivCss={"px-4 py-8 mb-8"} setHref={"/customer/productReviews"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
+                    <NavTag DivCss={"px-4 py-8"} setHref={"/customer/productReviews"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
                         aCss={"mx-4 my-4"} setIcon={<HistoryIcon sx={{ fontSize: 30 }}></HistoryIcon>} />
+                    <NavTag DivCss={"px-4 py-8"}  setHref={"/customer/baohanh"} spanCss={"mx-6"} spanContent={"Bảo hành"}
+                        aCss={"mx-4 my-4"} setIcon={<GppGoodIcon sx={{ fontSize: 30 }}></GppGoodIcon>} />
                 </div>
                 <div className={styles.bg_white +" h-fit grid grid-cols-2 rounded-lg lg:w-2/5 my-12"}>
                     <div className="mx-4 my-4 flex flex-col h-fit">

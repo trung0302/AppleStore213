@@ -4,16 +4,61 @@ import Select from "react-select";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import images from "../../../../assets/image";
+import { Store } from "./Store";
+import styles from "./Payment.module.css";
 
-function Payment() {
+function Payment(props) {
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
+    const [wards, setWards] = useState([]);
+    const [stores, setStores] = useState([]);
+
     const [selectedProvince, setSelectedProvince] = useState(null);
     const [selectedDistrict, setSelectedDistrict] = useState(null);
+    const [selectedWard, setSelectedWard] = useState(null);
+    const [selectedStore, setSelectedStore] = useState(null);
+    const [name, setName] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [phone, setPhone] = useState(null);
+    const [payment, setPayment] = useState(null);
+    const [address, setAddress] = useState(null);
+
     const [method, setMethod] = useState("Store");
 
     const [showStore, setShowStore] = useState(true);
     const [showAddress, setShowAddress] = useState(false);
+    const { handleGetData } = props;
+    const dataParent = {
+        name,
+        phone,
+        email,
+        selectedProvince,
+        selectedDistrict,
+        method,
+        selectedStore,
+        selectedWard,
+        address,
+        payment,
+    };
+
+    useEffect(() => {
+        handleGetData(dataParent);
+    }, []);
+
+    useEffect(() => {
+        handleGetData(dataParent);
+    }, [
+        selectedWard,
+        selectedStore,
+        selectedProvince,
+        selectedDistrict,
+        method,
+        name,
+        email,
+        phone,
+        payment,
+        address,
+    ]);
 
     // Render tên tỉnh, tpho
     useEffect(() => {
@@ -35,6 +80,7 @@ function Payment() {
     const handleChangeProvince = (selectedOption) => {
         setSelectedProvince(selectedOption);
         setSelectedDistrict(null);
+        setSelectedWard(null);
         axios
             .get(
                 `https://provinces.open-api.vn/api/p/${selectedOption.code}?depth=2`
@@ -49,9 +95,51 @@ function Payment() {
             });
     };
 
+    // Call handleChangDistrict khi method thay đổi
+    useEffect(() => {
+        if (selectedDistrict) {
+            handleChangeDistrict(selectedDistrict);
+        }
+    }, [method]);
+
     // Handle change District
     const handleChangeDistrict = (selectedOption) => {
         setSelectedDistrict(selectedOption);
+        console.log(selectedOption);
+        setSelectedWard(null);
+        setSelectedStore(null);
+        if (method === "Ship") {
+            axios
+                .get(
+                    `https://provinces.open-api.vn/api/d/${selectedOption.value}?depth=2`
+                )
+                .then((response) => {
+                    console.log(response.data);
+                    const options = response.data.wards.map((item) => ({
+                        value: item.code,
+                        label: item.name,
+                    }));
+                    setWards(options);
+                });
+        } else {
+            const options = Store?.find(
+                (item) => item.code === selectedOption.value
+            )?.stores.map((item) => ({
+                value: item.code,
+                label: item.name,
+            }));
+            setStores(options);
+        }
+    };
+
+    // Handle change Ward
+    const handleChangeWard = (selectedOption) => {
+        setSelectedWard(selectedOption);
+    };
+
+    // Handle change Store
+    const handleChangeStore = (selectedOption) => {
+        setSelectedStore(selectedOption);
     };
 
     // Handle change radio input
@@ -62,6 +150,30 @@ function Payment() {
         console.log(e.target.value);
     };
 
+    // Handle change name input
+    const handleNameChange = (e) => {
+        setName(e.target.value);
+    };
+
+    // Handle change phone input
+    const handlePhoneChange = (e) => {
+        setPhone(e.target.value);
+    };
+
+    // Handle change email input
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    };
+
+    // Handle change payment
+    const handlePaymentChange = (e) => {
+        setPayment(e.target.value);
+    };
+
+    // Handle change payment
+    const handleAddressChange = (e) => {
+        setAddress(e.target.value);
+    };
     // Custome select style
     const customStyles = {
         control: (provided, state) => ({
@@ -75,44 +187,98 @@ function Payment() {
             <div className="w-full bg-white p-8 rounded-[8px] mt-6">
                 {/* Thông tin khách hàng */}
                 <div className="grid grid-cols-2 gap-6 mb-6">
-                    <input
-                        type="text"
-                        value="Trung"
-                        placeholder="Nhập họ tên"
-                        required
-                        className="col-span-2 h-[48px] px-[16px] py-[8px] text-[16px] text-[#777]
+                    <div className="col-span-2">
+                        <div className="text-[14px] font-light mb-[8px]">
+                            Họ tên:
+                        </div>
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={handleNameChange}
+                            placeholder="Nhập họ tên"
+                            // defaultValue="Trung"
+                            required
+                            className="h-[48px] w-full px-[16px] py-[8px] text-[16px] text-[#777]
                          outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
-                    />
-                    <input
-                        type="text"
-                        value="090010008"
-                        placeholder="Nhập số điện thoại"
-                        required
-                        className="h-[48px] px-[16px] py-[8px] text-[16px] text-[#777] 
-                        outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
-                    />
-                    <input
-                        type="text"
-                        value="uit@gmail.com"
-                        placeholder="Nhập Email"
-                        required
-                        className="h-[48px] px-[16px] py-[8px] text-[16px] text-[#777] 
-                        outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
-                    />
+                        />
+                    </div>
+                    <div>
+                        <div className="text-[14px] font-light mb-[8px]">
+                            Số điện thoại:
+                        </div>
+                        <input
+                            type="number"
+                            value={phone}
+                            // defaultValue="123456789"
+                            onChange={handlePhoneChange}
+                            placeholder="Nhập số điện thoại"
+                            required
+                            className={
+                                styles.noSpinner +
+                                " h-[48px] w-full px-[16px] py-[8px] text-[16px] text-[#777] appearance-none outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
+                            }
+                        />
+                    </div>
+                    <div>
+                        <div className="text-[14px] font-light mb-[8px]">
+                            Email:
+                        </div>
+                        <input
+                            type="email"
+                            value={email}
+                            // defaultValue="uit@gm.uit.edu.vn"
+                            onChange={handleEmailChange}
+                            placeholder="Nhập Email"
+                            required
+                            className="h-[48px] w-full px-[16px] py-[8px] text-[16px] text-[#777] outline-none border
+                             border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
+                        />
+                    </div>
                 </div>
 
                 {/* Hình thức nhận hàng */}
                 <label className="font-semibold text-2xl">
                     Hình thức nhận hàng
                 </label>
+                <div className="flex items-center mt-[8px]">
+                    <input
+                        id="store"
+                        type="radio"
+                        name="store"
+                        value="Store"
+                        onChange={handleChangeMethod}
+                        checked={method === "Store"}
+                    />
+                    <label
+                        htmlFor="store"
+                        className="text-2xl ml-[4px] mt-[2px]"
+                    >
+                        Nhận tại cửa hàng
+                    </label>
+                    <input
+                        id="address"
+                        name="store"
+                        type="radio"
+                        className="ml-8"
+                        onChange={handleChangeMethod}
+                        value="Ship"
+                        checked={method === "Ship"}
+                    />
+                    <label
+                        htmlFor="address"
+                        className="text-2xl ml-[4px] mb-[2px]"
+                    >
+                        Giao hàng tận nơi
+                    </label>
+                </div>
                 <div className="grid grid-cols-2 gap-6">
                     <div>
                         <div className="text-[14px] font-light my-[8px]">
                             Tỉnh, thành phố:
                         </div>
                         <Select
-                            options={provinces}
                             // isClearable
+                            options={provinces}
                             className="text-[16px]"
                             closeMenuOnSelect={true}
                             getOptionLabel={(option) => option.label}
@@ -134,63 +300,60 @@ function Payment() {
                             closeMenuOnSelect={true}
                             isDisabled={!selectedProvince}
                             styles={customStyles}
+                            getOptionLabel={(option) => option.label}
+                            getOptionValue={(option) => option.code}
                             placeholder="Chọn quận/huyện"
                         />
                     </div>
-                    <div className="flex items-center">
-                        <input
-                            id="store"
-                            type="radio"
-                            name="store"
-                            value="Store"
-                            onChange={handleChangeMethod}
-                            checked={method === "Store"}
-                        />
-                        <label
-                            htmlFor="store"
-                            className="text-2xl ml-[4px] mb-[2px]"
-                        >
-                            Nhận tại cửa hàng
-                        </label>
-                        <input
-                            id="address"
-                            name="store"
-                            type="radio"
-                            className="ml-8"
-                            onChange={handleChangeMethod}
-                            value="Ship"
-                            checked={method === "Ship"}
-                        />
-                        <label
-                            htmlFor="address"
-                            className="text-2xl ml-[4px] mb-[2px]"
-                        >
-                            Giao hàng tận nơi
-                        </label>
-                    </div>
-                    <div></div>
+
                     {showStore && (
-                        <Select
-                            className="text-[16px] col-span-2"
-                            value={selectedDistrict}
-                            onChange={handleChangeDistrict}
-                            options={districts}
-                            closeMenuOnSelect={true}
-                            styles={customStyles}
-                            placeholder="Chọn địa chỉ cửa hàng"
-                        />
+                        <div className="col-span-2">
+                            <div className="text-[14px] font-light mb-[8px]">
+                                Cửa hàng:
+                            </div>
+                            <Select
+                                className="text-[16px]"
+                                value={selectedStore}
+                                onChange={handleChangeStore}
+                                options={stores}
+                                closeMenuOnSelect={true}
+                                isDisabled={!selectedDistrict}
+                                styles={customStyles}
+                                placeholder="Chọn địa chỉ cửa hàng"
+                            />
+                        </div>
                     )}
                     {showAddress && (
-                        <div className="col-span-2">
-                            <div className="text-[14px] mb-3">Địa chỉ cụ thể:</div>
-                            <input
-                                type="text"
-                                // value="Trung"
-                                placeholder="Nhập địa chỉ nhận hàng"
-                                required
-                                className="h-[48px] w-full px-[16px] py-[8px] text-[16px] text-[#777]
-                             outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
-                            />
+                        <div className="col-span-2 transition-all">
+                            <div>
+                                <div className="text-[14px] font-light mb-[8px]">
+                                    Phường, xã, thị trấn:
+                                </div>
+                                <Select
+                                    className="text-[16px]"
+                                    value={selectedWard}
+                                    onChange={handleChangeWard}
+                                    options={wards}
+                                    closeMenuOnSelect={true}
+                                    isDisabled={!selectedDistrict}
+                                    styles={customStyles}
+                                    placeholder="Chọn phường, xã, thị trấn"
+                                />
+                            </div>
+                            <div className="">
+                                <div className="text-[14px] mt-[15px] mb-[8px]">
+                                    Địa chỉ cụ thể:
+                                </div>
+                                <input
+                                    type="text"
+                                    // value="Trung"
+                                    onChange={handleAddressChange}
+                                    placeholder="Nhập số nhà, tên đường"
+                                    required
+                                    className="h-[48px] w-full px-[16px] py-[8px] text-[16px] text-[#777]
+                                outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
+                                />
+                            </div>
                         </div>
                     )}
                 </div>
@@ -215,6 +378,7 @@ function Payment() {
                             id="momo"
                             name="method"
                             value="momo"
+                            onChange={handlePaymentChange}
                         />
                         <img
                             src={images.momo}
@@ -232,6 +396,7 @@ function Payment() {
                             id="zalopay"
                             name="method"
                             value="zalopay"
+                            onChange={handlePaymentChange}
                         />
                         <img
                             src={images.zalopay}
@@ -240,6 +405,26 @@ function Payment() {
                         />
                         <div className="text-[14px]">
                             Thanh toán bằng ZaloPay
+                        </div>
+                    </label>
+                    <label
+                        htmlFor="shipcod"
+                        className="flex border border-solid border-[#ddd] rounded-[8px] py-5 px-10 items-center cursor-pointer"
+                    >
+                        <input
+                            type="radio"
+                            id="shipcod"
+                            name="method"
+                            value="shipcod"
+                            onChange={handlePaymentChange}
+                        />
+                        <img
+                            src={images.shipcod}
+                            alt="COD"
+                            className="h-[36px] w-[36px] rounded-[8px] mx-5"
+                        />
+                        <div className="text-[14px]">
+                            Thanh toán khi nhận hàng
                         </div>
                     </label>
                 </div>

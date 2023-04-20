@@ -9,6 +9,7 @@ import { blue } from "@mui/material/colors";
 import NavTag from "../Components/NavTag";
 import LabelAndInput from "../Components/LabelAndInput";
 import Notice from "../Components/Notice";
+import GppGoodIcon from '@mui/icons-material/GppGood';
 
 function ChangePassword () {
     return (
@@ -25,8 +26,10 @@ function ChangePassword () {
                         aCss={styles.text_blue} setIcon={<LockIcon sx={{ fontSize: 30, color: blue[700] }}></LockIcon>} />
                     <NavTag DivCss={"px-4 py-8"} setHref={"/customer/avatar"} spanCss={"mx-6"} spanContent={"Ảnh đại diện"}
                         aCss={"mx-4 my-4"} setIcon={<CropOriginalIcon sx={{ fontSize: 30 }}></CropOriginalIcon>} />
-                    <NavTag DivCss={"px-4 py-8 mb-8"} setHref={"/customer/productReviews"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
+                    <NavTag DivCss={"px-4 py-8"} setHref={"/customer/productReviews"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
                         aCss={"mx-4 my-4"} setIcon={<HistoryIcon sx={{ fontSize: 30 }}></HistoryIcon>} />
+                    <NavTag DivCss={"px-4 py-8 mb-8"}  setHref={"/customer/baohanh"} spanCss={"mx-6"} spanContent={"Bảo hành"}
+                        aCss={"mx-4 my-4"} setIcon={<GppGoodIcon sx={{ fontSize: 30 }}></GppGoodIcon>} />
                 </div>
                 <div className={styles.bg_white +" rounded-lg lg:w-2/5 my-12"}>
                     <Notice divCss={"mx-4 mt-8 mb-4 bg-slate-200 px-3 py-3 rounded-lg w-fit"} labelCss={"text-xl"} labelContent={"Lưu ý: Mật khẩu phải có tối thiểu 8 ký tự bao gồm chữ, số và các ký tự đặc biệt"}></Notice>

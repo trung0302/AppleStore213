@@ -1,27 +1,122 @@
 import styles from "./Order.module.css";
 import images from "../../assets/image/index";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
-import { DeleteOutline } from "@mui/icons-material";
+import { DeleteOutline, Receipt, ReceiptOutlined } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import ProductHint from "./Components/ProductHint/ProductHint";
 import Payment from "./Components/Payment/Payment";
+import Promotion from "./Components/PromotionList";
+import PromotionList from "./Components/PromotionList";
 
 function Order() {
-    const [qty, setQty] = useState(0);
+    const [qty, setQty] = useState(1);
+    const [promotion, setPromotion] = useState(true);
+    const [isChecked, setIsChecked] = useState(false);
+    const [voucherDisplay, setVoucherDisplay] = useState(false);
+    const [dataPayment, setDataPayment] = useState(null);
+    // const [dataSend, setDataSend] = useState(null);
+
+    const navigate = useNavigate();
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+    const handleGetData = (data) => {
+        setDataPayment(data);
+    };
+
+    // const products = [];
+
+    console.log(dataPayment);
 
     const increaseQty = () => {
         setQty((prev) => Number(prev) + 1);
     };
 
     const decreaseQty = () => {
-        if (qty > 0) {
+        if (qty > 1) {
             setQty((prev) => Number(prev) - 1);
         }
     };
 
     const handleQtyChange = (e) => {
         setQty(e.target.value);
+    };
+
+    const handleCheckBoxChange = (e) => {
+        setIsChecked(e.target.checked);
+    };
+
+    const handleFailOrder = () => {
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Vui lòng chọn và điền đầy đủ thông tin trước khi thanh toán!",
+            showConfirmButton: false,
+            timer: 1500,
+            padding: "0 0 20px 0",
+        });
+    };
+    // console.log(typeof dataPayment?.selectedProvince);
+    const handleOrder = (e) => {
+        e.preventDefault();
+        if (
+            dataPayment.name &&
+            dataPayment.phone &&
+            dataPayment.email &&
+            dataPayment.selectedProvince &&
+            dataPayment.selectedDistrict &&
+            dataPayment.method &&
+            dataPayment.payment
+        ) {
+            if (emailRegex.test(dataPayment.email)) {
+                if (dataPayment.method === "Ship") {
+                    if (dataPayment.address && dataPayment.selectedWard) {
+                        if (isChecked) {
+                            navigate("/billdetail", { state: { dataPayment } });
+                        } else {
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: "Vui lòng chấp nhận các điều khoản và điều kiện!",
+                                showConfirmButton: false,
+                                timer: 1500,
+                                padding: "0 0 20px 0",
+                            });
+                        }
+                    } else handleFailOrder();
+                } else if (dataPayment.method === "Store") {
+                    if (dataPayment.selectedStore) {
+                        if (isChecked) {
+                            navigate("/billdetail");
+                        } else {
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: "Vui lòng chấp nhận các điều khoản và điều kiện!",
+                                showConfirmButton: false,
+                                timer: 1500,
+                                padding: "0 0 20px 0",
+                            });
+                        }
+                    } else handleFailOrder();
+                }
+            } else {
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Vui lòng nhập đúng format Email!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    padding: "0 0 20px 0",
+                });
+            }
+        } else handleFailOrder();
+    };
+
+    const handleDisplayVoucher = () => {
+        setVoucherDisplay(true);
     };
 
     return (
@@ -217,6 +312,28 @@ function Order() {
                                 Áp dụng
                             </button>
                         </div>
+                        {/* Mã giảm giá */}
+                        <div className=" mb-[16px] flex justify-between">
+                            <div className="flex items-center">
+                                <ReceiptOutlined
+                                    sx={{
+                                        marginRight: "6px",
+                                        fontSize: "20px",
+                                        color: "#0066cc",
+                                    }}
+                                />
+                                <div className="text-2xl">
+                                    AppleDunk voucher
+                                </div>
+                            </div>
+                            <button
+                                className="border border-solid border-[#0066cc] rounded-[4px] px-3 py-1 
+                            text-[10px] text-[#0066cc] hover:bg-sky-100"
+                                onClick={handleDisplayVoucher}
+                            >
+                                Chọn mã giảm giá
+                            </button>
+                        </div>
 
                         {/* Tổng giá */}
                         <div className={styles.totals}>
@@ -230,6 +347,18 @@ function Order() {
                                             "đ"}
                                     </div>
                                 </div>
+                                {promotion && (
+                                    <div className="flex justify-between py-2">
+                                        <div className="text-2xl  text-[#86868B]">
+                                            Voucher giảm giá:
+                                        </div>
+                                        <div className="text-[16px]">
+                                            &minus;{" "}
+                                            {Number(45000000).toLocaleString() +
+                                                "đ"}
+                                        </div>
+                                    </div>
+                                )}
                                 <div className="flex justify-between py-4 mb-6">
                                     <div className="text-[18px] font-semibold text-black">
                                         Tổng cộng:
@@ -248,6 +377,8 @@ function Order() {
                                 type="checkbox"
                                 id="service"
                                 className="w-[20px] h-[20px] mr-4"
+                                checked={isChecked}
+                                onChange={handleCheckBoxChange}
                             ></input>
                             <label htmlFor="service" className="text-[14px]">
                                 Tôi đã đọc và đồng ý với
@@ -259,24 +390,43 @@ function Order() {
                             </label>
                         </div>
 
-                        <button className="w-full h-[48px] px-8 py-4 text-[16px] text-white bg-[#0066CC] rounded-[8px]">Tiến hành đặt hàng</button>
+                        <button
+                            className="w-full h-[48px] px-8 py-4 text-[16px] text-white bg-[#0066CC] rounded-[8px]"
+                            onClick={handleOrder}
+                        >
+                            Tiến hành đặt hàng
+                        </button>
 
-                        <div className="text-[#e4434b] text-[14px] pr-4 font-light mt-6">&#40;&#42;&#41; Phí phụ thu sẽ được tính khi bạn tiến hành thanh toán.</div>
+                        <div className="text-[#e4434b] text-[14px] pr-4 font-light mt-6">
+                            &#40;&#42;&#41; Phí phụ thu sẽ được tính khi bạn
+                            tiến hành thanh toán.
+                        </div>
                     </div>
 
                     {/* Gợi ý sản phẩm */}
                     <div className={styles.productHint + " col-span-2"}>
-                        <label className="text-[24px] font-semibold">Gợi ý phụ kiện đi kèm</label>
+                        <label className="text-[24px] font-semibold">
+                            Gợi ý phụ kiện đi kèm
+                        </label>
                         <ProductHint />
                     </div>
-                    <div></div>                        
+                    <div></div>
                     {/* Thông tin thanh toán */}
                     <div className={styles.payment + " col-span-2"}>
-                        <label className="text-[24px] font-semibold">Thông tin thanh toán</label>
-                        <Payment />
+                        <label className="text-[24px] font-semibold">
+                            Thông tin thanh toán
+                        </label>
+                        <Payment handleGetData={handleGetData} />
                     </div>
                 </div>
             </div>
+
+            {
+                <PromotionList
+                    display={voucherDisplay}
+                    setDisplay={setVoucherDisplay}
+                />
+            }
         </div>
     );
 }

@@ -1,16 +1,98 @@
 import { useState } from "react";
 import "./DetailBottom.css";
+import { Description } from "@mui/icons-material";
+import StarRating from "./StarRating";
+import RatedStar from "./RatingStar/RatedStar";
+import RatingModal from "./RatingStar/RatingModal";
+import CheckIcon from '@mui/icons-material/Check';
+import StaticRatedStar from "./RatingStar/StaticRatedStar.js";
 
 function DetailBottom() {
     const [tongleState, setTongleState] = useState(1);
+    const [filterIndex, setFilterIndex] = useState(0);
 
+    // hàm set giá trị cho tab được chon
     const tongleTab = function(index) {
         setTongleState(index);
     }
 
-    return <div>Detail Product Bottom
-        <p className="text-lg">Hello world</p>
-          <div className="container">
+    // ham set gia tri cho loc comment: da mua hang, 5 sao, 4 sao, ...
+
+
+    // Biến để quyết định việc bật tắt modal, 1 là tắt, 0 là mở
+    const [closeRatingModal, setCloseRatingModal] = useState(1);
+
+    // Lấy giá trị rating
+    const [ratingOut, setRatingOut] = useState(null);
+
+    const demoProduct = {
+        name: "iPhone 14 Pro Max 128GB",
+        description: {
+            moTaChung: "iPhone 14 Pro Max. Bắt trọn chi tiết ấn tượng với Camera Chính 48MP. Trải nghiệm \
+            iPhone theo cách hoàn toàn mới với Dynamic Island và màn hình Luôn Bật. Công nghệ \
+            an toàn quan trọng – Phát Hiện Va Chạm  thay bạn gọi trợ giúp khi cần kíp",
+            title1: "Tính năng nổi bật",
+            des1: "Màn hình Super Retina XDR 6,7 inch với tính năng Luôn Bật và ProMotion \
+            Dynamic Island, một cách mới tuyệt diệu để tương tác với iPhone \
+            Camera Chính 48MP cho độ phân giải gấp 4 lần",
+            title2: "Pháp lý",
+            des2: "SOS Khẩn Cấp sử dụng kết nối mạng di động hoặc Cuộc Gọi Wi-Fi\
+            Màn hình có các góc bo tròn. Khi tính theo hình chữ nhật, kích thước \
+            màn hình theo đường chéo là 6,69 inch. Diện tích hiển thị thực tế nhỏ hơn.",
+        },
+
+        TSKT: [
+            [
+                "Màn hình",
+                "6.7 inch, Super Retina XDR, 2796 x 1290 Pixels",
+            ],
+            [
+                "Camera sau",
+                "48.0 MP + 12.0 MP + 12.0 MP"
+            ],
+            [
+                "Camera Selfie",
+                "12.0 MP",
+            ],
+            [
+                "Bộ nhớ trong",
+                "128 GB",
+            ],
+            [
+                "CPU",
+                "Apple A16 Bionic",
+            ],
+            [
+                "Dung lượng pin",
+                "29 Giờ",
+            ],
+            [
+                "Thẻ sim",
+                "1 - 1 eSIM, 1 Nano SIM",
+            ],
+            [
+                "Hệ điều hành",
+                "iOS 16",
+            ],
+            [
+                "Xuất xứ",
+                "Trung Quốc",
+            ],
+            [
+                "Thời gian ra mắt",
+                "09/2022",
+            ],
+        ]
+    }
+
+    const modalDanhGia = <div className="fixed w-full h-full bg-black opacity-70 z-10014">
+
+    </div>;
+
+    return (<div className="grid grid-cols-1 my-[50px]">
+       
+    {/* <div className="overlay"></div> */}
+    <div className="w-[800px] place-self-center">
                 <div className="tab-bar">
                     <div className={tongleState === 1 ? "tab-item tab-item-active":"tab-item"}
                         onClick={() => tongleTab(1)}>
@@ -33,21 +115,85 @@ function DetailBottom() {
                     <div className="line"></div>
                 </div>
                 {/* Tab content */}
-                <div class="tab-content">
-                    <div class={tongleState === 1 ? "tab-pane active":"tab-pane"}>
-                    <p>Mô tả sản phẩm</p>
+                <div class="tab-content w-full">
+                    <div class={tongleState === 1 ? "text-ellipsis overflow-hidden block":"hidden"}>
+                            <h1 className="text-[26px] font-bold">{demoProduct.name}</h1>
+                            <p className="text-[14px]">{demoProduct.description.moTaChung}</p>
+                     
+                            <h2 className="text-[18px] font-bold mt-[10px]">{demoProduct.description.title1}</h2>
+                            <p className="text-[14px]">{demoProduct.description.des1}</p>
+                       
+                            <h2 className="text-[18px] font-bold mt-[10px]">{demoProduct.description.title2}</h2>
+                            <p className="text-[14px]">{demoProduct.description.des2}</p>
                     </div>
-                    <div class={tongleState === 2 ? "tab-pane active":"tab-pane"}>
-                    <p>Thông số kỹ thuật</p>
+                    <div class={tongleState === 2 ? "text-ellipsis overflow-hidden block":"hidden"}>
+                        <table className="w-full table-fixed text-[16px] text-slate-600 border-collapse border border-slate-400">
+                            <tbody>
+                                {demoProduct.TSKT.map((tskt, index) => (
+                                    <tr className={(index % 2) === 0 ?"w-full bg-slate-200":"w-full"}>
+                                        <td className="border border-slate-300 py-[6px] px-[16px]">{tskt[0]}</td>
+                                        <td className="border border-slate-300 py-[6px] px-[16px]">{tskt[1]}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
-                    <div class={tongleState === 3 ? "tab-pane active":"tab-pane"}>
+                    <div class={tongleState === 3 ? "text-ellipsis overflow-hidden block":"hidden"}>
                     <p>Chi tiết sản phẩm</p>
                     </div>
-                    <div class={tongleState === 4 ? "tab-pane active":"tab-pane"}>
+                    <div class={tongleState === 4 ? "text-ellipsis overflow-hidden block":"hidden"}>
                     <p>Hỏi đáp</p>
                     </div>
                 </div>
-            </div>
-    </div>;
+
+    </div>
+                {/* Đánh giá sản phẩm */}
+                <div className="place-self-start mt-[40px] w-full py-[16px] rounded-[7px] border-[2px] border-slate-300 boder-solid">
+                    {/* Title */}
+                    <div className="px-[16px] pb-[16px] text-[18px] text-slate-700 font-semi-bold border-b-[2px] border-slate-300">Đánh giá sản phẩm</div>
+                    <div className="grid grid-cols-3 justify-items-stretch text-[16px] py-[20px] border-b-[2px] border-slate-100">
+                        <div className="text-center">
+                            <div className="text-slate-700">Đánh giá trung bình</div>
+                            <div className="text-[36px] text-red-600">5/5</div>
+                            <StaticRatedStar
+                                size={20}
+                                rating={5}/>
+                            <div>1014 đánh giá</div>
+                        </div>
+                        <div className="my-auto">
+                            <RatedStar/>
+                        </div>
+                        <div className="text-center my-auto">
+                            <div className="text-[16px] my-[10px]">Bạn đã dùng sản phẩm này</div>
+                            <button className="text-[16px] text-white bg-blue-600 
+                            rounded-[5px] font-extralight p-[10px]"
+                            onClick={()=>setCloseRatingModal(0)}>GỬI ĐÁNH GIÁ</button>
+                        </div>
+                    </div>
+                    <div className="px-[25px] h-[56px] text-[14px] text-slate-500 bg-slate-100 flex items-center">
+                        <div>Lọc xem theo:</div>
+                        <div className={filterIndex === 6 ? "px-[10px] py-[3px] mx-[10px] rounded-[4px] align-middle cursor-pointer border-[1px] border-blue-400 hover:bg-blue-400 hover:text-white text-blue-400" 
+                        :"px-[10px] py-[3px] mx-[10px] rounded-[4px] align-middle scursor-pointer border-[1px] border-slate-300 hover:bg-slate-300"}
+                            onClick={()=>setFilterIndex(6)}>
+                                <span className={filterIndex === 6 ? "font-bold": "hidden"}><CheckIcon fontSize="20"/></span>
+                                <span>Đã mua hàng</span>
+                            </div>
+
+                        {[...Array(5)].map((filterbtn, index) => {
+                            const star = index + 1;
+                            return <div className={filterIndex === star ?"px-[8px] py-[3px] mr-[10px] rounded-[4px] align-middle cursor-pointer border-[1px] border-blue-400 hover:bg-blue-400 hover:text-white text-blue-400" 
+                        :"px-[8px] py-[3px] mr-[10px] rounded-[4px] align-middle cursor-pointer border-[1px] border-slate-300 hover:bg-slate-300"}
+                            onClick={()=> setFilterIndex(star)}>
+                                <span className={filterIndex === star ? "font-bold": "hidden"}><CheckIcon fontSize="20"/></span>
+                                <span className="">{star} sao</span>
+                            </div>
+                        })}
+                    </div>
+                </div>
+            <RatingModal 
+                closeRatingModal = {closeRatingModal}
+                setCloseRatingModal = {setCloseRatingModal}/>
+            
+    </div>);
 }
 export default DetailBottom;

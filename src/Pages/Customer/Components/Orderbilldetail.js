@@ -5,7 +5,7 @@ import Status from "./Status";
 export default ({madonhang, status}) => {
     return(
         <div>
-            <div className={styles.bg_white +" rounded-lg w-full mb-8 px-8 py-10"}>
+            <div className={styles.bg_white +" rounded-lg w-full mb-8 px-8 py-10 drop-shadow-lg"}>
                 <ul>
                     <li className="flex justify-between mb-4">
                         <label>Mã đơn hàng:</label>
@@ -28,7 +28,7 @@ export default ({madonhang, status}) => {
                     </button>
                 </div>
             </div>
-            <div className={styles.bg_white +" rounded-lg w-full mb-8 px-8 py-10"}>
+            <div className={styles.bg_white +" rounded-lg w-full mb-8 px-8 py-10 drop-shadow-lg"}>
                 <ul>
                     <li className="flex justify-between mb-4">
                         <label>Tên khách hàng:</label>

@@ -2,12 +2,46 @@ import styles from './Header.module.css'
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
-
-
+import { useState, useEffect, useRef } from 'react';
 
 function Header() {
+    const [search, setSearch] = useState(1);
+    const [inputIsVisible, setInputIsVisible] = useState(false);
+
+    const inputRef = useRef(null);
+
+    // Ngay lúc diễn ra sự kiện click thì thanh search vẫn chưa hiện vì khi thoát ra khỏi hàm này search mới bằng 2 và inputIsVisible mới bằng true
+    const handleClickSearch = () => {
+        setSearch(2);
+        setInputIsVisible(true);
+    }
+
+    const handleEnter = (e) => {
+        console.log();
+        if (e.key === 'Enter')
+            if (e.target.value === "")
+                alert("Vui lòng nhập từ khóa tìm kiếm.")
+            else
+                window.location.href = `/search?q=${e.target.value}`;
+    }
+    // Lúc này input đã xuất hiện
+    useEffect(() => {
+        if (inputIsVisible) {
+            inputRef.current.focus();
+        }
+    }, [inputIsVisible]);
+
     return <div className={styles.container + " z-10"}>
-        <img src='https://shopdunk.com/images/thumbs/0012445_Logo_ShopDunk.png' alt="logo" className={styles.logo} />
+        {/* Đây là thanh search trên Header khi nào click icon search thì xuất hiện */}
+        <div onClick={() => setSearch(1)} className={search === 2 ? "fixed w-full h-full bg-black opacity-70 z-10011" : "hidden"}>
+        </div>
+        <div className={search === 2 ? "fixed h-[64px] text-center leading-[64px] w-full bg-black z-10012" : "hidden"}>
+            {inputIsVisible && <input onKeyDown={handleEnter} ref={inputRef} placeholder='Tìm kiếm' id='search-box' className={"w-1/2 h-3/5 px-[16px] rounded-[3px] text-[16px] text-black-700 outline-none"} />}
+        </div>
+        {/* //------------------------------------------------ */}
+        <a href='/' className={styles.logo}>
+            <img src='https://shopdunk.com/images/thumbs/0012445_Logo_ShopDunk.png' alt="logo" />
+        </a>
         <ul className={styles.menu}>
             <li className={styles.menuItem}>
                 <a href="/iphone" className={styles.menuItemLink}>iPhone</a>
@@ -31,11 +65,16 @@ function Header() {
                 <a href="/iphone" className={styles.menuItemLink}>Dịch vụ</a>
             </li>
             <li className={styles.menuItem}>
-                <a href="/iphone" className={styles.menuItemLink}>Trả góp</a>
+                <a href="/tin-tuc" className={styles.menuItemLink}>Tin tức</a>
+            </li>
+            <li className={styles.menuItem}>
+                <a href="/khuyen-mai" className={styles.menuItemLink}>Khuyến mãi</a>
             </li>
         </ul>
         <div className={styles.utilities}>
-            <SearchIcon style={{ color: "#fff", fontSize: "28px" }} />
+            <div onClick={handleClickSearch} className="cursor-pointer">
+                <SearchIcon style={{ color: "#fff", fontSize: "28px" }} />
+            </div>
             <a href='/cart'>
                 <ShoppingBagOutlinedIcon style={{ color: "#fff", fontSize: "28px" }} />
             </a>

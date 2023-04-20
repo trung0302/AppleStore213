@@ -10,6 +10,7 @@ import { blue } from "@mui/material/colors";
 import SelectTag from "../Components/SelectTag";
 import NavTag from "../Components/NavTag";
 import LabelAndInput from "../Components/LabelAndInput";
+import GppGoodIcon from '@mui/icons-material/GppGood';
 
 function Info()
 {
@@ -23,12 +24,6 @@ function Info()
         <div>
             <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>
                 <div className={styles.bg_white +" rounded-lg w-1/4 my-12 lg:block hidden"}>
-                    {/* <div className={styles.bg_blue +" rounded-lg px-4 py-8 mx-6 my-8"}>
-                        <a href="#" className={styles.text_blue}>
-                            <PersonIcon sx={{ fontSize: 30, color: blue[700] }}></PersonIcon>
-                            <span className="mx-4">Thông tin tài khoản</span>
-                        </a>
-                    </div> */}
                     <NavTag DivCss={styles.bg_blue +" rounded-lg px-4 py-8 mx-6 my-8"} setHref={"#"} spanCss={"mx-4"} spanContent={"Thông tin tài khoản"}
                         aCss={styles.text_blue} setIcon={<PersonIcon sx={{ fontSize: 30, color: blue[700] }}></PersonIcon>} />
                     <NavTag DivCss={"px-4 py-8"} setHref={"/customer/addresses"} spanCss={"mx-6"} spanContent={"Địa chỉ nhận hàng"}
@@ -39,8 +34,10 @@ function Info()
                         aCss={"mx-4 my-4"} setIcon={<LockIcon sx={{ fontSize: 30 }}></LockIcon>} />
                     <NavTag DivCss={"px-4 py-8"} setHref={"/customer/avatar"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
                         aCss={"mx-4 my-4"} setIcon={<CropOriginalIcon sx={{ fontSize: 30 }}></CropOriginalIcon>} />
-                    <NavTag DivCss={"px-4 py-8 mb-8"} setHref={"/customer/productReviews"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
+                    <NavTag DivCss={"px-4 py-8"} setHref={"/customer/productReviews"} spanCss={"mx-6"} spanContent={"Lịch sử đánh giá sản phẩm"}
                         aCss={"mx-4 my-4"} setIcon={<HistoryIcon sx={{ fontSize: 30 }}></HistoryIcon>} />
+                    <NavTag DivCss={"px-4 py-8 mb-8"}  setHref={"/customer/baohanh"} spanCss={"mx-6"} spanContent={"Bảo hành"}
+                        aCss={"mx-4 my-4"} setIcon={<GppGoodIcon sx={{ fontSize: 30 }}></GppGoodIcon>} />
                 </div>
                 <div className={styles.bg_white +" rounded-lg lg:w-2/5 my-12"}>
                     <form action="#">
