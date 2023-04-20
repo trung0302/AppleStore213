@@ -1,4 +1,4 @@
-import DetailBottom from "./DetailBottom";
+import DetailBottom from "./detailBottom";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { useRef, useState } from "react";
 import images from "../../assets/image";
