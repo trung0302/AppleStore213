@@ -7,7 +7,7 @@ const ForgetPass = (props) => {
 
     const sendRequestSU = async () => {
         const res = await axios
-            .post(`https://showroomcar104.onrender.com/users/forgotPassword`, {
+            .post(`http://localhost:3001/auth/forgetpass`, {
                 email: String(props.inputs.email),
             })
             .catch((err) => {
@@ -56,7 +56,7 @@ const ForgetPass = (props) => {
                     <h2 style={{color:"black", fontWeight:"bold", fontSize:"25px",textAlign:"center"}}>Quên mật khẩu?</h2>
                     <p
                         style={{
-                            padding: "10px 0",
+                            padding: "5px 0",
                             fontSize: "10px",
                             textAlign: "center",
                         }}
@@ -65,14 +65,17 @@ const ForgetPass = (props) => {
                         lập mật khẩu mới!
                     </p>
                     <p>
-                        <label  style={{
-                            padding: "10px 0",
-                            fontSize: "15px",
-                        }}
-                        >Email</label>
-                        <br />
+                        
+                        
+              <div className='flex flex-col'>
+              <div className='flex '>
+                  <label className='text-2xl font-medium w-1/2'>Email</label>
+                  <p className='text-2xl font-medium w-1/2 text-right text-red-600'>{props.errors.emailError}</p>
+            </div>
+            </div>
+                     
                         <input
-                            className='w-full text-lg border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
+                            className='w-full text-2xl border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
                             placeholder="Nhập mật khẩu của bạn"
                             
                             onChange={props.handleChange}
@@ -93,7 +96,7 @@ const ForgetPass = (props) => {
                         </p>
                     </p>
                     {message && (
-                        <p style={{ color: "green", fontSize: "15px" }}>
+                        <p style={{ color: "green", fontSize: "15px",padding:"0 0 10px 10px" }}>
                             {message}
                         </p>
                     )}
