@@ -4,7 +4,8 @@ import { FaStar } from "react-icons/fa";
 const StaticRatedStar = (props) => {
     const [rating, setRating] = useState(props.rating);
 
-    return (<div className="flex justify-center">
+    return (
+    <div className="flex">
         {
             [...Array(5)].map((star, index) => {
                 const ratingValue = index + 1;
@@ -16,7 +17,8 @@ const StaticRatedStar = (props) => {
             })
         }
             
-        </div>);
+        </div>
+        );
 }
 
 export default StaticRatedStar;

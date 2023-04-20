@@ -14,7 +14,7 @@ const RatedStar = () => {
         <div>
             <div className="flex justify-start">
                 <span className="mr-[2px]">5</span>
-                <FaStar size={20} color={"ffc107"}/>
+                <FaStar size={16} color={"ffc107"}/>
                 <div className="h-[8px] w-[280px] bg-slate-200 my-auto rounded-full mx-[4px] relative">
                     <div className={"progress-bar w-[260px] h-[8px] rounded-full bg-green-500 relative"}></div>
                 </div>
@@ -22,7 +22,7 @@ const RatedStar = () => {
             </div>
             <div className="flex justify-start">
                 <span className="mr-[2px]">4</span>
-                <FaStar size={20} color={"ffc107"}/>
+                <FaStar size={16} color={"ffc107"}/>
                 <div className="h-[8px] w-[280px] bg-slate-200 my-auto rounded-full mx-[4px] relative">
                     <div className={"progress-bar w-[10px] h-[8px] rounded-full bg-green-500 relative"}></div>
                 </div>
@@ -30,7 +30,7 @@ const RatedStar = () => {
             </div>
             <div className="flex justify-start">
                 <span className="mr-[2px]">3</span>
-                <FaStar size={20} color={"ffc107"}/>
+                <FaStar size={16} color={"ffc107"}/>
                 <div className="h-[8px] w-[280px] bg-slate-200 my-auto rounded-full mx-[4px] relative">
                     <div className={"progress-bar w-[2px] h-[8px] rounded-full bg-green-500 relative"}></div>
                 </div>
@@ -38,7 +38,7 @@ const RatedStar = () => {
             </div>
             <div className="flex justify-start">
                 <span className="mr-[2px]">2</span>
-                <FaStar size={20} color={"ffc107"}/>
+                <FaStar size={16} color={"ffc107"}/>
                 <div className="h-[8px] w-[280px] bg-slate-200 my-auto rounded-full mx-[4px] relative">
                     <div className={"progress-bar w-[0] h-[8px] rounded-full bg-green-500 relative"}></div>
                 </div>
@@ -46,7 +46,7 @@ const RatedStar = () => {
             </div>
             <div className="flex justify-start">
                 <span className="mr-[2px]">1</span>
-                <FaStar size={20} color={"ffc107"}/>
+                <FaStar size={16} color={"ffc107"}/>
                 <div className="h-[8px] w-[280px] bg-slate-200 my-auto rounded-full mx-[4px] relative">
                     <div className={"progress-bar w-[0] h-[8px] rounded-full bg-green-500 relative"}></div>
                 </div>
