@@ -1,24 +1,67 @@
 import React, { useState,useEffect } from "react";
-//import classes from "./Login.module.css";
+import classes from "./Login.module.css";
 import jwt_decode from "jwt-decode";
-//import images from "../../assets/image";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { GoogleLogin } from "@react-oauth/google";
+import images from "../../assets/image";
 import ForgetPass from "./ForgetPass/ForgetPass";
-
+import { LoginSocialFacebook } from "reactjs-social-login";
+import { FacebookLoginButton } from "react-social-login-buttons";
 import { Link, useNavigate } from "react-router-dom";
-
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { Button } from "@mui/material";
 
 const Login = () => {
+    
     const [first, setfirst] = useState(0)
     //setfirst(window.google);
     const [user, setUser] = useState()
-    function handleCallbackResponse(response){
+    const handleCallbackResponse = async (response)=>{
         console.log("encoded jwt id token: "+response.credential);
         var userObject = jwt_decode(response.credential);
         console.log(userObject);
-        setUser(userObject);
+        const res = await axios
+        .post(`https://applestore213.onrender.com/auth/googlelogin`, {
+            token: String(response.credential)
+        })
+        .catch((err) => {
+            alert("failed");
+            console.log(err);
+        });
+    const data = await res.data;
+
+    console.log(data);
+    localStorage.setItem("user", JSON.stringify(data.khachhang));
+                    //localStorage.setItem("token",data.token);
+                    Cookies.set("token", data.token, {
+                        expires: 30,
+                    });
+                    navigate("/")
+    //return data;
+        //setUser(userObject);
         //document.getElementById("signInDiv").hidden=true;
     }
     
+    const handleLoginSuccess = (response) => {
+        // TODO: xử lý idToken ở đây
+        // setUser(response);
+        var userObject = jwt_decode(response.credential);
+        //setProfile(userObject);
+ 
+        console.log(response.credential);
+        const data = {
+            idToken: response.credential,
+        };
+      
+    };
+ 
+    const handleLoginFailure = (response) => {
+        console.log("Login failed: ", response);
+    };
+
+
+
     useEffect(()=>{
         /* global google */
         console.log(window.google);
@@ -32,10 +75,12 @@ const Login = () => {
              window.google.accounts.id.renderButton(
                 document.getElementById("signInDiv"),
                 { type: "standard",
-                theme: "outline",
+                theme: "filled_blue",
                 size: "large",
-                width: "900",
-                height: document.getElementById("signInDiv").offsetHeight, }
+                width: "3500px",
+                height: "9",
+                color: "#444",
+                Text:"continue_with" }
              )
          }else{
             setfirst(first+1)
@@ -56,6 +101,26 @@ const Login = () => {
         emailError: "",
         passwordError: "",
     });
+    const handleFacebookLogin = async (response) => {
+        try {
+            console.log(response);
+            console.log(response.data.accessToken);
+            // Gọi API đến endpoint đăng nhập bằng Facebook trên server Node.js
+            const res = await axios
+            .post(`https://applestore213.onrender.com/auth/facebook`, {
+                accessToken: String(response.data.accessToken)
+            })
+            const data = await res.data;
+            localStorage.setItem("user", JSON.stringify(data.khachhang));
+                    //localStorage.setItem("token",data.token);
+                    Cookies.set("token", data.token, {
+                        expires: 30,
+                    });
+                    navigate("/")
+          } catch (error) {
+            console.error(error);
+          }
+    }
     const handleChange = (e) => {
         setInputs((prev) => {
             return {
@@ -107,10 +172,56 @@ const Login = () => {
             }
         }
     };
+    //const sendRequestSU = async () => {
+      //  console.log("GUI API LOG IN");
+    //};
+    const sendRequestGG = async () => {
+        const res = await axios
+            .post(`https://applestore213.onrender.com/auth/googlelogin`, {
+                token: String(inputs.email),
+            })
+            .catch((err) => {
+                alert("failed");
+                console.log(err);
+            });
+        const data = await res.data;
+        console.log(data);
+        return data;
+    };
     const sendRequestSU = async () => {
-        console.log("GUI API LOG IN");
+        const res = await axios
+            .post(`https://applestore213.onrender.com/auth/login`, {
+                email: String(inputs.email),
+                password: String(inputs.password),
+            })
+            .catch((err) => {
+                alert("failed");
+                console.log(err);
+            });
+        const data = await res.data;
+        console.log(data);
+        return data;
     };
     const handleSubmit = (e) => {
+        if (errors.emailError !== "" || errors.passwordError !== "") {
+            e.preventDefault();
+            alert("Login failed!");
+        } else {
+            e.preventDefault();
+            sendRequestSU()
+                .then((data) => {
+                    localStorage.setItem("user", JSON.stringify(data.findKH));
+                    //localStorage.setItem("token",data.token);
+                    Cookies.set("token", data.token, {
+                        expires: 30,
+                    });
+                })
+                //.then(()=>setIsLogin(true))
+                .then(() => navigate("/"));
+        }
+    };
+
+    /*const handleSubmit = (e) => {
         if (errors.emailError !== "" || errors.passwordError !== "") {
             e.preventDefault();
             alert("Login failed!");
@@ -118,17 +229,20 @@ const Login = () => {
             console.log(inputs);
             //navigate("/");
         }
-    };
+    };*/
 
 //style={{backgroundImage: `url(${images.loginBG})`}}
-
+const handleSignInButtonClick = () => {
+    if (window.google && window.google.accounts) {
+      window.google.accounts.id.prompt();
+      console.log("yes");
+    }
+  };
 
   return (
     <div className="flex w-full h-screen">
-        /*<div className="hidden relative w-1/2 h-full lg:flex items-center justify-center "
+        <div style={{backgroundImage: `url(${images.logBG})`,backgroundSize:"cover", backgroundPosition:"65%"}} className="hidden relative w-1/2 h-full lg:flex items-center justify-center "
     >
-        <div className="w-60 h-60 rounded-full bg-gradient-to-tr from-violet-500 to-pink-500 animate-spin"/> 
-        <div className="w-full h-1/2 absolute bottom-0 bg-white/10 backdrop-blur-lg" />
     </div>
     <div className="w-full flex items-center justify-center lg:w-1/2">
     <div className=' w-11/12 max-w-[700px] px-10 py-20 rounded-3xl bg-white border-2 border-gray-100'>
@@ -192,13 +306,31 @@ const Login = () => {
             <p className="px-3 ">Hoặc</p>
             <hr className="w-full" />
           </div >
-          <div style={{alignContent:"center"}}>
-              <div id="signInDiv" style={{padding:"0 90px"}}>
+          <div >
+              <div id="signInDiv" style={{padding:"0 2px", width:"100%",maxWidth:"600px"}}>
                   
+              </div>
+              <div>
+                <LoginSocialFacebook
+                appId="918062536004658"
+                onResolve={(response)=>
+                {
+                    handleFacebookLogin(response);
+                }}
+                onReject={(e)=>console.log(e)}
+                >
+                    <FacebookLoginButton>
+                    <span>Đăng nhập với Facebook</span>
+                    </FacebookLoginButton>
+                </LoginSocialFacebook>
+              </div>
+              <div>
+              
               </div>
               </div>
           </div>
       </div>
+      
     </div>
     
     {modal && (
@@ -219,3 +351,21 @@ export default Login
 /**<div className="w-60 h-60 rounded-full bg-gradient-to-tr from-violet-500 to-pink-500 animate-spin"/> 
         <div className="w-full h-1/2 absolute bottom-0 bg-white/10 backdrop-blur-lg" />
      */
+
+        //<FacebookLoginButton></FacebookLoginButton>
+
+        /*
+        <div>
+              <GoogleOAuthProvider clientId="992518564488-fsipb4qe4grfde0mnoh7skp7n1qn512s.apps.googleusercontent.com">
+              <GoogleLogin
+                    useOneTap
+                    onSuccess={handleLoginSuccess}
+                    onFailure={handleLoginFailure}
+                    isSignedIn={true}
+                    cookiePolicy={"single_host_origin"}
+                    fetchBasicProfile={true}
+                /></GoogleOAuthProvider>;
+              </div>
+        
+        
+        */

@@ -6,7 +6,7 @@ import RatedStar from "./RatingStar/RatedStar";
 import RatingModal from "./RatingStar/RatingModal";
 import CheckIcon from '@mui/icons-material/Check';
 import StaticRatedStar from "./RatingStar/StaticRatedStar.js";
-
+import Comment from "./Comment/Comment";
 function DetailBottom() {
     const [tongleState, setTongleState] = useState(1);
     const [filterIndex, setFilterIndex] = useState(0);
@@ -15,9 +15,6 @@ function DetailBottom() {
     const tongleTab = function(index) {
         setTongleState(index);
     }
-
-    // ham set gia tri cho loc comment: da mua hang, 5 sao, 4 sao, ...
-
 
     // Biến để quyết định việc bật tắt modal, 1 là tắt, 0 là mở
     const [closeRatingModal, setCloseRatingModal] = useState(1);
@@ -89,9 +86,8 @@ function DetailBottom() {
 
     </div>;
 
-    return (<div className="grid grid-cols-1 my-[50px]">
+    return (<div className="w-3/4 mx-auto grid grid-cols-1 my-[50px]">
        
-    {/* <div className="overlay"></div> */}
     <div className="w-[800px] place-self-center">
                 <div className="tab-bar">
                     <div className={tongleState === 1 ? "tab-item tab-item-active":"tab-item"}
@@ -148,16 +144,18 @@ function DetailBottom() {
 
     </div>
                 {/* Đánh giá sản phẩm */}
-                <div className="place-self-start mt-[40px] w-full py-[16px] rounded-[7px] border-[2px] border-slate-300 boder-solid">
+                <div className="place-self-center mt-[40px] w-full py-[16px] rounded-[7px] border-[2px] border-slate-300 boder-solid">
                     {/* Title */}
                     <div className="px-[16px] pb-[16px] text-[18px] text-slate-700 font-semi-bold border-b-[2px] border-slate-300">Đánh giá sản phẩm</div>
                     <div className="grid grid-cols-3 justify-items-stretch text-[16px] py-[20px] border-b-[2px] border-slate-100">
                         <div className="text-center">
                             <div className="text-slate-700">Đánh giá trung bình</div>
                             <div className="text-[36px] text-red-600">5/5</div>
+                            <div className="flex justify-center">
                             <StaticRatedStar
-                                size={20}
+                                size={16}
                                 rating={5}/>
+                            </div>
                             <div>1014 đánh giá</div>
                         </div>
                         <div className="my-auto">
@@ -189,6 +187,7 @@ function DetailBottom() {
                             </div>
                         })}
                     </div>
+                    <Comment/>
                 </div>
             <RatingModal 
                 closeRatingModal = {closeRatingModal}

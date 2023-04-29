@@ -1,10 +1,9 @@
-// import DetailBottom from "./DetailBottom";
+import DetailBottom from "./detailBottom";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { useRef, useState } from "react";
 import images from "../../assets/image";
 import classes from "./DetailProduct.module.css";
 import Rating from "@mui/material/Rating";
-import DetailBottom from "./detailBottom";
 
 function DetailProduct() {
     const [currentSlide,setCurrentSlide] = useState(0);

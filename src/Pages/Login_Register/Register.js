@@ -1,16 +1,37 @@
 import React, { useState, useEffect } from "react";
+import { LoginSocialFacebook } from "reactjs-social-login";
+import { FacebookLoginButton } from "react-social-login-buttons";
 import jwt_decode from "jwt-decode";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import images from "../../assets/image";
+import { Alert } from "@mui/material";
 const Register = () => {
   const [first, setfirst] = useState(0)
     //setfirst(window.google);
     const [user, setUser] = useState()
-    function handleCallbackResponse(response){
+    const handleCallbackResponse = async (response)=>{
         console.log("encoded jwt id token: "+response.credential);
         var userObject = jwt_decode(response.credential);
         console.log(userObject);
-        setUser(userObject);
+        const res = await axios
+        .post(`https://applestore213.onrender.com/auth/googlelogin`, {
+            token: String(response.credential)
+        })
+        .catch((err) => {
+            alert("failed");
+            console.log(err);
+        });
+    const data = await res.data;
+
+    console.log(data);
+    localStorage.setItem("user", JSON.stringify(data.khachhang));
+                    //localStorage.setItem("token",data.token);
+                    Cookies.set("token", data.token, {
+                        expires: 30,
+                    });
+                    navigate("/");
         //document.getElementById("signInDiv").hidden=true;
     }
     
@@ -37,7 +58,7 @@ const Register = () => {
          }
     },[first]);
 
-
+    const navigate = useNavigate();
   const [value, setValue] = useState();
 
   const onDateChange = (e) => {
@@ -71,7 +92,26 @@ const Register = () => {
       };
     });
   };
-
+  const handleFacebookLogin = async (response) => {
+    try {
+        console.log(response);
+        console.log(response.data.accessToken);
+        // Gọi API đến endpoint đăng nhập bằng Facebook trên server Node.js
+        const res = await axios
+        .post(`https://applestore213.onrender.com/auth/facebook`, {
+            accessToken: String(response.data.accessToken)
+        })
+        const data = await res.data;
+        localStorage.setItem("user", JSON.stringify(data.khachhang));
+                //localStorage.setItem("token",data.token);
+                Cookies.set("token", data.token, {
+                    expires: 30,
+                });
+                navigate("/")
+      } catch (error) {
+        console.error(error);
+      }
+}
   const handleBlur = function (e) {
     if (e.target.type === "email") {
       if (checkEmailFormat(e.target.value) === false || e.target.value === "") {
@@ -151,14 +191,42 @@ const Register = () => {
     }
   };
 
+
+  const sendRequestSU = async ()=>{
+    const res = await axios
+    .post(`https://applestore213.onrender.com/auth`,{
+      hoten:String(inputs.name),
+      email:String(inputs.email),
+      password:String(inputs.password),
+      sdt:String(inputs.dienthoai),
+      gioitinh:String(inputs.gioitinh)
+    })
+    .catch((err)=>{
+      /*Swal.fire({
+        icon: 'error',
+        title: 'Email đã tồn tại',
+      });*/
+      alert('Email đã tồn tại!');
+      console.log(err);})
+    const data = await res.data;
+    console.log(data);
+    return data;
+  }
   const handleSubmit = (e) => {
     if (errors.emailError !== "" || errors.passwordError !== "") {
       e.preventDefault();
-      alert("Login failed!");
+      alert("Register failed!");
     } else {
         e.preventDefault();
       console.log(inputs);
-      //navigate("/");
+      sendRequestSU()
+          .then((data)=>{
+            localStorage.setItem("user",JSON.stringify(data.kh));
+            //localStorage.setItem("token",data.token);
+            Cookies.set('token', data.token);
+          })
+          .then(()=>{const id = localStorage.getItem("userId"); console.log(id);})
+          .then(()=>navigate("/"));
     }
   };
 
@@ -166,8 +234,8 @@ const Register = () => {
 
   return (
     <div>
-      <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50" style={{backgroundImage: `url(${images.registerbg})`,backgroundRepeat:"no-repeat",backgroundPosition:"center",backgroundSize:"cover"}}>
-        <div>
+      <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50" style={{backgroundImage: `url(${images.registerbg})`,backgroundRepeat:"no-repeat",backgroundPosition:"center",backgroundSize:"cover", padding:"30px"}}>
+        <div className="">
           <a href="/">
             <h3 className="text-7xl font-bold text-purple-800">APPLEDUNK</h3>
           </a>
@@ -339,6 +407,18 @@ const Register = () => {
             <div class="flex items-center justify-center">
   
 </div>
+<div>
+                <LoginSocialFacebook
+                appId="918062536004658"
+                onResolve={(response)=>
+                {
+                    handleFacebookLogin(response);
+                }}
+                onReject={(e)=>console.log(e)}
+                >
+                    <FacebookLoginButton></FacebookLoginButton>
+                </LoginSocialFacebook>
+              </div>
           </div>
         </div>
       </div>
