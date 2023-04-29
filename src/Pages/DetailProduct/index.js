@@ -5,6 +5,7 @@ import images from "../../assets/image";
 import classes from "./DetailProduct.module.css";
 import Rating from "@mui/material/Rating";
 
+
 function DetailProduct() {
     const [currentSlide,setCurrentSlide] = useState(0);
     const mainCarouselRef = useRef(null);

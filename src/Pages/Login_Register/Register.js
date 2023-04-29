@@ -16,7 +16,7 @@ const Register = () => {
         var userObject = jwt_decode(response.credential);
         console.log(userObject);
         const res = await axios
-        .post(`http://localhost:3001/auth/googlelogin`, {
+        .post(`https://applestore213.onrender.com/auth/googlelogin`, {
             token: String(response.credential)
         })
         .catch((err) => {
@@ -98,7 +98,7 @@ const Register = () => {
         console.log(response.data.accessToken);
         // Gọi API đến endpoint đăng nhập bằng Facebook trên server Node.js
         const res = await axios
-        .post(`http://localhost:3001/auth/facebook`, {
+        .post(`https://applestore213.onrender.com/auth/facebook`, {
             accessToken: String(response.data.accessToken)
         })
         const data = await res.data;
@@ -194,7 +194,7 @@ const Register = () => {
 
   const sendRequestSU = async ()=>{
     const res = await axios
-    .post(`http://localhost:3001/auth`,{
+    .post(`https://applestore213.onrender.com/auth`,{
       hoten:String(inputs.name),
       email:String(inputs.email),
       password:String(inputs.password),
