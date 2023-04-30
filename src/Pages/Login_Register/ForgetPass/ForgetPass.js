@@ -7,7 +7,7 @@ const ForgetPass = (props) => {
 
     const sendRequestSU = async () => {
         const res = await axios
-            .post(`http://localhost:3001/auth/forgetpass`, {
+            .post(`https://applestore213.onrender.com/auth/forgetpass`, {
                 email: String(props.inputs.email),
             })
             .catch((err) => {

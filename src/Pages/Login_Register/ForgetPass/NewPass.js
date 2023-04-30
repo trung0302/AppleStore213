@@ -73,7 +73,7 @@ const NewPass = () => {
         }
     }
     const authAxios = axios.create({
-      baseURL: 'http://localhost:3001/auth',
+      baseURL: 'https://applestore213.onrender.com/auth',
       headers:{
         Authorization:`Bearer ${token}`
       }
