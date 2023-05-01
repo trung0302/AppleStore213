@@ -111,7 +111,7 @@ const publicRoutes = [
     { path: "/customer/orderdetail/:madonhang/:status", component: <Orderdetail /> },
     { path: "/billdetail", component: <Billdetail /> },
     { path: "/paymentinfo", component: <PaymentInfo /> },
-    { path: "/paymentfinish/:madonhang/:status", component: <PaymentFinish /> },
+    { path: "/paymentfinish", component: <PaymentFinish /> },
 
     { path: "/login", component: <Login /> },
     { path: "/register", component: <Register /> },
