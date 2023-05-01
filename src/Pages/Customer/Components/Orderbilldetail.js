@@ -1,8 +1,48 @@
 import styles from "../Customer.module.css";
 import { Link } from "react-router-dom";
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import Status from "./Status";
 
 export default ({madonhang, status}) => {
+
+    const generatePDF = () => {
+        const today = new Date();
+        const doc = new jsPDF();
+
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "bold");
+        doc.text(5, 5, `Order number: ${madonhang}`);
+        doc.text(5, 10, `https://appledunk.com`);
+        doc.text(5, 15, `Date: ${today.toLocaleDateString()}`);
+        doc.setFont("helvetica", "normal");
+        doc.text(10, 20, `Name: abc`);
+        doc.text(10, 25, `Phone: 123456789`);
+        doc.text(10, 30, `Address:`);
+        doc.text(10, 35, `, Yên Thủy,`);
+        doc.text(10, 40, `Payment method: Payment.Name.VietQr`);
+        doc.setFont("helvetica", "bold");
+        doc.text(10, 55, `Products`);
+        doc.setFont("helvetica", "normal");
+
+        const data = [
+        ["Cổng chuyển đổi USB-C To Apple Pencil Adapter", "MQLU3ZP/A", "350.000₫", "1", "350.000₫"],
+        ["Tên sản phẩm 2", "Mã sản phẩm 2", "150.000₫", "1", "150.000₫"],
+        ];
+
+        doc.autoTable({
+            head: [["name", "SKU", "Price", "Qty", "Total"]],
+            body: data,
+            startY: 60,
+        });
+
+        const tableHeight = 60 + data.length*5 + 10;
+        doc.setFontSize(10);
+        doc.text(170, tableHeight + 10, `Total: 350.000₫`, { align: "right" });
+
+        doc.save("order_4888.pdf");
+    }
+
     return(
         <div>
             <div className={styles.bg_white +" rounded-lg w-full mb-8 px-8 py-10 drop-shadow-lg"}>
@@ -23,7 +63,7 @@ export default ({madonhang, status}) => {
                     </li>
                 </ul>
                 <div className="flex items-center justify-center">
-                    <button className={styles.bg_white+ " text-sky-600 border-sky-600 border-2 rounded-lg px-10 py-4"}>
+                    <button onClick={generatePDF} className={styles.bg_white+ " text-sky-600 border-sky-600 border-2 rounded-lg px-10 py-4"}>
                         Xuất file PDF
                     </button>
                 </div>
