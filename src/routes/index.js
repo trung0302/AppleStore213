@@ -34,6 +34,8 @@ const publicRoutes = [
     { path: "/detailproduct", component: <DetailProduct /> },
     { path: "/*", component: <NotFound />, layout: null },
     { path: "/cart", component: <Order /> },
+    { path: "/store", component: <Store /> },
+
     { path: "/iphone", component: <ProductList type="iPhone" /> },
     { path: "/iphone-14-series", component: <AnotherProductList type="iPhone" /> },
     { path: "/iphone-13-series", component: <AnotherProductList type="iPhone" /> },
