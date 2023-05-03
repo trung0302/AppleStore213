@@ -6,6 +6,7 @@ import axios from "axios";
 import images from "../../../../assets/image";
 import { Store } from "./Store";
 import styles from "./Payment.module.css";
+import HandleApiStore from "../../../../Apis/HandleApiStore";
 
 function Payment(props) {
     const [provinces, setProvinces] = useState([]);
@@ -122,13 +123,17 @@ function Payment(props) {
                     setWards(options);
                 });
         } else {
-            const options = Store?.find(
-                (item) => item.code === selectedOption.value
-            )?.stores.map((item) => ({
-                value: item.code,
-                label: item.name,
-            }));
-            setStores(options);
+            HandleApiStore.getStoreByDistrict(selectedOption.value)
+                .then((data) => {
+                    console.log(data);
+                    // setStores(data);
+                    const options = data.map((item) => ({
+                        value: item.districtCode,
+                        label: item.name,
+                    }));
+                    setStores(options);
+                })
+                .catch((err) => console.log(err));
         }
     };
 
