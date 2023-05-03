@@ -4,7 +4,30 @@ import AdvertisementItem from "./Components/AdvertisementItem";
 import ItemComponent from "./Components/ItemComponent";
 import images from "../../assets/image";
 import SubcribeSection from "../ProductList/Components/SubcribeSection";
+import { useEffect, useState } from "react";
+import HandleApiProduct from "../../Apis/HandleApiProduct.js";
 function Home() {
+    const [dataProduct, setDataProduct]=useState([]);
+    const dataFromAPI=HandleApiProduct.getAllProduct();
+    useEffect(()=>{
+        dataFromAPI.then((data)=>{
+            setDataProduct(()=>{
+                return data.listProducts.slice(0,4)
+            })
+        })
+    },[])
+    let listProduct=[];
+    dataProduct.map((value,index)=>{
+        listProduct.push({
+            image: value.hinh,
+            name: value.tensanpham,
+            newPrice: value.gia,
+            oldPrice: value.gia,
+            note: images.khaitruong,
+            link:'/detailproduct'
+        })
+    })
+    console.log(listProduct)
     const iphone=[
         {
             image: images.ip14prm,
@@ -63,27 +86,27 @@ function Home() {
     const itemUI=[
         {
             title: "iPhone",
-            datas: iphone,
+            datas: listProduct,
             link: '/iphone'
         },
         {
             title: "iPad",
-            datas: iphone,
+            datas: listProduct,
             link: '/ipad'
         },
         {
             title: "Mac",
-            datas: iphone,
+            datas: listProduct,
             link: '/ipad'
         },
         {
             title: "Watch",
-            datas: iphone,
+            datas: listProduct,
             link: '/watch'
         },
         {
             title: "Âm thanh",
-            datas: iphone,
+            datas: listProduct,
             link: '/am-thanh'
         }
 ];
