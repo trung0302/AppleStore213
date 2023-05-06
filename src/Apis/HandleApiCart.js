@@ -9,15 +9,15 @@ const addSpToCart = async (data) => {
     return await axiosInstance.post(`/cart`, data);
 };
 
-const updateCart = async (makh, masp, mausac, data) => {
+const updateCart = async (makh, masp, mausac, rom, data) => {
     return await axiosInstance.put(
-        `/cart?makh=${makh}&masp=${masp}&mausac=${mausac}`,
+        `/cart?makh=${makh}&masp=${masp}&mausac=${mausac}&rom=${rom}`,
         data
     );
 };
 
-const deleteSpFromCart = async (makh, masp) => {
-    return await axiosInstance.delete(`/cart?makh=${makh}&masp=${masp}`);
+const deleteSpFromCart = async (makh, masp, mausac, rom) => {
+    return await axiosInstance.delete(`/cart?makh=${makh}&masp=${masp}&mausac=${mausac}&rom=${rom}`);
 };
 
 export default {

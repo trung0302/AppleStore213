@@ -1,14 +1,13 @@
-// import Select from "react-select/dist/declarations/src/Select";
 import Select from "react-select";
-// import CreatableSelect from "react-select/creatable";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import images from "../../../../assets/image";
-import { Store } from "./Store";
 import styles from "./Payment.module.css";
 import HandleApiStore from "../../../../Apis/HandleApiStore";
 
 function Payment(props) {
+    const user = JSON.parse(localStorage.getItem("user"));
+
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
@@ -18,9 +17,9 @@ function Payment(props) {
     const [selectedDistrict, setSelectedDistrict] = useState(null);
     const [selectedWard, setSelectedWard] = useState(null);
     const [selectedStore, setSelectedStore] = useState(null);
-    const [name, setName] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [phone, setPhone] = useState(null);
+    const [name, setName] = useState(user.hoten);
+    const [email, setEmail] = useState(user.email);
+    const [phone, setPhone] = useState(user.sdt);
     const [payment, setPayment] = useState(null);
     const [address, setAddress] = useState(null);
 
@@ -201,7 +200,7 @@ function Payment(props) {
                             value={name}
                             onChange={handleNameChange}
                             placeholder="Nhập họ tên"
-                            // defaultValue="Trung"
+                            // defaultValue={user.hoten}
                             required
                             className="h-[48px] w-full px-[16px] py-[8px] text-[16px] text-[#777]
                          outline-none border border-[#ddd] rounded-[8px] focus:border-[#0066cc] focus:text-black"
@@ -214,7 +213,7 @@ function Payment(props) {
                         <input
                             type="number"
                             value={phone}
-                            // defaultValue="123456789"
+                            // defaultValue={user.sdt}
                             onChange={handlePhoneChange}
                             placeholder="Nhập số điện thoại"
                             required
@@ -231,7 +230,7 @@ function Payment(props) {
                         <input
                             type="email"
                             value={email}
-                            // defaultValue="uit@gm.uit.edu.vn"
+                            // defaultValue={user.email}
                             onChange={handleEmailChange}
                             placeholder="Nhập Email"
                             required
@@ -376,7 +375,8 @@ function Payment(props) {
                 <div className="grid grid-cols-2 gap-6">
                     <label
                         htmlFor="momo"
-                        className="flex border border-solid border-[#ddd] rounded-[8px] py-5 px-10 items-center cursor-pointer"
+                        className="flex border border-solid border-[#ddd] rounded-[8px] py-5 px-10 
+                        items-center cursor-pointer focus-within:border-[#0066cc]"
                     >
                         <input
                             type="radio"
@@ -394,7 +394,8 @@ function Payment(props) {
                     </label>
                     <label
                         htmlFor="zalopay"
-                        className="flex border border-solid border-[#ddd] rounded-[8px] py-5 px-10 items-center cursor-pointer"
+                        className="flex border border-solid border-[#ddd] rounded-[8px] py-5 px-10 
+                        items-center cursor-pointer focus-within:border-[#0066cc]"
                     >
                         <input
                             type="radio"
@@ -414,7 +415,8 @@ function Payment(props) {
                     </label>
                     <label
                         htmlFor="shipcod"
-                        className="flex border border-solid border-[#ddd] rounded-[8px] py-5 px-10 items-center cursor-pointer"
+                        className="flex border border-solid border-[#ddd] rounded-[8px] py-5 px-10 
+                        items-center cursor-pointer focus-within:border-[#0066cc]"
                     >
                         <input
                             type="radio"
