@@ -12,6 +12,7 @@ function PaymentInfo () {
     }
 
     const madonhang = "1234";
+    const status = "success"
     
     return (
         <div className={styles.bg_primary + " flex justify-center text-2xl"}>
@@ -46,7 +47,7 @@ function PaymentInfo () {
                     </div>
                 </div>
                 <div className="text-center mb-20">
-                    <Link to={{ pathname: `/paymentfinish/${madonhang}` }} className="rounded-lg w-1/2 px-4 py-4 mx-4 my-4 bg-blue-600 text-white">Xác nhận</Link>
+                    <Link to={{ pathname: `/paymentfinish/${madonhang}/${status}` }} className="rounded-lg w-1/2 px-4 py-4 mx-4 my-4 bg-blue-600 text-white">Xác nhận</Link>
                 </div>
             </div>
         </div>

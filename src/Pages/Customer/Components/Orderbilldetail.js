@@ -1,8 +1,63 @@
 import styles from "../Customer.module.css";
 import { Link } from "react-router-dom";
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import Status from "./Status";
 
+//import hai file script thêm font chữ roboto hỗ trợ tiếng Việt vào trong jspdf
+import "./Roboto-Bold.js";
+import "./Roboto-Medium";
+
 export default ({madonhang, status}) => {
+
+    const generatePDF = () => {
+        //sau này sẽ thay bằng ngày hóa đơn, còn giờ lấy tạm ngày tạo file pdf
+        const today = new Date();
+        const doc = new jsPDF();
+
+        //đặt fontsize cho cả file pdf
+        doc.setFontSize(10);
+        doc.setFont("Roboto", "bold");
+        doc.text(5, 5, `Mã đơn hàng: ${madonhang}`);
+        doc.text(5, 10, `https://appledunk.com`);
+        doc.text(5, 15, `Ngày: ${today.toLocaleDateString()}`);
+        doc.setFont("Roboto", "medium");
+        doc.text(10, 20, `Tên: abc`);
+        doc.text(10, 25, `Số điện thoại: 123456789`);
+        doc.text(10, 30, `Địa chỉ:`);
+        doc.text(20, 35, `, Yên Thủy,`);
+        doc.text(10, 40, `Phương thức thanh toán: Payment.Name.VietQr`);
+        doc.setFont("Roboto", "bold");
+        doc.text(10, 55, `Các sản phẩm:`);
+        doc.setFont("Roboto", "medium");
+
+        //tạo các dòng dữ liệu cho bảng
+        const data = [
+            ["Cổng chuyển đổi USB-C To Apple Pencil Adapter", "MQLU3ZP/A", "350.000 đ", "1", "350.000 đ"],
+            ["Tên sản phẩm 2", "Mã sản phẩm 2", "150.000 đ", "1", "150.000 đ"],
+            ["Tên sản phẩm 3", "Mã sản phẩm 3", "150.000 đ", "1", "150.000 đ"],
+            ["Tên sản phẩm 4", "Mã sản phẩm 4", "150.000 đ", "1", "150.000 đ"],
+        ];
+        
+        //tạo bảng
+        doc.autoTable({
+            head: [["Tên", "SKU", "Giá", "Số lượng", "Tổng"]],
+            body: data,
+            startY: 60,
+            styles: {font: "Roboto"}
+        });
+        
+        //tính chiều dài của bảng
+        const tableHeight = 60 + data.length*5 + 10;
+
+        doc.setFont("Roboto", "bold");
+        doc.setFontSize(10);
+        doc.text(190, tableHeight + 20, 'Tổng: 350.000đ', { align: "right" });
+
+        //lưu file về máy client
+        doc.save(`order_${madonhang}.pdf`);
+    }
+
     return(
         <div>
             <div className={styles.bg_white +" rounded-lg w-full mb-8 px-8 py-10 drop-shadow-lg"}>
@@ -23,7 +78,7 @@ export default ({madonhang, status}) => {
                     </li>
                 </ul>
                 <div className="flex items-center justify-center">
-                    <button className={styles.bg_white+ " text-sky-600 border-sky-600 border-2 rounded-lg px-10 py-4"}>
+                    <button onClick={generatePDF} className={styles.bg_white+ " text-sky-600 border-sky-600 border-2 rounded-lg px-10 py-4"}>
                         Xuất file PDF
                     </button>
                 </div>

@@ -1,20 +1,28 @@
 /* eslint-disable import/no-anonymous-default-export */
-import axiosInstance from './axiosInstance';
+import axiosInstance from "./axiosInstance";
 
 const getCartByMaKH = async (id) => {
     return await axiosInstance.get(`/cart?makh=${id}`);
 };
 
-// const getEmployeeById = async(id) =>{
-//     return await axiosInstance.get(`/users/employees/${id}`);
-// }
+const addSpToCart = async (data) => {
+    return await axiosInstance.post(`/cart`, data);
+};
 
-// const getEmployeeByName = async (name) => {
-//     return await axiosInstance.get(`/users/employees?name=${name}`);
-// };
+const updateCart = async (makh, masp, mausac, data) => {
+    return await axiosInstance.put(
+        `/cart?makh=${makh}&masp=${masp}&mausac=${mausac}`,
+        data
+    );
+};
+
+const deleteSpFromCart = async (makh, masp) => {
+    return await axiosInstance.delete(`/cart?makh=${makh}&masp=${masp}`);
+};
 
 export default {
     getCartByMaKH,
-    // getEmployeeById,
-    // getEmployeeByName,
+    addSpToCart,
+    updateCart,
+    deleteSpFromCart,
 };

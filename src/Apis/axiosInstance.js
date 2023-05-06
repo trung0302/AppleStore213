@@ -2,7 +2,7 @@ import axios from "axios";
 // import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
-    baseURL: "https://applestore213.onrender.com/",
+    baseURL: "http://localhost:3001/",
     headers: {
         "Content-Type": "application/json",
     },

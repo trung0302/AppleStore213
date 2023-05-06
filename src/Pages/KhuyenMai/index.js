@@ -1,6 +1,7 @@
 import KhuyenmaiItem from "./Components/khuyenmaiItem"
 import styles from "./KhuyenMai.module.css";
 import React,{ useState, useEffect } from "react";
+import HandleApiKM from "../../Apis/HandleApiKM";
 import axios from 'axios';
 
 function KhuyenMai () {
@@ -17,29 +18,27 @@ function KhuyenMai () {
     const [khuyenmais, setKhuyenmais] = useState([]);
 
     useEffect(() => {
-        axios
-          .get("https://applestore213.onrender.com/khuyenmai/apdung&phantram/0/0")
-          .then((response) => {
-            setKhuyenmais(response.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        HandleApiKM.getKMByApdungAndPhanTram(Mucapdung,Mucgiam)
+            .then((response) => {
+                setKhuyenmais(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
       }, []);
 
     const handleSearch = () => {
-    axios
-        .get(`https://applestore213.onrender.com/khuyenmai/apdung&phantram/${Mucapdung}/${Mucgiam}`)
-        .then((response) => {
-        setKhuyenmais(response.data);
-        })
-        .catch((error) => {
-        console.log(error);
-        });
+        HandleApiKM.getKMByApdungAndPhanTram(Mucapdung,Mucgiam)
+            .then((response) => {
+                setKhuyenmais(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     useEffect(() => {
-    handleSearch();
+        handleSearch();
     }, []);
       
     return (
