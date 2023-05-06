@@ -3,6 +3,7 @@ import classes from "./Login.module.css";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 import { GoogleLogin } from "@react-oauth/google";
 import images from "../../assets/image";
 import ForgetPass from "./ForgetPass/ForgetPass";
@@ -77,8 +78,8 @@ const Login = () => {
                 { type: "standard",
                 theme: "filled_blue",
                 size: "large",
-                width: "3500px",
-                height: "9",
+                width: "305px",
+                height: "9px",
                 color: "#444",
                 Text:"continue_with" }
              )
@@ -195,7 +196,10 @@ const Login = () => {
                 password: String(inputs.password),
             })
             .catch((err) => {
-                alert("failed");
+                Swal.fire({
+                    icon: "error",
+                    title: "Mật khẩu hoặc email không đúng",
+                });
                 console.log(err);
             });
         const data = await res.data;
@@ -205,7 +209,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         if (errors.emailError !== "" || errors.passwordError !== "") {
             e.preventDefault();
-            alert("Login failed!");
+            alert("Vui lòng nhập đầy đủ và đúng định dạng!");
         } else {
             e.preventDefault();
             sendRequestSU()
@@ -306,11 +310,10 @@ const handleSignInButtonClick = () => {
             <p className="px-3 ">Hoặc</p>
             <hr className="w-full" />
           </div >
-          <div >
-              <div id="signInDiv" style={{padding:"0 2px", width:"100%",maxWidth:"600px"}}>
-                  
+          <div className='flex'>
+              <div id="signInDiv" style={{paddingTop:"5px", width:"50%",maxWidth:"600px",zIndex:"1"}}>        
               </div>
-              <div>
+              <div style={{zIndex:"9"}}>
                 <LoginSocialFacebook
                 appId="918062536004658"
                 onResolve={(response)=>
@@ -318,9 +321,11 @@ const handleSignInButtonClick = () => {
                     handleFacebookLogin(response);
                 }}
                 onReject={(e)=>console.log(e)}
+                className={classes.FBbtn}
                 >
-                    <FacebookLoginButton>
-                    <span>Đăng nhập với Facebook</span>
+                    <FacebookLoginButton
+                    style={{height:"39px"}}>
+                    <span style={{fontSize:"14px",paddingLeft:"25px"}}>Đăng nhập với Facebook</span>
                     </FacebookLoginButton>
                 </LoginSocialFacebook>
               </div>

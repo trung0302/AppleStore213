@@ -3,7 +3,8 @@ import classes from '../Login.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
-//import Swal from 'sweetalert2'
+import images from "../../../assets/image";
+import Swal from 'sweetalert2'
 
 
 const NewPass = () => {
@@ -100,17 +101,18 @@ const NewPass = () => {
           sendRequestSU()
           .then((data)=>{ console.log(data);
           })
-          .then(()=>/*Swal.fire({
+          .then(()=>Swal.fire({
             icon: 'success',
             title: 'Chúc mừng',
             text: 'Mật khẩu của bản đã được thay đổi',
-          })*/{})
+          }))
           .then(()=>navigate("/login"));
         }
     }
     
   return (
-    <div className={classes.register}>
+    <div className={classes.register} style={{backgroundImage: `url(${images.registerbg})`,backgroundRepeat:"no-repeat",backgroundPosition:"center",backgroundSize:"cover", padding:"30px"}}>
+      
             <div className={classes.registerlayout}>
             <div className={classes.registerimg}></div>
             <form className={classes.form}>
@@ -144,6 +146,7 @@ const NewPass = () => {
                 </p>
             </form>
             </div>
+    
         </div>
   )
 }

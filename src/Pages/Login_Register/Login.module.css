@@ -105,3 +105,8 @@ iframe {
     max-width: 600px !important;
     min-width: min-content !important;
 }
+.FBbtn {
+    width: 305px;
+    height: 10px;
+    z-index: 999;
+}
