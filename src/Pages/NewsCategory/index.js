@@ -6,7 +6,7 @@ import NewsPage from './components/NewsPage'
 export default function NewsCategory({ isPage = false }) {
     return (
         <div className='w-full bg-[#f5f5f7]'>
-            <div className='w-[1200px] m-auto min-h-[600px] flex pt-[30px] gap-[12px]'>
+            <div className='w-[1200px] m-auto min-h-[600px] flex pt-[30px] gap-[12px] pb-[30px]'>
                 <NewsSidebar />
                 {isPage ? <NewsPage /> : <NewsList />}
             </div>
