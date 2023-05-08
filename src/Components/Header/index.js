@@ -3,6 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import { useState, useEffect, useRef } from 'react';
+import logo from '../../assets/image/logo1.jpg';
 
 function Header() {
     const [search, setSearch] = useState(1);
@@ -40,7 +41,8 @@ function Header() {
         </div>
         {/* //------------------------------------------------ */}
         <a href='/' className={styles.logo}>
-            <img src='https://shopdunk.com/images/thumbs/0012445_Logo_ShopDunk.png' alt="logo" />
+            {/* <img src='https://shopdunk.com/images/thumbs/0012445_Logo_ShopDunk.png' alt="logo" /> */}
+            <img src={logo} alt="logo" />
         </a>
         <ul className={styles.menu}>
             <li className={styles.menuItem}>
