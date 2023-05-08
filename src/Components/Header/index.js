@@ -3,6 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import { useState, useEffect, useRef } from 'react';
+import logo from '../../assets/image/logo1.jpg';
 
 function Header() {
     const [search, setSearch] = useState(1);
