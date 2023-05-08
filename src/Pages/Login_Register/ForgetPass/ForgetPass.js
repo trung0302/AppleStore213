@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import classes from "../Login.module.css";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const ForgetPass = (props) => {
     const [message, setMessage] = useState();
 
     const sendRequestSU = async () => {
         const res = await axios
-            .post(`http://localhost:3001/auth/forgetpass`, {
+            .post(`https://applestore213.onrender.com/auth/forgetpass`, {
                 email: String(props.inputs.email),
             })
             .catch((err) => {
                 console.log(err);
-                /*Swal.fire({
+                Swal.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: "Your email is not exists",
-                });*/
+                    text: "Email này chưa được đăng kí.",
+                });
             });
         const data = await res.data;
         if (data.status == 201) {
@@ -40,11 +41,11 @@ const ForgetPass = (props) => {
                     setMessage(data.message);
                 })
                 .then(() => {
-                    /*Swal.fire({
+                    Swal.fire({
                         icon: "success",
                         title: "Hãy kiểm tra email",
                         text: "Email xác nhận mật khẩu đả được gửi cho bạn",
-                    });*/
+                    });
                 });
         }
     };

@@ -3,6 +3,8 @@ import { LoginSocialFacebook } from "reactjs-social-login";
 import { FacebookLoginButton } from "react-social-login-buttons";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import classes from "./Login.module.css";
+
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import images from "../../assets/image";
@@ -16,7 +18,7 @@ const Register = () => {
         var userObject = jwt_decode(response.credential);
         console.log(userObject);
         const res = await axios
-        .post(`http://localhost:3001/auth/googlelogin`, {
+        .post(`https://applestore213.onrender.com/auth/googlelogin`, {
             token: String(response.credential)
         })
         .catch((err) => {
@@ -50,7 +52,7 @@ const Register = () => {
                 { type: "standard",
                 theme: "outline",
                 size: "large",
-                width: document.getElementById("signInDiv").offsetWidth,
+                width: "250px",
                 height: document.getElementById("signInDiv").offsetHeight, }
              )
          }else{
@@ -98,7 +100,7 @@ const Register = () => {
         console.log(response.data.accessToken);
         // Gọi API đến endpoint đăng nhập bằng Facebook trên server Node.js
         const res = await axios
-        .post(`http://localhost:3001/auth/facebook`, {
+        .post(`https://applestore213.onrender.com/auth/facebook`, {
             accessToken: String(response.data.accessToken)
         })
         const data = await res.data;
@@ -194,7 +196,7 @@ const Register = () => {
 
   const sendRequestSU = async ()=>{
     const res = await axios
-    .post(`http://localhost:3001/auth`,{
+    .post(`https://applestore213.onrender.com/auth`,{
       hoten:String(inputs.name),
       email:String(inputs.email),
       password:String(inputs.password),
@@ -398,9 +400,9 @@ const Register = () => {
           </div>
           
 
-
-          <div className="my-6 space-y-2">
-          <div id="signInDiv" style={{width:"100%"}}>
+          <div className='flex'>
+          
+          <div id="signInDiv" style={{paddingTop:"5px", width:"50%",maxWidth:"600px",zIndex:"1"}}>
                   
                   </div>
             
@@ -415,10 +417,16 @@ const Register = () => {
                     handleFacebookLogin(response);
                 }}
                 onReject={(e)=>console.log(e)}
+                className={classes.FBbtn}
                 >
-                    <FacebookLoginButton></FacebookLoginButton>
+                    <FacebookLoginButton
+                    style={{height:"39px",width:"250px"}}
+                    >
+                    <span style={{fontSize:"14px",paddingLeft:"15px"}}>Đăng nhập với Facebook</span>
+                    </FacebookLoginButton>
                 </LoginSocialFacebook>
-              </div>
+              
+          </div>
           </div>
         </div>
       </div>

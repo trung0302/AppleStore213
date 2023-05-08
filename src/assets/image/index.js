@@ -5,6 +5,7 @@ const images = {
     airpod2: require("./airpod2.jpeg"),
 
     loginBG: require('./loginbg.jpg'),
+    logBG: require('./logbg.jpg'),
     adress1: require("./adress1.png"),
     adress2: require("./adress2.png"),
     registerbg: require("./RegiterBG.jpeg"),

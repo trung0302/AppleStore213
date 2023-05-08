@@ -41,8 +41,7 @@ function Header() {
         </div>
         {/* //------------------------------------------------ */}
         <a href='/' className={styles.logo}>
-            {/* <img src='https://shopdunk.com/images/thumbs/0012445_Logo_ShopDunk.png' alt="logo" /> */}
-            <img src={logo} alt="logo" />
+            <img src='https://shopdunk.com/images/thumbs/0012445_Logo_ShopDunk.png' alt="logo" />
         </a>
         <ul className={styles.menu}>
             <li className={styles.menuItem}>
@@ -70,7 +69,7 @@ function Header() {
                 <a href="/tin-tuc" className={styles.menuItemLink}>Tin tức</a>
             </li>
             <li className={styles.menuItem}>
-                <a href="/khuyen-mai" className={styles.menuItemLink}>Khuyến mãi</a>
+                <a href="/khuyenmai" className={styles.menuItemLink}>Khuyến mãi</a>
             </li>
         </ul>
         <div className={styles.utilities}>

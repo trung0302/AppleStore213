@@ -1,22 +1,50 @@
-import styles from "../Payment.module.css";
-import { useParams } from 'react-router-dom'
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import PaymentConfirm from "../Component/PaymentConfirm";
 
 
 function PaymentFinish () {
-    const { madonhang } = useParams();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const phuongThuc = searchParams.get("phuongthuc");
+    const amount = searchParams.get("amount");
+    //momo
+    const partnerCode = searchParams.get("partnerCode");
+    const orderId = searchParams.get("orderId");
+    const requestId = searchParams.get("requestId");
+    const orderInfo = searchParams.get("orderInfo");
+    const orderType = searchParams.get("orderType");
+    const transId = searchParams.get("transId");
+    const resultCode = searchParams.get("resultCode");
+    const message = searchParams.get("message");
+    const payType = searchParams.get("payType");
+    const responseTime = searchParams.get("responseTime");
+    const extraData = searchParams.get("extraData");
+    const signature = searchParams.get("signature");
+    //zalo
+    const appid = searchParams.get("appid");
+    const apptransid = searchParams.get("apptransid");
+    const discountamount = searchParams.get("discountamount");
+    const checksum = searchParams.get("checksum");
+    const pmcid = searchParams.get("pmcid");
+    const bankcode = searchParams.get("bankcode");
+    const status = searchParams.get("status");
+
 
     return (
         <div className="text-center text-2xl py-20">
-            <h1 className="text-green-500 font-bold mb-10 text-3xl">Thông tin thanh toán của bạn đã được Appledunk ghi nhận</h1>
-            <p className="mb-10">Chúng tôi sẽ gửi xác nhận vào email cho bạn khi việc thanh toán được hoàn tất</p>
-            <strong className="mb-10">SỐ ĐƠN ĐẶT HÀNG: {madonhang}</strong><br/>
-            <div className="my-10">
-                <Link to="#" className="text-blue-600">Nhấp vào đây để biết chi tiết đơn hàng</Link>
-            </div>
-            <div className="mb-10">
-                <Link to="#" className="border-2 rounded-lg px-8 py-4 mx-auto bg-sky-600 text-white">Tiếp tục mua hàng</Link>
-            </div>
+            {(()=>{
+                if (phuongThuc=="momo")
+                    if(resultCode == 0)
+                        return(<PaymentConfirm method={phuongThuc} status={"thành công"} madonhang={transId}/>)
+                    else
+                        return(<PaymentConfirm method={phuongThuc} status={"thất bại"} madonhang={transId}/>)
+                else
+                    if(status==1)
+                        return(<PaymentConfirm method={phuongThuc} status={"thành công"} madonhang={apptransid}/>)
+                    else
+                        return(<PaymentConfirm method={phuongThuc} status={"thất bại"} madonhang={apptransid}/>)
+            })()
+            }
         </div>
     );
 }
