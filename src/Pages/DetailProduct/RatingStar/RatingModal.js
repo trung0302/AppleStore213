@@ -6,9 +6,6 @@ import StarRating from "../StarRating";
 
 import { useState } from "react";
 const RatingModal = (props) => {
-    const dgData = {
-
-    }
 
     const [danhGia, setDanhGia] = useState()
 
@@ -24,7 +21,15 @@ const RatingModal = (props) => {
 
     // Lấy đánh giá
     const handleGetDanhGia = (e) => {
-        console.log(e.target.value)
+        setDanhGia(e.target.value)
+    }
+
+    const dgData = {
+        makh: props.user.makh,
+        masp: "",
+        tenkh: props.user.hoten,
+        binhluan: danhGia,
+        rating: ratingValue,
     }
 
     const product = {
