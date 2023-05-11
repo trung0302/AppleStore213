@@ -17,9 +17,9 @@ function Payment(props) {
     const [selectedDistrict, setSelectedDistrict] = useState(null);
     const [selectedWard, setSelectedWard] = useState(null);
     const [selectedStore, setSelectedStore] = useState(null);
-    const [name, setName] = useState(user.hoten);
-    const [email, setEmail] = useState(user.email);
-    const [phone, setPhone] = useState(user.sdt);
+    const [name, setName] = useState(user ? user.hoten : "");
+    const [email, setEmail] = useState(user ? user.email : "");
+    const [phone, setPhone] = useState(user ? user.sdt : "");
     const [payment, setPayment] = useState(null);
     const [address, setAddress] = useState(null);
 

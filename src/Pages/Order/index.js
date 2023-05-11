@@ -10,25 +10,29 @@ import ProductHint from "./Components/ProductHint/ProductHint";
 import Payment from "./Components/Payment/Payment";
 import PromotionList from "./Components/PromotionList";
 import HandleApiCart from "../../Apis/HandleApiCart";
+import HandleApiKM from "../../Apis/HandleApiKM";
 
 function Order() {
     const [data, setData] = useState([]);
     const [qty, setQty] = useState(1);
-    const [showPromotion, setShowPromotion] = useState(true);
+    // const [showPromotion, setShowPromotion] = useState(true);
     const [isChecked, setIsChecked] = useState(false);
     const [voucherDisplay, setVoucherDisplay] = useState(false);
     const [dataPayment, setDataPayment] = useState(null);
     const [promotion, setPromotion] = useState(0);
     const [moneyDiscount, setMoneyDiscount] = useState(0);
     const [totalMoney, setTotalMoney] = useState(0);
+    const [promotionInput, setPromotionInput] = useState("");
+
 
     const navigate = useNavigate();
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     const user = JSON.parse(localStorage.getItem("user"));
 
+    // Hàm render giỏ hàng
     const HandleGetCart = () => {
-        HandleApiCart.getCartByMaKH(user.makh)
+        HandleApiCart.getCartByMaKH(user?.makh)
             .then((data) => {
                 setData(data.data);
                 setMoneyDiscount(
@@ -192,14 +196,6 @@ function Order() {
             item.dungluong
         )
             .then(() => {
-                // Swal.fire({
-                //     position: "center",
-                //     icon: "success",
-                //     title: "Xóa sản phẩm khỏi giỏ hàng thành công!",
-                //     showConfirmButton: false,
-                //     timer: 800,
-                //     padding: "0 0 20px 0",
-                // });
                 HandleGetCart();
             })
             .catch(() => {
@@ -214,9 +210,19 @@ function Order() {
             });
     };
 
+    // Handle Áp dụng Mã giảm giá bằng input
+    const HandleApplyPromotion = () => {
+        // HandleApiKM.getKMByApdung
+    }
+
+    //  Handle change promotion input
+    const HandleChangePromotionInput = (e) => {
+        setPromotionInput(e.target.value);
+    }
+
     return (
         <div>
-            {data.productCart?.length !== 0 ? (
+            {user && data.productCart?.length !== 0 ? (
                 <div>
                     {/* Header */}
                     <div className={styles.header}>
@@ -391,9 +397,12 @@ function Order() {
                                     <input
                                         type="text"
                                         placeholder="Mã giảm giá"
+                                        value={promotionInput}
+                                        onChange={HandleChangePromotionInput}
                                         className="h-full flex-1 placeholder:text-[16px] placeholder:font-light outline-none rounded-l-[8px] pl-6 caret-red-600 text-[16px]"
                                     ></input>
-                                    <button className="h-full w-[120px] text-[16px] font-light text-white bg-[#aaa] rounded-r-[6px] border-none hover:bg-[#999]">
+                                    <button className="h-full w-[120px] text-[16px] font-light text-white bg-[#aaa] rounded-r-[6px] border-none hover:bg-[#999]"
+                                    onClick={HandleApplyPromotion}>
                                         Áp dụng
                                     </button>
                                 </div>
@@ -432,7 +441,7 @@ function Order() {
                                                     "đ"}
                                             </div>
                                         </div>
-                                        {showPromotion && (
+                                        {promotion !== 0 && (
                                             <div className="flex justify-between py-2">
                                                 <div className="text-2xl  text-[#86868B]">
                                                     Voucher giảm giá:
