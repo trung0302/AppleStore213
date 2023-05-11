@@ -14,5 +14,6 @@ const postDanhGia = async (data) => {
 
 export default {
     getAllDanhGia,
-    getDanhGiaSp
+    getDanhGiaSp,
+    postDanhGia,
 }

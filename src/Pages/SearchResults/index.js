@@ -1,11 +1,12 @@
 import ProductFilter from "./Product_Filter";
 import ProductCard from "./Product_Card";
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useParams } from "react-router-dom";
 import RegisterNotify from "./RegisterNotify";
 import Pagination from "./Pagination";
 
 function SearchResults() {
+    const {id} = useParams()
     const products = [
         {
             image: "https://shopdunk.com/images/thumbs/0007808_iphone-14-pro-max-128gb_420.png",

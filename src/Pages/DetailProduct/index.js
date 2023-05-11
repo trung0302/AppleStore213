@@ -4,11 +4,17 @@ import { useRef, useState } from "react";
 import images from "../../assets/image";
 import classes from "./DetailProduct.module.css";
 import Rating from "@mui/material/Rating";
-
+import StoreIcon from '@mui/icons-material/Store';
+import { useParams } from "react-router-dom";
 function DetailProduct() {
+    const {id} = useParams()
     const [currentSlide,setCurrentSlide] = useState(0);
     const mainCarouselRef = useRef(null);
     const thumbnailCarouselRef = useRef(null);
+    
+    const [dungluong, setDungluong] = useState(0);
+    const [ram, setRam] = useState(0);
+    const [color, setColor] = useState(0);
 
     const mainCarouselOptions = {
         perPage: 1,
@@ -42,6 +48,11 @@ function DetailProduct() {
         setCurrentSlide(index);
         mainCarouselRef.current.go(index);
       };
+
+    const VND = new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+    });
     return (
 
         <div className={classes.container}>
@@ -110,50 +121,74 @@ function DetailProduct() {
                                 <Rating name="size-small" defaultValue={2} size="big" />
                             </div>
                             <a>Đánh giá</a>
-                            <a>|</a>
-                            <a>So sánh</a>
-                        </div>
                         <hr />
 
                     </div>
                     <div className={classes.price}>
-                        <span className={classes.currentPrice}>28.550.000</span>
+                        <span className={classes.currentPrice}>{VND.format(28550000)}</span>
                     </div>
                     <div className={classes.attribute}>
                         <div className={classes.detail_info}>
                             <label>Dung lượng</label>
                             <ul>
-                                <li>
+                                <li onClick={()=> setDungluong(1)} value={256}
+                                    className={dungluong === 1 ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
+                                    128GB
+                                </li>
+
+                                <li onClick={()=> setDungluong(2)} value={256}
+                                    className={dungluong === 2 ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
                                     256GB
                                 </li>
 
-                                <li>
+                                <li onClick={()=> setDungluong(3)} 
+                                    className={dungluong === 3 ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
                                     512GB
+                                </li>
+
+                                <li onClick={()=> setDungluong(4)} 
+                                    className={dungluong === 4 ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
+                                    1T
                                 </li>
                             </ul>
 
                             <label>RAM</label>
                             <ul>
-                                <li>8GB</li>
+                                <li onClick={()=> setRam(1)} 
+                                    className={ram === 1 ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
+                                    8GB
+                                </li>
+
+                                <li onClick={()=> setRam(2)} 
+                                    className={ram === 2 ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
+                                    16GB
+                                </li>
                             </ul>
                             <label>Màu sắc</label>
                             
                         </div>
                         <div className={classes.itemColor}>
                         <ul >
-                                <li className={classes.red}>
+                                <li className={color === 1? "bg-[#a9a9a9] outline outline-[2px] outline-blue-500" : classes.black}
+                                    onClick={()=>setColor(1)}>
                                 </li>
-                                <li className={classes.pink}>
+                                <li className={color === 2? "bg-[#ffc0cb] outline outline-[2px] outline-blue-500" : classes.pink}
+                                    onClick={()=>setColor(2)}>
                                 </li>
-                                <li className={classes.green}>
+                                <li className={color === 3? "bg-[#11114dcc] outline outline-[2px] outline-blue-500" : classes.blue}
+                                    onClick={()=>setColor(3)}>
                                 </li>
-                                <li className={classes.yellow}>
+                                <li className={color === 4? "bg-[#bd8b0dcc] outline outline-[2px] outline-blue-500" : classes.gold}
+                                    onClick={()=>setColor(4)}>
                                 </li>
                         </ul>
                         </div>
                         
                         <div className={classes.confirm}>
-                            <a>Xem cửa hàng có sẵn sản phẩm</a>
+                            <div className="flex text-[#5353e7]">
+                                <StoreIcon fontSize="large"/>
+                                <a className="text-[13px] mt-[3px] ml-[3px] block">Xem cửa hàng có sẵn sản phẩm</a>
+                            </div>
                             <button>MUA NGAY</button>
                         </div>
 
@@ -162,7 +197,9 @@ function DetailProduct() {
 
 
 
+                    </div>
                 </div>
+
             </section>
             <div>
                 <DetailBottom />
