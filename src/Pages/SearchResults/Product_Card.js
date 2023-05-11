@@ -5,14 +5,11 @@ export default function ProductCard(prop) {
         style: 'currency',
         currency: 'VND',
       });
-
-    const id = 1;
       
     return (
-        <Link to={{pathname:`/detailproduct/${id}`}}>
+        <Link to={{pathname:`/detailproduct/${prop.id}`}}>
             <div id = "product-card"
-                className="h-[410px] p-[20px] bg-white rounded-[10px] hover:shadow-2xl">
-                <a id="product-link" className="hover:cursor-pointer" href="#">
+                className="h-[410px] p-[20px] bg-white rounded-[10px] hover:shadow-2xl hover:cursor-pointer">
                 <div id="product-tag" className="h-[40px]"></div>
                 <img className="w-full h-[232px] self-center" src={prop.image}/>
                 <div id="product-title" className="h-[54px] mt-[20px] text-[18px]">{prop.name}</div>
@@ -20,7 +17,6 @@ export default function ProductCard(prop) {
                     <span id="new-price" className="text-blue-600 mr-[5px] text-[16px]">{VND.format(prop.newPrice)}</span>
                     <span id="old-price" className="text-gray-600 text-[15px] line-through">{VND.format(prop.oldPrice)}</span>
                 </div>
-                </a>
             </div>
         </Link>
     )

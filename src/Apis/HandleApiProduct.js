@@ -2,7 +2,7 @@
 import axiosInstance from "./axiosInstance";
 
 const getAllProduct = async () => {
-    return await axiosInstance.get(`/product`);
+    return await axiosInstance.get(`/api/product`);
 };
 
 

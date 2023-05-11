@@ -1,14 +1,14 @@
 import ProductFilter from "./Product_Filter";
 import ProductCard from "./Product_Card";
 import { useState } from "react";
-import { useSearchParams, useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import RegisterNotify from "./RegisterNotify";
 import Pagination from "./Pagination";
 
 function SearchResults() {
-    const {id} = useParams()
     const products = [
         {
+            id: 1,
             image: "https://shopdunk.com/images/thumbs/0007808_iphone-14-pro-max-128gb_420.png",
             name: "iPhone 14 Pro Max 128GB",
             oldPrice: 34990000,
@@ -16,6 +16,7 @@ function SearchResults() {
             note: ""
         },
         {
+            id: 2,
             image: "https://shopdunk.com/images/thumbs/0008734_iphone-14-pro-128gb_420.png",
             name: "iPhone 14 Pro 128GB",
             oldPrice: 30990000,
@@ -23,6 +24,7 @@ function SearchResults() {
             note: ""
         },
         {
+            id: 3,
             image: "https://shopdunk.com/images/thumbs/0009495_iphone-14-plus-128gb_420.png",
             name: "iPhone 14 Plus 128GB",
             oldPrice: 27990000,
@@ -30,6 +32,7 @@ function SearchResults() {
             note: ""
         },
         {
+            id: 4,
             image: "https://shopdunk.com/images/thumbs/0007808_iphone-14-pro-max-128gb_420.png",
             name: "iPhone 14 Pro Max 128GB",
             oldPrice: 34990000,
@@ -37,6 +40,7 @@ function SearchResults() {
             note: ""
         },
         {
+            id: 5,
             image: "https://shopdunk.com/images/thumbs/0008734_iphone-14-pro-128gb_420.png",
             name: "iPhone 14 Pro 128GB",
             oldPrice: 30990000,
@@ -44,6 +48,7 @@ function SearchResults() {
             note: ""
         },
         {
+            id: 6,
             image: "https://shopdunk.com/images/thumbs/0009495_iphone-14-plus-128gb_420.png",
             name: "iPhone 14 Plus 128GB",
             oldPrice: 27990000,
@@ -51,6 +56,7 @@ function SearchResults() {
             note: ""
         },
         {
+            id: 7,
             image: "https://shopdunk.com/images/thumbs/0007808_iphone-14-pro-max-128gb_420.png",
             name: "Ipad 14 Pro Max 128GB",
             oldPrice: 34990000,
@@ -58,6 +64,7 @@ function SearchResults() {
             note: ""
         },
         {
+            id: 8,
             image: "https://shopdunk.com/images/thumbs/0008734_iphone-14-pro-128gb_420.png",
             name: "Ipad 14 Pro 128GB",
             oldPrice: 30990000,
@@ -65,6 +72,7 @@ function SearchResults() {
             note: ""
         },
         {
+            id: 9,
             image: "https://shopdunk.com/images/thumbs/0009495_iphone-14-plus-128gb_420.png",
             name: "Ipad 14 Plus 128GB",
             oldPrice: 27990000,
@@ -72,6 +80,7 @@ function SearchResults() {
             note: ""
         },
         {
+            id: 10,
             image: "https://shopdunk.com/images/thumbs/0007808_iphone-14-pro-max-128gb_420.png",
             name: "Ipad 14 Pro Max 128GB",
             oldPrice: 34990000,
@@ -79,6 +88,7 @@ function SearchResults() {
             note: ""
         },
         {
+            id: 11,
             image: "https://shopdunk.com/images/thumbs/0008734_iphone-14-pro-128gb_420.png",
             name: "Ipad 14 Pro 128GB",
             oldPrice: 30990000,
@@ -86,6 +96,7 @@ function SearchResults() {
             note: ""
         },
         {
+            id: 12,
             image: "https://shopdunk.com/images/thumbs/0009495_iphone-14-plus-128gb_420.png",
             name: "Ipad 14 Plus 128GB",
             oldPrice: 27990000,
