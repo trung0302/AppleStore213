@@ -77,13 +77,13 @@
  .detail_info label {
     margin-top: 20px;
     padding-bottom: 10px;
-    font-size: 13px;
+    font-size: 14px;
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(85, 85, 85);
 }
 .detail_info ul {
     display: flex;
-    
+    margin-bottom: 10px;
 }
 .detail_info ul li {
     display: flex;
@@ -91,34 +91,50 @@
     border-radius: 4px;
     width: 70px;
     height: 38px;
-    margin-right: 30px;
+    margin-right: 20px;
     justify-content: center;
     align-items: center;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #777;
+    cursor: pointer;
+}
+
+.detail_info ul .active {
+    border: 2px solid rgb(0, 102, 204);
 }
 
 .itemColor ul {
     display: flex;
+    margin-bottom: 10px;
 }
 .itemColor ul li {
     border: 1px solid rgb(214, 214, 214);
     border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    margin-right: 30px;
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+    margin-right: 20px;
     box-shadow: inset 1px 1px 2px rgb(0 0 0 / 10%);
+    cursor: pointer;
 }
-.red {
-    background-color: red;
+
+.itemColor ul .active {
+    box-shadow: inset 1px 1px 2px rgb(0 0 0 / 30%);
+
+}
+
+.black {
+    background-color: #a9a9a9;
 }
 .pink {
-    background-color: rgb(255, 42, 209);
+    background-color: #ffc0cb;
 }
-.green {
-    background-color: green;
+.blue {
+    background-color: #11114dcc;
 }
-.yellow {
-    background-color: yellow;
+.gold {
+    background-color: #bd8b0dcc;
 }
 
 
@@ -143,9 +159,7 @@
 .confirm {
     margin-top: 100px;
 }
-.confirm a{
-    color: rgb(83, 83, 231);
-}
+
 .confirm button {
     margin-top: 30px;
     width: 100%;
