@@ -172,7 +172,7 @@ const publicRoutes = [
     { path: "/customer/baohanh/detail/:id", component: <BaohanhDetail /> },
     { path: "/khuyenmai", component: <KhuyenMai /> },
 
-    { path: "/detaiproduct", component: <DetailProduct /> },
+    { path: "/detailproduct/:id", component: <DetailProduct /> },
     {
         path: "/customer/orderdetail/:madonhang/:status",
         component: <Orderdetail />,
