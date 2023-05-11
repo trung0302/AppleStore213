@@ -10,10 +10,13 @@ import Comment from "./Comment/Comment";
 function DetailBottom() {
     const [tongleState, setTongleState] = useState(1);
     const [filterIndex, setFilterIndex] = useState(0);
+    const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")))
+
 
     // hàm set giá trị cho tab được chon
     const tongleTab = function(index) {
         setTongleState(index);
+        console.log(user)
     }
 
     // Biến để quyết định việc bật tắt modal, 1 là tắt, 0 là mở
@@ -191,7 +194,8 @@ function DetailBottom() {
                 </div>
             <RatingModal 
                 closeRatingModal = {closeRatingModal}
-                setCloseRatingModal = {setCloseRatingModal}/>
+                setCloseRatingModal = {setCloseRatingModal}
+                user = {user}/>
             
     </div>);
 }

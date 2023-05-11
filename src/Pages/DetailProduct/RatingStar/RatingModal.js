@@ -6,6 +6,12 @@ import StarRating from "../StarRating";
 
 import { useState } from "react";
 const RatingModal = (props) => {
+    const dgData = {
+
+    }
+
+    const [danhGia, setDanhGia] = useState()
+
     const handleChildeElementClick = (e) => {
         e.stopPropagation();
     }
@@ -16,6 +22,11 @@ const RatingModal = (props) => {
     // Lấy giá trị rating value khi click
     const [ratingValue, setRatingValue] = useState(null) ;
 
+    // Lấy đánh giá
+    const handleGetDanhGia = (e) => {
+        console.log(e.target.value)
+    }
+
     const product = {
             image: "https://shopdunk.com/images/thumbs/0007808_iphone-14-pro-max-128gb_420.png",
             name: "iPhone 14 Pro Max 128GB",
@@ -23,7 +34,7 @@ const RatingModal = (props) => {
             newPrice: 27390000,
             note: ""
         };
-    return (
+    {return props.user?(     
         <div className={props.closeRatingModal === 0? classes.overlay : "hidden"}
             onClick={()=>props.setCloseRatingModal(1)}>
             <div onClick={handleChildeElementClick} className={classes.modal}>
@@ -57,7 +68,8 @@ const RatingModal = (props) => {
                         <div className="">
                             <textarea className="border-[1px] border-slate-300 outline-none rounded-[4px] 
                             block h-[72px] w-full text-[14px] py-[6px] px-[12px]" 
-                            placeholder="Hãy chia sẻ cảm nhận của bạn về sản phẩm..." rows={4}></textarea>
+                            placeholder="Hãy chia sẻ cảm nhận của bạn về sản phẩm..." rows={4}
+                            onChange={handleGetDanhGia}></textarea>
                         </div>
                     </div>
 
@@ -90,7 +102,33 @@ const RatingModal = (props) => {
 
             </div>
         </div>
-    )
+    ):  <div className={props.closeRatingModal === 0? classes.overlay : "hidden"}
+    onClick={()=>props.setCloseRatingModal(1)}>
+    <div onClick={handleChildeElementClick} className={classes.modal1}>
+        {/* Header của modal */}
+        <div className="flex text-[22px] items-center justify-between text-slate-600 
+        px-[20px] py-[10px] border-b-[1px] border-b-slate-300">
+            <div className="">Đánh giá sản phẩm</div>
+            <div onClick={()=>props.setCloseRatingModal(1)} className="h-20px cursor-pointer">
+                <CloseIcon fontSize="20px"/>
+            </div>
+        </div>
+        {/* form */}
+        <div className="px-[20px] py-[16px]">
+            {/* Phần trên của body */}
+            <div className="text-center text-slate-600">
+                <img src={product.image}
+                className="w-[96px] block mx-auto"/>
+                <div className=" my-[10px]">{product.name}</div>
+                
+            </div>
+
+            <hr className="h-[1px] w-full my-[15px] bg-slate-300"/>
+            <div className="text-center text-[24px] text-slate-600 my-[20px]" >Vui lòng đăng nhập để gửi đánh giá!</div> 
+        </div>
+    </div>
+</div>
+}
 }
 
 export default RatingModal;
