@@ -12,9 +12,10 @@ import NavTag from "../Components/NavTag";
 import LabelAndInput from "../Components/LabelAndInput";
 import GppGoodIcon from '@mui/icons-material/GppGood';
 
-function Info()
-{
-    const [selectedGender, setSelectedGender] = useState("Nam");
+function Info(){
+    const user = JSON.parse(localStorage.getItem("user"));
+    
+    const [selectedGender, setSelectedGender] = useState(user.gioitinh || 'Nam');
 
     const handleGenderChange = (event) => {
         setSelectedGender(event.target.value);
@@ -46,11 +47,11 @@ function Info()
                                 <label for="Name">Tên, Họ:</label><br/>
                                 <input type="text" name="Name" className="w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400" value="Dat lam"/>
                             </div> */}
-                            <LabelAndInput divCss={"my-4"} labelContent={"Tên, Họ:"} inputType={"text"} inputName={"Name"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={"Dat Lam"}/>
-                            <LabelAndInput divCss={"my-4"} labelContent={"Email"} inputType={"email"} inputName={"Email"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={"20520433@gmail.com"}/>
+                            <LabelAndInput divCss={"my-4"} labelContent={"Tên, Họ:"} inputType={"text"} inputName={"Name"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={user.hoten}/>
+                            <LabelAndInput divCss={"my-4"} labelContent={"Email"} inputType={"email"} inputName={"Email"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={user.email}/>
                         </div>
                         <div className="grid grid-cols-2 gap-8 mx-8 my-4">
-                            <LabelAndInput inputType={"tel"} labelContent={"Số điện thoại"} inputName={"Telephone"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={"0123456789"}/>
+                            <LabelAndInput inputType={"tel"} labelContent={"Số điện thoại"} inputName={"Telephone"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={user.sdt || '1234567890'}/>
                             <div className="grid grid-rows-2">
                                 <label htmlFor="Gender">Giới tính:</label>
                                 <div className="content-center gap-8">
@@ -64,13 +65,13 @@ function Info()
                         <div className="mx-8 my-4">
                             <label>Ngày sinh:</label> <br/>
                             <div>
-                                <SelectTag setSelect={"Ngày"} setIndex={1} setLength={31} setCss={"border-2 rounded-lg px-3 py-3 my-4 mr-8"} setName={"date"}/>
-                                <SelectTag setSelect={"Tháng"} setIndex={1} setLength={12} setCss={"border-2 rounded-lg px-3 py-3 my-4 mr-8"} setName={"month"}/>
-                                <SelectTag setSelect={"Năm"} setIndex={1913} setLength={2023} setCss={"border-2 rounded-lg px-3 py-3 my-4"} setName={"year"}/>
+                                <SelectTag setSelect={"Ngày"} Index={10} setIndex={1} setLength={31} setCss={"border-2 rounded-lg px-3 py-3 my-4 mr-8"} setName={"date"}/>
+                                <SelectTag setSelect={"Tháng"} Index={12} setIndex={1} setLength={12} setCss={"border-2 rounded-lg px-3 py-3 my-4 mr-8"} setName={"month"}/>
+                                <SelectTag setSelect={"Năm"} Index={1913} setIndex={1913} setLength={2023} setCss={"border-2 rounded-lg px-3 py-3 my-4"} setName={"year"}/>
                             </div>
                         </div>
                         <div className="mx-8 my-4">
-                            <label>Username:</label> lamquocdat
+                            <label>Username:</label> {user.hoten}
                         </div>
                         <div className="flex justify-center my-4">
                             <button className="border-2 rounded-full px-8 py-4 bg-sky-600 text-white">Lưu lại</button>

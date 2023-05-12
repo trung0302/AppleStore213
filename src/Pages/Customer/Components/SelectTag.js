@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 
-function SelectTag( {setSelect, setIndex, setLength, setCss, setName} ) {
+function SelectTag( {setSelect, setIndex, setLength, setCss, setName, Index} ) {
     const [options, setOptions] = useState([]);
-
+    const[value, setValue] = useState(Index);
+    const handleValueChange = (e) => {
+        setValue(e.target.value);
+    }
     useEffect(() => {
         const newOptions = [];
 
@@ -20,7 +23,7 @@ function SelectTag( {setSelect, setIndex, setLength, setCss, setName} ) {
     }, [setSelect, setIndex, setLength]);
 
     return (
-        <select className={setCss} name={setName}>
+        <select className={setCss} name={setName} value={value} onChange={handleValueChange}>
             {options}
         </select>
     );

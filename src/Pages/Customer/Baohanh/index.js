@@ -12,6 +12,7 @@ import GppGoodIcon from '@mui/icons-material/GppGood';
 import SearchIcon from '@mui/icons-material/Search';
 
 function Baohanh () {
+    const user = JSON.parse(localStorage.getItem("user"));
     return (
         <div>
             <div className={styles.bg_primary + " flex justify-evenly text-2xl relative"}>
