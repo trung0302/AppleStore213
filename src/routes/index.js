@@ -154,12 +154,11 @@ const publicRoutes = [
     },
 
     { path: "/tin-tuc", component: <News /> },
-    { path: "/tin-tuc/:title", component: <NewsCategory isPage={true} /> },
+    { path: "/tin-tuc/:id", component: <NewsCategory isPage={true} /> },
     { path: "/apple-news", component: <NewsCategory /> },
     { path: "/news-review", component: <NewsCategory /> },
     { path: "/tin-kham-pha", component: <NewsCategory /> },
     { path: "/thu-thuat", component: <NewsCategory /> },
-    { path: "/khuyen-mai", component: <NewsCategory /> },
     { path: "/tin-khac", component: <NewsCategory /> },
 
     { path: "/customer/info", component: <Info /> },
@@ -173,7 +172,7 @@ const publicRoutes = [
     { path: "/customer/baohanh/detail/:id", component: <BaohanhDetail /> },
     { path: "/khuyenmai", component: <KhuyenMai /> },
 
-    { path: "/detaiproduct", component: <DetailProduct /> },
+    { path: "/detailproduct/:id", component: <DetailProduct /> },
     {
         path: "/customer/orderdetail/:madonhang/:status",
         component: <Orderdetail />,
