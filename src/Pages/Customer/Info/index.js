@@ -20,7 +20,6 @@ function Info(){
     const handleGenderChange = (event) => {
         setSelectedGender(event.target.value);
     };
-    
     return (
         <div>
             <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>
@@ -57,7 +56,7 @@ function Info(){
                                 <div className="content-center gap-8">
                                     <input type="radio" name="Gender" value="Nam" checked={selectedGender === "Nam"} onChange={handleGenderChange}/>
                                     <label className="mr-8 ml-4">Nam</label>
-                                    <input type="radio" name="Gender" value="Nu" checked={selectedGender === "Nu"} onChange={handleGenderChange}/>
+                                    <input type="radio" name="Gender" value="Nữ" checked={selectedGender === "Nữ"} onChange={handleGenderChange}/>
                                     <label className="ml-4">Nữ</label>
                                 </div>
                             </div>

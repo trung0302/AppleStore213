@@ -9,8 +9,31 @@ import { blue } from "@mui/material/colors";
 import NavTag from "../Components/NavTag";
 import AvatarImg from "../Components/AvatarImg";
 import GppGoodIcon from '@mui/icons-material/GppGood';
+import { useState } from "react";
+import axios from "axios";
 
 function Avatar () {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const [selectedFile, setSelectedFile] = useState()
+    const handleFileChange = (event) => {
+        const selectedFile = event.target.files[0];
+        setSelectedFile(selectedFile);
+        console.log(selectedFile);
+      };
+    const uploadFile = async (event) => {
+  //const file = event.target.files[0];
+  
+  const formData = new FormData();
+  formData.append("images", selectedFile);
+  await axios.post(`http://localhost:3001/auth/upload/${user._id}`, formData)
+    .then((response) => {
+     console.log(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
     return (
         <div>
             <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>
@@ -32,11 +55,11 @@ function Avatar () {
                 </div>
                 <div className={styles.bg_white +" h-fit grid grid-cols-2 rounded-lg lg:w-2/5 my-12"}>
                     <div className="mx-4 my-4 flex flex-col h-fit">
-                        <AvatarImg src="http://webcoban.vn/image/flower.gif" alt="Ảnh avatar"></AvatarImg>
-                        <input type="file" accept=".jpg, .png" name="Avatar" className="mx-3 my-3 h-fit"/>
+                        <AvatarImg src={"http://webcoban.vn/image/flower.gif"} alt="Ảnh avatar"></AvatarImg>
+                        <input type="file" accept=".jpg, .png" name="Avatar" onChange={handleFileChange} className="mx-3 my-3 h-fit"/>
                     </div>
                     <div className="mx-4 my-4 flex flex-col h-fit" >
-                        <button className="border-2 w-3/4 rounded-lg px-4 py-4 mb-5 bg-sky-600 text-white">Tải lên</button>
+                        <button className="border-2 w-3/4 rounded-lg px-4 py-4 mb-5 bg-sky-600 text-white" onClick={uploadFile}>Tải lên</button>
                         <button className="border-2 w-3/4 rounded-lg px-4 py-4 mb-5 border-pink-500 text-red-500">Xóa ảnh</button>
                     </div>
                 </div>
