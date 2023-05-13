@@ -11,6 +11,7 @@ import Orderbill from "../Components/Orderbill";
 import GppGoodIcon from '@mui/icons-material/GppGood';
 
 function History () {
+    const user = JSON.parse(localStorage.getItem("user"));
     return (
         <div>
             <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>

@@ -2,42 +2,42 @@ import axiosInstance from './axiosInstance';
 
 //GET
 const getAllBH = async() => {
-    return await axiosInstance.get(`/baohanh`);
+    return await axiosInstance.get(`/api/baohanh`);
 }
 
 const getBHByID = async(id) => {
-    return await axiosInstance.get(`/baohanh/${id}`);
+    return await axiosInstance.get(`/api/baohanh/${id}`);
 }
 
 const getBHBySDT = async(sdt) => {
-    return await axiosInstance.get(`/baohanh/sdt/${sdt}`);
+    return await axiosInstance.get(`/api/baohanh/sdt/${sdt}`);
 }
 
 //POST
 const addBH = async(data) => {
-    return await axiosInstance.post(`/baohanh`,data);
+    return await axiosInstance.post(`/api/baohanh`,data);
 }
 
 const addCTBH = async(id,data) => {
-    return await axiosInstance.put(`/baohanh/ctbh/${id}`,data);
+    return await axiosInstance.put(`/api/baohanh/ctbh/${id}`,data);
 }
 
 //PUT
 const updateBH = async(id,data) => {
-    return await axiosInstance.put(`/baohanh/${id}`,data);
+    return await axiosInstance.put(`/api/baohanh/${id}`,data);
 }
 
 const updateCTBH = async(id,ctbhId,data) => {
-    return await axiosInstance.put(`/baohanh/ctbh/${id}/${ctbhId}`,data);
+    return await axiosInstance.put(`/api/baohanh/ctbh/${id}/${ctbhId}`,data);
 }
 
 //DELETE
 const deleteBH = async(id) => {
-    return await axiosInstance.delete(`/baohanh/${id}`);
+    return await axiosInstance.delete(`/api/baohanh/${id}`);
 }
 
 const deleteCTBH = async(id,ctbhId) => {
-    return await axiosInstance.delete(`/baohanh/${id}/${ctbhId}`);
+    return await axiosInstance.delete(`/api/baohanh/${id}/${ctbhId}`);
 }
 
 export default {

@@ -12,6 +12,7 @@ import Notice from "../Components/Notice";
 import GppGoodIcon from '@mui/icons-material/GppGood';
 
 function ChangePassword () {
+    const user = JSON.parse(localStorage.getItem("user"));
     return (
         <div>
             <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>
@@ -34,9 +35,9 @@ function ChangePassword () {
                 <div className={styles.bg_white +" rounded-lg lg:w-2/5 my-12"}>
                     <Notice divCss={"mx-4 mt-8 mb-4 bg-slate-200 px-3 py-3 rounded-lg w-fit"} labelCss={"text-xl"} labelContent={"Lưu ý: Mật khẩu phải có tối thiểu 8 ký tự bao gồm chữ, số và các ký tự đặc biệt"}></Notice>
                     <form action="">
-                        <LabelAndInput divCss={"w-full px-4 py-4"} inputName={"oldPassword"} inputType={"password"} inputCss={"border-2 rounded-lg w-full my-4 px-2 py-3"} labelContent={"Mật khẩu cũ:"}/>
-                        <LabelAndInput divCss={"w-full px-4 py-4"} inputName={"newPassword"} inputType={"password"} inputCss={"border-2 rounded-lg w-full my-4 px-2 py-3"} labelContent={"Mật khẩu mới:"}/>
-                        <LabelAndInput divCss={"w-full px-4 py-4"} inputName={"accessPassword"} inputType={"password"} inputCss={"border-2 rounded-lg w-full my-4 px-2 py-3"} labelContent={"Xác nhận mật khẩu:"}/>
+                        <LabelAndInput divCss={"w-full px-4 py-4"} inputName={"oldPassword"} inputType={"password"} inputCss={"border-2 rounded-lg w-full my-4 px-2 py-3"} labelContent={"Mật khẩu cũ:"} inputValue={''}/>
+                        <LabelAndInput divCss={"w-full px-4 py-4"} inputName={"newPassword"} inputType={"password"} inputCss={"border-2 rounded-lg w-full my-4 px-2 py-3"} labelContent={"Mật khẩu mới:"} inputValue={''}/>
+                        <LabelAndInput divCss={"w-full px-4 py-4"} inputName={"accessPassword"} inputType={"password"} inputCss={"border-2 rounded-lg w-full my-4 px-2 py-3"} labelContent={"Xác nhận mật khẩu:"} inputValue={''}/>
                         <div className="flex justify-center">
                             <button className="border-2 rounded-lg px-4 py-4 mb-5 bg-sky-600 text-white">Đổi mật khẩu</button>
                         </div>
