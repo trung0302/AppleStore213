@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 const iphoneNavigation = [
     {
@@ -179,7 +179,7 @@ const accessoryNavigation = [
     },
 ]
 
-export default function TopSection({ type }) {
+export default function TopSection({ type, currentCategory }) {
     const [detail, setDetail] = useState();
     const [typeLink, setTypeLink] = useState();
     const location = useLocation();
@@ -258,7 +258,7 @@ export default function TopSection({ type }) {
                     }
                 </div>
             </div>
-            <h1 className='text-[36px] text-center font-bold py-[16px] w-full bg-[#f5f5f7] m-auto'>{detail ? detail.name : type}</h1>
+            <h1 className='text-[36px] text-center font-bold py-[16px] w-full bg-[#f5f5f7] m-auto'>{currentCategory ? currentCategory : type}</h1>
         </div >
     )
 }

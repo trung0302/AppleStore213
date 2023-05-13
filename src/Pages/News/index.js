@@ -37,20 +37,20 @@ export default function News() {
             <div className='w-[1200px] mx-auto'>
                 <div className='h-[492px] w-full flex mb-[40px]'>
                     <div className='w-[787px] h-full bg-white rounded-xl mr-[20px] relative cursor-pointer overflow-hidden'>
-                        <img className='w-full h-full object-cover' src={firstNews && firstNews[0].image} alt='news' />
+                        <img className='w-full h-full object-cover' src={firstNews && firstNews.length !== 0 && firstNews[0].image} alt='news' />
                         <div className='absolute bottom-0 w-full flex items-center bg-gradient-to-t from-black'>
                             <p className='text-[#FBFBFB] text-[18px] ml-[25px] opacity-95 py-[25px]'>{firstNews && firstNews[0].title}</p>
                         </div>
                     </div>
                     <div className='h-full'>
                         <div className='w-[385px] h-[256px] bg-white rounded-xl mb-[20px] relative cursor-pointer overflow-hidden'>
-                            <img className='w-full h-full object-cover' src={firstNews && firstNews[1].image} alt='news1' />
+                            <img className='w-full h-full object-cover' src={firstNews && firstNews.length !== 0 && firstNews[1].image} alt='news1' />
                             <div className='absolute bottom-0 w-full flex items-center bg-gradient-to-t from-black'>
                                 <p className='text-[#FBFBFB] text-[18px] ml-[25px] opacity-95 py-[25px]'>{firstNews && firstNews[1].title}</p>
                             </div>
                         </div>
                         <div className='w-[385px] h-[216px] bg-white rounded-xl relative cursor-pointer overflow-hidden'>
-                            <img className='w-full h-full object-cover' src={firstNews && firstNews[2].image} alt='news2' />
+                            <img className='w-full h-full object-cover' src={firstNews && firstNews.length !== 0 && firstNews[2].image} alt='news2' />
                             <div className='absolute bottom-0 w-full flex items-center bg-gradient-to-t from-black'>
                                 <p className='text-[#FBFBFB] text-[18px] ml-[25px] opacity-95 py-[25px]'>{firstNews && firstNews[2].title}</p>
                             </div>

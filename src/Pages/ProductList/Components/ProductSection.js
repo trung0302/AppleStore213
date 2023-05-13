@@ -1,249 +1,91 @@
 import React, { useEffect, useState } from 'react'
 import Select from "react-select";
 import ProductCard from './ProductCard';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import images from '../../../assets/image';
 import { useLocation } from 'react-router-dom'
 import { Splide, SplideSlide } from '@splidejs/react-splide';
+import api from '../../../Apis/HandleApiProduct'
+import { convertToSlug } from '../../../utils'
+import { KeyboardArrowLeft, KeyboardArrowRight, KeyboardDoubleArrowLeft, KeyboardDoubleArrowRight } from "@mui/icons-material";
 
-const phoneDatas = [
-    {
-        name: "iPhone 14 Pro Max 128GB",
-        type: "iPhone 14 Series",
-        path: "/iphone-14-pro-max",
-        image: "https://shopdunk.com/images/thumbs/0007808_iphone-14-pro-max-128gb_420.png",
-        price: 34990000,
-        discountPrice: 27390000,
-        isReady: false,
-    },
-    {
-        name: "iPhone 14 Pro 128GB",
-        type: "iPhone 14 Series",
-        path: "/iphone-14-pro-128gb",
-        image: "https://shopdunk.com/images/thumbs/0008734_iphone-14-pro-128gb_420.png",
-        price: 30990000,
-        discountPrice: 25390000,
-        isReady: false,
-    },
-    {
-        name: "iPhone 14 128GB",
-        type: "iPhone 14 Series",
-        path: "/iphone-14-128gb",
-        image: "https://shopdunk.com/images/thumbs/0009181_iphone-14-128gb_420.png",
-        price: 24990000,
-        discountPrice: 19790000,
-        isReady: false,
-    },
-    {
-        name: "iPhone 14 128GB - Yellow",
-        type: "iPhone 14 Series",
-        path: "/iphone-14-128gb-yellow",
-        image: "https://shopdunk.com/images/thumbs/0012250_iphone-14-128gb-yellow_420.png",
-        price: 24990000,
-        discountPrice: 20190000,
-        isReady: true,
-    },
-]
-
-const iphoneNavigation = [
-    {
-        name: "iPhone 14 series",
-        path: "/iphone-14-series",
-    },
-    {
-        name: "iPhone 13 series",
-        path: "/iphone-13-series",
-    },
-    {
-        name: "iPhone 12 series",
-        path: "/iphone-12-series",
-    },
-    {
-        name: "iPhone 11 series",
-        path: "/iphone-11-series",
-    },
-    {
-        name: "iPhone SE",
-        path: "/iphone-se-series",
-    },
-]
-
-const ipadNavigation = [
-    {
-        name: "iPad Pro M1",
-        path: "/ipad-pro-m1",
-    },
-    {
-        name: "iPad Pro M2",
-        path: "/ipad-pro-m2",
-    },
-    {
-        name: "iPad Air",
-        path: "/ipad-air",
-    },
-    {
-        name: "iPad 10",
-        path: "/ipad-10",
-    },
-    {
-        name: "iPad 9",
-        path: "/ipad-9",
-    },
-    {
-        name: "iPad Mini",
-        path: "/ipad-mini",
-    },
-]
-
-const macnavigation = [
-    {
-        name: "MacBook Pro",
-        path: "/macbook-pro",
-    },
-    {
-        name: "MacBook Air",
-        path: "/macbook-air",
-    },
-    {
-        name: "iMac",
-        path: "/imac",
-    },
-    {
-        name: "Mac Mini",
-        path: "/mac-mini",
-    },
-]
-
-const watchNavigation = [
-    {
-        name: "Apple Watch Ultra",
-        path: "/apple-watch-ultra",
-    },
-    {
-        name: "Apple Watch Series 8",
-        path: "/apple-watch-series-8",
-    },
-    {
-        name: "Apple Watch Series 7",
-        path: "/apple-watch-series-7",
-    },
-    {
-        name: "Apple Watch Series 6",
-        path: "/apple-watch-series-6",
-    },
-    {
-        name: "Apple Watch SE",
-        path: "/apple-watch-se",
-    },
-    {
-        name: "Apple Watch Series 3",
-        path: "/apple-watch-series-3",
-    },
-]
-
-const soundNavigation = [
-    {
-        name: "AirPods",
-        path: "/airpods",
-    },
-    {
-        name: "EarPods",
-        path: "/earpods",
-    },
-    {
-        name: "Marshall",
-        path: "/loa-marshall",
-    },
-    {
-        name: "Beats",
-        path: "/loa-beats",
-    },
-    {
-        name: "Harman Kardon",
-        path: "/loa-harman-kardon",
-    },
-    {
-        name: "JBL",
-        path: "/loa-jbl",
-    },
-    {
-        name: "Google",
-        path: "/loa-google",
-    },
-]
 
 const accessoryNavigation = [
     {
         name: "Cường lực bảo vệ",
         image: images.cuongLuc,
-        path: "/cuong-luc-bao-ve",
+        path: "/phu-kien/cuong-luc-bao-ve",
     },
     {
         name: "Sạc, cáp",
         image: images.sacCap,
-        path: "/sac-cap",
+        path: "/phu-kien/sac-cap",
     },
     {
         name: "Bao da/ Ốp lưng",
         image: images.opLung,
-        path: "/bao-da-op-lung",
+        path: "/phu-kien/bao-da-op-lung",
     },
     {
         name: "Sạc dự phòng",
         image: images.sacDuPhong,
-        path: "/sac-du-phong",
+        path: "/phu-kien/sac-du-phong",
     },
     {
         name: "Balo/ Túi chống sốc",
         image: images.balo,
-        path: "/balo-tui-chong-soc",
+        path: "/phu-kien/balo-tui-chong-soc",
     },
     {
         name: "Chuột/ Bàn phím",
         image: images.chuot,
-        path: "/chuot-ban-phim",
+        path: "/phu-kien/chuot-ban-phim",
     }, {
         name: "Bút Apple Pencil",
         image: images.applePencil,
-        path: "/but-apple-pencil",
+        path: "/phu-kien/but-apple-pencil",
     }, {
         name: "Dây đeo Apple Watch",
         image: images.dayDeo,
-        path: "/day-deo-apple-watch",
+        path: "/phu-kien/day-deo-apple-watch",
     }, {
         name: "AirTags",
         image: images.airtags,
-        path: "/airtags",
+        path: "/phu-kien/airtags",
     }, {
         name: "Máy ảnh",
         image: images.mayAnh,
-        path: "/may-anh",
+        path: "/phu-kien/may-anh",
     },
     {
         name: "Máy đọc sách",
         image: images.mayDocSach,
-        path: "/may-doc-sach",
+        path: "/phu-kien/may-doc-sach",
     },
     {
         name: "Apple TV",
         image: images.appleTv,
-        path: "/apple-tv",
+        path: "/phu-kien/apple-tv",
     },
     {
         name: "Đồng hồ Garmin",
         image: images.garmin,
-        path: "/dong-ho-garmin",
+        path: "/phu-kien/dong-ho-garmin",
     },
 ]
 
-export default function ProductSection({ type }) {
-    const [detail, setDetail] = useState();
+export default function ProductSection({ type, currentCategory = null }) {
     const [initPath, setInitPath] = useState();
     const location = useLocation();
     const [categories, setCategories] = useState([]);
     const [sort, setSort] = useState();
-    const [data, setData] = useState(phoneDatas.slice(0));
+    const [data, setData] = useState();
+    const [sortedData, setSortedData] = useState();
+    const [subCategories, setSubCategories] = useState()
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(1);
+    const [pageRange, setPageRange] = useState([1]);
+    const [isLeftMost, setIsLeftMost] = useState(false);
+    const [isRightMost, setIsRightMost] = useState(false);
 
     const options = [
         { label: "Giá cao đến thấp", value: 1 },
@@ -258,30 +100,94 @@ export default function ProductSection({ type }) {
     }
 
     useEffect(() => {
-        if (type === "iPhone") { setCategories(iphoneNavigation); setInitPath("/iphone") }
-        else if (type === "iPad") { setCategories(ipadNavigation); setInitPath("/ipad") }
-        else if (type === "Mac") { setCategories(macnavigation); setInitPath("/mac") }
-        else if (type === "Watch") { setCategories(watchNavigation); setInitPath("/watch") }
-        else if (type === "Âm thanh") { setCategories(soundNavigation); setInitPath("/am-thanh") }
-        else { setCategories(accessoryNavigation); setInitPath("/phu-kien") }
+        if (type === "iPhone") {
+            api.getAllSubCategory(type).then(result => setSubCategories(result));
+            setInitPath("/iphone")
+        }
+        else if (type === "iPad") {
+            api.getAllSubCategory(type).then(result => setSubCategories(result));
+            setInitPath("/ipad")
+        }
+        else if (type === "Mac") {
+            api.getAllSubCategory(type).then(result => setSubCategories(result));
+            setInitPath("/mac")
+        }
+        else if (type === "Watch") {
+            api.getAllSubCategory(type).then(result => setSubCategories(result));
+            setInitPath("/watch")
+        }
+        else if (type === "Âm thanh") {
+            api.getAllSubCategory(type).then(result => setSubCategories(result));
+            setInitPath("/am-thanh")
+        }
+        else {
+            setCategories(accessoryNavigation);
+            setInitPath("/phu-kien")
+        }
         // eslint-disable-next-line
     }, [location])
 
     useEffect(() => {
-        setDetail(categories.find(obj => {
-            return obj.path === location.pathname
-        }))
-        // eslint-disable-next-line
-    }, [categories])
+        api.getAllProduct(type, currentCategory).then(result => {console.log(result); setData(result.listProducts); setTotalPage(result.totalPages);})
+    }, [currentCategory, type])
 
     useEffect(() => {
-        if (!sort) setData(phoneDatas.slice(0));
-        else if (sort === 1) setData(phoneDatas.slice(0).sort((a, b) => b.discountPrice - a.discountPrice));
-        else if (sort === 2) setData(phoneDatas.slice(0));
-        else if (sort === 3) setData(phoneDatas.slice(0));
-        else if (sort === 4) setData(phoneDatas.slice(0));
-        else setData(phoneDatas.slice(0).sort((a, b) => a.discountPrice - b.discountPrice));
-    }, [sort])
+        const newArray = structuredClone(data);
+        if (!sort) setSortedData(newArray);
+        else if (sort === 1) setSortedData(newArray.sort((a, b) => b.gia - a.gia));
+        else if (sort === 2) setSortedData(newArray);
+        else if (sort === 3) setSortedData(newArray);
+        else if (sort === 4) setSortedData(newArray);
+        else setSortedData(newArray.sort((a, b) => a.gia - b.gia));
+    }, [sort, data])
+
+    const changePage = (index) => {
+        if (index !== currentPage) {
+            setCurrentPage(index)
+        }
+    }
+
+    const decreasePage = () => {
+        setCurrentPage(prev => prev - 1)
+    }
+
+    const increasePage = () => {
+        setCurrentPage(prev => prev + 1)
+    }
+
+    const goToFirstPage = () => {
+        setCurrentPage(1)
+    }
+
+    const goToLastPage = () => {
+        setCurrentPage(totalPage)
+    }
+
+    useEffect(() => {
+        if (totalPage === 1) {
+            setIsLeftMost(true)
+            setIsRightMost(true)
+        } else if (currentPage === 1) {
+            setIsLeftMost(true)
+            setIsRightMost(false)
+        } else if (currentPage === totalPage) {
+            setIsRightMost(true)
+            setIsLeftMost(false)
+        } else {
+            setIsLeftMost(false)
+            setIsRightMost(false)
+        }
+        if (type.category !== "") {
+            api.getAllProduct(type, currentCategory, currentPage).then(result => setData(result.listProducts))
+        }
+        const arr = [];
+        for (var i = currentPage - 2; i <= currentPage + 2; i++) {
+            if (i >= 1 && i <= totalPage) {
+                arr.push(i);
+            }
+        }
+        setPageRange(arr);
+    }, [currentPage, totalPage, type, currentCategory]);
 
     return (
         <div className='w-[1200px] mx-auto'>
@@ -290,9 +196,9 @@ export default function ProductSection({ type }) {
                     {type !== "Phụ kiện" ?
                         <>
                             <div className='flex gap-x-[40px] items-center overflow-x-scroll mr-[40px]'>
-                                <a href={initPath} className={`text-[15px] ${detail === undefined ? 'text-[#0066cc]' : 'text-[#515154]'} shrink-0`}>Tất cả</a>
-                                {categories.map((item, index) => (
-                                    <a key={index} href={item.path} className={`text-[15px] ${detail === item ? 'text-[#0066cc]' : 'text-[#515154]'} hover:text-[#0066cc] shrink-0	`}>{item.name}</a>
+                                <a href={initPath} className={`text-[15px] ${currentCategory === null ? 'text-[#0066cc]' : 'text-[#515154]'} shrink-0`}>Tất cả</a>
+                                {subCategories?.map((item, index) => (
+                                    <a key={index} href={`${initPath}/${convertToSlug(item)}`} className={`text-[15px] ${currentCategory === item ? 'text-[#0066cc]' : 'text-[#515154]'} hover:text-[#0066cc] shrink-0	`}>{item}</a>
                                 ))}
                             </div>
                             <Select
@@ -312,7 +218,7 @@ export default function ProductSection({ type }) {
                             {categories.map((item, index) => (
                                 <SplideSlide key={index}>
                                     <div className='flex justify-center flex-col items-center'>
-                                        <a href={item.path} className={` ${detail === item && 'border-2 border-[#0066CC]'} w-[70px] h-[70px] bg-white p-[15px] rounded-full shrink-0 hover:drop-shadow-xl `}>
+                                        <a href={item.path} className={` ${currentCategory === item && 'border-2 border-[#0066CC]'} w-[70px] h-[70px] bg-white p-[15px] rounded-full shrink-0 hover:drop-shadow-xl `}>
                                             <img src={item.image} alt={item.name} className='h-full w-full object-contain' />
                                         </a>
                                         <span className='text-[15px] text-[#1D1D1F] mt-[20px]'>{item.name}</span>
@@ -326,10 +232,10 @@ export default function ProductSection({ type }) {
             </div>
 
             <div className='flex gap-[20px] flex-wrap mb-[35px]'>
-                {data?.map((item, index) => <ProductCard key={index} item={item} />)}
+                {sortedData?.map((item, index) => <ProductCard key={index} item={item} />)}
             </div>
 
-            <div className="flex items-center space-x-1 justify-center gap-[10px]">
+            {/* <div className="flex items-center space-x-1 justify-center gap-[10px]">
                 <div className="flex items-center justify-center bg-white rounded-md hover:bg-blue-400 text-[15px] text-gray-700 hover:text-white w-[35px] h-[35px] cursor-pointer">
                     <KeyboardArrowLeftIcon />
                 </div>
@@ -345,6 +251,37 @@ export default function ProductSection({ type }) {
                 <div className="flex items-center justify-center bg-white rounded-md hover:bg-blue-400 text-[15px] text-gray-700 hover:text-white w-[35px] h-[35px] cursor-pointer">
                     <KeyboardArrowRightIcon />
                 </div>
+            </div> */}
+            <div className="flex items-center space-x-1 justify-center gap-[10px]">
+                {!isLeftMost && (
+                    <>
+                        <div onClick={goToFirstPage} className="flex items-center justify-center bg-white rounded-md hover:bg-blue-400 text-[15px] text-gray-700 hover:text-white w-[35px] h-[35px] cursor-pointer select-none">
+                            <KeyboardDoubleArrowLeft />
+                        </div>
+                        <div onClick={decreasePage} className="flex items-center justify-center bg-white rounded-md hover:bg-blue-400 text-[15px] text-gray-700 hover:text-white w-[35px] h-[35px] cursor-pointer select-none">
+                            <KeyboardArrowLeft />
+                        </div>
+                    </>
+                )}
+                {pageRange.map((item, index) => {
+                    return (
+                        <div key={index}
+                            className={`flex items-center justify-center rounded-md text-[15px] text-gray-700 w-[35px] h-[35px] cursor-pointer select-none ${item === currentPage ? 'text-white bg-blue-400' : 'bg-white hover:text-white hover:bg-blue-400'}`}
+                            onClick={() => changePage(item)}
+                        >
+                            {item}
+                        </div>)
+                })}
+                {!isRightMost && (
+                    <>
+                        <div onClick={increasePage} className="flex items-center justify-center bg-white rounded-md hover:bg-blue-400 text-[15px] text-gray-700 hover:text-white w-[35px] h-[35px] cursor-pointer select-none">
+                            <KeyboardArrowRight />
+                        </div>
+                        <div onClick={goToLastPage} className="flex items-center justify-center bg-white rounded-md hover:bg-blue-400 text-[15px] text-gray-700 hover:text-white w-[35px] h-[35px] cursor-pointer select-none">
+                            <KeyboardDoubleArrowRight />
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     )

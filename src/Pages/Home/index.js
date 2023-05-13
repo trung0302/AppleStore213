@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import HandleApiProduct from "../../Apis/HandleApiProduct.js";
 function Home() {
     const [dataProduct, setDataProduct]=useState([]);
-    const dataFromAPI=HandleApiProduct.getAllProduct();
+    const dataFromAPI=HandleApiProduct.getAllProduct("iPhone");
     useEffect(()=>{
         dataFromAPI.then((data)=>{
             setDataProduct(()=>{
@@ -19,7 +19,7 @@ function Home() {
     let listProduct=[];
     dataProduct.map((value,index)=>{
         listProduct.push({
-            image: value.hinh,
+            image: value.image,
             name: value.tensanpham,
             newPrice: value.gia,
             oldPrice: value.gia,

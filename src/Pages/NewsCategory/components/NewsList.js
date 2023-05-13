@@ -134,7 +134,7 @@ export default function NewsList() {
                 {pageRange.map((item, index) => {
                     return (
                         <div key={index}
-                            className={`flex items-center justify-center bg-white rounded-md text-[15px] text-gray-700 w-[35px] h-[35px] cursor-pointer select-none ${item === currentPage ? 'text-white bg-blue-400' : 'hover:text-white hover:bg-blue-400'}`}
+                            className={`flex items-center justify-center rounded-md text-[15px] text-gray-700 w-[35px] h-[35px] cursor-pointer select-none ${item === currentPage ? 'text-white bg-blue-400' : 'bg-white hover:text-white hover:bg-blue-400'}`}
                             onClick={() => changePage(item)}
                         >
                             {item}
