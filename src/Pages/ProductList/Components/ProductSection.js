@@ -39,15 +39,18 @@ const accessoryNavigation = [
         name: "Chuột/ Bàn phím",
         image: images.chuot,
         path: "/phu-kien/chuot-ban-phim",
-    }, {
+    }, 
+    {
         name: "Bút Apple Pencil",
         image: images.applePencil,
         path: "/phu-kien/but-apple-pencil",
-    }, {
+    }, 
+    {
         name: "Dây đeo Apple Watch",
         image: images.dayDeo,
         path: "/phu-kien/day-deo-apple-watch",
-    }, {
+    }, 
+    {
         name: "AirTags",
         image: images.airtags,
         path: "/phu-kien/airtags",
@@ -76,7 +79,6 @@ const accessoryNavigation = [
 export default function ProductSection({ type, currentCategory = null }) {
     const [initPath, setInitPath] = useState();
     const location = useLocation();
-    const [categories, setCategories] = useState([]);
     const [sort, setSort] = useState();
     const [data, setData] = useState();
     const [sortedData, setSortedData] = useState();
@@ -100,35 +102,37 @@ export default function ProductSection({ type, currentCategory = null }) {
     }
 
     useEffect(() => {
-        if (type === "iPhone") {
-            api.getAllSubCategory(type).then(result => setSubCategories(result));
-            setInitPath("/iphone")
-        }
-        else if (type === "iPad") {
-            api.getAllSubCategory(type).then(result => setSubCategories(result));
-            setInitPath("/ipad")
-        }
-        else if (type === "Mac") {
-            api.getAllSubCategory(type).then(result => setSubCategories(result));
-            setInitPath("/mac")
-        }
-        else if (type === "Watch") {
-            api.getAllSubCategory(type).then(result => setSubCategories(result));
-            setInitPath("/watch")
-        }
-        else if (type === "Âm thanh") {
-            api.getAllSubCategory(type).then(result => setSubCategories(result));
-            setInitPath("/am-thanh")
-        }
-        else {
-            setCategories(accessoryNavigation);
-            setInitPath("/phu-kien")
+        switch (type) {
+            case "iPhone":
+                api.getAllSubCategory(type).then(result => setSubCategories(result));
+                setInitPath("/iphone")
+                break;
+            case "iPad":
+                api.getAllSubCategory(type).then(result => setSubCategories(result));
+                setInitPath("/ipad")
+                break;
+            case "Mac":
+                api.getAllSubCategory(type).then(result => setSubCategories(result));
+                setInitPath("/mac")
+                break;
+            case "Watch":
+                api.getAllSubCategory(type).then(result => setSubCategories(result));
+                setInitPath("/watch")
+                break;
+            case "Âm thanh":
+                api.getAllSubCategory(type).then(result => setSubCategories(result));
+                setInitPath("/am-thanh")
+                break;
+            default:
+                api.getAllSubCategory(type).then(result => setSubCategories(result));
+                setInitPath("/phu-kien")
+                break;
         }
         // eslint-disable-next-line
     }, [location])
 
     useEffect(() => {
-        api.getAllProduct(type, currentCategory).then(result => {console.log(result); setData(result.listProducts); setTotalPage(result.totalPages);})
+        api.getAllProduct(type, currentCategory).then(result => { console.log(result); setData(result.listProducts); setTotalPage(result.totalPages); })
     }, [currentCategory, type])
 
     useEffect(() => {
@@ -211,11 +215,11 @@ export default function ProductSection({ type, currentCategory = null }) {
                             />
                         </>
                         :
-                        <Splide options={{
+                        <Splide className='w-[1200px]' options={{
                             rewind: true,
                             perPage: 7
                         }}>
-                            {categories.map((item, index) => (
+                            {accessoryNavigation.filter((item) => subCategories?.includes(item.name)).map((item, index) => (
                                 <SplideSlide key={index}>
                                     <div className='flex justify-center flex-col items-center'>
                                         <a href={item.path} className={` ${currentCategory === item && 'border-2 border-[#0066CC]'} w-[70px] h-[70px] bg-white p-[15px] rounded-full shrink-0 hover:drop-shadow-xl `}>
@@ -234,24 +238,6 @@ export default function ProductSection({ type, currentCategory = null }) {
             <div className='flex gap-[20px] flex-wrap mb-[35px]'>
                 {sortedData?.map((item, index) => <ProductCard key={index} item={item} />)}
             </div>
-
-            {/* <div className="flex items-center space-x-1 justify-center gap-[10px]">
-                <div className="flex items-center justify-center bg-white rounded-md hover:bg-blue-400 text-[15px] text-gray-700 hover:text-white w-[35px] h-[35px] cursor-pointer">
-                    <KeyboardArrowLeftIcon />
-                </div>
-                <div className="flex items-center justify-center bg-white rounded-md hover:bg-blue-400 text-[15px] text-gray-700 hover:text-white w-[35px] h-[35px] cursor-pointer">
-                    1
-                </div>
-                <div className="flex items-center justify-center bg-white rounded-md hover:bg-blue-400 text-[15px] text-gray-700 hover:text-white w-[35px] h-[35px] cursor-pointer">
-                    2
-                </div>
-                <div className="flex items-center justify-center bg-white rounded-md hover:bg-blue-400 text-[15px] text-gray-700 hover:text-white w-[35px] h-[35px] cursor-pointer">
-                    3
-                </div>
-                <div className="flex items-center justify-center bg-white rounded-md hover:bg-blue-400 text-[15px] text-gray-700 hover:text-white w-[35px] h-[35px] cursor-pointer">
-                    <KeyboardArrowRightIcon />
-                </div>
-            </div> */}
             <div className="flex items-center space-x-1 justify-center gap-[10px]">
                 {!isLeftMost && (
                     <>
