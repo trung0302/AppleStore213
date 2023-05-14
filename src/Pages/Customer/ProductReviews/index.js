@@ -1,4 +1,5 @@
 import styles from "../Customer.module.css";
+import { useState,useEffect } from "react";
 import SortIcon from '@mui/icons-material/Sort';
 import PersonIcon from '@mui/icons-material/Person';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -10,9 +11,26 @@ import { blue } from "@mui/material/colors";
 import NavTag from "../Components/NavTag";
 import Preview from "../Components/Preview";
 import GppGoodIcon from '@mui/icons-material/GppGood';
+import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
 
 function ProductReviews () {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const [data, setData] = useState([]);
+    const [selectedValue, setSelectedValue] = useState('rate_increase');
+    
+    useEffect(() => {
+        let order = selectedValue==="rate_increase"?'asc':'desc';
+        console.log(order);
+        HandleApiCustomer.GetDG("KH1",order)
+        .then((res) => {
+            setData(res);
+            console.log(data);
 
+        });
+    }, [selectedValue]);
+    const handleSelectChange = (event) => {
+        setSelectedValue(event.target.value);
+      };
     return (
         <div>
             <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>
@@ -38,17 +56,19 @@ function ProductReviews () {
                             <div className="mr-4 pl-3 mt-2 absolute top-0 left-0">
                                 <SortIcon sx={{ fontSize: 25, color: blue[600] }}/>
                             </div>
-                            <select className={styles.bg_white+ " text-sky-600 border-sky-600 focus-visible:border-sky-600 border-2 rounded-lg pl-14 pr-2 py-2  mb-10 mr-6"}>
-                                <option value="date_increase">Ngày tăng dần</option>
-                                <option value="date_derease">Ngày giảm dần</option>
+                            <select value={selectedValue}
+                                    onChange={handleSelectChange} className={styles.bg_white+ " text-sky-600 border-sky-600 focus-visible:border-sky-600 border-2 rounded-lg pl-14 pr-2 py-2  mb-10 mr-6"}>
+                                {/*<option value="date_increase">Ngày tăng dần</option>
+                                <option value="date_derease">Ngày giảm dần</option>*/}
                                 <option value="rate_increase">Đánh giá cao đến thấp</option>
                                 <option value="rate_decrease">Đánh giá thấp đến cao</option>
                             </select>
                         </div>
                     </div>
-                    <Preview productname={"Iphone 12 pro max"} date={"12/12/2022"} star={4} comment={"Đóng gói tốt"}/>
+                    {data?.map((item, index) => (
+                    <Preview productname={"Iphone 12 pro max"} date={item.createdAt.substring(0, 10)} star={item.rating} comment={item.binhluan}/>
+                    ))}
                     <Preview productname={"Tai nghe chính hãng Apple"} date={"10/1/2023"} star={5} comment={"Nghe êm tai đấy"}/>
-                    <Preview productname={"pin sạc dự phòng 500mA"} date={"2/3/2023"} star={5} comment={"Thời lượng pin trâu nhưng pin sạc lâu quá"}/>
                     <div className="flex justify-center my-4">
                         <button className="border-2 rounded-full px-8 py-4 bg-sky-600 text-white">Lưu lại</button>
                     </div>

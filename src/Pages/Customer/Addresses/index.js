@@ -1,3 +1,4 @@
+import { useState,useEffect } from "react";
 import styles from "../Customer.module.css";
 import { Link } from "react-router-dom";
 import PersonIcon from '@mui/icons-material/Person';
@@ -10,8 +11,21 @@ import { blue } from "@mui/material/colors";
 import NavTag from "../Components/NavTag";
 import AddressItem from "../Components/AddressItem";
 import GppGoodIcon from '@mui/icons-material/GppGood';
+import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
 
 function Addresses () {
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+        HandleApiCustomer.GetUserInfor()
+        .then((res) => {
+            setUser(res.user.diachinhanhang);
+            console.log(res);
+            
+        });
+    }, []);
+    
+
+
     return (
         <div>
             <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>
@@ -33,7 +47,9 @@ function Addresses () {
                 </div>
                 <div className={"lg:w-2/5 my-12"}>
                     <div>
-                        <AddressItem name="Lam Quoc Dat" email="20520433@gmail.com" sdt="0123456789" address="khu pho 6, linh trung, thu duc, thanh pho ho chi minh"></AddressItem>
+                    {user?.map((item, index) => (
+                        <AddressItem name={item.ten} email={item.email} sdt={item.sdt} address={item.diachi} id={item._id}></AddressItem>
+                    ))}
                         <AddressItem name="nguyen van a" email="anguyenvan" sdt="0123456789" address="khu pho 6, linh trung, thu duc, thanh pho ho chi minh"></AddressItem>
                     </div>
                     <div className="flex justify-center">

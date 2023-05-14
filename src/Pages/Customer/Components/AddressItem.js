@@ -2,8 +2,34 @@ import styles from "../Customer.module.css";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
+import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
+import Swal from "sweetalert2";
 
-export default ({name, email, sdt, address}) => {
+export default ({name, email, sdt, address,id}) => {
+    function handleDelete(event) {
+        event.preventDefault();
+        HandleApiCustomer.DelAdress(id)
+        .then(async (res) => {
+            await Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Xóa dữ liệu thành công!",
+                showConfirmButton: false,
+                timer: 500
+            });
+           
+            window.location.reload();
+        }).catch((err)=>{
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Xóa dữ liệu không thành công!",
+                showConfirmButton: false,
+                timer: 500
+            });
+            console.log(err);
+        })
+    }
     return (
         <div className={styles.bg_white +" rounded-lg w-full mb-8 drop-shadow-lg"}>
             <div className="flex justify-between items-center">
@@ -11,12 +37,12 @@ export default ({name, email, sdt, address}) => {
                     <LocationOnIcon sx={{ fontSize: 20}}></LocationOnIcon>
                     <strong className="px-3 py-3">Địa chỉ</strong>
                 </div>
-                <div className="px-4 py-4 grid grid-cols-2">
-                    <button className="border-2 px-8 py-3 rounded-lg bg-sky-600 text-white mr-3 flex items-center">
+                <div className="px-4 py-4 grid grid-cols-1">
+                    {/*<button className="border-2 px-8 py-3 rounded-lg bg-sky-600 text-white mr-3 flex items-center">
                         <EditIcon sx={{ fontSize: 20}}></EditIcon>
                         <span className="ml-1">Sửa</span>
-                    </button>
-                    <button className="border-2 px-8 py-3 rounded-lg border-pink-500 text-red-500 flex items-center">
+                    </button>*/}
+                    <button className="border-2 px-8 py-3 rounded-lg border-pink-500 text-red-500 flex items-rigth" onClick={handleDelete}>
                         <DeleteForeverIcon sx={{ fontSize: 20}}></DeleteForeverIcon>
                         <span className="ml-1">Xóa</span>
                     </button>

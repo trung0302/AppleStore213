@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import styles from "../Customer.module.css";
 import PersonIcon from '@mui/icons-material/Person';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -11,15 +11,88 @@ import SelectTag from "../Components/SelectTag";
 import NavTag from "../Components/NavTag";
 import LabelAndInput from "../Components/LabelAndInput";
 import GppGoodIcon from '@mui/icons-material/GppGood';
+import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
+import Swal from "sweetalert2";
 
 function Info(){
-    const user = JSON.parse(localStorage.getItem("user"));
+    //const user = JSON.parse(localStorage.getItem("user"));
+    const [ngay, setNgay] = useState(null);
+    const [thang, setThang] = useState(null);
+    const [nam, setNam] = useState(null);
+    const [user, setUser] = useState(null);
+    const [selectedGender, setSelectedGender] = useState('Nam');
+    useEffect(() => {
+        HandleApiCustomer.GetUserInfor()
+        .then((res) => {
+            setUser(res.user);
+            console.log(res);
+            if(res.user.gioitinh){
+                setSelectedGender(res.user.gioitinh);
+            }
+            if(res.user.ngaysinh){
+                const dateParts = res.user.ngaysinh.split('-');
+                setNgay(parseInt(dateParts[0]));
+                setThang(parseInt(dateParts[1]))
+                setNam(parseInt(dateParts[2]))
+                console.log(ngay+thang+nam);
+            }
+        });
+    }, []);
     
-    const [selectedGender, setSelectedGender] = useState(user.gioitinh || 'Nam');
-
+    function changeFormatDate(num){
+        if(parseInt(num)<10){
+            return "0"+num.toString();
+        }else{
+            return num.toString();
+        }
+        
+    }
+    
     const handleGenderChange = (event) => {
         setSelectedGender(event.target.value);
     };
+
+    function handleSubmit(event) {
+       event.preventDefault();
+        const formData = new FormData(event.target);
+        const hoten = formData.get('Name');
+        const email = formData.get('Email');
+        const sdt = formData.get('Telephone');
+        const gioitinh = formData.get('Gender')
+        const day = formData.get('date');
+        const month = formData.get('month');
+        const year = formData.get('year');
+        HandleApiCustomer.UpdateInfor(user._id,{
+            hoten:hoten,
+            email:email,
+            sdt:sdt,
+            gioitinh:gioitinh,
+            ngaysinh:changeFormatDate(day)+"-"+changeFormatDate(month)+"-"+changeFormatDate(year)
+        }).then(async (res) => {
+            
+            await Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Cập nhật dữ liệu thành công!",
+                showConfirmButton: false,
+                timer: 500
+            });
+           
+            window.location.reload();
+        }).catch((err)=>{
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Cập nhật dữ liệu không thành công!",
+                showConfirmButton: false,
+                timer: 500
+            });
+
+        })
+      }
+    
+
+
     return (
         <div>
             <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>
@@ -40,14 +113,15 @@ function Info(){
                         aCss={"mx-4 my-4"} setIcon={<GppGoodIcon sx={{ fontSize: 30 }}></GppGoodIcon>} />
                 </div>
                 <div className={styles.bg_white +" rounded-lg lg:w-2/5 my-12"}>
-                    <form action="#">
+                    {user?
+                    <form action="#" onSubmit={handleSubmit}>
                         <div className="grid grid-cols-2 gap-8 mx-8 my-4 ">
                             {/* <div className="my-4">
                                 <label for="Name">Tên, Họ:</label><br/>
                                 <input type="text" name="Name" className="w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400" value="Dat lam"/>
                             </div> */}
-                            <LabelAndInput divCss={"my-4"} labelContent={"Tên, Họ:"} inputType={"text"} inputName={"Name"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={user.hoten}/>
-                            <LabelAndInput divCss={"my-4"} labelContent={"Email"} inputType={"email"} inputName={"Email"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={user.email}/>
+                            <LabelAndInput divCss={"my-4"} labelContent={"Tên, Họ:"} inputType={"text"} inputName={"Name"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={user.hoten?user.hoten:"chưa thiết lập"}/>
+                            <LabelAndInput divCss={"my-4"} labelContent={"Email"} inputType={"email"} inputName={"Email"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={user.email?user.email:"chưa thiết lập"}/>
                         </div>
                         <div className="grid grid-cols-2 gap-8 mx-8 my-4">
                             <LabelAndInput inputType={"tel"} labelContent={"Số điện thoại"} inputName={"Telephone"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={user.sdt || '1234567890'}/>
@@ -64,9 +138,9 @@ function Info(){
                         <div className="mx-8 my-4">
                             <label>Ngày sinh:</label> <br/>
                             <div>
-                                <SelectTag setSelect={"Ngày"} Index={10} setIndex={1} setLength={31} setCss={"border-2 rounded-lg px-3 py-3 my-4 mr-8"} setName={"date"}/>
-                                <SelectTag setSelect={"Tháng"} Index={12} setIndex={1} setLength={12} setCss={"border-2 rounded-lg px-3 py-3 my-4 mr-8"} setName={"month"}/>
-                                <SelectTag setSelect={"Năm"} Index={1913} setIndex={1913} setLength={2023} setCss={"border-2 rounded-lg px-3 py-3 my-4"} setName={"year"}/>
+                                <SelectTag setSelect={"Ngày"} Index={ngay?ngay:1} setIndex={1} setLength={31} setCss={"border-2 rounded-lg px-3 py-3 my-4 mr-8"} setName={"date"}/>
+                                <SelectTag setSelect={"Tháng"} Index={thang?thang:1} setIndex={1} setLength={12} setCss={"border-2 rounded-lg px-3 py-3 my-4 mr-8"} setName={"month"}/>
+                                <SelectTag setSelect={"Năm"} Index={nam?nam:1999} setIndex={1913} setLength={2023} setCss={"border-2 rounded-lg px-3 py-3 my-4"} setName={"year"}/>
                             </div>
                         </div>
                         <div className="mx-8 my-4">
@@ -75,7 +149,7 @@ function Info(){
                         <div className="flex justify-center my-4">
                             <button className="border-2 rounded-full px-8 py-4 bg-sky-600 text-white">Lưu lại</button>
                         </div>
-                    </form>
+                    </form>:<></>}
                 </div>
             </div>
             {/* <div className={styles.bg_primary2 + " grid justify-items-center content-center py-20 text-2xl"}>
