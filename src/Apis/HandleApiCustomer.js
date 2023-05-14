@@ -2,33 +2,33 @@
 import axiosInstance from "./axiosInstance";
 
 export const GetUserInfor = async () => {
-    return await axiosInstance.get(`/auth/me`);
+    return await axiosInstance.get(`/api/auth/me`);
 };
 
 const UpdateInfor = async (id,data) => {
-    return await axiosInstance.put(`/auth/${id}`,data);
+    return await axiosInstance.put(`/api/auth/${id}`,data);
 };
 
 const UpdatePass = async (id,data) => {
-    return await axiosInstance.put(`/auth/password/${id}`,data);
+    return await axiosInstance.put(`/api/auth/password/${id}`,data);
 };
 
 
 const AddAdress = async (id, data) => {
     return await axiosInstance.post(
-        `/auth/adress/${id}`,
+        `/api/auth/adress/${id}`,
         data
     );
 };
 const DelAdress = async (id) => {
     return await axiosInstance.delete(
-        `/auth/adress/${id}`
+        `/api/auth/adress/${id}`
     );
 };
 
 const GetDG = async (id,order) => {
     return await axiosInstance.get(
-        `/danhgia?kh=${id}&sortOrder=${order}`
+        `/api/danhgia?kh=${id}&sortOrder=${order}`
     );
 };
 
