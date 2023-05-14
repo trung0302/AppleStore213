@@ -34,13 +34,13 @@ function Order() {
     const HandleGetCart = () => {
         HandleApiCart.getCartByMaKH(user?.makh)
             .then((data) => {
-                setData(data.data);
+                setData(data);
                 setMoneyDiscount(
-                    data.data.order.tongtrigia * (promotion / 100)
+                    data.order.tongtrigia * (promotion / 100)
                 );
                 setTotalMoney(
-                    data.data.order.tongtrigia -
-                        data.data.order.tongtrigia * (promotion / 100)
+                    data.order.tongtrigia -
+                        data.order.tongtrigia * (promotion / 100)
                 );
             })
             .catch((err) => console.log(err));
@@ -222,7 +222,7 @@ function Order() {
 
     return (
         <div>
-            {user && data.productCart?.length !== 0 ? (
+            {user && data?.productCart?.length !== 0 ? (
                 <div>
                     {/* Header */}
                     <div className={styles.header}>
@@ -437,7 +437,7 @@ function Order() {
                                                 Tổng phụ:
                                             </div>
                                             <div className="text-[16px]">
-                                                {data.order?.tongtrigia.toLocaleString() +
+                                                {data?.order?.tongtrigia.toLocaleString() +
                                                     "đ"}
                                             </div>
                                         </div>
@@ -523,6 +523,7 @@ function Order() {
                         setDisplay={setVoucherDisplay}
                         promotion={promotion}
                         setPromotion={setPromotion}
+                        totalMoney={totalMoney}
                     />
                 </div>
             ) : (
