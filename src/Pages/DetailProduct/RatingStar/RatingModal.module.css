@@ -12,10 +12,10 @@
 }
 .modal {
     width: 36%;
-    height: 80%;
+    height: 60%;
     background-color: white;
     border-radius: 6px;
-    margin: 90px auto;
+    margin: 120px auto;
     /* text-align: center; */
 }
 

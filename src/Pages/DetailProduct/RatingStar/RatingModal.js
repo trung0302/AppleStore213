@@ -5,9 +5,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import StarRating from "../StarRating";
 
 import { useState } from "react";
+import axios from "axios";
 const RatingModal = (props) => {
 
-    const [danhGia, setDanhGia] = useState()
+    const [danhGiaValue, setDanhGiaValue] = useState()
 
     const handleChildeElementClick = (e) => {
         e.stopPropagation();
@@ -19,18 +20,54 @@ const RatingModal = (props) => {
     // Lấy giá trị rating value khi click
     const [ratingValue, setRatingValue] = useState(null) ;
 
+
     // Lấy đánh giá
-    const handleGetDanhGia = (e) => {
-        setDanhGia(e.target.value)
+    const handleGetBinhluanOnchange = (e) => {
+        setDanhGiaValue(e.target.value)
     }
 
-    const dgData = {
-        makh: props.user.makh,
-        masp: "",
-        tenkh: props.user.hoten,
-        binhluan: danhGia,
-        rating: ratingValue,
+    // submit danh gia
+    const handleSubmitClick = (e) => {
+        if(ratingValue !== null) {
+            // props.setRatingOut(ratingValue)
+            // props.setBinhluan(danhGia)
+             // Định dạng dữ liệu gửi đánh giá
+            const dgData = {
+                makh: props.user.makh,
+                masp: props.sp._id,
+                tenkh: props.user.hoten,
+                binhluan: danhGiaValue,
+                rating: ratingValue,
+            }
+            
+            // gửi bình luận lên csdl
+            axios.post("http://localhost:3001/danhgia",dgData)
+            .then( (response) => { 
+                alert("SHOP XIN CẢM ƠN ĐÁNH GIÁ CỦA BẠN!")
+                props.setNewListDG(response)
+            })
+            .catch(
+                (error) => {
+                    console.log(error)
+                    // setHaveComment(false)
+            }
+            );
+
+            props.setCloseRatingModal(1)
+        }
+        else {
+            alert("VUI LÒNG ĐÁNH GIÁ SỐ SAO!")
+        }
     }
+
+    // const dgData = {
+    //     // makh: props.user.makh,
+    //     makh: "abc",
+    //     masp: "",
+    //     tenkh: props.user.hoten,
+    //     binhluan: danhGia,
+    //     rating: ratingValue,
+    // }
 
     const product = {
             image: "https://shopdunk.com/images/thumbs/0007808_iphone-14-pro-max-128gb_420.png",
@@ -39,6 +76,7 @@ const RatingModal = (props) => {
             newPrice: 27390000,
             note: ""
         };
+    
     {return props.user?(     
         <div className={props.closeRatingModal === 0? classes.overlay : "hidden"}
             onClick={()=>props.setCloseRatingModal(1)}>
@@ -74,13 +112,13 @@ const RatingModal = (props) => {
                             <textarea className="border-[1px] border-slate-300 outline-none rounded-[4px] 
                             block h-[72px] w-full text-[14px] py-[6px] px-[12px]" 
                             placeholder="Hãy chia sẻ cảm nhận của bạn về sản phẩm..." rows={4}
-                            onChange={handleGetDanhGia}></textarea>
+                            onChange={handleGetBinhluanOnchange}></textarea>
                         </div>
                     </div>
 
-                    <hr className="h-[1px] w-full my-[15px] bg-slate-300"/>
+                    {/* <hr className="h-[1px] w-full my-[15px] bg-slate-300"/> */}
                     {/* Phần dưới của body */}
-                    <div>
+                    {/* <div>
                         <div className="h-[26px] flex items-center text-[16px] text-slate-600">
                             <input type="radio" value="Male" name="gender" /> 
                             <span className="ml-[4px] mr-[15px]">Anh</span>
@@ -97,12 +135,13 @@ const RatingModal = (props) => {
                             <input className="px-[10px] w-full outline-none border-[1px] border-slate-300 rounded-[4px] h-[36px]"
                                     placeholder="Nhập email để nhận thông báo phản hồi"></input>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 {/* footer modal */}
                 <div className="h-[50px] text-center">
                 <button className="text-[16px] text-white bg-blue-600 w-[160px]
-                            rounded-[5px] font-extralight p-[10px]">HOÀN TẤT</button>
+                                    rounded-[5px] font-extralight p-[10px]"
+                        onClick={()=>{handleSubmitClick()}}>HOÀN TẤT</button>
                 </div>
 
             </div>
