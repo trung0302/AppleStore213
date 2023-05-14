@@ -10,8 +10,46 @@ import NavTag from "../Components/NavTag";
 import LabelAndInput from "../Components/LabelAndInput";
 import CitySelect from "../Components/CitySelect";
 import GppGoodIcon from '@mui/icons-material/GppGood';
+import Swal from "sweetalert2";
+import {  useNavigate } from "react-router-dom";
+import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
 
 function Addaddress () {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const navigate = useNavigate();
+    function handleSubmit(event) {
+        event.preventDefault();
+         const formData = new FormData(event.target);
+         const hoten = formData.get('Name');
+         const email = formData.get('Email');
+         const sdt = formData.get('Telephone');
+         const diachi = formData.get('Detail')
+         HandleApiCustomer.AddAdress(user._id,{
+             ten:hoten,
+             email:email,
+             sdt:sdt,
+             diachi:diachi
+         }).then(async (res) => {
+             await Swal.fire({
+                 position: "center",
+                 icon: "success",
+                 title: "Thêm dữ liệu thành công!",
+                 showConfirmButton: false,
+                 timer: 500
+             });
+            
+             navigate(-1)
+         }).catch((err)=>{
+             Swal.fire({
+                 position: "center",
+                 icon: "error",
+                 title: "Thêm dữ liệu không thành công!",
+                 showConfirmButton: false,
+                 timer: 500
+             });
+ 
+         })
+       }
     return (
         <div>
             <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>
@@ -32,7 +70,7 @@ function Addaddress () {
                         aCss={"mx-4 my-4 "} setIcon={<GppGoodIcon sx={{ fontSize: 30 }}></GppGoodIcon>} />
                 </div>
                 <div className={styles.bg_white +" rounded-lg lg:w-2/5 my-12"}>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <LabelAndInput divCss={"px-5 py-5"} inputType={"text"} labelContent={"Tên:"} inputName={"Name"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>
                         <div className="grid grid-cols-2 ">
                             <LabelAndInput divCss={"px-5 py-5"} inputType={"tel"} labelContent={"Số điện thoại:"} inputName={"Telephone"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>
