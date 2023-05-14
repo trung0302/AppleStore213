@@ -1,20 +1,86 @@
 import DetailBottom from "./detailBottom";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import images from "../../assets/image";
 import classes from "./DetailProduct.module.css";
 import Rating from "@mui/material/Rating";
 import StoreIcon from '@mui/icons-material/Store';
 import { useParams } from "react-router-dom";
+import HandleApiProduct from "../../Apis/HandleApiProduct";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 function DetailProduct() {
-    const {id} = useParams()
+    const [isLoading, setLoading] = useState(true);
+    const params = useParams()
     const [currentSlide,setCurrentSlide] = useState(0);
     const mainCarouselRef = useRef(null);
     const thumbnailCarouselRef = useRef(null);
+    const [sp, setSp] = useState(null)
+    const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")))
     
-    const [dungluong, setDungluong] = useState(0);
-    const [ram, setRam] = useState(0);
-    const [color, setColor] = useState(0);
+    const [dungluong, setDungluong] = useState("");
+    const [ram, setRam] = useState("");
+    const [color, setColor] = useState("");
+    const navigate = useNavigate()
+
+    useEffect( ()=>{
+    //    await HandleApiProduct.getProductById(params.id)
+    //     .then( (res) => {
+    //         console.log(res.tensanpham);
+    //          setSp(res);
+    //     })
+
+        axios.get(`http://localhost:3001/product/${params.id}`)
+        .then( (response) => { 
+            if(response.data !== undefined) {
+                setSp(response.data);      
+                setLoading(false);
+            }
+        })
+        .catch(error => console.log(error));
+        
+    },[])
+
+   
+
+    // useEffect(()=>{
+        // console.log(sp)
+        // console.log(user)
+        // console.log(sp.tensanpham)   
+        // try {
+        //     console.log(sp.tensanpham);
+        //   } catch(error) {
+        //     console.log(error);
+        //   }
+    // },[])
+
+    const handleMuaNgayClick = (e) => {
+        if(dungluong === "") 
+            alert("Vui lòng lựa chọn dung lượng!")
+        else if(ram === "")
+            alert("Vui lòng lựa chọn ram!")
+        else if(color === "")
+            alert("Vui lòng lựa chọn màu sắc!")
+        else {
+            // màu đc chọn
+            const cartData = {
+                makh: user.makh,
+                masp: params.id,
+                mausac: color,
+                soluong: 1,
+                rom: dungluong,
+            }
+
+            console.log(cartData)
+            axios.post(`http://localhost:3001/api/cart`,cartData)
+            .then( (response) => { 
+                console.log(response)
+                navigate("/cart")
+            })
+            .catch(error => console.log(error));
+        }
+    }
 
     const mainCarouselOptions = {
         perPage: 1,
@@ -49,12 +115,19 @@ function DetailProduct() {
         mainCarouselRef.current.go(index);
       };
 
+    const handleDungLuongClick = (i) => {
+        setDungluong(i)
+        // console.log(params.id)
+    }
     const VND = new Intl.NumberFormat('vi-VN', {
     style: 'currency',
     currency: 'VND',
     });
+    if (isLoading===false && sp!==undefined && sp!==null) {
+        console.log("isLo ",isLoading)
+        console.log(sp)
+        
     return (
-
         <div className={classes.container}>
             <section className={classes.detailproduct}>
                 <section className={classes.product_splide}>
@@ -114,7 +187,7 @@ function DetailProduct() {
                 <div className={classes.overview}>
                     <div className={classes.wrapped_info}>
                         <h1>
-                            <span>MacBook Pro M1 2020</span>
+                            <span>{sp.tensanpham}</span>
                         </h1>
                         <div className={classes.wrapped_info_content}>
                             <div className={classes.rating}>
@@ -125,42 +198,42 @@ function DetailProduct() {
 
                     </div>
                     <div className={classes.price}>
-                        <span className={classes.currentPrice}>{VND.format(28550000)}</span>
+                        <span className={classes.currentPrice}>{VND.format(sp.gia)}</span>
                     </div>
                     <div className={classes.attribute}>
                         <div className={classes.detail_info}>
                             <label>Dung lượng</label>
                             <ul>
-                                <li onClick={()=> setDungluong(1)} value={256}
-                                    className={dungluong === 1 ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
+                                <li onClick={() => handleDungLuongClick("128GB")} 
+                                    className={dungluong === "128GB" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
                                     128GB
                                 </li>
 
-                                <li onClick={()=> setDungluong(2)} value={256}
-                                    className={dungluong === 2 ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
+                                <li onClick={()=> setDungluong("256GB")}
+                                    className={dungluong === "256GB" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
                                     256GB
                                 </li>
 
-                                <li onClick={()=> setDungluong(3)} 
-                                    className={dungluong === 3 ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
+                                <li onClick={()=> setDungluong("512GB")} 
+                                    className={dungluong === "512GB" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
                                     512GB
                                 </li>
 
-                                <li onClick={()=> setDungluong(4)} 
-                                    className={dungluong === 4 ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
+                                <li onClick={()=> setDungluong("1T")} 
+                                    className={dungluong === "1T" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
                                     1T
                                 </li>
                             </ul>
 
                             <label>RAM</label>
                             <ul>
-                                <li onClick={()=> setRam(1)} 
-                                    className={ram === 1 ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
+                                <li onClick={()=> setRam("8GB")} 
+                                    className={ram === "8GB" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
                                     8GB
                                 </li>
 
-                                <li onClick={()=> setRam(2)} 
-                                    className={ram === 2 ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
+                                <li onClick={()=> setRam("16GB")} 
+                                    className={ram === "16GB" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
                                     16GB
                                 </li>
                             </ul>
@@ -169,17 +242,17 @@ function DetailProduct() {
                         </div>
                         <div className={classes.itemColor}>
                         <ul >
-                                <li className={color === 1? "bg-[#a9a9a9] outline outline-[2px] outline-blue-500" : classes.black}
-                                    onClick={()=>setColor(1)}>
+                                <li className={color === "black"? "bg-[#a9a9a9] outline outline-[2px] outline-blue-500" : classes.black}
+                                    onClick={()=>setColor("black")} value={"black"}>
                                 </li>
-                                <li className={color === 2? "bg-[#ffc0cb] outline outline-[2px] outline-blue-500" : classes.pink}
-                                    onClick={()=>setColor(2)}>
+                                <li className={color === "pink"? "bg-[#ffc0cb] outline outline-[2px] outline-blue-500" : classes.pink}
+                                    onClick={()=>setColor("pink")} value={"pink"}>
                                 </li>
-                                <li className={color === 3? "bg-[#11114dcc] outline outline-[2px] outline-blue-500" : classes.blue}
-                                    onClick={()=>setColor(3)}>
+                                <li className={color === "blue"? "bg-[#11114dcc] outline outline-[2px] outline-blue-500" : classes.blue}
+                                    onClick={()=>setColor("blue")} value={"blue"}>
                                 </li>
-                                <li className={color === 4? "bg-[#bd8b0dcc] outline outline-[2px] outline-blue-500" : classes.gold}
-                                    onClick={()=>setColor(4)}>
+                                <li className={color === "gold"? "bg-[#bd8b0dcc] outline outline-[2px] outline-blue-500" : classes.gold}
+                                    onClick={()=>setColor("gold")} value={"gold"}>
                                 </li>
                         </ul>
                         </div>
@@ -189,7 +262,7 @@ function DetailProduct() {
                                 <StoreIcon fontSize="large"/>
                                 <a className="text-[13px] mt-[3px] ml-[3px] block">Xem cửa hàng có sẵn sản phẩm</a>
                             </div>
-                            <button>MUA NGAY</button>
+                            <button onClick={()=>handleMuaNgayClick()}>MUA NGAY</button>
                         </div>
 
 
@@ -202,13 +275,13 @@ function DetailProduct() {
 
             </section>
             <div>
-                <DetailBottom />
+                {(sp!==undefined)?<DetailBottom sp = {sp}
+                              user = {user}/>:""}
             </div>
 
 
         </div>
-
-    );
+    )}
 }
 
 export default DetailProduct;
