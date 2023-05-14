@@ -1,9 +1,8 @@
 import "@splidejs/react-splide/css";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import images from "../../../assets/image";
+import './AdvertisementSlide.css'
 function AdvertisementSlide(){
     const data = [
         {
@@ -61,14 +60,17 @@ function AdvertisementSlide(){
                     <EastIcon />
                 </button>
             </div> */}
-          <div className="splide__arrows">
-                <button className="splide__arrow splide__arrow--prev  border-none bg-slate-400 opacity-50 ml-[80px] w-[60px] h-[60px]">
-                    <NavigateNextIcon sx={{ width: 24, height: 24 }} />
-                </button>
-                <button className="splide__arrow splide__arrow--next  border-none bg-slate-400 opacity-50 mr-[80px] w-[60px] h-[60px]">
-                    <NavigateNextIcon sx={{ width: 24, height: 24 }} />
-                </button>
-          </div>
+            <div className="testad">
+                <div className="splide__arrows advertisement">
+                        <button className="splide__arrow splide__arrow--prev  ">
+                        <NavigateNextIcon  />
+                        </button>
+                        <button className="splide__arrow splide__arrow--next  ">
+                            <NavigateNextIcon  />
+                        </button>
+                </div>
+            </div>
+          {/* border-none bg-slate-400 opacity-50 ml-[80px] w-[60px] h-[60px] */}
         </Splide>
         </div>
     );
