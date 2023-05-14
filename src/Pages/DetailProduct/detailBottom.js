@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./DetailBottom.css";
 import { Description } from "@mui/icons-material";
 import StarRating from "./StarRating";
@@ -7,17 +7,22 @@ import RatingModal from "./RatingStar/RatingModal";
 import CheckIcon from '@mui/icons-material/Check';
 import StaticRatedStar from "./RatingStar/StaticRatedStar.js";
 import Comment from "./Comment/Comment";
-function DetailBottom() {
+import axios from "axios";
+function DetailBottom({sp, user}) {
     const [tongleState, setTongleState] = useState(1);
-    const [filterIndex, setFilterIndex] = useState(0);
-    const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")))
-
+    const [filterIndex, setFilterIndex] = useState(6);
+    const [binhluan, setBinhluan] = useState();
+    const [listDanhGia, setListDanhGia] = useState([])
+    const [newListDG, setNewListDG] = useState([])
+    const [haveComment, setHaveComment] = useState(true)
+    // const [demoProduct, setDemoProduct] = useState(null)
 
     // hàm set giá trị cho tab được chon
     const tongleTab = function(index) {
         setTongleState(index);
-        console.log(user)
-    }
+        // console.log(user)
+        console.log(sp)
+    }   
 
     // Biến để quyết định việc bật tắt modal, 1 là tắt, 0 là mở
     const [closeRatingModal, setCloseRatingModal] = useState(1);
@@ -25,71 +30,96 @@ function DetailBottom() {
     // Lấy giá trị rating
     const [ratingOut, setRatingOut] = useState(null);
 
+    // Định dạng lại sp
     const demoProduct = {
-        name: "iPhone 14 Pro Max 128GB",
-        description: {
-            moTaChung: "iPhone 14 Pro Max. Bắt trọn chi tiết ấn tượng với Camera Chính 48MP. Trải nghiệm \
-            iPhone theo cách hoàn toàn mới với Dynamic Island và màn hình Luôn Bật. Công nghệ \
-            an toàn quan trọng – Phát Hiện Va Chạm  thay bạn gọi trợ giúp khi cần kíp",
-            title1: "Tính năng nổi bật",
-            des1: "Màn hình Super Retina XDR 6,7 inch với tính năng Luôn Bật và ProMotion \
-            Dynamic Island, một cách mới tuyệt diệu để tương tác với iPhone \
-            Camera Chính 48MP cho độ phân giải gấp 4 lần",
-            title2: "Pháp lý",
-            des2: "SOS Khẩn Cấp sử dụng kết nối mạng di động hoặc Cuộc Gọi Wi-Fi\
-            Màn hình có các góc bo tròn. Khi tính theo hình chữ nhật, kích thước \
-            màn hình theo đường chéo là 6,69 inch. Diện tích hiển thị thực tế nhỏ hơn.",
-        },
-
-        TSKT: [
-            [
-                "Màn hình",
-                "6.7 inch, Super Retina XDR, 2796 x 1290 Pixels",
-            ],
-            [
-                "Camera sau",
-                "48.0 MP + 12.0 MP + 12.0 MP"
-            ],
-            [
-                "Camera Selfie",
-                "12.0 MP",
-            ],
-            [
-                "Bộ nhớ trong",
-                "128 GB",
-            ],
-            [
-                "CPU",
-                "Apple A16 Bionic",
-            ],
-            [
-                "Dung lượng pin",
-                "29 Giờ",
-            ],
-            [
-                "Thẻ sim",
-                "1 - 1 eSIM, 1 Nano SIM",
-            ],
-            [
-                "Hệ điều hành",
-                "iOS 16",
-            ],
-            [
-                "Xuất xứ",
-                "Trung Quốc",
-            ],
-            [
-                "Thời gian ra mắt",
-                "09/2022",
-            ],
-        ]
+            name: sp.tensanpham,
+            description: {
+                moTaChung: sp.tensanpham + ". Bắt trọn chi tiết ấn tượng với Camera Chính 48MP. Trải nghiệm \
+                iPhone theo cách hoàn toàn mới với Dynamic Island và màn hình Luôn Bật. Công nghệ \
+                an toàn quan trọng – Phát Hiện Va Chạm  thay bạn gọi trợ giúp khi cần kíp",
+                title1: "Tính năng nổi bật",
+                des1: "Màn hình Super Retina XDR 6,7 inch với tính năng Luôn Bật và ProMotion \
+                Dynamic Island, một cách mới tuyệt diệu để tương tác với iPhone \
+                Camera Chính 48MP cho độ phân giải gấp 4 lần",
+                title2: "Pháp lý",
+                des2: "SOS Khẩn Cấp sử dụng kết nối mạng di động hoặc Cuộc Gọi Wi-Fi\
+                Màn hình có các góc bo tròn. Khi tính theo hình chữ nhật, kích thước \
+                màn hình theo đường chéo là 6,69 inch. Diện tích hiển thị thực tế nhỏ hơn.",
+            },
+    
+            TSKT: [
+                [
+                    "Màn hình",
+                    "6.7 inch, Super Retina XDR, 2796 x 1290 Pixels",
+                ],
+                [
+                    "Camera",
+                    sp.camera || "48.0 MP + 12.0 MP + 12.0 MP"
+                ],
+                [
+                    "Camera Selfie",
+                    sp.camera || "12.0 MP",
+                ],
+                [
+                    "Bộ nhớ trong",
+                    sp.dungluong || "128 GB",
+                ],
+                [
+                    "RAM",
+                    sp.ram || "6GB",
+                ],
+                [
+                    "Chip",
+                    sp.chip || "Chip A16 Bionic,CPU 6 nhân, GPU 5 lõi, 16-core Neural Engine",
+                ],
+                [
+                    "Bảo mật",
+                    sp.baomat || "Face ID, Được kích hoạt bởi camera trước TrueDepth để nhận dạng khuôn mặt",
+                ],
+                [
+                    "Chống nước",
+                    sp.chongnuoc|| "IP68 (độ sâu tối đa 6 mét trong tối đa 30 phút) theo tiêu chuẩn IEC 60529",
+                ],
+                sp.sac?[
+                    "Sạc",
+                    sp.sac,
+                ]:null,
+                sp.dophangiai?[
+                    "Độ phân giải",
+                    sp.dophangiai,
+                ]:null,
+            ]
     }
 
     const modalDanhGia = <div className="fixed w-full h-full bg-black opacity-70 z-10014">
-
     </div>;
 
-    return (<div className="w-3/4 mx-auto grid grid-cols-1 my-[50px]">
+    // handle
+    // useEffect(() => {
+    //     console.log(danhGia)
+    // },[ratingOut])
+
+    useEffect(() => {
+        axios.get(`http://localhost:3001/danhgia/${sp._id}`)
+        .then( (response) => { 
+            if(response.data !== undefined) {
+                setListDanhGia(response.data.listDanhGia);      
+            }
+        })
+        .catch(
+            (error) => {
+                console.log(error)
+                setHaveComment(false)
+        }
+        );
+    },[newListDG])
+
+    useEffect(()=>{
+        console.log(listDanhGia)
+    },[listDanhGia])
+
+    if(listDanhGia.length !== 0 || haveComment === false)
+   {return (<div className="w-3/4 mx-auto grid grid-cols-1 my-[50px]">
        
     <div className="w-[800px] place-self-center">
                 <div className="tab-bar">
@@ -129,10 +159,10 @@ function DetailBottom() {
                         <table className="w-full table-fixed text-[16px] text-slate-600 border-collapse border border-slate-400">
                             <tbody>
                                 {demoProduct.TSKT.map((tskt, index) => (
-                                    <tr className={(index % 2) === 0 ?"w-full bg-slate-200":"w-full"}>
+                                    tskt?<tr className={(index % 2) === 0 ?"w-full bg-slate-200":"w-full"}>
                                         <td className="border border-slate-300 py-[6px] px-[16px]">{tskt[0]}</td>
                                         <td className="border border-slate-300 py-[6px] px-[16px]">{tskt[1]}</td>
-                                    </tr>
+                                    </tr>:""
                                 ))}
                             </tbody>
                         </table>
@@ -177,7 +207,7 @@ function DetailBottom() {
                         :"px-[10px] py-[3px] mx-[10px] rounded-[4px] align-middle scursor-pointer border-[1px] border-slate-300 hover:bg-slate-300"}
                             onClick={()=>setFilterIndex(6)}>
                                 <span className={filterIndex === 6 ? "font-bold": "hidden"}><CheckIcon fontSize="20"/></span>
-                                <span>Đã mua hàng</span>
+                                <span>Tất cả đánh giá</span>
                             </div>
 
                         {[...Array(5)].map((filterbtn, index) => {
@@ -190,13 +220,19 @@ function DetailBottom() {
                             </div>
                         })}
                     </div>
-                    <Comment/>
+                    {listDanhGia.map((DG)=>(
+                            <Comment DG = {DG}/>
+                    ))
+                    }
                 </div>
             <RatingModal 
                 closeRatingModal = {closeRatingModal}
                 setCloseRatingModal = {setCloseRatingModal}
-                user = {user}/>
+                user = {user}
+                sp = {sp}
+                setNewListDG = {setNewListDG}/>
             
     </div>);
+}
 }
 export default DetailBottom;

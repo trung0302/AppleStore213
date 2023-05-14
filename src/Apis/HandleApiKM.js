@@ -13,6 +13,10 @@ const getKMByApdung =async (apdung) => {
     return await axiosInstance.get(`/api/khuyenmai/apdung/${apdung}`);
 }
 
+const getKMByMaKM =async (makm) => {
+    return await axiosInstance.get(`/api/khuyenmaibyMaKM/${makm}`);
+}
+
 const getKMByApdungAndPhanTram= async(apdung, phantramkm) => {
     return await axiosInstance.get(`/api/khuyenmai/apdung&phantram/${apdung}/${phantramkm}`);
 }
@@ -39,6 +43,7 @@ const deleteKM = async(id) => {
 export default {
     getAllKM,
     getKMByID,
+    getKMByMaKM,
     getKMByApdung,
     getKMByApdungAndPhanTram,
     addKM,

@@ -23,7 +23,7 @@ function Order() {
     const [moneyDiscount, setMoneyDiscount] = useState(0);
     const [totalMoney, setTotalMoney] = useState(0);
     const [promotionInput, setPromotionInput] = useState("");
-
+    const [selected, setSelected] = useState("");
 
     const navigate = useNavigate();
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -35,9 +35,7 @@ function Order() {
         HandleApiCart.getCartByMaKH(user?.makh)
             .then((data) => {
                 setData(data);
-                setMoneyDiscount(
-                    data.order.tongtrigia * (promotion / 100)
-                );
+                setMoneyDiscount(data.order.tongtrigia * (promotion / 100));
                 setTotalMoney(
                     data.order.tongtrigia -
                         data.order.tongtrigia * (promotion / 100)
@@ -212,13 +210,18 @@ function Order() {
 
     // Handle Áp dụng Mã giảm giá bằng input
     const HandleApplyPromotion = () => {
-        // HandleApiKM.getKMByApdung
-    }
+        HandleApiKM.getKMByMaKM(promotionInput)
+            .then((data) => {
+                setPromotion(data?.phantramkm);
+                setSelected("");
+            })
+            .catch((err) => console.log(err));
+    };
 
     //  Handle change promotion input
     const HandleChangePromotionInput = (e) => {
         setPromotionInput(e.target.value);
-    }
+    };
 
     return (
         <div>
@@ -401,8 +404,10 @@ function Order() {
                                         onChange={HandleChangePromotionInput}
                                         className="h-full flex-1 placeholder:text-[16px] placeholder:font-light outline-none rounded-l-[8px] pl-6 caret-red-600 text-[16px]"
                                     ></input>
-                                    <button className="h-full w-[120px] text-[16px] font-light text-white bg-[#aaa] rounded-r-[6px] border-none hover:bg-[#999]"
-                                    onClick={HandleApplyPromotion}>
+                                    <button
+                                        className="h-full w-[120px] text-[16px] font-light text-white bg-[#aaa] rounded-r-[6px] border-none hover:bg-[#999]"
+                                        onClick={HandleApplyPromotion}
+                                    >
                                         Áp dụng
                                     </button>
                                 </div>
@@ -524,6 +529,8 @@ function Order() {
                         promotion={promotion}
                         setPromotion={setPromotion}
                         totalMoney={totalMoney}
+                        selected={selected}
+                        setSelected={setSelected}
                     />
                 </div>
             ) : (
