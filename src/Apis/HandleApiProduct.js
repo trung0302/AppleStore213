@@ -2,7 +2,7 @@
 import axiosInstance from "./axiosInstance";
 
 const getAllProduct = async (loaisanpham, phanloai, page = 1) => {
-    var query = `/product/?loaisanpham=${loaisanpham}&page=${page}`;
+    var query = `/api/product/?loaisanpham=${loaisanpham}&page=${page}`;
     if (phanloai) {
         query += `&phanloai=${phanloai}`
     }
@@ -10,7 +10,7 @@ const getAllProduct = async (loaisanpham, phanloai, page = 1) => {
 };
 
 const getAllSubCategory = async (loaisanpham) => {
-    return await axiosInstance.get(`/product/subcategory/${loaisanpham}`);
+    return await axiosInstance.get(`/api/product/subcategory/${loaisanpham}`);
 }
 
 export default {
