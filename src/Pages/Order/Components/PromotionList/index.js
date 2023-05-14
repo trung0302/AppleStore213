@@ -4,22 +4,39 @@ import style from "./Promotion.module.css";
 import { useEffect, useState } from "react";
 import HandleApiKM from "../../../../Apis/HandleApiKM";
 
-function PromotionList({ display, setDisplay, promotion, setPromotion, totalMoney }) {
+function PromotionList({
+    display,
+    setDisplay,
+    promotion,
+    setPromotion,
+    totalMoney,
+    selected,
+    setSelected,
+}) {
     const [data, setData] = useState([]);
-    const [selected, setSelected] = useState("");
+    // const [selected, setSelected] = useState("");
 
     const handleDisplayOff = () => {
         setDisplay(!display);
     };
-    console.log(totalMoney);
+    console.log("Money " + totalMoney);
+    
     useEffect(() => {
-        HandleApiKM.getKMByApdung(totalMoney)
+        HandleApiKM.getKMByApdung(Number(totalMoney))
             .then((data) => {
                 console.log(data);
                 setData(data);
             })
             .catch((err) => console.log(err));
     }, []);
+
+    useEffect(() => {
+        HandleApiKM.getKMByApdung(Number(totalMoney))
+            .then((data) => {
+                setData(data);
+            })
+            .catch((err) => console.log(err));
+    }, [totalMoney]);
 
     return (
         <div>
