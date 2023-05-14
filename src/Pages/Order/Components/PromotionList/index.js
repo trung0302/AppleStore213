@@ -4,18 +4,18 @@ import style from "./Promotion.module.css";
 import { useEffect, useState } from "react";
 import HandleApiKM from "../../../../Apis/HandleApiKM";
 
-function PromotionList({ display, setDisplay, promotion, setPromotion }) {
+function PromotionList({ display, setDisplay, promotion, setPromotion, totalMoney }) {
     const [data, setData] = useState([]);
     const [selected, setSelected] = useState("");
 
     const handleDisplayOff = () => {
         setDisplay(!display);
     };
-
+    console.log(totalMoney);
     useEffect(() => {
-        HandleApiKM.getAllKM()
+        HandleApiKM.getKMByApdung(totalMoney)
             .then((data) => {
-                // console.log(data);
+                console.log(data);
                 setData(data);
             })
             .catch((err) => console.log(err));

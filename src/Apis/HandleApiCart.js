@@ -2,22 +2,22 @@
 import axiosInstance from "./axiosInstance";
 
 const getCartByMaKH = async (id) => {
-    return await axiosInstance.get(`/cart?makh=${id}`);
+    return await axiosInstance.get(`api/cart?makh=${id}`);
 };
 
 const addSpToCart = async (data) => {
-    return await axiosInstance.post(`/cart`, data);
+    return await axiosInstance.post(`api/cart`, data);
 };
 
 const updateCart = async (makh, masp, mausac, rom, data) => {
     return await axiosInstance.put(
-        `/cart?makh=${makh}&masp=${masp}&mausac=${mausac}&rom=${rom}`,
+        `api/cart?makh=${makh}&masp=${masp}&mausac=${mausac}&rom=${rom}`,
         data
     );
 };
 
 const deleteSpFromCart = async (makh, masp, mausac, rom) => {
-    return await axiosInstance.delete(`/cart?makh=${makh}&masp=${masp}&mausac=${mausac}&rom=${rom}`);
+    return await axiosInstance.delete(`api/cart?makh=${makh}&masp=${masp}&mausac=${mausac}&rom=${rom}`);
 };
 
 export default {

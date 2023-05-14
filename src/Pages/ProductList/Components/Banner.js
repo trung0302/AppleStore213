@@ -66,7 +66,7 @@ function Banner({ type }) {
         paginationKeyboard: true,
     };
     return (
-        <di className="w-full">
+        <div className="w-full">
             <div className="w-[1200px] m-auto">
                 <Splide hasTrack={false} options={options} aria-label="Slider Product">
                     <div className="">
@@ -117,7 +117,7 @@ function Banner({ type }) {
                     </div>
                 </Splide>
             </div>
-        </di >
+        </div >
     );
 }
 export default Banner;
