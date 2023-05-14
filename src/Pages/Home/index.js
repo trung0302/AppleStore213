@@ -6,63 +6,112 @@ import images from "../../assets/image";
 import SubcribeSection from "../ProductList/Components/SubcribeSection";
 import { useEffect, useState } from "react";
 import HandleApiProduct from "../../Apis/HandleApiProduct.js";
+import HandleApiNews from "../../Apis/HandleApiNews";
+
 function Home() {
-    const [dataProduct, setDataProduct]=useState([]);
-    const dataFromAPI=HandleApiProduct.getAllProduct("iPhone");
+    const [dataIphoneProduct, setDataIphoneProduct]=useState([]);
+    const [dataIpadProduct, setDataIpadProduct]=useState([]);
+    const [dataMacProduct, setDataMacProduct]=useState([]);
+    const [dataAmThanhProduct, setDataAmThanhProduct]=useState([]);
+    const [dataWatchProduct, setDataWatchProduct]=useState([]);
+    const [dataNews, setDataNews]=useState([]);
+
+
+    const dataIphoneFromAPI=HandleApiProduct.getAllProduct("iPhone");
+    const dataIpadFromAPI=HandleApiProduct.getAllProduct("iPad");
+    const dataMacFromAPI=HandleApiProduct.getAllProduct("Mac");
+    const dataWatchFromAPI=HandleApiProduct.getAllProduct("Watch");
+    const dataAmThanhFromAPI=HandleApiProduct.getAllProduct("Âm thanh");
+    const dataNewsFromAPI=HandleApiNews.getAllNews(1,3);
+
+
     useEffect(()=>{
-        dataFromAPI.then((data)=>{
-            setDataProduct(()=>{
+        dataIphoneFromAPI.then((data)=>{
+            setDataIphoneProduct(()=>{
                 return data.listProducts.slice(0,4)
             })
         })
+        dataIpadFromAPI.then((data)=>{
+            setDataIpadProduct(()=>{
+                return data.listProducts.slice(0,4)
+            })
+        })
+        dataMacFromAPI.then((data)=>{
+            setDataMacProduct(()=>{
+                return data.listProducts.slice(0,4)
+            })
+        })
+        dataWatchFromAPI.then((data)=>{
+            setDataWatchProduct(()=>{
+                return data.listProducts.slice(0,4)
+            })
+        })
+        dataAmThanhFromAPI.then((data)=>{
+            setDataAmThanhProduct(()=>{
+                return data.listProducts.slice(0,4)
+            })
+        })
+        dataNewsFromAPI.then((data)=>{
+            setDataNews(()=>{
+                return data.listNews
+            })
+        })
     },[])
-    let listProduct=[];
-    dataProduct.map((value,index)=>{
-        listProduct.push({
+    let listIphoneProduct=[];
+    let listIpadProduct=[];
+    let listMacProduct=[];
+    let listWatchProduct=[];
+    let listAmThanhProduct=[];
+    dataIphoneProduct.map((value,index)=>{
+        listIphoneProduct.push({
             image: value.image,
             name: value.tensanpham,
             newPrice: value.gia,
             oldPrice: value.gia,
             note: images.khaitruong,
-            link:'/detailproduct'
+            link:'/detailproduct/'+value._id
         })
     })
-    console.log(listProduct)
-    const iphone=[
-        {
-            image: images.ip14prm,
-            name: 'Iphone 14 Pro Max 6 inch Wifi 64GB',
-            newPrice: 6990000,
-            oldPrice: 9990000,
+    dataIpadProduct.map((value,index)=>{
+        listIpadProduct.push({
+            image: value.image,
+            name: value.tensanpham,
+            newPrice: value.gia,
+            oldPrice: value.gia,
             note: images.khaitruong,
-            link:'/detailproduct'
-        },
-        {
-            image: images.ip14prm,
-            name: 'Iphone 14 Pro Max 6 inch Wifi 64GB',
-            newPrice: 6990000,
-            oldPrice: 9990000,
+            link:'/detailproduct/'+value._id
+        })
+    })
+    dataMacProduct.map((value,index)=>{
+        listMacProduct.push({
+            image: value.image,
+            name: value.tensanpham,
+            newPrice: value.gia,
+            oldPrice: value.gia,
             note: images.khaitruong,
-            link:'/detailproduct'
-
-        },
-        {
-            image: images.ip14prm,
-            name: 'Iphone 14 Pro Max 6 inch Wifi 64GB',
-            newPrice: 6990000,
-            oldPrice: 9990000,
+            link:'/detailproduct/'+value._id
+        })
+    })
+    dataWatchProduct.map((value,index)=>{
+        listWatchProduct.push({
+            image: value.image,
+            name: value.tensanpham,
+            newPrice: value.gia,
+            oldPrice: value.gia,
             note: images.khaitruong,
-            link:'/detailproduct'
-        },
-        {
-            image: images.ip14prm,
-            name: 'Iphone 14 Pro Max 6 inch Wifi 64GB',
-            newPrice: 6990000,
-            oldPrice: 9990000,
+            link:'/detailproduct/'+value._id
+        })
+    })
+    dataAmThanhProduct.map((value,index)=>{
+        listAmThanhProduct.push({
+            image: value.image,
+            name: value.tensanpham,
+            newPrice: value.gia,
+            oldPrice: value.gia,
             note: images.khaitruong,
-            link:'/detailproduct'
-        }
-    ];
+            link:'/detailproduct/'+value._id
+        })
+    })
     const tintucData=[
     {
         image: images.tintuc,
@@ -86,33 +135,33 @@ function Home() {
     const itemUI=[
         {
             title: "iPhone",
-            datas: listProduct,
+            datas: listIphoneProduct,
             link: '/iphone'
         },
         {
             title: "iPad",
-            datas: listProduct,
+            datas: listIpadProduct,
             link: '/ipad'
         },
         {
             title: "Mac",
-            datas: listProduct,
+            datas: listMacProduct,
             link: '/ipad'
         },
         {
             title: "Watch",
-            datas: listProduct,
+            datas: listWatchProduct,
             link: '/watch'
         },
         {
             title: "Âm thanh",
-            datas: listProduct,
+            datas: listAmThanhProduct,
             link: '/am-thanh'
         }
 ];
 const tintucUI={
     title: 'Tin tức',
-    datas: tintucData,
+    datas: dataNews,
     link: '/tin-tuc'
 }
     return(
@@ -125,7 +174,7 @@ const tintucUI={
         ))
        }
        <div className="flex justify-center">
-            <a  href="#" className="block h-[432px] m-8">
+            <a  href="/tin-tuc" className="block h-[432px] m-8">
                     <img  className="" src={images.BannerBottom} alt={images.BannerBottom}></img>
             </a>
        </div>
