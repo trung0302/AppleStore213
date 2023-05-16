@@ -52,14 +52,6 @@ function AdvertisementSlide(){
                     ))}
                 </SplideTrack>
             </div>
-            {/* <div className="splide__arrows">
-                <button className="splide__arrow splide__arrow--prev">
-                    <EastIcon />
-                </button>
-                <button className="splide__arrow splide__arrow--next">
-                    <EastIcon />
-                </button>
-            </div> */}
             <div className="testad">
                 <div className="splide__arrows advertisement">
                         <button className="splide__arrow splide__arrow--prev  ">
