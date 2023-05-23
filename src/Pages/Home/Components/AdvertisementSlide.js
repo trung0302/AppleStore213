@@ -41,7 +41,7 @@ function AdvertisementSlide(){
         <div className="w-full">
             
             <Splide hasTrack={false} options={options} aria-label="Slider Product">
-            <div className="">
+            <div className="mainSlider">
                 <SplideTrack>
                     {data.map((product, index) => (
                         <SplideSlide key={index}>
@@ -52,7 +52,7 @@ function AdvertisementSlide(){
                     ))}
                 </SplideTrack>
             </div>
-            <div className="testad">
+            <div className="paginationSlider">
                 <div className="splide__arrows advertisement">
                         <button className="splide__arrow splide__arrow--prev  ">
                         <NavigateNextIcon  />
