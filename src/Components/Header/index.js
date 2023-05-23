@@ -13,6 +13,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import {Login, Logout, Settings} from '@mui/icons-material'
+import { Link } from 'react-router-dom';
 
 
 function Header() {
@@ -145,9 +146,11 @@ function Header() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem onClick={handleClose} sx={{fontSize: 15}}>
-                    <Avatar /> Trang cá nhân
-                </MenuItem>
+                <Link to="/customer/info">
+                    <MenuItem onClick={handleClose} sx={{fontSize: 15}}>
+                        <Avatar /> Trang cá nhân
+                    </MenuItem>
+                </Link>
                 <Divider />
                 <MenuItem onClick={handleClose} sx={{fontSize: 15}}>
                     <ListItemIcon>
@@ -155,12 +158,14 @@ function Header() {
                     </ListItemIcon>
                     Cài đặt
                 </MenuItem>
-                <MenuItem onClick={handleClose} sx={{fontSize: 15}}>
-                    <ListItemIcon>
-                        <Login fontSize="large" />
-                    </ListItemIcon>
-                    Đăng nhập
-                </MenuItem>
+                <Link to="/login">
+                    <MenuItem onClick={handleClose} sx={{fontSize: 15}}>
+                        <ListItemIcon>
+                            <Login fontSize="large" />
+                        </ListItemIcon>
+                        Đăng nhập
+                    </MenuItem>
+                </Link>
                 <MenuItem onClick={handleClose} sx={{fontSize: 15}}>
                     <ListItemIcon>
                         <Logout fontSize="large" />
