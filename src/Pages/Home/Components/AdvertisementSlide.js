@@ -61,7 +61,9 @@ function AdvertisementSlide(){
                             <NavigateNextIcon  />
                         </button>
                 </div>
+
             </div>
+            
           {/* border-none bg-slate-400 opacity-50 ml-[80px] w-[60px] h-[60px] */}
         </Splide>
         </div>
