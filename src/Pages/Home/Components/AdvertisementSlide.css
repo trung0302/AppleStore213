@@ -12,7 +12,7 @@
    height: 4.6rem;
 }
 
-.splide__arrow.splide__arrow--next {
+.testad .splide__arrow.splide__arrow--next {
     right: 6rem;
     width: 60px;
     height: 60px;
@@ -21,7 +21,7 @@
     opacity: 0.2;
 }
 
-.splide__arrow.splide__arrow--prev {
+.testad .splide__arrow.splide__arrow--prev {
     background-color: #515154;
     left: 6rem;
     width: 60px;
@@ -29,17 +29,17 @@
     border: none;
     opacity: 0.2;
 }
-.splide__arrow.splide__arrow--prev:hover {
+.testad .splide__arrow.splide__arrow--prev:hover {
     opacity: 0.5;
 }
-.splide__arrow.splide__arrow--next:hover {
+.testad .splide__arrow.splide__arrow--next:hover {
     opacity: 0.5;
 }
-.splide__pagination__page.is-active {
+ .splide__pagination__page.is-active {
     background: #515154 !important;
 }
 
-.splide__pagination__page {
+ .splide__pagination__page {
     background: #ccc !important;
     margin: 0 8px;
 }
