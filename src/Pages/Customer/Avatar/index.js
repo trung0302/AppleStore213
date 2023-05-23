@@ -74,7 +74,7 @@ function Avatar () {
                     <NavTag DivCss={"px-4 py-8"}  setHref={"/customer/baohanh"} spanCss={"mx-6"} spanContent={"Bảo hành"}
                         aCss={"mx-4 my-4"} setIcon={<GppGoodIcon sx={{ fontSize: 30 }}></GppGoodIcon>} />
                 </div>
-                <div className={styles.bg_white +" h-fit grid grid-cols-2 rounded-lg lg:w-2/5 my-12"}>
+                <div className={styles.bg_white +" h-fit grid grid-cols-2 rounded-lg lg:w-2/5 my-12 flex items-center"}>
                     <div className="mx-4 my-4 flex flex-col h-fit">
                         <AvatarImg src={data?data:"http://webcoban.vn/image/flower.gif"} alt="Ảnh avatar"></AvatarImg>
                         <input type="file" accept=".jpg, .png" name="Avatar" onChange={handleFileChange} className="mx-3 my-3 h-fit"/>
