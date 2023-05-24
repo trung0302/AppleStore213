@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./DetailBottom.css";
-import { Description } from "@mui/icons-material";
 import StarRating from "./StarRating";
 import RatedStar from "./RatingStar/RatedStar";
 import RatingModal from "./RatingStar/RatingModal";
@@ -13,8 +12,12 @@ function DetailBottom({sp, user}) {
     const [filterIndex, setFilterIndex] = useState(6);
     const [binhluan, setBinhluan] = useState();
     const [listDanhGia, setListDanhGia] = useState([])
+    const [allDG, setAllDG] = useState([])
     const [newListDG, setNewListDG] = useState([])
     const [haveComment, setHaveComment] = useState(true)
+    const [dtbDG, setDtbDG] = useState()
+    const [soluongDG, setSoLuongDG] = useState()
+    const [loading, setLoading] = useState(false)
     // const [demoProduct, setDemoProduct] = useState(null)
 
     // hàm set giá trị cho tab được chon
@@ -48,38 +51,34 @@ function DetailBottom({sp, user}) {
             },
     
             TSKT: [
-                [
+                sp.kichthuocmanhinh?[
                     "Màn hình",
-                    "6.7 inch, Super Retina XDR, 2796 x 1290 Pixels",
-                ],
-                [
+                    sp.kichthuocmanhinh || "6.7 inch, Super Retina XDR, 2796 x 1290 Pixels",
+                ]:null,
+                sp.camera?[
                     "Camera",
                     sp.camera || "48.0 MP + 12.0 MP + 12.0 MP"
-                ],
-                [
-                    "Camera Selfie",
-                    sp.camera || "12.0 MP",
-                ],
-                [
-                    "Bộ nhớ trong",
-                    sp.dungluong || "128 GB",
-                ],
-                [
+                ]:null,
+                sp.rom?[
+                    "ROM",
+                    sp.rom || "128 GB",
+                ]:null,
+                sp.ram?[
                     "RAM",
                     sp.ram || "6GB",
-                ],
-                [
+                ]:null,
+                sp.chip?[
                     "Chip",
                     sp.chip || "Chip A16 Bionic,CPU 6 nhân, GPU 5 lõi, 16-core Neural Engine",
-                ],
-                [
+                ]:null,
+                sp.baomat?[
                     "Bảo mật",
                     sp.baomat || "Face ID, Được kích hoạt bởi camera trước TrueDepth để nhận dạng khuôn mặt",
-                ],
-                [
+                ]:null,
+                sp.chongnuoc?[
                     "Chống nước",
                     sp.chongnuoc|| "IP68 (độ sâu tối đa 6 mét trong tối đa 30 phút) theo tiêu chuẩn IEC 60529",
-                ],
+                ]:null,
                 sp.sac?[
                     "Sạc",
                     sp.sac,
@@ -87,6 +86,38 @@ function DetailBottom({sp, user}) {
                 sp.dophangiai?[
                     "Độ phân giải",
                     sp.dophangiai,
+                ]:null,
+                sp.kichthuoc?[
+                    "Kích thước",
+                    sp.kichthuoc,
+                ]:null,
+                sp.khoiluong?[
+                    "Khối lượng",
+                    sp.khoiluong,
+                ]:null,
+                sp.hedieuhanh?[
+                    "Hệ điều hành",
+                    sp.hedieuhanh,
+                ]:null,
+                sp.nguongoc?[
+                    "Nguồn gốc",
+                    sp.nguongoc,
+                ]:null,
+                sp.chatlieu?[
+                    "Chất liệu",
+                    sp.chatlieu,
+                ]:null,
+                sp.loaiphukien?[
+                    "Loại phụ kiện",
+                    sp.loaiphukien,
+                ]:null,
+                sp.congnghe?[
+                    "Công nghệ",
+                    sp.congnghe,
+                ]:null,
+                sp.congsuat?[
+                    "Công suất",
+                    sp.congsuat,
                 ]:null,
             ]
     }
@@ -100,10 +131,26 @@ function DetailBottom({sp, user}) {
     // },[ratingOut])
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/danhgia/${sp._id}`)
+        let getDgUrl = `http://localhost:3001/api/danhgia/${sp._id}`
+        // console.log(filterIndex)
+        // if(filterIndex !== 6) {
+        //     getDgUrl = `http://localhost:3001/api/danhgia/${sp._id}?rating=${filterIndex}`
+        // }
+        axios.get(getDgUrl)
         .then( (response) => { 
             if(response.data !== undefined) {
-                setListDanhGia(response.data.listDanhGia);      
+                let DGs = response.data.listDanhGia;
+                let sumRating = 0;
+                if(filterIndex === 6) {
+                    setListDanhGia(DGs);     
+                }
+                setAllDG(DGs) 
+                setSoLuongDG(DGs.length)
+                DGs.forEach(dg => {
+                    sumRating = sumRating + dg.rating;
+                });
+                console.log(DGs.length)
+                setDtbDG((sumRating/DGs.length).toFixed(1))
             }
         })
         .catch(
@@ -115,11 +162,21 @@ function DetailBottom({sp, user}) {
     },[newListDG])
 
     useEffect(()=>{
+        if(filterIndex !== 6){
+            setListDanhGia(allDG.filter(danhgia => {
+                return danhgia.rating === filterIndex;
+            }))
+        } else {
+            setListDanhGia(allDG);
+        }
+    },[filterIndex])
+
+    useEffect(()=>{
         console.log(listDanhGia)
     },[listDanhGia])
 
-    if(listDanhGia.length !== 0 || haveComment === false)
-   {return (<div className="w-3/4 mx-auto grid grid-cols-1 my-[50px]">
+    // if(listDanhGia.length !== 0 || haveComment === false)
+   return (<div className="w-3/4 mx-auto grid grid-cols-1 my-[50px]">
        
     <div className="w-[800px] place-self-center">
                 <div className="tab-bar">
@@ -168,10 +225,10 @@ function DetailBottom({sp, user}) {
                         </table>
                     </div>
                     <div class={tongleState === 3 ? "text-ellipsis overflow-hidden block":"hidden"}>
-                    <p>Chi tiết sản phẩm</p>
+                        <p>Chi tiết sản phẩm</p>
                     </div>
                     <div class={tongleState === 4 ? "text-ellipsis overflow-hidden block":"hidden"}>
-                    <p>Hỏi đáp</p>
+                        <p>Hỏi đáp</p>
                     </div>
                 </div>
 
@@ -183,21 +240,21 @@ function DetailBottom({sp, user}) {
                     <div className="grid grid-cols-3 justify-items-stretch text-[16px] py-[20px] border-b-[2px] border-slate-100">
                         <div className="text-center">
                             <div className="text-slate-700">Đánh giá trung bình</div>
-                            <div className="text-[36px] text-red-600">5/5</div>
+                            <div className="text-[36px] text-red-600">{dtbDG}/5</div>
                             <div className="flex justify-center">
                             <StaticRatedStar
                                 size={16}
                                 rating={5}/>
                             </div>
-                            <div>1014 đánh giá</div>
+                            <div>{soluongDG} đánh giá</div>
                         </div>
                         <div className="my-auto">
-                            <RatedStar/>
+                            <RatedStar allDG = {allDG}
+                                       soluongDG = {soluongDG}/>
                         </div>
                         <div className="text-center my-auto">
                             <div className="text-[16px] my-[10px]">Bạn đã dùng sản phẩm này</div>
-                            <button className="text-[16px] text-white bg-blue-600 
-                            rounded-[5px] font-extralight p-[10px]"
+                            <button className="text-[16px] text-white bg-blue-600 rounded-[5px] font-extralight p-[10px]"
                             onClick={()=>setCloseRatingModal(0)}>GỬI ĐÁNH GIÁ</button>
                         </div>
                     </div>
@@ -231,8 +288,7 @@ function DetailBottom({sp, user}) {
                 user = {user}
                 sp = {sp}
                 setNewListDG = {setNewListDG}/>
-            
     </div>);
 }
-}
+
 export default DetailBottom;
