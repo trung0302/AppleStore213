@@ -41,6 +41,27 @@ function Payment(props) {
         payment,
     };
 
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const handleBlur = function (e) {
+        // if (e.target.type === "email") {
+        //     if (
+        //         emailRegex.test(e.target.value) === false ||
+        //         e.target.value === ""
+        //     ) {
+        //         e.target.style.borderColor = "red";
+        //     } else {
+        //         // e.target.style.borderColor = "#ddd";
+        //     }
+        // }
+        // if (e.target.type === "text" || e.target.type === "number") {
+        //     if (e.target.value === "") {
+        //         e.target.style.borderColor = "red";
+        //     } else {
+        //         e.target.style.borderColor = "#ddd";
+        //     }
+        // }
+    };
+
     useEffect(() => {
         handleGetData(dataParent);
     }, []);
@@ -198,6 +219,8 @@ function Payment(props) {
                         <input
                             type="text"
                             value={name}
+                            onBlur={handleBlur}
+                            onfocus="this.style.borderColor='#0066cc'"
                             onChange={handleNameChange}
                             placeholder="Nhập họ tên"
                             // defaultValue={user.hoten}
@@ -213,6 +236,7 @@ function Payment(props) {
                         <input
                             type="number"
                             value={phone}
+                            onBlur={handleBlur}
                             // defaultValue={user.sdt}
                             onChange={handlePhoneChange}
                             placeholder="Nhập số điện thoại"
@@ -230,6 +254,7 @@ function Payment(props) {
                         <input
                             type="email"
                             value={email}
+                            onBlur={handleBlur}
                             // defaultValue={user.email}
                             onChange={handleEmailChange}
                             placeholder="Nhập Email"

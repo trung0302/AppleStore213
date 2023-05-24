@@ -13,7 +13,6 @@ const images = {
     momo: require("./momo.png"),
     zalopay: require("./zalopay.png"),
     shipcod: require("./shipcod.jpg"),
-    loginBG: require('./loginbg.jpg'),
     banner1: require('./banner1.webp'),
     banner2: require('./banner2.jpeg'),
     banner3: require('./banner3.jpeg'),
@@ -74,6 +73,7 @@ const images = {
     sacCap: require('./accessoryCategories/sac-cap.png'),
     sacDuPhong: require('./accessoryCategories/sac-du-phong.png'),
     sale: require("./sale.jpg"),
+    logo: require("./logo2.png")
 };
 
 export default images;

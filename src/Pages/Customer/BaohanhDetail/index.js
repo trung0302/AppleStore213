@@ -10,10 +10,24 @@ import NavTag from "../Components/NavTag";
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import { useParams } from 'react-router-dom'
 import BaohanhDetailItem from "../Components/BaohanhDetailItem";
+import HandleApiBaohanh from "../../../Apis/HandleApiBaohanh";
+import { useEffect, useState } from "react";
 
 function BaohanhDetail () {
-
+    //lấy id của bảo hành trên params
     const { id } = useParams();
+
+    const [data, setData] =useState();
+
+    useEffect(() => {
+        //lấy chi tiết bảo hành
+        HandleApiBaohanh.getBHByID(id)
+        .then((res) => {
+            setData(res);
+        });
+    }); 
+
+
     return (
         <div>
             <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>
@@ -34,22 +48,28 @@ function BaohanhDetail () {
                         aCss={styles.text_blue} setIcon={<GppGoodIcon sx={{ fontSize: 30, color: blue[700] }}></GppGoodIcon>} />
                 </div>
                 <div className={"lg:w-2/5 my-12"}>
-                    <div className={styles.bg_white +" rounded-lg w-full my-4 drop-shadow-lg"}>
-                        <div className="px-4 py-4">
-                            <strong className="my-3">Iphone 12 pro max</strong>
-                            <p className="my-3">Ngày mua: 1/4/2023</p>
-                            <p className="my-3">Ngày hết hạn bảo hành: 29/12/2023</p>
-                        </div>
-                    </div>
-                    <div className="text-center text-3xl my-5">
-                        {/* <h1>Hiện máy vẫn chưa bảo hành lần nào</h1> */}
-                        <h1><b>Thông tin các lần bảo hành</b></h1>
-                    </div>
-                   <div>
-                    <BaohanhDetailItem lanthu="1" ngbaohanh="1/1/2023" mota="máy bị hư nguồn" tinhtrangbaohanh="còn mới"/>
-                    <BaohanhDetailItem lanthu="2" ngbaohanh="1/3/2023" mota="máy bị hư pin" tinhtrangbaohanh="vết xước nhỏ trên màn hình"/>
-                    <BaohanhDetailItem lanthu="3" ngbaohanh="1/5/2023" mota="máy bị hư màn hình" tinhtrangbaohanh="có nhiều vết xước sau lưng máy"/>
-                   </div>
+                    {!data ? (<h1>Hiện máy vẫn chưa bảo hành lần nào</h1>
+                    ) : (
+                        <>
+                            <div className={styles.bg_white +" rounded-lg w-full my-4 drop-shadow-lg"}>
+                                <div className="px-4 py-4">
+                                        <strong className="my-3">{data.masp}</strong>
+                                        <p className="my-3">Ngày mua: {data.thoigian}</p>
+                                        <p className="my-3">Ngày hết hạn bảo hành: {data.nghethan}</p>
+                                </div>
+                            </div>
+                            <div className="text-center text-3xl my-5">
+                                <h1><b>Thông tin các lần bảo hành</b></h1>
+                            </div>
+                            <div>
+                            {
+                                data.chitietbaohanh.map((item)=>(
+                                    <BaohanhDetailItem lanthu={item.lanthu} ngbaohanh={item.ngbaohanh} mota={item.mota} tinhtrangbaohanh={item.tinhtrangbaohanh} key={item._id}/>
+                                ))
+                            }
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

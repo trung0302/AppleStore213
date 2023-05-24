@@ -15,7 +15,6 @@ import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
 import Swal from "sweetalert2";
 
 function Info(){
-    //const user = JSON.parse(localStorage.getItem("user"));
     const [ngay, setNgay] = useState(null);
     const [thang, setThang] = useState(null);
     const [nam, setNam] = useState(null);
