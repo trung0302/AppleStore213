@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-import { DeleteOutline, ReceiptOutlined } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { ReceiptOutlined } from "@mui/icons-material";
 import ProductHint from "./Components/ProductHint/ProductHint";
 import Payment from "./Components/Payment/Payment";
 import PromotionList from "./Components/PromotionList";
@@ -137,29 +136,6 @@ function Order() {
 
     const handleDisplayVoucher = () => {
         setVoucherDisplay(true);
-    };
-
-    // Handle Delete Product
-    const HandleDeleteSp = (item) => {
-        HandleApiCart.deleteSpFromCart(
-            item.makh,
-            item.masp,
-            item.mausac,
-            item.dungluong
-        )
-            .then(() => {
-                HandleGetCart();
-            })
-            .catch(() => {
-                Swal.fire({
-                    position: "center",
-                    icon: "error",
-                    title: "Xóa sản phẩm thất bại",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    padding: "0 0 20px 0",
-                });
-            });
     };
 
     // Handle Áp dụng Mã giảm giá bằng input

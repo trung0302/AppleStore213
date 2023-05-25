@@ -16,21 +16,22 @@ function ProductItem({
     promotion,
 }) {
     const [addClass, setAddClass] = useState("");
-    const [qty, setQty] = useState(Number(item?.soluong));
+    const [qty, setQty] = useState(Number(item?.soluong) || 1);
 
     const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
-        if (qty === 1) {
+        if (Number(qty) === 1) {
             setAddClass("text-[#ccc]");
-        }
+        } else setAddClass("");
+
         HandleApiCart.updateCart(
             item.makh,
             item.masp,
             item.mausac,
             item.dungluong,
             {
-                soluong: Number(qty),
+                soluong: Number(qty) || 1,
             }
         )
             .then(() => {
@@ -77,7 +78,7 @@ function ProductItem({
     };
 
     const increaseQty = (item) => {
-        setAddClass("");
+        // setAddClass("");
         const data = {
             // soluong: Number(item.soluong) + 1,
             soluong: Number(qty) + 1,
@@ -92,6 +93,7 @@ function ProductItem({
         )
             .then(() => {
                 HandleGetCart();
+                // window.location.reload();
             })
             .catch((err) => console.log(err));
     };
@@ -118,8 +120,20 @@ function ProductItem({
     };
 
     const handleQtyChange = (e) => {
+        // if (e.target.value < 0) {
+        //     setQty(Math.abs(e.target.value));
+        // }
+        // else
+        // console.log(e.target.value);
         setQty(e.target.value);
     };
+
+    const handleKeyDown = (e) => {
+        console.log(e.keyCode);
+        if (e.keyCode === 189 || e.keyCode === 96 || e.keyCode === 48) {
+            e.preventDefault();
+        }
+    }
 
     return (
         <tr className="border-solid border-t border-t-[#d9d9d9]" key={index}>
@@ -162,6 +176,7 @@ function ProductItem({
                             qty
                         }
                         onChange={handleQtyChange}
+                        onKeyDown={handleKeyDown}
                         className={
                             styles.inputQuantity + " " + styles.noSpinner
                         }
