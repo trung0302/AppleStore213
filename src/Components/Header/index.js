@@ -5,6 +5,7 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { useState, useEffect, useRef } from "react";
 import image from "../../assets/image";
 import * as React from "react";
+import Cookies from 'js-cookie';
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -30,6 +31,9 @@ function Header() {
     };
     const handleClose = () => {
         setAnchorEl(null);
+        localStorage.removeItem("user");
+        //localStorage.removeItem("token");
+        Cookies.remove('token')
     };
 
     const inputRef = useRef(null);
@@ -213,18 +217,20 @@ function Header() {
                     transformOrigin={{ horizontal: "right", vertical: "top" }}
                     anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                 >
+                    {(document.cookie.indexOf('token') == -1)?<></>:
                     <Link to="/customer/info">
                         <MenuItem onClick={handleClose} sx={{ fontSize: 15 }}>
                             <Avatar /> Trang cá nhân
                         </MenuItem>
-                    </Link>
+                    </Link>}
                     <Divider />
-                    <MenuItem onClick={handleClose} sx={{ fontSize: 15 }}>
+                    {/*<MenuItem onClick={handleClose} sx={{ fontSize: 15 }}>
                         <ListItemIcon>
                             <Settings fontSize="large" />
                         </ListItemIcon>
                         Cài đặt
-                    </MenuItem>
+                </MenuItem>*/}
+                    {(document.cookie.indexOf('token') == -1)?
                     <Link to="/login">
                         <MenuItem onClick={handleClose} sx={{ fontSize: 15 }}>
                             <ListItemIcon>
@@ -233,12 +239,13 @@ function Header() {
                             Đăng nhập
                         </MenuItem>
                     </Link>
+                    :
                     <MenuItem onClick={handleClose} sx={{ fontSize: 15 }}>
                         <ListItemIcon>
                             <Logout fontSize="large" />
                         </ListItemIcon>
                         Thoát
-                    </MenuItem>
+                    </MenuItem>}
                 </Menu>
             </div>
         </div>
