@@ -179,7 +179,7 @@ const accessoryNavigation = [
     },
 ]
 
-export default function TopSection({ type, currentCategory }) {
+export default function TopSection({ type, currentCategory = null, slug = null }) {
     const [detail, setDetail] = useState();
     const [typeLink, setTypeLink] = useState();
     const location = useLocation();
@@ -188,39 +188,21 @@ export default function TopSection({ type, currentCategory }) {
         switch (type) {
             case "iPhone":
                 setTypeLink("/iphone")
-                setDetail(iphoneNavigation.find(obj => {
-                    return obj.path === location.pathname
-                }))
                 break;
             case "iPad":
                 setTypeLink("/ipad")
-                setDetail(ipadNavigation.find(obj => {
-                    return obj.path === location.pathname
-                }))
                 break;
             case "Mac":
                 setTypeLink("/mac")
-                setDetail(macnavigation.find(obj => {
-                    return obj.path === location.pathname
-                }))
                 break;
             case "Watch":
                 setTypeLink("/watch")
-                setDetail(watchNavigation.find(obj => {
-                    return obj.path === location.pathname
-                }))
                 break;
             case "Âm thanh":
                 setTypeLink("/am-thanh")
-                setDetail(soundNavigation.find(obj => {
-                    return obj.path === location.pathname
-                }))
                 break;
             default:
                 setTypeLink("/phu-kien")
-                setDetail(accessoryNavigation.find(obj => {
-                    return obj.path === location.pathname
-                }))
                 break;
         }
         // eslint-disable-next-line
@@ -245,14 +227,14 @@ export default function TopSection({ type, currentCategory }) {
                         {type}
                     </a>
 
-                    {detail &&
+                    {currentCategory !== null &&
                         <>
                             <div className="px-[5px] py-0">&gt;</div>
                             <a
-                                href={detail.path}
+                                href={slug}
                                 className="text-[14px] text-[#515154]"
                             >
-                                {detail.name}
+                                {currentCategory}
                             </a>
                         </>
                     }
