@@ -10,7 +10,7 @@ const getAllProduct = async (loaisanpham, phanloai, page = 1) => {
 };
 
 const getAllSubCategory = async (loaisanpham) => {
-    return await axiosInstance.get(`/product/subcategory/${loaisanpham}`);
+    return await axiosInstance.get(`/api/product/subcategory/${loaisanpham}`);
 }
 
 export default {

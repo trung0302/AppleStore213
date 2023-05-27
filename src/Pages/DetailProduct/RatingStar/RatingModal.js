@@ -41,7 +41,7 @@ const RatingModal = (props) => {
             }
             
             // gửi bình luận lên csdl
-            axios.post("http://localhost:3001/danhgia",dgData)
+            axios.post("http://localhost:3001/api/danhgia",dgData)
             .then( (response) => { 
                 alert("SHOP XIN CẢM ƠN ĐÁNH GIÁ CỦA BẠN!")
                 props.setNewListDG(response)

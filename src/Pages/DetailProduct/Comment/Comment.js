@@ -6,6 +6,7 @@ function Comment ({DG}) {
     const tryFunction = () => {
         // console.log(DG.tenkh)
         // console.log(DG.tenkh.slice(lastIndexOfSpace))
+        console.log(DG.rating)
     }
     const lastIndexOfSpace = DG.tenkh.lastIndexOf(" ") + 1
     const chuCaiDauTenKH = DG.tenkh.slice(lastIndexOfSpace).charAt(0)
@@ -46,7 +47,15 @@ function Comment ({DG}) {
                 </div>
                 <div className="ml-auto mr-[15px] text-slate-600 cursor-pointer relative">
                     <MoreVertIcon fontSize='large'/>
-                    {/* <div className="w-[20px] h-[20px] bg-blue-500 absolute z-10 left-[4px] top-[4px]"></div> */}
+                    <div className="w-[60px] h-[70px] bg-white absolute z-10 left-[4px] top-[4px]
+                                    text-slate-800 text-[18px] border-[2px] border-slate-400 hidden">
+                        <div className='border-b-[1px] border-slate-400 text-center'>
+                            Xóa
+                        </div>
+                        <div className='border-t-[1px] border-slate-400 text-center hidden'>
+                            Sửa
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

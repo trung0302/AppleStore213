@@ -1,14 +1,8 @@
 import { Link } from "react-router-dom";
 import styles from "../Customer.module.css";
-import React, { useState } from 'react';
+import React from 'react';
 
 export default ({id, name, ngmua, nghethan})=>{
-    const [isOpen, setIsOpen] = useState(false);
-
-    const togglePopup = () => {
-      setIsOpen(!isOpen);
-    };
-
     const dateParts = nghethan.split('/');
     const year = dateParts[2];
     const month = dateParts[1] - 1; // Trừ 1 vì tháng trong đối tượng Date được tính từ 0 đến 11

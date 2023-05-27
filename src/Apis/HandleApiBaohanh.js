@@ -13,6 +13,10 @@ const getBHBySDT = async(sdt) => {
     return await axiosInstance.get(`/api/baohanh/sdt/${sdt}`);
 }
 
+const getBHByMaKH = async(makh) => {
+    return await axiosInstance.get(`/api/baohanh/kh/${makh}`);
+}
+
 //POST
 const addBH = async(data) => {
     return await axiosInstance.post(`/api/baohanh`,data);
@@ -44,6 +48,7 @@ export default {
     getAllBH,
     getBHByID,
     getBHBySDT,
+    getBHByMaKH,
     addBH,
     addCTBH,
     updateBH,

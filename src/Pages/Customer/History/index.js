@@ -9,9 +9,32 @@ import { blue } from "@mui/material/colors";
 import NavTag from "../Components/NavTag";
 import Orderbill from "../Components/Orderbill";
 import GppGoodIcon from '@mui/icons-material/GppGood';
+import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
+import { useState,useEffect } from "react";
+import axios from "axios";
 
 function History () {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const [user, setUser] = useState(null);
+    const [data, setData] = useState([]);
+    const [state, setState] = useState("");
+
+    const handleFilterChange = (e)=>{
+        setState(e.target.value);
+    }
+
+    //lấy thông tin user
+    useEffect(() => {
+        HandleApiCustomer.GetUserInfor()
+        .then((res) => {
+            setUser(res.user);
+        });
+    }, []); 
+
+    //api lấy đơn hàng theo bộ lọc
+    // useEffect(() => {
+        
+    // }, []);
+
     return (
         <div>
             <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>
@@ -32,8 +55,10 @@ function History () {
                         aCss={"mx-4 my-4"} setIcon={<GppGoodIcon sx={{ fontSize: 30 }}></GppGoodIcon>} />
                 </div>
                 <div className={"lg:w-2/5 my-12"}>
+
+                    {/* Bộ lọc */}
                     <div className="flex justify-end">
-                        <select className={styles.bg_white+ " text-sky-600 border-sky-600 focus:border-sky-600 border-2 rounded-lg px-10 py-2 mb-10"} name="filter_status">
+                        <select onChange={handleFilterChange} className={styles.bg_white+ " text-sky-600 border-sky-600 focus:border-sky-600 border-2 rounded-lg px-10 py-2 mb-10"} name="filter_status">
                             <option value="">Tất cả</option>
                             <option value="green">Thành công</option>
                             <option value="blue">Đang giao</option>
@@ -41,6 +66,8 @@ function History () {
                             <option value="red">Đã hủy</option>
                         </select>
                     </div>
+
+                    {/* Render các đơn hàng */}
                     <Orderbill madonhang={"4618"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"red"}></Orderbill>
                     <Orderbill madonhang={"2013"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"green"}></Orderbill>
                     <Orderbill madonhang={"2020"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"yellow"}></Orderbill>

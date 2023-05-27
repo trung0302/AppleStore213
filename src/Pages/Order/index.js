@@ -4,18 +4,16 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-import { DeleteOutline, ReceiptOutlined } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { ReceiptOutlined } from "@mui/icons-material";
 import ProductHint from "./Components/ProductHint/ProductHint";
 import Payment from "./Components/Payment/Payment";
 import PromotionList from "./Components/PromotionList";
 import HandleApiCart from "../../Apis/HandleApiCart";
 import HandleApiKM from "../../Apis/HandleApiKM";
+import ProductItem from "./Components/ProductItem";
 
 function Order() {
     const [data, setData] = useState([]);
-    const [qty, setQty] = useState(1);
-    // const [showPromotion, setShowPromotion] = useState(true);
     const [isChecked, setIsChecked] = useState(false);
     const [voucherDisplay, setVoucherDisplay] = useState(false);
     const [dataPayment, setDataPayment] = useState(null);
@@ -43,12 +41,10 @@ function Order() {
             })
             .catch((err) => console.log(err));
     };
-    // console.log(data);
 
     // Render order the first time
     useEffect(() => {
         HandleGetCart();
-        console.log(data);
     }, []);
 
     // Change total money when select promotion
@@ -61,49 +57,6 @@ function Order() {
 
     const handleGetData = (data) => {
         setDataPayment(data);
-    };
-    // console.log(dataPayment);
-
-    const increaseQty = (item) => {
-        const data = {
-            soluong: Number(item.soluong) + 1,
-        };
-        HandleApiCart.updateCart(
-            item.makh,
-            item.masp,
-            item.mausac,
-            item.dungluong,
-            data
-        )
-            .then(() => {
-                HandleGetCart();
-                console.log("OK!");
-            })
-            .catch((err) => console.log(err));
-    };
-
-    const decreaseQty = (item) => {
-        const data = {
-            soluong: Number(item.soluong) - 1,
-        };
-        if (item.soluong > 1) {
-            HandleApiCart.updateCart(
-                item.makh,
-                item.masp,
-                item.mausac,
-                item.dungluong,
-                data
-            )
-                .then(() => {
-                    HandleGetCart();
-                    console.log("OK!");
-                })
-                .catch((err) => console.log(err));
-        }
-    };
-
-    const handleQtyChange = (e) => {
-        setQty(e.target.value);
     };
 
     const handleCheckBoxChange = (e) => {
@@ -185,29 +138,6 @@ function Order() {
         setVoucherDisplay(true);
     };
 
-    // Handle Delete Product
-    const HandleDeleteSp = (item) => {
-        HandleApiCart.deleteSpFromCart(
-            item.makh,
-            item.masp,
-            item.mausac,
-            item.dungluong
-        )
-            .then(() => {
-                HandleGetCart();
-            })
-            .catch(() => {
-                Swal.fire({
-                    position: "center",
-                    icon: "error",
-                    title: "Xóa sản phẩm thất bại",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    padding: "0 0 20px 0",
-                });
-            });
-    };
-
     // Handle Áp dụng Mã giảm giá bằng input
     const HandleApplyPromotion = () => {
         HandleApiKM.getKMByMaKM(promotionInput)
@@ -221,6 +151,11 @@ function Order() {
     //  Handle change promotion input
     const HandleChangePromotionInput = (e) => {
         setPromotionInput(e.target.value);
+    };
+
+    // Reload Cart
+    const HandleReload = () => {
+        window.location.reload();
     };
 
     return (
@@ -274,106 +209,18 @@ function Order() {
                                         <tbody className="text-center">
                                             {data?.productCart?.map(
                                                 (item, index) => (
-                                                    <tr
-                                                        className="border-solid border-t border-t-[#d9d9d9]"
-                                                        key={index}
-                                                    >
-                                                        <td className="p-[12px]">
-                                                            <a>
-                                                                <img
-                                                                    className="w-[80px] h-[80px]  m-[auto]"
-                                                                    src={
-                                                                        images.ip14prm
-                                                                    }
-                                                                    alt={
-                                                                        item.tensp
-                                                                    }
-                                                                ></img>
-                                                            </a>
-                                                        </td>
-                                                        <td className="text-left pl-[24px] p-[12px]">
-                                                            <a
-                                                                href="/"
-                                                                className="font-semibold"
-                                                            >
-                                                                {item.tensp}
-                                                            </a>
-                                                            <div className="text-[#86868B] font-normal mt-1">
-                                                                Hình thức: Mua
-                                                                thẳng
-                                                                <br />
-                                                                Màu sắc:{" "}
-                                                                {item.mausac}
-                                                                <br />
-                                                                Dung lượng:{" "}
-                                                                {item.dungluong}
-                                                            </div>
-                                                        </td>
-                                                        <td className="p-[12px] align-top">
-                                                            {Number(
-                                                                item.gia
-                                                            ).toLocaleString() +
-                                                                "đ"}
-                                                        </td>
-                                                        <td className="p-[12px] align-top">
-                                                            <div
-                                                                className={
-                                                                    styles.quantity
-                                                                }
-                                                            >
-                                                                <button
-                                                                    className="text-[16px]"
-                                                                    onClick={() =>
-                                                                        decreaseQty(
-                                                                            item
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    &#8722;
-                                                                </button>
-                                                                <input
-                                                                    type="text"
-                                                                    value={
-                                                                        item.soluong
-                                                                    }
-                                                                    onChange={
-                                                                        handleQtyChange
-                                                                    }
-                                                                    className={
-                                                                        styles.inputQuantity
-                                                                    }
-                                                                ></input>
-                                                                <button
-                                                                    className="text-[16px]"
-                                                                    onClick={() =>
-                                                                        increaseQty(
-                                                                            item
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    &#43;
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                        <td className="p-[12px] align-top">
-                                                            <IconButton
-                                                                size="medium"
-                                                                color="error"
-                                                                onClick={() =>
-                                                                    HandleDeleteSp(
-                                                                        item
-                                                                    )
-                                                                }
-                                                            >
-                                                                <DeleteOutline
-                                                                    sx={{
-                                                                        fontSize:
-                                                                            "24px",
-                                                                    }}
-                                                                />
-                                                            </IconButton>
-                                                        </td>
-                                                    </tr>
+                                                    <ProductItem
+                                                        item={item}
+                                                        index={index}
+                                                        setData={setData}
+                                                        setMoneyDiscount={
+                                                            setMoneyDiscount
+                                                        }
+                                                        setTotalMoney={
+                                                            setTotalMoney
+                                                        }
+                                                        promotion={promotion}
+                                                    />
                                                 )
                                             )}
                                         </tbody>
@@ -382,6 +229,7 @@ function Order() {
                                         <button
                                             type="submit"
                                             className="border-solid border border-[#0066cc] rounded-[8px] py-[10px] px-[20px] text-[#0066cc] text-[14px] hover:bg-sky-100"
+                                            onClick={HandleReload}
                                         >
                                             Cập nhật giỏ hàng
                                         </button>
@@ -499,10 +347,10 @@ function Order() {
                                     Tiến hành đặt hàng
                                 </button>
 
-                                <div className="text-[#e4434b] text-[14px] pr-4 font-light mt-6">
+                                {/* <div className="text-[#e4434b] text-[14px] pr-4 font-light mt-6">
                                     &#40;&#42;&#41; Phí phụ thu sẽ được tính khi
                                     bạn tiến hành thanh toán.
-                                </div>
+                                </div> */}
                             </div>
 
                             {/* Gợi ý sản phẩm */}

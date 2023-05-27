@@ -31,7 +31,7 @@ function DetailProduct() {
     //          setSp(res);
     //     })
 
-        axios.get(`http://localhost:3001/product/${params.id}`)
+        axios.get(`http://localhost:3001/api/product/${params.id}`)
         .then( (response) => { 
             if(response.data !== undefined) {
                 setSp(response.data);      
