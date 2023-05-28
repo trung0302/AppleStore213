@@ -2,7 +2,7 @@
 import axiosInstance from "./axiosInstance";
 
 const getAllProduct = async (loaisanpham, phanloai, page = 1) => {
-    var query = `/api/product/?loaisanpham=${loaisanpham}&page=${page}`;
+    var query = `/api/product?loaisanpham=${loaisanpham}&page=${page}`;
     if (phanloai) {
         query += `&phanloai=${phanloai}`
     }
