@@ -4,7 +4,6 @@ import jsPDF from 'jspdf';
 import { useState,useEffect } from "react";
 import 'jspdf-autotable';
 import Status from "./Status";
-import { useState, useEffect } from 'react';
 import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
 import HandleApiThanhToan from "../../../Apis/HandleApiThanhtoan"
 import axios from "axios";
@@ -28,7 +27,7 @@ export default ({ order }) => {
     const getProduct = async (proId) => {
         try {
           const response = await axios.get(`http://localhost:3001/api/product/${proId}`);
-          return response.data;
+            return response.data;
         } catch (error) {
           console.log(error);
           return null;
@@ -208,21 +207,7 @@ export default ({ order }) => {
                         }
                         
                     </li>
-                    {data.products?.map((item, index) => (
-                        <li className="mt-4 mb-4">
-                        <label>Sản phẩm</label>
-                        <div className="mt-4 mb-4 rounded-lg border-2 px-4 py-3 flex justify-between">
-                            <div>
-                                <Link to="#" className="">{item.tensanpham}</Link>
-                            </div>
-                            <div>
-                                <label>SL:</label>
-                                <span>{item.soluong}</span>
-                            </div>
-                        </div>
-                    </li>
-                    ))}
-                    {/*<li className="mt-4 mb-4">
+                    <li className="mt-4 mb-4">
                         <label>Sản phẩm</label>
                         {order.products !== undefined &&
                             products.map((product, index) => {
