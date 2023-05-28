@@ -47,7 +47,7 @@ function Comment ({DG}) {
                 </div>
                 <div className="ml-auto mr-[15px] text-slate-600 cursor-pointer relative">
                     <MoreVertIcon fontSize='large'/>
-                    <div className="w-[60px] h-[70px] bg-white absolute z-10 left-[4px] top-[4px]
+                    {/* <div className="w-[60px] h-[70px] bg-white absolute z-10 left-[4px] top-[4px]
                                     text-slate-800 text-[18px] border-[2px] border-slate-400 hidden">
                         <div className='border-b-[1px] border-slate-400 text-center'>
                             Xóa
@@ -55,7 +55,7 @@ function Comment ({DG}) {
                         <div className='border-t-[1px] border-slate-400 text-center hidden'>
                             Sửa
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
