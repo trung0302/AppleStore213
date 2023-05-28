@@ -70,27 +70,25 @@ function Addaddress () {
                         aCss={"mx-4 my-4 "} setIcon={<GppGoodIcon sx={{ fontSize: 30 }}></GppGoodIcon>} />
                 </div>
                 <div className={styles.bg_white +" rounded-lg lg:w-2/5 my-12"}>
-                    <form onSubmit={handleSubmit}>
-                        <LabelAndInput divCss={"px-5 py-5"} inputType={"text"} labelContent={"Tên:"} inputName={"Name"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>
+                    <form action="#" onSubmit={handleSubmit}>
+                        <LabelAndInput divCss={"px-5 py-5"} inputValue={""} inputType={"text"} labelContent={"Tên:"} inputName={"Name"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>
                         <div className="grid grid-cols-2 ">
-                            <LabelAndInput divCss={"px-5 py-5"} inputType={"tel"} labelContent={"Số điện thoại:"} inputName={"Telephone"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>
-                            <LabelAndInput divCss={"px-5 py-5"} inputType={"email"} labelContent={"Email:"} inputName={"Email"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>
+                            <LabelAndInput divCss={"px-5 py-5"} inputValue={""} inputType={"tel"} labelContent={"Số điện thoại:"} inputName={"Telephone"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>
+                            <LabelAndInput divCss={"px-5 py-5"} inputValue={""} inputType={"email"} labelContent={"Email:"} inputName={"Email"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>
                             <div className="px-5 py-5">
                                 <label>Quốc gia</label><br/>
                                 <select className="w-full border-2 rounded-lg px-3 py-3 my-4 mr-8">
                                     <option value="">Chọn quốc gia</option>
                                     <option value="VN">Việt Nam</option>
-                                    {/* <option value="Cam">Cam pu chia</option>
-                                    <option value="Thai">Thái Lan</option> */}
                                 </select>
                             </div>
                             <div className="px-5 py-5">
                                 <CitySelect></CitySelect>
                             </div>
-                            <LabelAndInput divCss={"px-5 py-5"} inputType={"text"} labelContent={"Quận, huyện:"} inputName={"Quan"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>
-                            <LabelAndInput divCss={"px-5 py-5"} inputType={"text"} labelContent={"Phường, xã:"} inputName={"Phuong"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>
+                            <LabelAndInput divCss={"px-5 py-5"} inputValue={""} inputType={"text"} labelContent={"Quận, huyện:"} inputName={"Quan"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>
+                            <LabelAndInput divCss={"px-5 py-5"} inputValue={""} inputType={"text"} labelContent={"Phường, xã:"} inputName={"Phuong"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>
                         </div>
-                        <LabelAndInput divCss={"px-5 py-5"} inputType={"text"} labelContent={"Địa chỉ cụ thể:"} inputName={"Detail"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>
+                        <LabelAndInput divCss={"px-5 py-5"} inputValue={""} inputType={"text"} labelContent={"Địa chỉ cụ thể:"} inputName={"Detail"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"}/>
                         <div className="flex justify-center">
                             <button className="border-2 rounded-lg px-4 py-4 mb-5 bg-sky-600 text-white">Lưu lại</button>
                         </div>

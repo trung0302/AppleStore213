@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "../Customer.module.css";
 import { Link } from "react-router-dom";
 import PersonIcon from '@mui/icons-material/Person';
@@ -12,19 +12,19 @@ import NavTag from "../Components/NavTag";
 import AddressItem from "../Components/AddressItem";
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
-
 function Addresses () {
-    const [user, setUser] = useState(null);
-    useEffect(() => {
-        HandleApiCustomer.GetUserInfor()
-        .then((res) => {
-            setUser(res.user.diachinhanhang);
-            console.log(res);
-            
-        });
-    }, []);
-    
+    const [user, setUser] = useState();
 
+    useEffect(()=>{
+        HandleApiCustomer.GetUserInfor()
+        .then((res)=>{
+            setUser(res);
+            console.log(res);
+        })
+        .catch((e)=>{
+            console.log(e);
+        })
+    },[]);
 
     return (
         <div>
@@ -47,10 +47,9 @@ function Addresses () {
                 </div>
                 <div className={"lg:w-2/5 my-12"}>
                     <div>
-                    {user?.map((item, index) => (
-                        <AddressItem name={item.ten} email={item.email} sdt={item.sdt} address={item.diachi} id={item._id}></AddressItem>
-                    ))}
-                        <AddressItem name="nguyen van a" email="anguyenvan" sdt="0123456789" address="khu pho 6, linh trung, thu duc, thanh pho ho chi minh"></AddressItem>
+                    {(user && user.diachinhanhang.length !==0 ) ? user.diachinhanhang.map((item, index) => (
+                        <AddressItem name={item.ten} email={item.email} sdt={item.sdt} address={item.diachi} id={item._id} key={item._id}></AddressItem>
+                    )) : <div className="flex justify-center mb-4">Chưa có địa chỉ nhận hàng</div>}
                     </div>
                     <div className="flex justify-center">
                         <button className="border-2 rounded-lg px-4 py-4 bg-sky-600 text-white">

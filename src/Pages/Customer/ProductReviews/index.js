@@ -66,9 +66,8 @@ function ProductReviews () {
                         </div>
                     </div>
                     {data?.map((item, index) => (
-                    <Preview productname={"Iphone 12 pro max"} date={item.createdAt.substring(0, 10)} star={item.rating} comment={item.binhluan}/>
+                        <Preview productname={"Iphone 12 pro max"} date={item.createdAt.substring(0, 10)} star={item.rating} comment={item.binhluan} key={item._id}/>
                     ))}
-                    <Preview productname={"Tai nghe chính hãng Apple"} date={"10/1/2023"} star={5} comment={"Nghe êm tai đấy"}/>
                     <div className="flex justify-center my-4">
                         <button className="border-2 rounded-full px-8 py-4 bg-sky-600 text-white">Lưu lại</button>
                     </div>
