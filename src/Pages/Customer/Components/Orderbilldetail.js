@@ -1,6 +1,7 @@
 import styles from "../Customer.module.css";
 import { Link } from "react-router-dom";
 import jsPDF from 'jspdf';
+import { useState,useEffect } from "react";
 import 'jspdf-autotable';
 import Status from "./Status";
 import { useState, useEffect } from 'react';
@@ -131,7 +132,7 @@ export default ({ order }) => {
         //lưu file về máy client
         doc.save(`order_${order.madh}.pdf`);
     }
-
+    
     return(
         <div>
             <div className={styles.bg_white +" rounded-lg w-full mb-8 px-8 py-10 drop-shadow-lg"}>
@@ -207,7 +208,21 @@ export default ({ order }) => {
                         }
                         
                     </li>
-                    <li className="mt-4 mb-4">
+                    {data.products?.map((item, index) => (
+                        <li className="mt-4 mb-4">
+                        <label>Sản phẩm</label>
+                        <div className="mt-4 mb-4 rounded-lg border-2 px-4 py-3 flex justify-between">
+                            <div>
+                                <Link to="#" className="">{item.tensanpham}</Link>
+                            </div>
+                            <div>
+                                <label>SL:</label>
+                                <span>{item.soluong}</span>
+                            </div>
+                        </div>
+                    </li>
+                    ))}
+                    {/*<li className="mt-4 mb-4">
                         <label>Sản phẩm</label>
                         {order.products !== undefined &&
                             products.map((product, index) => {

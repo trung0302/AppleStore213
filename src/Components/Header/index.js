@@ -15,9 +15,11 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { Login, Logout, Settings } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import HandleApiCart from "../../Apis/HandleApiCart";
 
 function Header() {
+    const navigate = useNavigate();
     const [search, setSearch] = useState(1);
     const [inputIsVisible, setInputIsVisible] = useState(false);
     const [dataNumber, setDataNumber] = useState([]);
@@ -29,11 +31,18 @@ function Header() {
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleClose = () => {
+    const handleClose2 = () => {
         setAnchorEl(null);
         localStorage.removeItem("user");
         //localStorage.removeItem("token");
         Cookies.remove('token')
+        navigate("/");
+    };
+    const handleClose1 = () => {
+        setAnchorEl(null);
+        //localStorage.removeItem("user");
+        //localStorage.removeItem("token");
+        //Cookies.remove('token')
     };
 
     const inputRef = useRef(null);
@@ -186,8 +195,8 @@ function Header() {
                     anchorEl={anchorEl}
                     id="account-menu"
                     open={open}
-                    onClose={handleClose}
-                    onClick={handleClose}
+                    onClose={handleClose1}
+                    onClick={handleClose1}
                     PaperProps={{
                         elevation: 0,
                         sx: {
@@ -219,7 +228,7 @@ function Header() {
                 >
                     {(document.cookie.indexOf('token') == -1)?<></>:
                     <Link to="/customer/info">
-                        <MenuItem onClick={handleClose} sx={{ fontSize: 15 }}>
+                        <MenuItem onClick={handleClose1} sx={{ fontSize: 15 }}>
                             <Avatar /> Trang cá nhân
                         </MenuItem>
                     </Link>}
@@ -232,7 +241,7 @@ function Header() {
                 </MenuItem>*/}
                     {(document.cookie.indexOf('token') == -1)?
                     <Link to="/login">
-                        <MenuItem onClick={handleClose} sx={{ fontSize: 15 }}>
+                        <MenuItem onClick={handleClose1} sx={{ fontSize: 15 }}>
                             <ListItemIcon>
                                 <Login fontSize="large" />
                             </ListItemIcon>
@@ -240,7 +249,7 @@ function Header() {
                         </MenuItem>
                     </Link>
                     :
-                    <MenuItem onClick={handleClose} sx={{ fontSize: 15 }}>
+                    <MenuItem onClick={handleClose2} sx={{ fontSize: 15 }}>
                         <ListItemIcon>
                             <Logout fontSize="large" />
                         </ListItemIcon>
