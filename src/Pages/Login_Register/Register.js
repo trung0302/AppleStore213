@@ -4,12 +4,13 @@ import { FacebookLoginButton } from "react-social-login-buttons";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import classes from "./Login.module.css";
-
+import axiosInstance from "../../Apis/axiosInstance";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import images from "../../assets/image";
 import { Alert } from "@mui/material";
 const Register = () => {
+  let base = axiosInstance.defaults.baseURL;
   const [first, setfirst] = useState(0)
     //setfirst(window.google);
     const [user, setUser] = useState()
@@ -18,7 +19,7 @@ const Register = () => {
         var userObject = jwt_decode(response.credential);
         console.log(userObject);
         const res = await axios
-        .post(`http://localhost/api/auth/googlelogin`, {
+        .post(`${base}/api/auth/googlelogin`, {
             token: String(response.credential)
         })
         .catch((err) => {
@@ -100,7 +101,7 @@ const Register = () => {
         console.log(response.data.accessToken);
         // Gọi API đến endpoint đăng nhập bằng Facebook trên server Node.js
         const res = await axios
-        .post(`http://localhost/api/auth/facebook`, {
+        .post(`${base}api/auth/facebook`, {
             accessToken: String(response.data.accessToken)
         })
         const data = await res.data;
@@ -196,7 +197,7 @@ const Register = () => {
 
   const sendRequestSU = async ()=>{
     const res = await axios
-    .post(`http://localhost/api/auth/`,{
+    .post(`${base}api/auth/`,{
       hoten:String(inputs.name),
       email:String(inputs.email),
       password:String(inputs.password),

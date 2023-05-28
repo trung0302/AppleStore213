@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import classes from "../Login.module.css";
 import axios from "axios";
 import Swal from "sweetalert2";
+import axiosInstance from "../../../Apis/axiosInstance";
 
 const ForgetPass = (props) => {
     const [message, setMessage] = useState();
+    let base = axiosInstance.defaults.baseURL;
 
     const sendRequestSU = async () => {
         const res = await axios
-            .post(`https://applestore213.onrender.com/auth/forgetpass`, {
+            .post(`${base}api/auth/forgetpass`, {
                 email: String(props.inputs.email),
             })
             .catch((err) => {
