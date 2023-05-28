@@ -5,9 +5,11 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import images from "../../../assets/image";
 import Swal from 'sweetalert2'
+import axiosInstance from '../../../Apis/axiosInstance'
 
 
 const NewPass = () => {
+  let base = axiosInstance.defaults.baseURL;
   const navigate = useNavigate();
   const token = useParams().token.toString();
   console.log(token);
@@ -74,14 +76,14 @@ const NewPass = () => {
         }
     }
     const authAxios = axios.create({
-      baseURL: 'https://applestore213.onrender.com/auth',
+      baseURL: `${base}`,
       headers:{
         Authorization:`Bearer ${token}`
       }
     })
     const sendRequestSU = async ()=>{
         const res = await authAxios
-        .post(`/resetpass`,{
+        .post(`api/auth/resetpass`,{
           password:String(inputs.password),
           verifyToken:String(token)
         })

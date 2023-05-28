@@ -15,7 +15,6 @@ import Orderdetail from "../Pages/Customer/Orderdetail";
 import Baohanh from "../Pages/Customer/Baohanh";
 
 import Billdetail from "../Pages/Payment/Billdetail";
-import PaymentInfo from "../Pages/Payment/PaymentInfo";
 import PaymentFinish from "../Pages/Payment/PaymentFinish";
 
 import Login from "../Pages/Login_Register/Login";
@@ -76,11 +75,10 @@ const publicRoutes = [
 
     { path: "/detailproduct/:id", component: <DetailProduct /> },
     {
-        path: "/customer/orderdetail/:madonhang/:status",
+        path: "/customer/orderdetail/:id",
         component: <Orderdetail />,
     },
     { path: "/billdetail", component: <Billdetail /> },
-    { path: "/paymentinfo", component: <PaymentInfo /> },
     { path: "/paymentfinish", component: <PaymentFinish /> },
 
     { path: "/login", component: <Login /> },

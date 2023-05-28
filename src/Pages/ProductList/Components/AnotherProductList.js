@@ -25,7 +25,7 @@ export default function AnotherProductList({ type }) {
         <div className='w-full bg-[#f5f5f7]'>
 
             {currentCategory !== null && <>
-                <TopSection type={type} currentCategory={currentCategory} />
+                <TopSection type={type} currentCategory={currentCategory} slug={slug} />
                 <ProductSection type={type} currentCategory={currentCategory} />
                 </>}
             <SubcribeSection />

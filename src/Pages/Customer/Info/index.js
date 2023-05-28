@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import styles from "../Customer.module.css";
 import PersonIcon from '@mui/icons-material/Person';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -15,28 +15,19 @@ import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
 import Swal from "sweetalert2";
 
 function Info(){
-    const [ngay, setNgay] = useState(null);
-    const [thang, setThang] = useState(null);
-    const [nam, setNam] = useState(null);
-    const [user, setUser] = useState(null);
-    const [selectedGender, setSelectedGender] = useState('Nam');
-    useEffect(() => {
-        HandleApiCustomer.GetUserInfor()
-        .then((res) => {
-            setUser(res.user);
-            console.log(res);
-            if(res.user.gioitinh){
-                setSelectedGender(res.user.gioitinh);
-            }
-            if(res.user.ngaysinh){
-                const dateParts = res.user.ngaysinh.split('-');
-                setNgay(parseInt(dateParts[0]));
-                setThang(parseInt(dateParts[1]))
-                setNam(parseInt(dateParts[2]))
-                console.log(ngay+thang+nam);
-            }
-        });
-    }, []);
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    const [ngay, setNgay] = useState(1);
+    const [thang, setThang] = useState(1);
+    const [nam, setNam] = useState(1999);
+    const [selectedGender, setSelectedGender] = useState(user.gioitinh? user.gioitinh : "nam");
+
+    if(user.ngaysinh){
+        const dateParts = user.ngaysinh.split('-');
+        setNgay(parseInt(dateParts[0]));
+        setThang(parseInt(dateParts[1]))
+        setNam(parseInt(dateParts[2]))
+    }
     
     function changeFormatDate(num){
         if(parseInt(num)<10){
@@ -90,8 +81,6 @@ function Info(){
         })
       }
     
-
-
     return (
         <div>
             <div className={styles.bg_primary + " flex justify-evenly text-2xl"}>
@@ -115,21 +104,17 @@ function Info(){
                     {user?
                     <form action="#" onSubmit={handleSubmit}>
                         <div className="grid grid-cols-2 gap-8 mx-8 my-4 ">
-                            {/* <div className="my-4">
-                                <label for="Name">Tên, Họ:</label><br/>
-                                <input type="text" name="Name" className="w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400" value="Dat lam"/>
-                            </div> */}
-                            <LabelAndInput divCss={"my-4"} labelContent={"Tên, Họ:"} inputType={"text"} inputName={"Name"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={user.hoten?user.hoten:"chưa thiết lập"}/>
-                            <LabelAndInput divCss={"my-4"} labelContent={"Email"} inputType={"email"} inputName={"Email"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={user.email?user.email:"chưa thiết lập"}/>
+                            <LabelAndInput divCss={"my-4"} labelContent={"Tên, Họ:"} inputType={"text"} inputName={"Name"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={user.hoten?user.hoten : "Chưa thiết lập"}/>
+                            <LabelAndInput divCss={"my-4"} labelContent={"Email"} inputType={"email"} inputName={"Email"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={user.email?user.email : "Chưa thiết lập"}/>
                         </div>
                         <div className="grid grid-cols-2 gap-8 mx-8 my-4">
-                            <LabelAndInput inputType={"tel"} labelContent={"Số điện thoại"} inputName={"Telephone"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={user.sdt || '1234567890'}/>
+                            <LabelAndInput inputType={"tel"} labelContent={"Số điện thoại"} inputName={"Telephone"} inputCss={"w-full border-2 rounded-lg pl-4 py-3 mt-2 text-gray-400"} inputValue={user.sdt || 'Chưa thiết lập'}/>
                             <div className="grid grid-rows-2">
                                 <label htmlFor="Gender">Giới tính:</label>
                                 <div className="content-center gap-8">
-                                    <input type="radio" name="Gender" value="Nam" checked={selectedGender === "Nam"} onChange={handleGenderChange}/>
+                                    <input type="radio" name="Gender" value="nam" checked={selectedGender === "nam"} onChange={handleGenderChange}/>
                                     <label className="mr-8 ml-4">Nam</label>
-                                    <input type="radio" name="Gender" value="Nữ" checked={selectedGender === "Nữ"} onChange={handleGenderChange}/>
+                                    <input type="radio" name="Gender" value="nữ" checked={selectedGender === "nữ"} onChange={handleGenderChange}/>
                                     <label className="ml-4">Nữ</label>
                                 </div>
                             </div>
@@ -143,22 +128,14 @@ function Info(){
                             </div>
                         </div>
                         <div className="mx-8 my-4">
-                            <label>Username:</label> {user.hoten}
+                            <label>Username:</label> {user.hoten ? user.hoten: "Chưa thiết lập"}
                         </div>
                         <div className="flex justify-center my-4">
                             <button className="border-2 rounded-full px-8 py-4 bg-sky-600 text-white">Lưu lại</button>
                         </div>
-                    </form>:<></>}
+                    </form> : <div className="flex justify-center">Không có thông tin</div>}
                 </div>
             </div>
-            {/* <div className={styles.bg_primary2 + " grid justify-items-center content-center py-20 text-2xl"}>
-                <div className="text-5xl my-4 font-bold">Đăng ký nhận tin từ Shopdunk</div>
-                <p className="my-4 text-center">Thông tin sản phẩm mới nhất và chương trình khuyến mãi</p>
-                <div className="relative my-4 w-1/3">
-                    <input type="text" className="w-full border-2 rounded-full px-6 py-4" placeholder="E-mail của bạn"/>
-                    <button className="w-max border-2 rounded-full px-4 py-4 bg-sky-600 text-white absolute right-0">Đăng ký</button>
-                </div>
-            </div> */}
         </div>
     );
 }

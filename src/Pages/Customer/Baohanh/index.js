@@ -15,20 +15,14 @@ import HandleApiBaohanh from "../../../Apis/HandleApiBaohanh";
 import { useState,useEffect } from "react";
 
 function Baohanh () {
-    const [user, setUser] = useState(null);
+    const user = JSON.parse(localStorage.getItem("user"));
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        //lấy thông tin user
-        HandleApiCustomer.GetUserInfor()
+        HandleApiBaohanh.getBHByMaKH(user.makh)
         .then((res) => {
-            setUser(res.user);
-            // //lấy thông tin bảo hành
-            HandleApiBaohanh.getBHByMaKH(res.user.makh)
-            .then((res) => {
-                setData(res);
-                });
-        });
+            setData(res);
+            });
     }, []); 
 
     return (
