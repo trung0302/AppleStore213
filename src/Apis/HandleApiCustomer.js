@@ -32,6 +32,17 @@ const GetDG = async (id,order) => {
     );
 };
 
+const GetDonHang = async (id) => {
+    return await axiosInstance.get(
+        `/don-hang?kh=${id}`
+    );
+};
+
+const GetDonHangByID = async (id) => {
+    return await axiosInstance.get(
+        `/don-hang/${id}`
+    );
+}
 export default {
 UpdateInfor,
 UpdatePass,
@@ -39,5 +50,6 @@ GetUserInfor,
 AddAdress,
 DelAdress,
 GetDG,
-
+GetDonHang,
+GetDonHangByID
 };

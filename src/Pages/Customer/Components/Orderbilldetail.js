@@ -1,14 +1,25 @@
 import styles from "../Customer.module.css";
 import { Link } from "react-router-dom";
 import jsPDF from 'jspdf';
+import { useState,useEffect } from "react";
 import 'jspdf-autotable';
 import Status from "./Status";
+import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
 
 //import hai file script thêm font chữ roboto hỗ trợ tiếng Việt vào trong jspdf
 import "./Roboto-Bold.js";
 import "./Roboto-Medium";
 
 export default ({madonhang, status}) => {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        HandleApiCustomer.GetDonHangByID(madonhang)
+        .then((res)=>{
+            setData(res);
+            console.log(res);
+        })
+    }, []); 
 
     const generatePDF = () => {
         //sau này sẽ thay bằng ngày hóa đơn, còn giờ lấy tạm ngày tạo file pdf
@@ -58,6 +69,7 @@ export default ({madonhang, status}) => {
         doc.save(`order_${madonhang}.pdf`);
     }
 
+    
     return(
         <div>
             <div className={styles.bg_white +" rounded-lg w-full mb-8 px-8 py-10 drop-shadow-lg"}>
@@ -69,7 +81,7 @@ export default ({madonhang, status}) => {
                     <hr/>
                     <li className="flex justify-between mt-4 mb-4">
                         <label>Ngày đặt hàng:</label>
-                        <span>22/03/2023</span>
+                        <span>{data && data.createdAt && data.createdAt.toString().substring(0, 10)}</span>
                     </li>
                     <hr/>
                     <li className="flex justify-between mt-4 mb-4">
@@ -133,7 +145,21 @@ export default ({madonhang, status}) => {
                         }
                         
                     </li>
-                    <li className="mt-4 mb-4">
+                    {data.products?.map((item, index) => (
+                        <li className="mt-4 mb-4">
+                        <label>Sản phẩm</label>
+                        <div className="mt-4 mb-4 rounded-lg border-2 px-4 py-3 flex justify-between">
+                            <div>
+                                <Link to="#" className="">{item.tensanpham}</Link>
+                            </div>
+                            <div>
+                                <label>SL:</label>
+                                <span>{item.soluong}</span>
+                            </div>
+                        </div>
+                    </li>
+                    ))}
+                    {/*<li className="mt-4 mb-4">
                         <label>Sản phẩm</label>
                         <div className="mt-4 mb-4 rounded-lg border-2 px-4 py-3 flex justify-between">
                             <div>
@@ -147,10 +173,10 @@ export default ({madonhang, status}) => {
                                 <span>2</span>
                             </div>
                         </div>
-                    </li>
+                    </li>*/}
                     <li className="flex justify-between mt-4 mb-4">
                         <label>Tổng số tiền đã đặt hàng:</label>
-                        <b className="text-2xl">119.000₫</b>
+                        <b className="text-2xl">{data && data.tongtrigia} vnd</b>
                     </li>
                 </ul>
             </div>

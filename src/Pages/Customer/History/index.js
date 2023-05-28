@@ -18,6 +18,7 @@ function History () {
     const [data, setData] = useState([]);
     const [state, setState] = useState("");
 
+
     const handleFilterChange = (e)=>{
         setState(e.target.value);
     }
@@ -28,6 +29,12 @@ function History () {
         .then((res) => {
             setUser(res.user);
         });
+
+        HandleApiCustomer.GetDonHang("KH02")
+        .then((res)=>{
+            setData(res.orders);
+            console.log(res.orders);
+        })
     }, []); 
 
     //api lấy đơn hàng theo bộ lọc
@@ -68,6 +75,9 @@ function History () {
                     </div>
 
                     {/* Render các đơn hàng */}
+                    {data?.map((item, index) => (
+                         <Orderbill madonhang={item.madh} date={item.createdAt} total={item.tongtrigia} method="Chuyển khoản ví điện tử" status={item.tinhtrang=="Da thanh toan"?"green":"yellow"}></Orderbill>
+                    ))}
                     <Orderbill madonhang={"4618"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"red"}></Orderbill>
                     <Orderbill madonhang={"2013"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"green"}></Orderbill>
                     <Orderbill madonhang={"2020"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"yellow"}></Orderbill>
