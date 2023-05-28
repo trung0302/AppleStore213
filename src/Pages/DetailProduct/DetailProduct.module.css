@@ -125,16 +125,25 @@
 }
 
 .black {
-    background-color: #a9a9a9;
+    background-color: rgb(17 24 39);
+}
+
+.gray {
+    background-color: rgb(156 163 175);
 }
 .pink {
-    background-color: #ffc0cb;
+    background-color: rgb(251 207 232);
 }
 .blue {
-    background-color: #11114dcc;
+    background-color: rgb(30 58 138);
 }
-.gold {
-    background-color: #bd8b0dcc;
+.gold, .yellow {
+    background-color: rgb(202 138 4);
+}
+
+.black_outline {
+    background-color: #aaa;
+    outline: 2px #1059e1cc;
 }
 
 

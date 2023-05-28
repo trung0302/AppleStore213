@@ -20,8 +20,19 @@ function DetailProduct() {
     const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")))
     
     const [dungluong, setDungluong] = useState("");
+    const [lstRom, setLstRom] = useState([])
     const [ram, setRam] = useState("");
+    const [lstRam, setLstRam] = useState([])
     const [color, setColor] = useState("");
+    const [lstColor, setLstColor] = useState([]);
+    let lstColorBG = {
+        black: "bg-gray-900",
+        gray: "bg-gray-400",
+        pink: "bg-pink-200",
+        blue: "bg-blue-900",
+        gold: "bg-yellow-600",
+        yellow: "bg-yellow-600"
+    }
     const navigate = useNavigate()
 
     useEffect( ()=>{
@@ -36,6 +47,10 @@ function DetailProduct() {
             if(response.data !== undefined) {
                 setSp(response.data);      
                 setLoading(false);
+                // lstColor = response.data?response.data.mausac.split(",").map(item => item.trim()):0
+                setLstColor(response.data.mausac.split(",").map(item => item.trim().toLowerCase()))
+                setLstRom(response.data.rom.split(",").map(item => item.trim().toUpperCase()))
+                setLstRam(response.data.ram.split(",").map(item => item.trim().toUpperCase()))
             }
         })
         .catch(error => console.log(error));
@@ -53,6 +68,8 @@ function DetailProduct() {
         //   } catch(error) {
         //     console.log(error);
         //   }
+    //     lstColor = sp?sp.mausac.split(",").map(item => item.trim()):0
+    //     console.log(lstColor)
     // },[])
 
     const handleMuaNgayClick = (e) => {
@@ -136,22 +153,14 @@ function DetailProduct() {
                         options={mainCarouselOptions}
                         ref={mainCarouselRef}
                     >
-                        <SplideSlide>
-                            
-                                <img src={images.ip14prm} alt="Image 1" />
-                        </SplideSlide>
-                        <SplideSlide>
-                                <img src={images.airpod2} alt="Image 2" />
-                        </SplideSlide>
-                        <SplideSlide>
-                                <img src={images.ip14prm} alt="Image 3" />
-                        </SplideSlide>
-                        <SplideSlide>
-                            <img src={images.mayAnh} alt="Image 4" />
-                        </SplideSlide>
-                        <SplideSlide>
-                            <img src={images.ip14prm} alt="Image 5" />
-                        </SplideSlide>
+                        {
+                            sp.imageList?.map((img_item, index)=>(
+                                <SplideSlide>
+                                    <img src={img_item} alt="Hình ảnh sản phẩm" />
+                                </SplideSlide>
+                            ))
+                        }
+
                     </Splide>
 
                     <Splide
@@ -162,25 +171,16 @@ function DetailProduct() {
                             thumbnailCarouselRef.current.sync(mainCarouselRef.current);
                         }}
                     >
-                        <SplideSlide>
-                            <div>
-                                <img src={images.ip14prm} alt="Thumbnail 1"
-                                onClick={() => handleThumbnailClick(0)} />
-                            </div>
-                            
-                        </SplideSlide>
-                        <SplideSlide>
-                            <div>
-                                <img src={images.airpod2} alt="Thumbnail 2" 
-                                onClick={() => handleThumbnailClick(1)}/>
-                            </div>
-                        </SplideSlide>
-                        <SplideSlide>
-                            <div>
-                                <img src={images.ip14prm} alt="Thumbnail 3" 
-                                onClick={() => handleThumbnailClick(2)}/>
-                            </div>           
-                        </SplideSlide>
+                        {
+                            sp.imageList?.map((img_item, index)=>(
+                                <SplideSlide>
+                                    <div>
+                                        <img src={img_item} alt="Thumbnail"
+                                        onClick={() => handleThumbnailClick(index)} />
+                                    </div>
+                                </SplideSlide>
+                            ))
+                        }
                     </Splide>
                 </section>
 
@@ -204,7 +204,17 @@ function DetailProduct() {
                         <div className={classes.detail_info}>
                             <label>Dung lượng</label>
                             <ul>
-                                <li onClick={() => handleDungLuongClick("128GB")} 
+                                {
+                                    lstRom?.map((rom_item, index) =>{
+                                        return (
+                                            <li onClick={()=> setDungluong(rom_item)}
+                                                className={dungluong === rom_item ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
+                                                {rom_item}
+                                            </li>
+                                        )
+                                    } )
+                                }
+                                {/* <li onClick={() => handleDungLuongClick("128GB")} 
                                     className={dungluong === "128GB" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
                                     128GB
                                 </li>
@@ -222,12 +232,22 @@ function DetailProduct() {
                                 <li onClick={()=> setDungluong("1T")} 
                                     className={dungluong === "1T" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
                                     1T
-                                </li>
+                                </li> */}
                             </ul>
 
                             <label>RAM</label>
                             <ul>
-                                <li onClick={()=> setRam("8GB")} 
+                                {
+                                    lstRam?.map((ram_item, index) =>{
+                                        return (
+                                            <li onClick={()=> setRam(ram_item)} 
+                                                className={ram === ram_item ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
+                                                {ram_item}
+                                            </li>
+                                        )
+                                    } )
+                                }
+                                {/* <li onClick={()=> setRam("8GB")} 
                                     className={ram === "8GB" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
                                     8GB
                                 </li>
@@ -235,25 +255,24 @@ function DetailProduct() {
                                 <li onClick={()=> setRam("16GB")} 
                                     className={ram === "16GB" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
                                     16GB
-                                </li>
+                                </li> */}
                             </ul>
                             <label>Màu sắc</label>
                             
                         </div>
                         <div className={classes.itemColor}>
                         <ul >
-                                <li className={color === "black"? "bg-[#a9a9a9] outline outline-[2px] outline-blue-500" : classes.black}
-                                    onClick={()=>setColor("black")} value={"black"}>
-                                </li>
-                                <li className={color === "pink"? "bg-[#ffc0cb] outline outline-[2px] outline-blue-500" : classes.pink}
-                                    onClick={()=>setColor("pink")} value={"pink"}>
-                                </li>
-                                <li className={color === "blue"? "bg-[#11114dcc] outline outline-[2px] outline-blue-500" : classes.blue}
-                                    onClick={()=>setColor("blue")} value={"blue"}>
-                                </li>
-                                <li className={color === "gold"? "bg-[#bd8b0dcc] outline outline-[2px] outline-blue-500" : classes.gold}
-                                    onClick={()=>setColor("gold")} value={"gold"}>
-                                </li>
+                            {
+                                lstColor?.map((color_item, index) =>{
+                                    let colorBG = lstColorBG[color_item]
+                                    return (
+                                        <li className={`${color === color_item ? `${colorBG} outline outline-[2px] outline-blue-500` : classes[color_item]}`}
+                                            onClick={()=>setColor(color_item)} value={color_item}>
+                                        </li>
+                                    )
+                                } )
+                            }
+
                         </ul>
                         </div>
                         

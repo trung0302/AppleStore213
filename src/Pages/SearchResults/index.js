@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import RegisterNotify from "./RegisterNotify";
 import Pagination from "./Pagination";
+import { useEffect } from "react";
+import axios from "axios";
 
 function SearchResults() {
     const products = [
@@ -113,9 +115,20 @@ function SearchResults() {
 
     const [items, setItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(4);
+    const [itemsPerPage, setItemsPerPage] = useState(8);
 
     // Hàm lấy dữ liệu theo từ khóa
+    useEffect(()=>{
+        axios.get(`http://localhost:3001/api/product?tensanpham=${searchKey}`)
+        .then( (response) => { 
+            if(response.data !== undefined) {
+                setItems(response.data.listProducts);      
+                // setLoading(false);
+                console.log(response.data)
+            }
+        })
+        .catch(error => console.log(error));
+    },[])
 
     // Hàm xử lý dữ liệu khi ô input onchange
     const handleOnChange = (e) => {
@@ -138,6 +151,11 @@ function SearchResults() {
             window.location.href=`/search?q=${searchKey}`;
     }
 
+    const handleSelectedSize = (e) => {
+        console.log(e.target.value)
+        setItemsPerPage(e.target.value)
+    }
+
     const searchResults = () => {
         const results = products.filter((item) => {
             // console.log(item.name.toLowerCase()," và ", typeof searchKey)
@@ -148,7 +166,7 @@ function SearchResults() {
 
     const lastItemIndex = currentPage * itemsPerPage;
     const firstItemIndex = lastItemIndex - itemsPerPage;
-    const Items = searchResults().slice(firstItemIndex, lastItemIndex);
+    const Items = items.slice(firstItemIndex, lastItemIndex);
 
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -161,7 +179,7 @@ function SearchResults() {
     };
 
     const nextPage = () => {
-        if (currentPage !== Math.ceil(searchResults().length / itemsPerPage)) {
+        if (currentPage !== Math.ceil(items.length / itemsPerPage)) {
            setCurrentPage(currentPage + 1);
         }
      };
@@ -186,7 +204,7 @@ function SearchResults() {
 
             </div>
 
-            {searchResults().length === 0 ?"" : <div className="products-filter my-[40px] text-[16px] flex">
+            {items.length === 0 ?"" : <div className="products-filter my-[40px] text-[16px] flex">
                 <div className="sorting">
                     <span className="mr-[8px]">Sắp xếp theo</span>
                     <select id="products-orderby" name="products-orderby" form="sortform"
@@ -202,7 +220,8 @@ function SearchResults() {
                 <div className="products-per-page ml-[20px]">
                 <span className="mr-[8px]">Hiển thị</span>
                     <select id="products-orderby" name="products-orderby" form="sortform"
-                    className="h-[32px] border-[1px] border-solid border-gray-300 rounded-[4px]" >
+                    className="h-[32px] border-[1px] border-solid border-gray-300 rounded-[4px]" 
+                    onClick={handleSelectedSize}>
                         <option value="8">8</option>
                         <option value="12">12</option>
                         <option value="16">16</option>
@@ -220,7 +239,7 @@ function SearchResults() {
             </div>
 
             <Pagination className = "h-[50px] w-1/2"
-                totalItems={searchResults().length}
+                totalItems={items.length}
                 itemsPerPage={itemsPerPage}
                 paginate={paginate}
                 previousPage={previousPage}
@@ -228,7 +247,7 @@ function SearchResults() {
             />
             
 
-            <div className={searchResults().length === 0 ? "text-center my-[30px] text-blue-800 text-[18px]" : " hidden"}>Không tìm thấy sản phẩm nào khớp với từ khóa tìm kiếm.</div>
+            <div className={items.length === 0 ? "text-center my-[30px] text-blue-800 text-[18px]" : " hidden"}>Không tìm thấy sản phẩm nào khớp với từ khóa tìm kiếm.</div>
             
         </div>
         <RegisterNotify/>

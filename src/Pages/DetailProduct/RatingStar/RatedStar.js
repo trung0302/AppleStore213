@@ -18,18 +18,6 @@ const RatedStar = ({allDG, soluongDG}) => {
         return 0;
     }
 
-    // const [oneStar, setOneStar] = useState(countDGByRating(1))
-    // const [twoStar, setTwoStar] = useState(countDGByRating(2))
-    // const [threeStar, setThreeStar] = useState(countDGByRating(3))
-    // const [fourStar, setFourStar] = useState(countDGByRating(4))
-    // const [fiveStar, setFiveStar] = useState(countDGByRating(5))
-
-    // const [oneStarProgress, setOneStarProgress] = useState(progressBar(oneStar));
-    // const [twoStarProgress, setTwoStarProgress] = useState(progressBar(twoStar));
-    // const [threeStarProgress, setThreeStarProgress] = useState(progressBar(threeStar));
-    // const [fourStarProgress,setFourStarProgress] = useState(progressBar(fourStar));
-    // const [fiveStarProgress, setFiveStarProgress] = useState(progressBar(fiveStar));
-
     // const [oneStar, setOneStar] = useState()
     // const [twoStar, setTwoStar] = useState()
     // const [threeStar, setThreeStar] = useState()
@@ -48,11 +36,11 @@ const RatedStar = ({allDG, soluongDG}) => {
     const fourStar = countDGByRating(4)
     const fiveStar = countDGByRating(5)
 
-    const oneStarProgress = progressBar(oneStar) === 0? "0":`[${progressBar(oneStar)}px]`;
-    const twoStarProgress = progressBar(twoStar) === 0? "0":`[${progressBar(twoStar)}px]`;
-    const threeStarProgress = progressBar(threeStar) === 0? "0":`[${progressBar(threeStar)}px]`;
-    const fourStarProgress = progressBar(fourStar) === 0? "0":`[${progressBar(fourStar)}px]`;
-    const fiveStarProgress = progressBar(fiveStar) === 0? "0":`[${progressBar(fiveStar)}px]`;
+    const oneStarProgress = (progressBar(oneStar) === 0 || isNaN(progressBar(oneStar)))? `0`:`[${progressBar(oneStar)}px]`;
+    const twoStarProgress = (progressBar(twoStar) === 0 || isNaN(progressBar(twoStar)))? `0`:`[${progressBar(twoStar)}px]`;
+    const threeStarProgress = (progressBar(threeStar) === 0 || isNaN(progressBar(threeStar)))? `0`:`[${progressBar(threeStar)}px]`;
+    const fourStarProgress = (progressBar(fourStar) === 0 || isNaN(progressBar(fourStar)))? `0`:`[${progressBar(fourStar)}px]`;
+    const fiveStarProgress = (progressBar(fiveStar) === 0 || isNaN(progressBar(fiveStar)))? `0`:`[${progressBar(fiveStar)}px]`;
 
     useEffect(()=>{
         console.log(oneStarProgress,
@@ -66,15 +54,7 @@ const RatedStar = ({allDG, soluongDG}) => {
     useEffect(()=>{
         setDg(true)
     },[loading])
-
-    // useEffect(()=>{
-    //     setOneStarProgress(progressBar(oneStar))
-    //     setTwoStarProgress(progressBar(twoStar))
-    //     setThreeStarProgress(progressBar(threeStar))
-    //     setFourStarProgress(progressBar(fourStar))
-    //     setFiveStarProgress(progressBar(fiveStar))
-    // },[oneStar])
-
+    
     const stars = {
         one: oneStar,
         two: twoStar,
