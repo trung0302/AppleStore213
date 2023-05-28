@@ -14,26 +14,24 @@ import { useState,useEffect } from "react";
 import axios from "axios";
 
 function History () {
-    const [user, setUser] = useState(null);
-    const [data, setData] = useState([]);
+    const user = JSON.parse(localStorage.getItem("user"));
+    const [orderlist, setOrderlist] = useState([]);
     const [state, setState] = useState("");
 
     const handleFilterChange = (e)=>{
         setState(e.target.value);
-    }
+    } 
 
-    //lấy thông tin user
+    //api lấy order theo bộ lọc và gán vào data
     useEffect(() => {
-        HandleApiCustomer.GetUserInfor()
-        .then((res) => {
-            setUser(res.user);
+        axios.get(`http://localhost:3001/don-hang?makh=${user.makh}`)
+        .then((response) => {
+            setOrderlist(response.data.orders);
+        })
+        .catch((error) => {
+            console.log(error);
         });
-    }, []); 
-
-    //api lấy đơn hàng theo bộ lọc
-    // useEffect(() => {
-        
-    // }, []);
+    }, [orderlist]);
 
     return (
         <div>
@@ -68,10 +66,12 @@ function History () {
                     </div>
 
                     {/* Render các đơn hàng */}
-                    <Orderbill madonhang={"4618"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"red"}></Orderbill>
-                    <Orderbill madonhang={"2013"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"green"}></Orderbill>
-                    <Orderbill madonhang={"2020"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"yellow"}></Orderbill>
-                    <Orderbill madonhang={"2020"} date="22/03/2023 4:20:46 CH" total={"119.000"} method="Chuyển khoản ví điện tử" status={"blue"}></Orderbill>
+                    {orderlist!==undefined && orderlist.map((item)=>{
+                        return(
+                            <Orderbill madonhang={item.madh} date={item.updatedAt} total={item.tongtrigia} method={item.paymentMethod} status={item.tinhtrang} key={item._id}></Orderbill>
+                        )
+                    })}
+                    {orderlist!==undefined && orderlist.length === 0 && <div className="flex justify-center">Bạn chưa có đơn hàng nào</div>}
                 </div>
             </div>
         </div>

@@ -1,15 +1,17 @@
 import { useLocation } from "react-router-dom";
 import PaymentConfirm from "../Component/PaymentConfirm";
 import { useState } from "react";
+import axios from "axios";
 
 function PaymentFinish () {
     const location = useLocation();
-    
+
+    //các tham số query chung của zalopay và momo
     const searchParams = new URLSearchParams(location.search);
     const phuongThuc = searchParams.get("phuongthuc");
     const amount = searchParams.get("amount");
 
-    //momo
+    //các tham số query của momo
     const partnerCode = searchParams.get("partnerCode");
     const orderId = searchParams.get("orderId");
     const requestId = searchParams.get("requestId");
@@ -22,7 +24,7 @@ function PaymentFinish () {
     const responseTime = searchParams.get("responseTime");
     const extraData = searchParams.get("extraData");
     const signature = searchParams.get("signature");
-    //zalo
+    //các tham số query của zalo
     const appid = searchParams.get("appid");
     const apptransid = searchParams.get("apptransid");
     const discountamount = searchParams.get("discountamount");
@@ -31,57 +33,19 @@ function PaymentFinish () {
     const bankcode = searchParams.get("bankcode");
     const status = searchParams.get("status");
 
-    //Lấy ngày tháng hiện tại
-    const currentDate = new Date();
-    const day = currentDate.getDate();
-    const month = currentDate.getMonth() + 1; // Lưu ý: Phương thức getMonth() trả về giá trị từ 0 - 11
-    const year = currentDate.getFullYear();
-
-    //lấy order bằng transId
-    const [order, setOrder] = useState({})
-    // useEffect(() => {
-    //     axios.get('http://localhost:3001/api/don-hang')
-    //     .then((response) => {
-    //          setOrder(response.data);
-    //          console.log(order);
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     });
-    // });
-
-    //Tạo đối tượng hoadon để post vào api tạo hóa đơn
-    const hoadon = {  
-        madh: order.madh,
-        manv: "Không có",
-        ngayxuathd: day+"/"+month+"/"+year,
-    }
-    //console.log(hoadon)
-
-    //Tạo hóa đơn với data truyền từ giỏ hàng
-    // useEffect(() => {
-    //     axios.post('http://localhost:3001/api/hoa-don',hoadon)
-    //     .then((response) => {
-            
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     });
-    // }, []);
-
     return (
         <div className="text-center text-2xl py-20">
             {(()=>{
                 if (phuongThuc=="momo")
                     if(resultCode == 0)
-                        return(<PaymentConfirm method={phuongThuc} status={"thành công"} madonhang={transId}/>)
+                        return(<PaymentConfirm method={phuongThuc} tinhtrang={"thành công"} madonhang={orderId}/>)
                     else
-                        return(<PaymentConfirm method={phuongThuc} status={"thất bại"} madonhang={transId}/>)
+                        return(<PaymentConfirm method={phuongThuc} tinhtrang={"thất bại"} madonhang={orderId}/>)
                 else
                     if(status==1)
-                        return(<PaymentConfirm method={phuongThuc} status={"thành công"} madonhang={apptransid}/>)
+                        return(<PaymentConfirm method={phuongThuc} tinhtrang={"thành công"} madonhang={apptransid}/>)
                     else
-                        return(<PaymentConfirm method={phuongThuc} status={"thất bại"} madonhang={apptransid}/>)
+                        return(<PaymentConfirm method={phuongThuc} tinhtrang={"thất bại"} madonhang={apptransid}/>)
             })()
             }
         </div>

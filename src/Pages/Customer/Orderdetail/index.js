@@ -13,10 +13,25 @@ import NavTag from "../Components/NavTag";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Orderbilldetail from "../Components/Orderbilldetail";
 import GppGoodIcon from '@mui/icons-material/GppGood';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Orderdetail () {
     
-    const { madonhang, status } = useParams();
+    const { id } = useParams();
+    const [or, setOrder] = useState();
+
+    //api lấy order theo id
+    useEffect(() => {
+        axios.get(`http://localhost:3001/don-hang/${id}`)
+        .then((response) => {
+            setOrder(response.data);
+            console.log(or)
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    },[or]);
 
     return (
         <div>
@@ -43,7 +58,9 @@ function Orderdetail () {
                         <Link to="/customer/history">Trở lại</Link>
                     </div>
                     <div>
-                        <Orderbilldetail madonhang={madonhang} status={status}></Orderbilldetail>
+                        {or!==undefined && 
+                        <Orderbilldetail order={or}></Orderbilldetail>
+                        }
                     </div>
                 </div>
             </div>

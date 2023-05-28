@@ -2,7 +2,7 @@ import styles from "../Payment.module.css";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import HandleApiThanhtoan from "../../../Apis/HandleApiThanhtoan";
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Billdetail() {
@@ -14,46 +14,48 @@ function Billdetail() {
 
     // lưu dữ liệu truyền vào từ trang giỏ hàng
     const location = useLocation();
-    //console.log(location.state);
 
     const amount = location.state.totalMoney; // tổng tiền
     const method = location.state.dataPayment.payment; // phương thức thanh toán
+    
+    const navigate= useNavigate();
 
-     //Tạo đối tương order để post vào api order
-     const newOrder = {
-        makh: location.state.data.order.makh,
-        tongtrigia: amount,
-        products: [
-            //lấy các product trong giỏ hàng
-            location.state.data.productCart.map((product)=>{
-                return ({
-                    id: product._id,
-                    tensanpham: product.tensp,
-                    soluong: product.soluong,
-                })
-            })
-        ]
-    }
-
-    console.log(newOrder);
-
-    //Tạo đơn hàng với order truyền từ giỏ hàng (chưa xong)
-    useEffect(() => {
-        axios.post('http://localhost:3001/don-hang', {order: newOrder})
+    //Hàm tạo đơn hàng
+    const addOrder = (trans, url)=>{
+        axios.post('http://localhost:3001/don-hang', { 
+            makh: location.state.data.order.makh,
+            transId: trans,
+            orderUrl: url,
+            paymentMethod: method,
+            products: 
+                location.state.data.productCart.map((product)=>{
+                    return ({
+                        productId: product.masp,
+                        soluong: product.soluong,
+                    })
+                }),
+            tinhtrang: "Chưa thanh toán"
+        })
         .then((response) => {
-           console.log(response.data)
+            //sau khi tạo đơn hàng thành công thì chuyển hướng sang trang thanht toán 
+            if(url!=="Không có"){
+                window.open(url, "_blank");
+            }
+            else { //nếu khách chọn thanh toán khi nhận hàng
+                navigate("/customer/history");
+            }
         })
         .catch((error) => {
             console.log(error);
         });
-    }, []);
+    }
 
     //Thanh toán bằng zalo hoặc momo
     const Thanhtoan = () => {
-        if (method == "zalo")
+        if (method == "zalopay")
             HandleApiThanhtoan.thanhtoanZalo(amount)
                 .then((response) => {
-                    window.open(response.orderUrl, "_blank");
+                    addOrder(response.transId, response.orderUrl);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -61,11 +63,14 @@ function Billdetail() {
         else if(method == "momo")
             HandleApiThanhtoan.thanhtoanMoMo(amount)
                 .then((response) => {
-                    window.open(response.orderUrl, "_blank");
+                    addOrder(response.transId, response.orderUrl);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
+        else { //thanh toán khi nhận hàng
+            addOrder("Không có", "Không có");
+        }
     };
 
     return (
@@ -101,8 +106,8 @@ function Billdetail() {
                             <p className="text-slate-500">
                                 Phương thức thanh toán:
                             </p>
-                            {(method=='zalo' || method=='momo') && (<span name="method">Chuyển khoảng bằng {method}</span>)}
-                            {(method!=='zalo' && method!=='momo') && (<span name="method">Thanh toán khi nhận hàng</span>)}
+                            {(method=='zalopay' || method=='momo') && (<span name="method">Chuyển khoảng bằng {method}</span>)}
+                            {(method!=='zalopay' && method!=='momo') && (<span name="method">Thanh toán khi nhận hàng</span>)}
                         </li>
                         <li className="flex justify-between my-4">
                             <p className="text-slate-500">
@@ -164,14 +169,12 @@ function Billdetail() {
                             >
                                 Tiếp tục mua hàng
                             </Link>
-                            {(method=='zalo' || method=='momo') &&
                                 <button
                                     onClick={Thanhtoan}
                                     className="rounded-lg w-1/2 px-4 py-4 mx-4 my-4 bg-blue-600 text-white"
                                 >
                                     Thanh toán
                                 </button>
-                            }
                         </div>
                     </div>
                 </div>

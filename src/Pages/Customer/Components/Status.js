@@ -1,11 +1,11 @@
 export default ({status}) => {
-    if (status==="red")
+    if (status==="Đã hủy")
         return(
             <div className="w-fit rounded-lg px-4 py-4 mx-3 my-3 bg-rose-600">
                 <label className="text-white">Đã hủy</label>
             </div>
         );
-    else if(status==="green")
+    else if(status==="Đã thanh toán")
         return(
             <div className="w-fit rounded-lg px-4 py-4 mx-3 my-3 bg-green-500">
                 <label className="text-white">Thành công</label>
@@ -20,7 +20,7 @@ export default ({status}) => {
     else
         return (
             <div className="w-fit rounded-lg px-4 py-4 mx-3 my-3 bg-yellow-400">
-                <label className="text-red-500">Đang xử lý</label>
+                <label className="text-red-500">Chưa thanh toán</label>
             </div>
         );
 }
