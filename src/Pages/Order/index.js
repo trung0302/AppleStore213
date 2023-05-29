@@ -142,7 +142,7 @@ function Order() {
     const HandleApplyPromotion = () => {
         HandleApiKM.getKMByMaKM(promotionInput)
             .then((data) => {
-                setPromotion(data?.phantramkm);
+                setPromotion(data?.data?.phantramkm);
                 setSelected("");
             })
             .catch((err) => console.log(err));

@@ -11,6 +11,7 @@ import GppGoodIcon from '@mui/icons-material/GppGood';
 import { useParams } from 'react-router-dom'
 import BaohanhDetailItem from "../Components/BaohanhDetailItem";
 import HandleApiBaohanh from "../../../Apis/HandleApiBaohanh";
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 function BaohanhDetail () {
@@ -18,15 +19,23 @@ function BaohanhDetail () {
     const { id } = useParams();
 
     const [data, setData] =useState();
+    const [product, setProduct] = useState();
 
     useEffect(() => {
         //lấy chi tiết bảo hành
         HandleApiBaohanh.getBHByID(id)
         .then((res) => {
             setData(res);
+            //lấy thông tin sản phẩm
+            axios.get(`https://applestore213.onrender.com/api/product/${res.masp}`)
+            .then((res)=>{
+                setProduct(res.data);
+            })
+            .catch((er)=>{
+                console.log(er);
+            })
         });
-    }); 
-
+    },[]); 
 
     return (
         <div>
@@ -48,28 +57,35 @@ function BaohanhDetail () {
                         aCss={styles.text_blue} setIcon={<GppGoodIcon sx={{ fontSize: 30, color: blue[700] }}></GppGoodIcon>} />
                 </div>
                 <div className={"lg:w-2/5 my-12"}>
-                    {!data ? (<h1>Hiện máy vẫn chưa bảo hành lần nào</h1>
-                    ) : (
-                        <>
-                            <div className={styles.bg_white +" rounded-lg w-full my-4 drop-shadow-lg"}>
-                                <div className="px-4 py-4">
-                                        <strong className="my-3">{data.masp}</strong>
-                                        <p className="my-3">Ngày mua: {data.thoigian}</p>
-                                        <p className="my-3">Ngày hết hạn bảo hành: {data.nghethan}</p>
-                                </div>
-                            </div>
-                            <div className="text-center text-3xl my-5">
-                                <h1><b>Thông tin các lần bảo hành</b></h1>
-                            </div>
-                            <div>
-                            {
-                                data.chitietbaohanh.map((item)=>(
-                                    <BaohanhDetailItem lanthu={item.lanthu} ngbaohanh={item.ngbaohanh} mota={item.mota} tinhtrangbaohanh={item.tinhtrangbaohanh} key={item._id}/>
-                                ))
-                            }
-                            </div>
-                        </>
-                    )}
+
+                    <div className={styles.bg_white +" rounded-lg w-full my-4 drop-shadow-lg"}>
+                        <div className="px-4 py-4">
+                                <strong className="my-3">{product?.tensanpham || ""}</strong>
+                                <p className="my-3">Ngày mua: {data?.thoigian}</p>
+                                <p className="my-3">Ngày hết hạn bảo hành: {data?.nghethan}</p>
+                        </div>
+                    </div>
+                    <div className="text-center text-3xl my-5">
+                        <h1><b>Thông tin các lần bảo hành</b></h1>
+                    </div>
+                    <div>
+                    {data !== undefined ? (
+                        data.chitietbaohanh.length > 0 ? (
+                            data.chitietbaohanh.map((item) => (
+                            <BaohanhDetailItem
+                                lanthu={item.lanthu}
+                                ngbaohanh={item.ngbaohanh}
+                                mota={item.mota}
+                                tinhtrangbaohanh={item.tinhtrangbaohanh}
+                                key={item._id}
+                            />
+                            ))
+                        ) : (
+                            <div className="flex justify-center">Sản phẩm chưa bảo hành lần nào</div>
+                        )
+                        ) : null}
+                    </div>
+
                 </div>
             </div>
         </div>

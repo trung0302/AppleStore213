@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../Customer.module.css";
 import PersonIcon from '@mui/icons-material/Person';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -16,17 +16,27 @@ import Swal from "sweetalert2";
 
 function Info(){
     const user = JSON.parse(localStorage.getItem("user"));
-
-    const [ngay, setNgay] = useState(1);
-    const [thang, setThang] = useState(1);
-    const [nam, setNam] = useState(1999);
     const [selectedGender, setSelectedGender] = useState(user.gioitinh? user.gioitinh : "nam");
 
-    if(user.ngaysinh){
-        const dateParts = user.ngaysinh.split('-');
-        setNgay(parseInt(dateParts[0]));
-        setThang(parseInt(dateParts[1]))
-        setNam(parseInt(dateParts[2]))
+    const hienThiNgaySinh = () => {
+        if(user.ngaysinh){
+            const dateParts = user.ngaysinh.split('-');
+            return(
+                <div>
+                    <SelectTag setSelect={"Ngày"} Index={parseInt(dateParts[0])} setIndex={1} setLength={31} setCss={"border-2 rounded-lg px-3 py-3 my-4 mr-8"} setName={"date"}/>
+                    <SelectTag setSelect={"Tháng"} Index={parseInt(dateParts[1])} setIndex={1} setLength={12} setCss={"border-2 rounded-lg px-3 py-3 my-4 mr-8"} setName={"month"}/>
+                    <SelectTag setSelect={"Năm"} Index={parseInt(dateParts[2])} setIndex={1913} setLength={2023} setCss={"border-2 rounded-lg px-3 py-3 my-4"} setName={"year"}/>
+                </div>
+            )
+        }
+        else
+            return(
+                <div>
+                    <SelectTag setSelect={"Ngày"} Index={1} setIndex={1} setLength={31} setCss={"border-2 rounded-lg px-3 py-3 my-4 mr-8"} setName={"date"}/>
+                    <SelectTag setSelect={"Tháng"} Index={1} setIndex={1} setLength={12} setCss={"border-2 rounded-lg px-3 py-3 my-4 mr-8"} setName={"month"}/>
+                    <SelectTag setSelect={"Năm"} Index={1999} setIndex={1913} setLength={2023} setCss={"border-2 rounded-lg px-3 py-3 my-4"} setName={"year"}/>
+                </div>
+            )
     }
     
     function changeFormatDate(num){
@@ -35,7 +45,6 @@ function Info(){
         }else{
             return num.toString();
         }
-        
     }
     
     const handleGenderChange = (event) => {
@@ -59,7 +68,6 @@ function Info(){
             gioitinh:gioitinh,
             ngaysinh:changeFormatDate(day)+"-"+changeFormatDate(month)+"-"+changeFormatDate(year)
         }).then(async (res) => {
-            
             await Swal.fire({
                 position: "center",
                 icon: "success",
@@ -67,7 +75,7 @@ function Info(){
                 showConfirmButton: false,
                 timer: 500
             });
-           
+            localStorage.setItem('user', JSON.stringify(res)); //lưu lại vào trong localStorage
             window.location.reload();
         }).catch((err)=>{
             Swal.fire({
@@ -77,7 +85,7 @@ function Info(){
                 showConfirmButton: false,
                 timer: 500
             });
-
+            console.log(err);
         })
       }
     
@@ -121,11 +129,7 @@ function Info(){
                         </div>
                         <div className="mx-8 my-4">
                             <label>Ngày sinh:</label> <br/>
-                            <div>
-                                <SelectTag setSelect={"Ngày"} Index={ngay?ngay:1} setIndex={1} setLength={31} setCss={"border-2 rounded-lg px-3 py-3 my-4 mr-8"} setName={"date"}/>
-                                <SelectTag setSelect={"Tháng"} Index={thang?thang:1} setIndex={1} setLength={12} setCss={"border-2 rounded-lg px-3 py-3 my-4 mr-8"} setName={"month"}/>
-                                <SelectTag setSelect={"Năm"} Index={nam?nam:1999} setIndex={1913} setLength={2023} setCss={"border-2 rounded-lg px-3 py-3 my-4"} setName={"year"}/>
-                            </div>
+                            {hienThiNgaySinh()}
                         </div>
                         <div className="mx-8 my-4">
                             <label>Username:</label> {user.hoten ? user.hoten: "Chưa thiết lập"}

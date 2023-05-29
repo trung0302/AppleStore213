@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import styles from "../Customer.module.css";
 import React from 'react';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default ({id, name, ngmua, nghethan})=>{
     const dateParts = nghethan.split('/');
@@ -10,10 +12,21 @@ export default ({id, name, ngmua, nghethan})=>{
     const dateObject = new Date(year, month, day);
 
     const currentDate = new Date();
+
+    const [product, setProduct] = useState();
+
+    //lấy thông tin sản phẩm
+    useEffect(()=>{
+        axios.get(`http://localhost:3001/api/product/${name}`)
+        .then((res)=>{
+            setProduct(res.data);
+        })
+    },[])
+    
     return (
         <div className={styles.bg_white +" rounded-lg w-full my-4 drop-shadow-lg"}>
             <div className="px-4 py-4 relative">
-                <strong className="my-3">{name}</strong>
+                <strong className="my-3">{product?.tensanpham || ""}</strong>
                 <p className="my-3">Ngày mua: {ngmua}</p>
                 <p className="my-3">Ngày hết hạn: {nghethan}</p>
                 <div className="text-end my-3">

@@ -4,14 +4,12 @@ import jsPDF from 'jspdf';
 import { useState,useEffect } from "react";
 import 'jspdf-autotable';
 import Status from "./Status";
-import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
 import HandleApiThanhToan from "../../../Apis/HandleApiThanhtoan"
 import axios from "axios";
 
 //import hai file script thêm font chữ roboto hỗ trợ tiếng Việt vào trong jspdf
 import "./Roboto-Bold.js";
 import "./Roboto-Medium";
-import { SystemSecurityUpdateWarningTwoTone } from "@mui/icons-material";
 
 export default ({ order }) => {
     const date = new Date(order.updatedAt);
@@ -62,7 +60,7 @@ export default ({ order }) => {
     const ThanhToan = ()=>{
         //gọi hàm thanh toán và set lại transId, orderUrl
         if(order.paymentMethod == "momo") 
-            HandleApiThanhToan.thanhtoanMoMo(10000)
+            HandleApiThanhToan.thanhtoanMoMo(order.tongtrigia)
             .then((res)=>{
                 UpdateOrder(res.transId, res.orderUrl);
             })
@@ -70,7 +68,7 @@ export default ({ order }) => {
                 console.log(e);
             })
         else
-            HandleApiThanhToan.thanhtoanZalo(10000)
+            HandleApiThanhToan.thanhtoanZalo(order.tongtrigia)
             .then((res)=>{
                 console.log(res.orderUrl)
                 UpdateOrder(res.transId, res.orderUrl);
@@ -79,6 +77,12 @@ export default ({ order }) => {
                 console.log(e);
             })
     }
+    
+    //hàm fomat định dạng tiền việt nam
+    const formatCurrency = (value) => {
+        const formattedValue = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return `${formattedValue} đ`;
+    };
 
     const generatePDF = () => {
         const doc = new jsPDF();
@@ -86,16 +90,15 @@ export default ({ order }) => {
         //đặt fontsize cho cả file pdf
         doc.setFontSize(10);
         doc.setFont("Roboto", "bold");
-        doc.text(5, 5, `Mã đơn hàng: ${order.madh}`);
+        doc.text(5, 5, `Mã đơn hàng: ${order?.madh || "Không có"}`);
         doc.text(5, 10, `https://appledunk.com`);
         doc.text(5, 15, `Ngày: ${day}/${month}/${year}`);
         doc.setFont("Roboto", "medium");
-        doc.text(10, 20, `Tên: ${user.hoten}`);
-        doc.text(10, 25, `Số điện thoại: ${user.sdt}`);
+        doc.text(10, 20, `Tên: ${user.hoten ?  user.hoten : "Không có"}`);
+        doc.text(10, 25, `Số điện thoại: ${user?.sdt || 'Không có'}`);
         doc.text(10, 30, `Địa chỉ:`);
-        if(user.diachinhanhang.length !==0)
-            doc.text(20, 35, `${user.diachinhanhang[0].diachi}`);
-        doc.text(10, 40, `Phương thức thanh toán: Payment.Name.VietQr`);
+        doc.text(20, 35, `${user.diachinhanhang[0]?.diachi || "Chưa thiết lập"}`);
+        doc.text(10, 40, `Phương thức thanh toán: ${order?.paymentMethod || "Chưa thiết lập"}`);
         doc.setFont("Roboto", "bold");
         doc.text(10, 55, `Các sản phẩm:`);
         doc.setFont("Roboto", "medium");
@@ -104,14 +107,8 @@ export default ({ order }) => {
         const productData = products.map((product, index) => {
             const item = order.products[index];
             const totalPrice = product ? product.gia * item.soluong : 0;
-            return [product ? product.tensanpham : '', product ? product.masp : '', product ? `${product.gia} đ` : '', item.soluong, `${totalPrice} đ`];
+            return [product?.tensanpham || '', product?.masp || '', `${product.gia} đ` || '', item.soluong, `${totalPrice} đ`];
           });
-        // [
-        //     ["Cổng chuyển đổi USB-C To Apple Pencil Adapter", "MQLU3ZP/A", "350.000 đ", "1", "350.000 đ"],
-        //     ["Tên sản phẩm 2", "Mã sản phẩm 2", "150.000 đ", "1", "150.000 đ"],
-        //     ["Tên sản phẩm 3", "Mã sản phẩm 3", "150.000 đ", "1", "150.000 đ"],
-        //     ["Tên sản phẩm 4", "Mã sản phẩm 4", "150.000 đ", "1", "150.000 đ"],
-        // ];
         
         //tạo bảng
         doc.autoTable({
@@ -161,20 +158,20 @@ export default ({ order }) => {
                 <ul>
                     <li className="flex justify-between mb-4">
                         <label>Tên khách hàng:</label>
-                        <span>{user!==undefined && user.hoten}</span>
+                        <span>{user?.hoten || "Chưa thiết lập"}</span>
                     </li>
                     <li className="flex justify-between mt-4 mb-4">
                         <label>Điện thoại:</label>
-                        <span>{user!==undefined && user.sdt}</span>
+                        <span>{user?.sdt || "Chưa thiết lập"}</span>
                     </li>
                     <li className="flex justify-between mt-4 mb-4">
                         <label>E-mail:</label>
-                        <span>{user!==undefined && user.email}</span>
+                        <span>{user?.email || "Chưa thiết lập"}</span>
                     </li>
                     <hr/>
                     <li className="flex justify-between mt-4 mb-4">
                         <label>Địa chỉ nhận hàng:</label>
-                        <span>{user!==undefined && user.diachinhanhang[0]!==undefined && user.diachinhanhang[0].diachi}</span>
+                        <span>{ user?.diachinhanhang[0]?.diachi || "Chưa thiết lập"}</span>
                     </li>
                     <hr/>
                     <li className="flex justify-between mt-4 mb-4">
@@ -222,7 +219,7 @@ export default ({ order }) => {
                                         </Link>
                                     </div>
                                     <div>
-                                        <label>SL:</label>
+                                        <label>Số lượng: </label>
                                         <span>{item.soluong}</span>
                                     </div>
                                     </div>
@@ -233,7 +230,7 @@ export default ({ order }) => {
                     </li>
                     <li className="flex justify-between mt-4 mb-4">
                         <label>Tổng số tiền đã đặt hàng:</label>
-                        <b className="text-2xl">{order.tongtrigia}₫</b>
+                        <b className="text-2xl">{formatCurrency(order.tongtrigia)}</b>
                     </li>
                 </ul>
             </div>

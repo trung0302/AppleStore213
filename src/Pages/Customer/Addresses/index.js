@@ -13,13 +13,13 @@ import AddressItem from "../Components/AddressItem";
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
 function Addresses () {
-    const [user, setUser] = useState();
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
     useEffect(()=>{
+        console.log("gọi GetUserInfor")
         HandleApiCustomer.GetUserInfor()
         .then((res)=>{
-            setUser(res);
-            console.log(res);
+            setUser(res.user);
         })
         .catch((e)=>{
             console.log(e);
@@ -47,9 +47,9 @@ function Addresses () {
                 </div>
                 <div className={"lg:w-2/5 my-12"}>
                     <div>
-                    {(user && user.diachinhanhang.length !==0 ) ? user.diachinhanhang.map((item, index) => (
+                    {user?.diachinhanhang.map((item, index) => (
                         <AddressItem name={item.ten} email={item.email} sdt={item.sdt} address={item.diachi} id={item._id} key={item._id}></AddressItem>
-                    )) : <div className="flex justify-center mb-4">Chưa có địa chỉ nhận hàng</div>}
+                    )) || <div className="flex justify-center mb-4">Chưa có địa chỉ nhận hàng</div>}
                     </div>
                     <div className="flex justify-center">
                         <button className="border-2 rounded-lg px-4 py-4 bg-sky-600 text-white">
