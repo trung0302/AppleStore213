@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Billdetail() {
+    const user = JSON.parse(localStorage.getItem('user'));
+
     //Lấy ngày tháng năm hiện tại
     const currentDate = new Date();
     const day = currentDate.getDate();
@@ -34,7 +36,8 @@ function Billdetail() {
                         soluong: product.soluong,
                     })
                 }),
-            tinhtrang: "Chưa thanh toán"
+            tinhtrang: "Chưa thanh toán",
+            tongtrigia: location.state.totalMoney
         })
         .then((response) => {
             //sau khi tạo đơn hàng thành công thì chuyển hướng sang trang thanht toán 
@@ -50,8 +53,21 @@ function Billdetail() {
         });
     }
 
+    //Hàm xóa sản phẩm trong giỏ hàng sau khi tạo order
+    const DeleteAllSPFromCart= async()=>{
+        await axios.delete(`http://localhost:3001/api/cart/deleteAll?makh=${user.makh}`)
+        .then((response) => {
+            console.log(`http://localhost:3001/api/cart/deleteAll?makh=${user.makh}`);
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
     //Thanh toán bằng zalo hoặc momo
     const Thanhtoan = () => {
+        DeleteAllSPFromCart();
         if (method == "zalopay")
             HandleApiThanhtoan.thanhtoanZalo(amount)
                 .then((response) => {
@@ -73,6 +89,12 @@ function Billdetail() {
         }
     };
 
+    //hàm fomat định dạng tiền việt nam
+    const formatCurrency = (value) => {
+        const formattedValue = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return `${formattedValue} đ`;
+    };
+
     return (
         <div className={styles.bg_primary + " flex justify-center text-2xl"}>
             <div className="rounded-lg lg:w-2/5 my-12 bg-white">
@@ -81,10 +103,6 @@ function Billdetail() {
                 </h1>
                 <div className=" px-10 py-4">
                     <ul className="mb-10">
-                        <li className="flex justify-between my-4">
-                            <p className="text-slate-500">Mã đơn hàng:</p>
-                            <span name="madonhang">123</span>
-                        </li>
                         <li className="flex justify-between my-4">
                             <p className="text-slate-500">Ngày đặt hàng:</p>
                             <span name="date">{day}/{month}/{year}</span>
@@ -143,7 +161,7 @@ function Billdetail() {
                                                 </div>
                                                 <div>
                                                     <label>Giá: </label>
-                                                    <b>{product.gia}đ</b>
+                                                    <b>{formatCurrency(product.gia)}</b>
                                                 </div>
                                             </div>
                                         </div>
@@ -155,7 +173,7 @@ function Billdetail() {
                             <p className="text-slate-500">
                                 Tổng số tiền đã đặt hàng:
                             </p>
-                            <p className="text-blue-600 text-3xl">{amount} ₫</p>
+                            <p className="text-blue-600 text-3xl">{formatCurrency(amount)}</p>
                         </li>
                     </ul>
                     <div className="text-center">

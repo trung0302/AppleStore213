@@ -10,6 +10,12 @@ export default ({madonhang, date, total, method, status, id}) => {
     const month = updateAt.getMonth() + 1; // Lưu ý: Tháng trong đối tượng Date được đếm từ 0 đến 11
     const year = updateAt.getFullYear();
 
+    //hàm fomat định dạng tiền việt nam
+    const formatCurrency = (value) => {
+        const formattedValue = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return `${formattedValue} đ`;
+    };
+
     return (
         <div className={styles.bg_white +" rounded-lg w-full mb-8 relative drop-shadow-lg"}>
             <div className="px-4 py-4">
@@ -24,7 +30,7 @@ export default ({madonhang, date, total, method, status, id}) => {
                     </li>
                     <li className="mx-3 my-8">
                         <label className="mr-3">Tổng tiền:</label>
-                        <b>{total}₫</b>
+                        <b>{formatCurrency(total)}</b>
                     </li>
                     <li className="mx-3 my-8">
                         <label className="mr-3">Phương thức thanh toán:</label>

@@ -1,6 +1,8 @@
 import { Link, useLocation } from "react-router-dom"
 import React, { useState, useEffect } from 'react';
+import HandleApiBaohanh from '../../../Apis/HandleApiBaohanh';
 import axios from "axios";
+import Swal from "sweetalert2";
 export default ({method, tinhtrang, madonhang})=> {
     const location = useLocation();
 
@@ -31,6 +33,8 @@ export default ({method, tinhtrang, madonhang})=> {
     const bankcode = searchParams.get("bankcode");
     const status = searchParams.get("status");
 
+    const user = JSON.parse(localStorage.getItem('user'));
+
     //Lấy ngày tháng hiện tại cho ngxuathd
     const currentDate = new Date();
     const day = currentDate.getDate();
@@ -38,15 +42,13 @@ export default ({method, tinhtrang, madonhang})=> {
     const year = currentDate.getFullYear();
 
     //lấy order bằng transId 
-    const [order, setOrder] = useState({})
-    let donhang="";
+    let order  = {}
 
     //hàm lấy order bằng transId với momo, để tạo hóa đơn
     const getOrderByMomo = async() =>{
         await axios.get(`http://localhost:3001/don-hang/transid/${orderId}`)
         .then((response) => {
-            setOrder(response.data);
-            donhang = response.data.madh;
+            order= response.data;
         })
         .catch((error) => {
             console.log(error);
@@ -57,9 +59,8 @@ export default ({method, tinhtrang, madonhang})=> {
     const getOrderByZalo = async() => {
         await axios.get(`http://localhost:3001/don-hang/transid/${apptransid}`)
         .then((response) => {
-            console.log("getOrderByZalo")
-            setOrder(response.data);
-            donhang = response.data.madh;
+            order= response.data;
+            console.log(response.data)
         })
         .catch((error) => {
             console.log(error);
@@ -73,7 +74,7 @@ export default ({method, tinhtrang, madonhang})=> {
     const addHoadon = async(hd) => {
         await axios.post('http://localhost:3001/api/hoa-don', hd)
         .then((response) => {
-            console.log("addHoadon");
+            console.log("tạo hóa đơn thành công");
         })
         .catch((error) => {
             console.log(error);
@@ -84,11 +85,40 @@ export default ({method, tinhtrang, madonhang})=> {
     const UpdateOrder = async(madh)=>{
         await axios.put(`http://localhost:3001/don-hang/${madh}`, {tinhtrang: "Đã thanh toán"})
         .then((response) => {
-            console.log("UpdateOrder");
+            console.log("Cập nhật order thành công");
         })
         .catch((error) => {
             console.log(error);
         });
+    }
+
+    //Tạo bảo hành cho từng sản phẩm
+    const AddBH = async()=>{
+        console.log(order)
+        // Duyệt qua từng sản phẩm trong order.products và tạo bảo hành cho từng sản phẩm
+        for (const product of order.products) {
+            const bhData = {
+                makh: user.makh,
+                masp: product.productId,
+                mahd: order.madh,
+                manv: "Không có",
+                thoigian: `${day}/${month}/${year}`,
+                nghethan: `${day}/${month}/${year + 1}`,
+            };
+            
+            console.log(bhData)
+
+            // Gọi API để tạo bảo hành cho sản phẩm
+            
+            await HandleApiBaohanh.addBH(bhData)
+            .then((res)=>{
+                console.log("Tạo bảo hành");
+                console.log(res);
+            })
+            .catch ((error)=> {
+                console.log(error);
+            })
+        }
     }
 
     //Hàm Xác nhận thanh toán, dùng để cập nhật giỏ hàng và tạo hóa đơn
@@ -96,25 +126,32 @@ export default ({method, tinhtrang, madonhang})=> {
         if (phuongThuc=="momo" && resultCode == 0 && order!==undefined){
             await getOrderByMomo();
             hoadon = {  
-                madh: donhang,
+                madh: order.madh,
                 manv: "Không có",
                 ngayxuathd: day+"/"+month+"/"+year,
             }
-            console.log("tạo hóa đơn momo");
-            await UpdateOrder(donhang);
+            await UpdateOrder(order.madh);
             await addHoadon(hoadon);
+            await AddBH();
         }  
         else if (phuongThuc=="zalo" && status==1 && order!==undefined){
-            await getOrderByZalo()
+             await getOrderByZalo();
             hoadon = {  
-                madh: donhang,
+                madh: order.madh,
                 manv: "Không có",
                 ngayxuathd: day+"/"+month+"/"+year,
             }
-            console.log("tạo hóa đơn zalo");
-            await UpdateOrder(donhang);
+            await UpdateOrder(order.madh);
             await addHoadon(hoadon);
+            await AddBH();
         }
+        await Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Xác nhận đơn hàng thành công!",
+            showConfirmButton: false,
+            timer: 500
+        });
     }
 
     const [isConfirmed, setIsConfirmed] = useState(false);

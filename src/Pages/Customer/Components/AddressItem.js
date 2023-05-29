@@ -10,6 +10,7 @@ export default ({name, email, sdt, address,id}) => {
         event.preventDefault();
         HandleApiCustomer.DelAdress(id)
         .then(async (res) => {
+            localStorage.setItem('user', JSON.stringify(res)); //lưu lại vào trong localStorage
             await Swal.fire({
                 position: "center",
                 icon: "success",

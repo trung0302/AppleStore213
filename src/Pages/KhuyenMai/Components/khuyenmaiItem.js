@@ -1,21 +1,32 @@
-import images from "../../../assets/image"
 import styles from "../KhuyenMai.module.css";
 
-export default ({image, ten, mota, SL, batdau, ketthuc})=>{
+export default ({khuyenmai})=>{
+
+    const formatCurrency = (value) => {
+        const formattedValue = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return `${formattedValue} đ`;
+    };
+
     return (
         <div className={styles.bg_white+" rounded grid grid-cols-3 justify-items-center p-4 drop-shadow-lg"}>
-            <div className=" ">
-                <img src={images.sale} alt="hình ảnh khuyến mãi" className=""/>
+            <div className="flex justify-center">
+                <img src={khuyenmai.image} alt="hình ảnh khuyến mãi" width={200} height={300} className=""/>
             </div>
             <div className="col-span-2 px-4">
-                <strong className="text-3xl my-4">{ten}</strong>
-                <p className="my-4">{mota}</p>
-                {(()=>{
-                    if ({SL} == -1) return (<></>);
-                    else return(<strong className="my-4">Số lượng còn lại: <b className="text-green-600">{SL}</b></strong>)
-                })()}
-                
-                <p className="my-4">Thời gian: {batdau} - {ketthuc}</p>
+                <strong className="text-3xl my-4">{khuyenmai.title}</strong>
+                <p className="my-4">{khuyenmai.description}</p>
+                <div className="flex justify-between">
+                    <b>Áp dụng từ:</b><br/>
+                    <b className="mr-5">{formatCurrency(khuyenmai.apdung)}</b>
+                </div>
+                <div className="flex justify-between">
+                    <b>Khuyến mãi:</b>
+                    <b className="mr-5">{khuyenmai.phantramkm} %</b>
+                </div>
+                <div className="my-4 flex justify-between">
+                    <p>Thời gian:</p>
+                    <p className="mr-5">{khuyenmai.batdau} - {khuyenmai.ketthuc}</p>
+                </div>
             </div>
         </div>
     )

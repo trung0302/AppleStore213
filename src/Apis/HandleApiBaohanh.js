@@ -13,8 +13,8 @@ const getBHBySDT = async(sdt) => {
     return await axiosInstance.get(`/api/baohanh/sdt/${sdt}`);
 }
 
-const getBHByMaKH = async(makh) => {
-    return await axiosInstance.get(`/api/baohanh/kh/${makh}`);
+const getBHByMaKH = async(makh, pageSize, currentPage) => {
+    return await axiosInstance.get(`/api/baohanh/kh/${makh}?pageSize=${pageSize}&page=${currentPage}`);
 }
 
 //POST

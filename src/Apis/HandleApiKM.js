@@ -2,7 +2,7 @@ import axiosInstance from './axiosInstance';
 
 //GET
 const getAllKM = async() => {
-    return await axiosInstance.get('/api/khuyenmai');
+    return await axiosInstance.get('/api/khuyenmai/cached');
 }
 
 const getKMByID = async(id) =>{
@@ -17,8 +17,8 @@ const getKMByMaKM =async (makm) => {
     return await axiosInstance.get(`/api/khuyenmaibyMaKM/${makm}`);
 }
 
-const getKMByApdungAndPhanTram= async(apdung, phantramkm) => {
-    return await axiosInstance.get(`/api/khuyenmai/apdung&phantram/${apdung}/${phantramkm}`);
+const getKMByApdungAndPhanTram= async(apdung, phantramkm , pageSize, page) => {
+    return await axiosInstance.get(`/api/khuyenmai/apdung&phantram/${apdung}/${phantramkm}?pageSize=${pageSize}&page=${page}`);
 }
 
 //POST

@@ -10,24 +10,75 @@ import NavTag from "../Components/NavTag";
 import Orderbill from "../Components/Orderbill";
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
+import { KeyboardArrowLeft, KeyboardArrowRight, KeyboardDoubleArrowLeft, KeyboardDoubleArrowRight } from "@mui/icons-material";
 import { useState,useEffect } from "react";
 import axios from "axios";
 
 function History () {
     const user = JSON.parse(localStorage.getItem("user"));
-    const [orderlist, setOrderlist] = useState([]);
-    const [state, setState] = useState("");
+    const [orderlist, setOrderlist] = useState([]); //lưu thông tin order
 
+    const pagesize = 5; // mỗi trang có bao nhiêu phần tử
+    const [currentPage, setCurrentPage] = useState(1); //trang hiện tại
+    let [totalPage, setTotalPage] =  useState(1);; //tổng số trang
+    const [pageRange, setPageRange] = useState([1]); //dải phân trang
+    const [isLeftMost, setIsLeftMost] = useState(false); //nút mũi tên trái
+    const [isRightMost, setIsRightMost] = useState(false); //nút mũi tên phải
 
-    const handleFilterChange = (e)=>{
-        setState(e.target.value);
-    } 
+    //hàm chuyển trang
+    const changePage = (index) => {
+        if (index !== currentPage) 
+            setCurrentPage(index)
+    }
+
+    //hàm chuyển sang trang trước đó
+    const decreasePage = () => {
+        setCurrentPage(prev => prev - 1)
+    }
+
+    //hàm chuyển sang trang phía sau
+    const increasePage = () => {
+        setCurrentPage(prev => prev + 1)
+    }
+
+    //hàm đi đến trang đầu tiên
+    const goToFirstPage = () => {
+        setCurrentPage(1)
+    }
+
+    //hàm đi đên trang cuối cùng
+    const goToLastPage = () => {
+        setCurrentPage(totalPage)
+    }
+
+    //xử lý thay đổi trang
+    useEffect(() => {
+        if (totalPage === 1) {
+            setIsLeftMost(true)
+            setIsRightMost(true)
+        } else if (currentPage === 1) {
+            setIsLeftMost(true)
+            setIsRightMost(false)
+        } else if (currentPage === totalPage) {
+            setIsRightMost(true)
+            setIsLeftMost(false)
+        } else {
+            setIsLeftMost(false)
+            setIsRightMost(false)
+        }
+        const arr = [];
+        for (var i = currentPage - 2; i <= currentPage + 2; i++)  
+            if (i >= 1 && i <= totalPage) 
+                arr.push(i);
+        setPageRange(arr);
+    }, [currentPage, totalPage]);
 
     //api lấy order theo bộ lọc và gán vào data
     useEffect(() => {
-        axios.get(`http://localhost:3001/don-hang?makh=${user.makh}`)
+        axios.get(`http://localhost:3001/don-hang?makh=${user.makh}&pageSize=${pagesize}&page=${currentPage}`)
         .then((response) => {
             setOrderlist(response.data.orders);
+            setTotalPage(Math.ceil(response.data.totalOrder/ pagesize));
         })
         .catch((error) => {
             console.log(error);
@@ -54,24 +105,48 @@ function History () {
                         aCss={"mx-4 my-4"} setIcon={<GppGoodIcon sx={{ fontSize: 30 }}></GppGoodIcon>} />
                 </div>
                 <div className={"lg:w-2/5 my-12"}>
-
-                    {/* Bộ lọc */}
-                    <div className="flex justify-end">
-                        <select onChange={handleFilterChange} className={styles.bg_white+ " text-sky-600 border-sky-600 focus:border-sky-600 border-2 rounded-lg px-10 py-2 mb-10"} name="filter_status">
-                            <option value="">Tất cả</option>
-                            <option value="green">Thành công</option>
-                            <option value="blue">Đang giao</option>
-                            <option value="yellow">Đang xử lý</option>
-                            <option value="red">Đã hủy</option>
-                        </select>
-                    </div>
-
                     {/* Render các đơn hàng */}
                     {orderlist!==undefined && orderlist.map((item)=>{
                         return(
                             <Orderbill madonhang={item.madh} date={item.updatedAt} total={item.tongtrigia} method={item.paymentMethod} status={item.tinhtrang} key={item._id}></Orderbill>
                         )
                     })}
+
+                    {/* Phân trang */}
+                    {totalPage!==0 && 
+                        <div className="flex items-center space-x-1 justify-center gap-[10px]">
+                        {!isLeftMost && (
+                            <>
+                                <div onClick={goToFirstPage} className="flex items-center justify-center bg-white rounded-md hover:bg-blue-400 text-[15px] text-gray-700 hover:text-white w-[35px] h-[35px] cursor-pointer select-none">
+                                    <KeyboardDoubleArrowLeft />
+                                </div>
+                                <div onClick={decreasePage} className="flex items-center justify-center bg-white rounded-md hover:bg-blue-400 text-[15px] text-gray-700 hover:text-white w-[35px] h-[35px] cursor-pointer select-none">
+                                    <KeyboardArrowLeft />
+                                </div>
+                            </>
+                        )}
+                        {pageRange.map((item, index) => {
+                            return (
+                                <div key={index}
+                                    className={`flex items-center justify-center rounded-md text-[15px] text-gray-700 w-[35px] h-[35px] cursor-pointer select-none ${item === currentPage ? 'text-white bg-blue-400' : 'bg-white hover:text-white hover:bg-blue-400'}`}
+                                    onClick={() => changePage(item)}
+                                >
+                                    {item}
+                                </div>)
+                        })}
+                        {!isRightMost && (
+                            <>
+                                <div onClick={increasePage} className="flex items-center justify-center bg-white rounded-md hover:bg-blue-400 text-[15px] text-gray-700 hover:text-white w-[35px] h-[35px] cursor-pointer select-none">
+                                    <KeyboardArrowRight />
+                                </div>
+                                <div onClick={goToLastPage} className="flex items-center justify-center bg-white rounded-md hover:bg-blue-400 text-[15px] text-gray-700 hover:text-white w-[35px] h-[35px] cursor-pointer select-none">
+                                    <KeyboardDoubleArrowRight />
+                                </div>
+                            </>
+                        )}
+                        </div>
+                    }
+
                     {orderlist!==undefined && orderlist.length === 0 && <div className="flex justify-center">Bạn chưa có đơn hàng nào</div>}
                 </div>
             </div>
