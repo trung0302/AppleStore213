@@ -22,7 +22,7 @@ function Header() {
     const navigate = useNavigate();
     const [search, setSearch] = useState(1);
     const [inputIsVisible, setInputIsVisible] = useState(false);
-    const [dataNumber, setDataNumber] = useState([]);
+    const [dataNumber, setDataNumber] = useState(0);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const user = JSON.parse(localStorage.getItem("user"));
     var number = 0;
