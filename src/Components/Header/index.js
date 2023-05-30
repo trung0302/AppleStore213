@@ -60,7 +60,7 @@ function Header() {
             else window.location.href = `/search?q=${e.target.value}`;
     };
     
-    // render total number of cart
+    // render total numbers of cart
     useEffect(() => {
         // var number = 0;
         HandleApiCart.getCartByMaKH(user?.makh)
