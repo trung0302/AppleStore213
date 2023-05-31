@@ -27,6 +27,7 @@ function ChangePassword () {
                 showConfirmButton: true,
             });
         } else {
+        console.log("vào đây");
          HandleApiCustomer.UpdatePass(user._id,{
             oldPassword: formData.get('oldPassword'),
             newPassword: formData.get('newPassword')
@@ -41,6 +42,7 @@ function ChangePassword () {
             
              window.location.reload();
          }).catch((err)=>{
+            console.log(err);
              Swal.fire({
                  position: "center",
                  icon: "error",

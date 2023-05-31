@@ -19,7 +19,7 @@ const Register = () => {
         var userObject = jwt_decode(response.credential);
         console.log(userObject);
         const res = await axios
-        .post(`${base}/api/auth/googlelogin`, {
+        .post(`${base}api/auth/googlelogin`, {
             token: String(response.credential)
         })
         .catch((err) => {

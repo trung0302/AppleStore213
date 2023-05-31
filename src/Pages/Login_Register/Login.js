@@ -16,6 +16,10 @@ import axiosInstance from "../../Apis/axiosInstance";
 import HandleApiCustomer from "../../Apis/HandleApiCustomer"
 
 const Login = () => {
+    const [isChecked, setIsChecked] = useState(false);
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked);
+      };
     let base = axiosInstance.defaults.baseURL;
 
     useEffect(()=>{
@@ -229,9 +233,13 @@ const Login = () => {
                 .then((data) => {
                     localStorage.setItem("user", JSON.stringify(data.findKH));
                     //localStorage.setItem("token",data.token);
+                    if(isChecked){
                     Cookies.set("token", data.token, {
                         expires: 30,
-                    });
+                    });}
+                    else{
+                        Cookies.set("token", data.token,{ expires: undefined });
+                    }
                 })
                 //.then(()=>setIsLogin(true))
                 .then(() => navigate("/"));
@@ -264,7 +272,7 @@ const handleSignInButtonClick = () => {
     <div className="w-full flex items-center justify-center lg:w-1/2">
     <div className=' w-11/12 max-w-[700px] px-10 py-20 rounded-3xl bg-white border-2 border-gray-100'>
           <h1 className='text-5xl font-semibold'>Đăng Nhập</h1>
-          <p className='font-medium text-lg text-gray-500 mt-4'>Chào mừng trở lại với Appledunk!</p>
+          <p className='font-medium text-2xl text-gray-500 mt-4'>Chào mừng trở lại với Appledunk!</p>
           <div className='mt-8'>
               <div className='flex flex-col'>
               <div className='flex'>
@@ -299,11 +307,12 @@ const handleSignInButtonClick = () => {
               </div>
               <div className='mt-8 flex justify-between items-center'>
                   <div>
-                      <input  type="checkbox" id='remember'/>
-                      <label className='ml-2 font-medium text-base' for="remember">Nhớ mật khẩu</label>
+                      <input className="pt-6" type="checkbox" id='remember' checked={isChecked}
+          onChange={handleCheckboxChange} />
+                      <label className='ml-2 font-medium text-lg pb-10' for="remember">Nhớ mật khẩu</label>
                   </div>
                   <button  onClick={() => setModal(true)}
-                  className='font-medium text-base text-violet-500'>Quên mật khẩu?</button>
+                  className='font-medium text-lg text-violet-500'>Quên mật khẩu?</button>
               </div>
               <div className='mt-8 flex flex-col gap-y-4'>
                     <button 

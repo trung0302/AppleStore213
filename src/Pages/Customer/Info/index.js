@@ -16,7 +16,7 @@ import Swal from "sweetalert2";
 
 function Info(){
     const user = JSON.parse(localStorage.getItem("user"));
-    const [selectedGender, setSelectedGender] = useState(user.gioitinh? user.gioitinh : "nam");
+    const [selectedGender, setSelectedGender] = useState(user.gioitinh? user.gioitinh : "Nam");
 
     const hienThiNgaySinh = () => {
         if(user.ngaysinh){
@@ -120,9 +120,9 @@ function Info(){
                             <div className="grid grid-rows-2">
                                 <label htmlFor="Gender">Giới tính:</label>
                                 <div className="content-center gap-8">
-                                    <input type="radio" name="Gender" value="nam" checked={selectedGender === "nam"} onChange={handleGenderChange}/>
+                                    <input type="radio" name="Gender" value="Nam" checked={selectedGender === "Nam"} onChange={handleGenderChange}/>
                                     <label className="mr-8 ml-4">Nam</label>
-                                    <input type="radio" name="Gender" value="nữ" checked={selectedGender === "nữ"} onChange={handleGenderChange}/>
+                                    <input type="radio" name="Gender" value="Nữ" checked={selectedGender === "Nữ"} onChange={handleGenderChange}/>
                                     <label className="ml-4">Nữ</label>
                                 </div>
                             </div>

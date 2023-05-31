@@ -45,7 +45,7 @@ function Avatar () {
   
   const formData = new FormData();
   formData.append("images", selectedFile);
-  await axios.post(`http://localhost/api/auth/upload/${user._id}`, formData)
+  await axios.post(`http://localhost:3001/api/auth/upload/${user._id}`, formData)
     .then(async (res) => {
         await Swal.fire({
             position: "center",
