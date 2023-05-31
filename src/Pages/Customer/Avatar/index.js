@@ -17,23 +17,9 @@ import Swal from "sweetalert2";
 function Avatar () {
     const user = JSON.parse(localStorage.getItem("user"));
     const [data, setData] = useState("");
-    //if(user.image.length !== 0 ) setData(user.image[0].url);
+    if(user.image.length !== 0 ) setData(user.image[0].url);
 
 
-    
-    useEffect(()=>{
-        HandleApiCustomer.GetUserInfor()
-        .then((res)=>{
-            console.log(res);
-            if(res.user.image.length !== 0)
-            setData(res.user.image[0].url)
-
-        })
-        .catch((e)=>{
-            console.log(e);
-        })
-    },[]);
-    
     const [selectedFile, setSelectedFile] = useState()
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];

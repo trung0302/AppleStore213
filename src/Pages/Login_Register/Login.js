@@ -13,7 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Button } from "@mui/material";
 import axiosInstance from "../../Apis/axiosInstance";
-import HandleApiCustomer from "../../Apis/HandleApiCustomer"
+
 
 const Login = () => {
     const [isChecked, setIsChecked] = useState(false);
@@ -21,16 +21,6 @@ const Login = () => {
         setIsChecked(!isChecked);
       };
     let base = axiosInstance.defaults.baseURL;
-
-    useEffect(()=>{
-        HandleApiCustomer.GetUserInfor()
-        .then((res)=>{
-            console.log(res);
-        })
-        .catch((e)=>{
-            console.log(e);
-        })
-    },[]);
     
     const [first, setfirst] = useState(0)
     //setfirst(window.google);
