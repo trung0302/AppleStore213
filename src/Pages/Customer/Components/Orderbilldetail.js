@@ -97,7 +97,7 @@ export default ({ order }) => {
         doc.text(10, 20, `Tên: ${user.hoten ?  user.hoten : "Không có"}`);
         doc.text(10, 25, `Số điện thoại: ${user?.sdt || 'Không có'}`);
         doc.text(10, 30, `Địa chỉ:`);
-        doc.text(20, 35, `${user.diachinhanhang[0]?.diachi || "Chưa thiết lập"}`);
+        doc.text(20, 35, `${order?.address || "Chưa thiết lập"}`);
         doc.text(10, 40, `Phương thức thanh toán: ${order?.paymentMethod || "Chưa thiết lập"}`);
         doc.setFont("Roboto", "bold");
         doc.text(10, 55, `Các sản phẩm:`);
@@ -170,8 +170,8 @@ export default ({ order }) => {
                     </li>
                     <hr/>
                     <li className="flex justify-between mt-4 mb-4">
-                        <label>Địa chỉ nhận hàng:</label>
-                        <span>{ user?.diachinhanhang[0]?.diachi || "Chưa thiết lập"}</span>
+                        <label className="w-[200px]">Địa chỉ nhận hàng:</label>
+                        <span>{ order?.address || "Chưa thiết lập"}</span>
                     </li>
                     <hr/>
                     <li className="flex justify-between mt-4 mb-4">

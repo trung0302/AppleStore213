@@ -20,6 +20,8 @@ function Addresses () {
         HandleApiCustomer.GetUserInfor()
         .then((res)=>{
             setUser(res.user);
+            //lưu vào trong local
+            localStorage.setItem('user', JSON.stringify(res.user));
         })
         .catch((e)=>{
             console.log(e);
