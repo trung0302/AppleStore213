@@ -34,7 +34,7 @@ function Comment ({DG}) {
                         <div className='text-gray-400 mx-[4px]'>
                             <CircleIcon className='text-[5px]' size="inherit"/>
                         </div>
-                        <div onClick={()=>tryFunction()} className='text-blue-700 cursor-pointer'>
+                        {/* <div onClick={()=>tryFunction()} className='text-blue-700 cursor-pointer'>
                             Thích
                         </div>
                         <div className='text-gray-400 mx-[4px]'>
@@ -42,11 +42,11 @@ function Comment ({DG}) {
                         </div>
                         <div className='text-blue-700 cursor-pointer'>
                             Trả lời
-                        </div>
+                        </div> */}
                     </div>
                 </div>
-                <div className="ml-auto mr-[15px] text-slate-600 cursor-pointer relative">
-                    <MoreVertIcon fontSize='large'/>
+                {/* <div className="ml-auto mr-[15px] text-slate-600 cursor-pointer relative">
+                    <MoreVertIcon fontSize='large'/> */}
                     {/* <div className="w-[60px] h-[70px] bg-white absolute z-10 left-[4px] top-[4px]
                                     text-slate-800 text-[18px] border-[2px] border-slate-400 hidden">
                         <div className='border-b-[1px] border-slate-400 text-center'>
@@ -56,7 +56,7 @@ function Comment ({DG}) {
                             Sửa
                         </div>
                     </div> */}
-                </div>
+                {/* </div> */}
             </div>
         </div>
     );
