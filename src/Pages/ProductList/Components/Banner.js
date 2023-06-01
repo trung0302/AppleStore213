@@ -1,5 +1,6 @@
 import "@splidejs/react-splide/css";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import images from "../../../assets/image";
 function Banner({ type }) {
     const iphoneBanners = [
@@ -67,57 +68,65 @@ function Banner({ type }) {
     };
     return (
         <div className="w-full">
-            <div className="w-[1200px] m-auto">
-                <Splide hasTrack={false} options={options} aria-label="Slider Product">
-                    <div className="">
-                        <SplideTrack>
-                            {type === 'iPhone' && iphoneBanners.map((item, index) => (
-                                <SplideSlide key={index}>
-                                    <div>
-                                        <img src={item.image} alt={item.image} className='mx-auto'></img>
-                                    </div>
-                                </SplideSlide>
-                            ))}
-                            {type === 'iPad' && ipadBanners.map((item, index) => (
-                                <SplideSlide key={index}>
-                                    <div>
-                                        <img src={item.image} alt={item.image} className='mx-auto'></img>
-                                    </div>
-                                </SplideSlide>
-                            ))}
-                            {type === 'Mac' && macBanners.map((item, index) => (
-                                <SplideSlide key={index}>
-                                    <div>
-                                        <img src={item.image} alt={item.image} className='mx-auto'></img>
-                                    </div>
-                                </SplideSlide>
-                            ))}
-                            {type === 'Watch' && watchBanners.map((item, index) => (
-                                <SplideSlide key={index}>
-                                    <div>
-                                        <img src={item.image} alt={item.image} className='mx-auto'></img>
-                                    </div>
-                                </SplideSlide>
-                            ))}
-                            {type === 'Âm thanh' && soundBanners.map((item, index) => (
-                                <SplideSlide key={index}>
-                                    <div>
-                                        <img src={item.image} alt={item.image} className='mx-auto'></img>
-                                    </div>
-                                </SplideSlide>
-                            ))}
-                            {type === 'Phụ kiện' && accessoryBanners.map((item, index) => (
-                                <SplideSlide key={index}>
-                                    <div>
-                                        <img src={item.image} alt={item.image} className='mx-auto'></img>
-                                    </div>
-                                </SplideSlide>
-                            ))}
-                        </SplideTrack>
+            <Splide hasTrack={false} options={options} aria-label="Slider Product">
+                <div className="mainSlider">
+                    <SplideTrack>
+                        {type === 'iPhone' && iphoneBanners.map((item, index) => (
+                            <SplideSlide key={index}>
+                                <div>
+                                    <img src={item.image} alt={item.image} className='mx-auto'></img>
+                                </div>
+                            </SplideSlide>
+                        ))}
+                        {type === 'iPad' && ipadBanners.map((item, index) => (
+                            <SplideSlide key={index}>
+                                <div>
+                                    <img src={item.image} alt={item.image} className='mx-auto'></img>
+                                </div>
+                            </SplideSlide>
+                        ))}
+                        {type === 'Mac' && macBanners.map((item, index) => (
+                            <SplideSlide key={index}>
+                                <div>
+                                    <img src={item.image} alt={item.image} className='mx-auto'></img>
+                                </div>
+                            </SplideSlide>
+                        ))}
+                        {type === 'Watch' && watchBanners.map((item, index) => (
+                            <SplideSlide key={index}>
+                                <div>
+                                    <img src={item.image} alt={item.image} className='mx-auto'></img>
+                                </div>
+                            </SplideSlide>
+                        ))}
+                        {type === 'Âm thanh' && soundBanners.map((item, index) => (
+                            <SplideSlide key={index}>
+                                <div>
+                                    <img src={item.image} alt={item.image} className='mx-auto'></img>
+                                </div>
+                            </SplideSlide>
+                        ))}
+                        {type === 'Phụ kiện' && accessoryBanners.map((item, index) => (
+                            <SplideSlide key={index}>
+                                <div>
+                                    <img src={item.image} alt={item.image} className='mx-auto'></img>
+                                </div>
+                            </SplideSlide>
+                        ))}
+                    </SplideTrack>
+                </div>
+                <div className="paginationSlider">
+                    <div className="splide__arrows advertisement">
+                        <button className="splide__arrow splide__arrow--prev  ">
+                            <NavigateNextIcon />
+                        </button>
+                        <button className="splide__arrow splide__arrow--next  ">
+                            <NavigateNextIcon />
+                        </button>
                     </div>
-                </Splide>
-            </div>
-        </div >
+                </div>
+            </Splide>
+        </div>
     );
 }
 export default Banner;

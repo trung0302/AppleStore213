@@ -1,10 +1,13 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axiosInstance from "./axiosInstance";
 
-const getAllProduct = async (loaisanpham, phanloai, page = 1) => {
-    var query = `/api/product?loaisanpham=${loaisanpham}&page=${page}`;
+const getAllProduct = async (loaisanpham, page, pageSize, phanloai = null, sortOrder = null) => {
+    var query = `/api/product?loaisanpham=${loaisanpham}&page=${page}&pageSize=${pageSize}`;
     if (phanloai) {
         query += `&phanloai=${phanloai}`
+    }
+    if (sortOrder) {
+        query += `&sortOrder=${sortOrder}`
     }
     return await axiosInstance.get(query);
 };
