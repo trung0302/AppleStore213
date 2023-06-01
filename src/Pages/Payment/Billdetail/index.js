@@ -37,7 +37,8 @@ function Billdetail() {
                     })
                 }),
             tinhtrang: "Chưa thanh toán",
-            tongtrigia: location.state.totalMoney
+            tongtrigia: location.state.totalMoney,
+            address: (location.state.dataPayment?.address || "")+", "+ (location.state.dataPayment?.selectedWard?.label || "")+", "+location.state.dataPayment.selectedDistrict.label+", "+location.state.dataPayment.selectedProvince.label+", "+(location.state.dataPayment?.selectedStore?.label || "")
         })
         .then((response) => {
             //sau khi tạo đơn hàng thành công thì chuyển hướng sang trang thanht toán 
@@ -57,8 +58,6 @@ function Billdetail() {
     const DeleteAllSPFromCart= async()=>{
         await axios.delete(`http://localhost:3001/api/cart/deleteAll?makh=${user.makh}`)
         .then((response) => {
-            console.log(`http://localhost:3001/api/cart/deleteAll?makh=${user.makh}`);
-            console.log(response);
         })
         .catch((error) => {
             console.log(error);
