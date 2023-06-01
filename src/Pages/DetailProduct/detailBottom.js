@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./DetailBottom.css";
 import StarRating from "./StarRating";
 import RatedStar from "./RatingStar/RatedStar";
@@ -6,8 +7,10 @@ import RatingModal from "./RatingStar/RatingModal";
 import CheckIcon from '@mui/icons-material/Check';
 import StaticRatedStar from "./RatingStar/StaticRatedStar.js";
 import Comment from "./Comment/Comment";
+import Swal from "sweetalert2";
 import axios from "axios";
 function DetailBottom({sp, user}) {
+    const navigate = useNavigate()
     const [tongleState, setTongleState] = useState(1);
     const [filterIndex, setFilterIndex] = useState(6);
     const [binhluan, setBinhluan] = useState();
@@ -29,6 +32,24 @@ function DetailBottom({sp, user}) {
 
     // Biến để quyết định việc bật tắt modal, 1 là tắt, 0 là mở
     const [closeRatingModal, setCloseRatingModal] = useState(1);
+
+    const handleClickGuiDG = (index) => {
+        if(user) {
+            setCloseRatingModal(0)
+        } else {
+            Swal.fire({
+                title: 'Bạn phải đăng nhập trước khi bình luận',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Đăng nhập',
+                cancelButtonText: 'Đóng',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate("/login")
+                }
+            });
+        }
+    }
 
     // Lấy giá trị rating
     const [ratingOut, setRatingOut] = useState(null);
@@ -255,7 +276,7 @@ function DetailBottom({sp, user}) {
                         <div className="text-center my-auto">
                             <div className="text-[16px] my-[10px]">Bạn đã dùng sản phẩm này</div>
                             <button className="text-[16px] text-white bg-blue-600 rounded-[5px] font-extralight p-[10px]"
-                            onClick={()=>setCloseRatingModal(0)}>GỬI ĐÁNH GIÁ</button>
+                            onClick={()=>handleClickGuiDG(0)}>GỬI ĐÁNH GIÁ</button>
                         </div>
                     </div>
                     <div className="px-[25px] h-[56px] text-[14px] text-slate-500 bg-slate-100 flex items-center">

@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import HandleApiProduct from "../../Apis/HandleApiProduct";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function DetailProduct() {
     const [isLoading, setLoading] = useState(true);
@@ -25,6 +26,7 @@ function DetailProduct() {
     const [lstRam, setLstRam] = useState([])
     const [color, setColor] = useState("");
     const [lstColor, setLstColor] = useState([]);
+    const [lstManHinh, setLstManHinh] = useState([])
     let lstColorBG = {
         black: "bg-gray-900",
         gray: "bg-gray-400",
@@ -51,6 +53,7 @@ function DetailProduct() {
                 setLstColor(response.data.mausac.split(",").map(item => item.trim().toLowerCase()))
                 setLstRom(response.data.rom.split(",").map(item => item.trim().toUpperCase()))
                 setLstRam(response.data.ram.split(",").map(item => item.trim().toUpperCase()))
+                // setLstManHinh(response.data.manhinh.split(",").map(item => item.trim().toUpperCase()))
             }
         })
         .catch(error => console.log(error));
@@ -73,12 +76,44 @@ function DetailProduct() {
     // },[])
 
     const handleMuaNgayClick = (e) => {
-        if(dungluong === "") 
-            alert("Vui lòng lựa chọn dung lượng!")
-        else if(ram === "")
-            alert("Vui lòng lựa chọn ram!")
-        else if(color === "")
-            alert("Vui lòng lựa chọn màu sắc!")
+        if(dungluong === "" && lstRom.length !== 0) {
+            Swal.fire({
+                title: 'Vui lòng lựa chọn dung lượng!',
+                icon: 'warning',
+                // showCancelButton: true,
+                confirmButtonText: 'OK',
+                // cancelButtonText: 'Đóng',
+            })
+        }
+        else if(ram === "" && lstRam.length !== 0) {
+            Swal.fire({
+                title: 'Vui lòng lựa chọn ram!',
+                icon: 'warning',
+                // showCancelButton: true,
+                confirmButtonText: 'OK',
+                // cancelButtonText: 'Đóng',
+            })
+        }
+        else if(color === "" && lstColor.length !== 0) {
+            Swal.fire({
+                title: 'Vui lòng lựa chọn màu sắc!',
+                icon: 'warning',
+                confirmButtonText: 'OK',
+                // cancelButtonText: 'Đóng',
+            })
+        } else if(!user) {
+            Swal.fire({
+                title: 'Bạn phải đăng nhập để thêm vào giỏ hàng.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Đăng nhập',
+                cancelButtonText: 'Đóng',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate("/login")
+                }
+            });
+        }
         else {
             // màu đc chọn
             const cartData = {
@@ -202,7 +237,10 @@ function DetailProduct() {
                     </div>
                     <div className={classes.attribute}>
                         <div className={classes.detail_info}>
-                            <label>Dung lượng</label>
+                            {
+                                (lstRom.length !== 0)&&(
+                                    <>
+                                    <label>Dung lượng</label>
                             <ul>
                                 {
                                     lstRom?.map((rom_item, index) =>{
@@ -214,28 +252,16 @@ function DetailProduct() {
                                         )
                                     } )
                                 }
-                                {/* <li onClick={() => handleDungLuongClick("128GB")} 
-                                    className={dungluong === "128GB" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
-                                    128GB
-                                </li>
-
-                                <li onClick={()=> setDungluong("256GB")}
-                                    className={dungluong === "256GB" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
-                                    256GB
-                                </li>
-
-                                <li onClick={()=> setDungluong("512GB")} 
-                                    className={dungluong === "512GB" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
-                                    512GB
-                                </li>
-
-                                <li onClick={()=> setDungluong("1T")} 
-                                    className={dungluong === "1T" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
-                                    1T
-                                </li> */}
+                                
                             </ul>
+                                    </>
+                                )
+                            }
 
-                            <label>RAM</label>
+                            {
+                                (lstRam.length !==0)&&(
+                                    <>
+                                    <label>RAM</label>
                             <ul>
                                 {
                                     lstRam?.map((ram_item, index) =>{
@@ -247,19 +273,17 @@ function DetailProduct() {
                                         )
                                     } )
                                 }
-                                {/* <li onClick={()=> setRam("8GB")} 
-                                    className={ram === "8GB" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
-                                    8GB
-                                </li>
-
-                                <li onClick={()=> setRam("16GB")} 
-                                    className={ram === "16GB" ? classes.active : "hover:border-blue-400 hover:border-[2px] hover:text-blue-600"}>
-                                    16GB
-                                </li> */}
+                                
                             </ul>
-                            <label>Màu sắc</label>
+                                    </>
+                                )
+                            }
+
                             
-                        </div>
+                           {
+                            (lstColor.length !== 0)&&(
+                                <>
+                                 <label>Màu sắc</label>
                         <div className={classes.itemColor}>
                         <ul >
                             {
@@ -275,6 +299,12 @@ function DetailProduct() {
 
                         </ul>
                         </div>
+                                </>
+                            )
+                           }
+                        </div>
+
+                        
                         
                         <div className={classes.confirm}>
                             <div className="flex text-[#5353e7]">
