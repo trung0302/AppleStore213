@@ -1,10 +1,7 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import { Home, Newspaper, Edit, Public, AppShortcut, Lightbulb } from "@mui/icons-material";
 
-export default function NewsSidebar() {
-  const location = useLocation();
-
+export default function NewsSidebar({type}) {
   return (
     <div className="w-[200px] flex shrink-0 justify-center pt-[12px] sticky top-0">
       <ul>
@@ -21,7 +18,7 @@ export default function NewsSidebar() {
           <a
             href="/apple-news"
             className={`flex items-center grow  text-[16px] ${
-              location.pathname === "/apple-news"
+              type === "appleNews"
                 ? "text-[#0066CC]"
                 : "text-[#1D1D1F]"
             } font-bold`}
@@ -34,7 +31,7 @@ export default function NewsSidebar() {
           <a
             href="/news-review"
             className={`flex items-center grow  text-[16px] ${
-              location.pathname === "/news-review"
+              type === "review"
                 ? "text-[#0066CC]"
                 : "text-[#1D1D1F]"
             } font-bold`}
@@ -47,7 +44,7 @@ export default function NewsSidebar() {
           <a
             href="/tin-kham-pha"
             className={`flex items-center grow  text-[16px] ${
-              location.pathname === "/tin-kham-pha"
+              type === "explore"
                 ? "text-[#0066CC]"
                 : "text-[#1D1D1F]"
             } font-bold`}
@@ -60,7 +57,7 @@ export default function NewsSidebar() {
           <a
             href="/thu-thuat"
             className={`flex items-center grow  text-[16px] ${
-              location.pathname === "/thu-thuat"
+              type === "trick"
                 ? "text-[#0066CC]"
                 : "text-[#1D1D1F]"
             } font-bold`}
@@ -73,7 +70,7 @@ export default function NewsSidebar() {
           <a
             href="/tin-khac"
             className={`flex items-center grow  text-[16px] ${
-              location.pathname === "/tin-khac"
+              type === "other"
                 ? "text-[#0066CC]"
                 : "text-[#1D1D1F]"
             } font-bold`}

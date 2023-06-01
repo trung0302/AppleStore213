@@ -79,9 +79,8 @@ const accessoryNavigation = [
 export default function ProductSection({ type, currentCategory = null }) {
     const [initPath, setInitPath] = useState();
     const location = useLocation();
-    const [sort, setSort] = useState();
+    const [sort, setSort] = useState(null);
     const [data, setData] = useState();
-    const [sortedData, setSortedData] = useState();
     const [subCategories, setSubCategories] = useState()
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
@@ -90,11 +89,8 @@ export default function ProductSection({ type, currentCategory = null }) {
     const [isRightMost, setIsRightMost] = useState(false);
 
     const options = [
-        { label: "Giá cao đến thấp", value: 1 },
-        { label: "Mới nhất", value: 2 },
-        { label: "Tên: A đến Z", value: 3 },
-        { label: "Tên: Z đến A", value: 4 },
-        { label: "Giá thấp đến cao", value: 5 }
+        { label: "Giá cao đến thấp", value: "desc" },
+        { label: "Giá thấp đến cao", value: "asc" }
     ]
 
     const onChangeSort = (changedSort) => {
@@ -132,18 +128,19 @@ export default function ProductSection({ type, currentCategory = null }) {
     }, [location])
 
     useEffect(() => {
-        api.getAllProduct(type, currentCategory).then(result => { console.log(result); setData(result.listProducts); setTotalPage(result.totalPages); })
-    }, [currentCategory, type])
+        console.log(sort)
+        api.getAllProduct(type, currentPage, 12, currentCategory, sort).then(result => { console.log(result); setData(result.listProducts); setTotalPage(result.totalPages); })
+    }, [currentCategory, type, currentPage, sort])
 
-    useEffect(() => {
-        const newArray = structuredClone(data);
-        if (!sort) setSortedData(newArray);
-        else if (sort === 1) setSortedData(newArray.sort((a, b) => b.gia - a.gia));
-        else if (sort === 2) setSortedData(newArray);
-        else if (sort === 3) setSortedData(newArray);
-        else if (sort === 4) setSortedData(newArray);
-        else setSortedData(newArray.sort((a, b) => a.gia - b.gia));
-    }, [sort, data])
+    // useEffect(() => {
+    //     const newArray = structuredClone(data);
+    //     if (!sort) setSortedData(newArray);
+    //     else if (sort === 1) setSortedData(newArray.sort((a, b) => b.gia - a.gia));
+    //     else if (sort === 2) setSortedData(newArray);
+    //     else if (sort === 3) setSortedData(newArray);
+    //     else if (sort === 4) setSortedData(newArray);
+    //     else setSortedData(newArray.sort((a, b) => a.gia - b.gia));
+    // }, [sort, data])
 
     const changePage = (index) => {
         if (index !== currentPage) {
@@ -182,7 +179,7 @@ export default function ProductSection({ type, currentCategory = null }) {
             setIsRightMost(false)
         }
         if (type.category !== "") {
-            api.getAllProduct(type, currentCategory, currentPage).then(result => setData(result.listProducts))
+            api.getAllProduct(type, currentPage, 12, currentCategory).then(result => setData(result.listProducts))
         }
         const arr = [];
         for (var i = currentPage - 2; i <= currentPage + 2; i++) {
@@ -236,7 +233,7 @@ export default function ProductSection({ type, currentCategory = null }) {
             </div>
 
             <div className='flex gap-[20px] flex-wrap mb-[35px]'>
-                {sortedData?.map((item, index) => <ProductCard key={index} item={item} />)}
+                {data?.map((item, index) => <ProductCard key={index} item={item} />)}
             </div>
             <div className="flex items-center space-x-1 justify-center gap-[10px]">
                 {!isLeftMost && (

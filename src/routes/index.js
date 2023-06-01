@@ -3,6 +3,7 @@ import DetailProduct from "../Pages/DetailProduct";
 import NotFound from "../Pages/NotFound";
 import Order from "../Pages/Order";
 import News from "../Pages/News";
+import NewsPage from '../Pages/NewsCategory/components/NewsPage'
 
 import Info from "../Pages/Customer/Info";
 import Addresses from "../Pages/Customer/Addresses";
@@ -55,7 +56,7 @@ const publicRoutes = [
     { path: "/phu-kien/:slug", component: <AnotherProductList type="Phụ kiện" /> },
 
     { path: "/tin-tuc", component: <News /> },
-    { path: "/tin-tuc/:id", component: <NewsCategory isPage={true} /> },
+    { path: "/tin-tuc/:id", component: <NewsPage /> },
     { path: "/apple-news", component: <NewsCategory /> },
     { path: "/news-review", component: <NewsCategory /> },
     { path: "/tin-kham-pha", component: <NewsCategory /> },

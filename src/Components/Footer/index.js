@@ -1,4 +1,6 @@
 import classes from "./Footer.module.css";
+import image from "../../assets/image";
+
 
 function Footer() {
     return (
@@ -6,12 +8,12 @@ function Footer() {
             <div className={classes.footerUpper + " grid grid-cols-footer gap-4"}>
                 <div className={classes.followUs}>
                     <img
-                        src="https://shopdunk.com/images/thumbs/0012445_Logo_ShopDunk.png"
+                        src={image.logo}
                         alt="logo"
-                        className={classes.logo}
+                        className="h-[45px] w-[180px] object-cover ml-[-10px]"
                     />
                     <p className={classes.gioiThieu}>
-                        Năm 2020, ShopDunk trở thành đại lý ủy quyền của Apple. Chúng tôi
+                        Năm 2023, Apple Dunk trở thành đại lý ủy quyền của Apple. Chúng tôi
                         phát triển chuỗi cửa hàng tiêu chuẩn và Apple Mono Store nhằm mang
                         đến trải nghiệm tốt nhất về sản phẩm và dịch vụ của Apple cho người
                         dùng Việt Nam.
@@ -64,37 +66,7 @@ function Footer() {
                         </li>
                         <li>
                             <a href="/tin-tuc" className={classes.listItem}>
-                                Giới thiệu
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
-                                Check IMEI
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
-                                Phương thức thanh toán
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
-                                Thuê điểm bán lẻ
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
                                 Bảo hành và sửa chữa
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
-                                Tuyển dụng
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
-                                Đánh giá chất lượng & khiếu nại
                             </a>
                         </li>
                     </ul>
@@ -104,47 +76,7 @@ function Footer() {
                     <ul>
                         <li>
                             <a href="/tin-tuc" className={classes.listItem}>
-                                Thu cũ đổi mới
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
-                                Giao hàng
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
-                                Giao hàng (Zalo Pay)
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
-                                Hủy giao dịch
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
-                                Đổi trả
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
                                 Bảo hành
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
-                                Giải quyết khiếu nại
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
-                                Bảo mật thông tin
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
-                                Trả góp
                             </a>
                         </li>
                     </ul>
@@ -160,16 +92,6 @@ function Footer() {
                         <li>
                             <a href="/tin-tuc" className={classes.listItem}>
                                 Đơn đặt hàng
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
-                                Hệ thống cửa hàng
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
-                                Tìm Store trên Google Map
                             </a>
                         </li>
                         <li>
