@@ -64,7 +64,7 @@ function Home() {
     let listAmThanhProduct=[];
     dataIphoneProduct.map((value,index)=>{
         listIphoneProduct.push({
-            image: value.image,
+            image: value.hinh,
             name: value.tensanpham,
             newPrice: value.gia,
             oldPrice: value.gia,
@@ -74,7 +74,7 @@ function Home() {
     })
     dataIpadProduct.map((value,index)=>{
         listIpadProduct.push({
-            image: value.image,
+            image: value.hinh,
             name: value.tensanpham,
             newPrice: value.gia,
             oldPrice: value.gia,
@@ -84,7 +84,7 @@ function Home() {
     })
     dataMacProduct.map((value,index)=>{
         listMacProduct.push({
-            image: value.image,
+            image: value.hinh,
             name: value.tensanpham,
             newPrice: value.gia,
             oldPrice: value.gia,
@@ -94,7 +94,7 @@ function Home() {
     })
     dataWatchProduct.map((value,index)=>{
         listWatchProduct.push({
-            image: value.image,
+            image: value.hinh,
             name: value.tensanpham,
             newPrice: value.gia,
             oldPrice: value.gia,
@@ -104,7 +104,7 @@ function Home() {
     })
     dataAmThanhProduct.map((value,index)=>{
         listAmThanhProduct.push({
-            image: value.image,
+            image: value.hinh,
             name: value.tensanpham,
             newPrice: value.gia,
             oldPrice: value.gia,
@@ -179,9 +179,9 @@ const tintucUI={
             </a>
        </div>
        <ItemComponent data={tintucUI}/>
-       <div className="my-[-80px]">
+       {/* <div className="my-[-80px]">
              <SubcribeSection/>
-       </div>
+       </div> */}
     </div>
     );
 }
