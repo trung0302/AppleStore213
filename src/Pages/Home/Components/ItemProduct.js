@@ -1,8 +1,8 @@
 function ItemProduct(props){
     if(props.title==='Tin tức'){
         return (
-        <a href={'/tin-tuc/'+props.data.slug} className="flex flex-col py-4 mx-4 w-[385px] h-[350px] bg-white rounded-xl drop-shadow-sm hover:drop-shadow-2xl">
-            <img className=" h-[190px]" src={props.data.image} alt={props.data.image}></img>
+        <a href={'/tin-tuc/'+props.data.slug} className="flex flex-col pb-4 mx-4 w-[385px] h-[350px] bg-white rounded-xl drop-shadow-sm hover:drop-shadow-2xl">
+            <img className=" h-[190px] rounded-xl" src={props.data.image} alt={props.data.image}></img>
             <h3 className="text-[18px] flex-1 font-bold text-left px-8 py-8">
                 {
                     props.data.title
@@ -30,7 +30,7 @@ function ItemProduct(props){
                 </h3>
                 <div className="flex items-end">
                     <p className="text-[#0066cc] text-[16px] font-bold pl-8">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(props.data.newPrice)}</p>
-                    <p className="text-[#86868b] text-[13px] line-through  pl-4 ">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(props.data.oldPrice)}</p>
+                    {/* <p className="text-[#86868b] text-[13px] line-through  pl-4 ">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(props.data.oldPrice)}</p> */}
                 </div>
     
             </a>
