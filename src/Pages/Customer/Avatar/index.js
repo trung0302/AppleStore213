@@ -54,7 +54,8 @@ function Avatar () {
             showConfirmButton: false,
             timer: 500
         });
-       
+        console.log(res);
+        localStorage.setItem('user', JSON.stringify(res.data));
         window.location.reload();
     })
     .catch((error) => {

@@ -1,5 +1,6 @@
 import styles from "./Header.module.css";
 import SearchIcon from "@mui/icons-material/Search";
+import PersonIcon from '@mui/icons-material/Person';
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { useState, useEffect, useRef } from "react";
@@ -44,6 +45,14 @@ function Header() {
         //localStorage.removeItem("token");
         //Cookies.remove('token')
     };
+
+    const formatUserName = (tenUser) =>{
+        if (tenUser.length <= 8) {
+            return tenUser;
+          } else {
+            return tenUser.substring(0, 8) + "...";
+          }
+    }
 
     const inputRef = useRef(null);
 
@@ -177,7 +186,8 @@ function Header() {
                     />
                     <div className={styles.cartNumber}>{dataNumber}</div>
                 </a>
-                <Tooltip title="Account settings">
+                {/*<Tooltip title="Account settings">*/}
+                {(document.cookie.indexOf('token') !== -1)?
                     <IconButton
                         onClick={handleClick}
                         size="small"
@@ -186,11 +196,21 @@ function Header() {
                         aria-haspopup="true"
                         aria-expanded={open ? "true" : undefined}
                     >
-                        <PersonOutlinedIcon
+                        {/*<PersonOutlinedIcon
                             style={{ color: "#fff", fontSize: "28px" }}
-                        />
-                    </IconButton>
-                </Tooltip>
+                        />*/}
+                        
+                        <div className={styles.userr}>
+                            <img src={user.image.length !== 0?user.image[0].url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkNjtjpEZtAtYMoeDfg6PO5DoGrpAhCA79Jg&usqp=CAU"} alt="User Image" className={styles.userr_image} />
+                            <p className={styles.menuItemLink} style={{ color: "white"}}>{formatUserName(user.hoten)}</p>
+                        </div>
+                        
+                    </IconButton>:
+                    <Link to="/login">
+                    <p className={styles.menuItemLink} style={{ color: "white"}}>Đăng nhập</p>
+                    </Link>
+                }
+                {/*</Tooltip>*/}
                 <Menu
                     anchorEl={anchorEl}
                     id="account-menu"
@@ -202,11 +222,11 @@ function Header() {
                         sx: {
                             overflow: "visible",
                             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                            mt: 1.5,
+                            mt: 0,
                             "& .MuiAvatar-root": {
-                                width: 32,
+                                width: 40,
                                 height: 32,
-                                ml: -0.5,
+                                ml: 0,
                                 mr: 1,
                             },
                             "&:before": {
@@ -214,7 +234,7 @@ function Header() {
                                 display: "block",
                                 position: "absolute",
                                 top: 0,
-                                right: 14,
+                                right:80,
                                 width: 10,
                                 height: 10,
                                 bgcolor: "background.paper",
@@ -226,19 +246,16 @@ function Header() {
                     transformOrigin={{ horizontal: "right", vertical: "top" }}
                     anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                 >
-                    {(document.cookie.indexOf('token') == -1)?<></>:
                     <Link to="/customer/info">
                         <MenuItem onClick={handleClose1} sx={{ fontSize: 15 }}>
-                            <Avatar /> Trang cá nhân
-                        </MenuItem>
-                    </Link>}
-                    <Divider />
-                    {/*<MenuItem onClick={handleClose} sx={{ fontSize: 15 }}>
                         <ListItemIcon>
-                            <Settings fontSize="large" />
-                        </ListItemIcon>
-                        Cài đặt
-                </MenuItem>*/}
+                            <PersonIcon fontSize="large"></PersonIcon>
+                            </ListItemIcon>
+                            Trang cá nhân
+                        </MenuItem>
+                </Link>
+                <Divider />
+                   
                     {(document.cookie.indexOf('token') == -1)?
                     <Link to="/login">
                         <MenuItem onClick={handleClose1} sx={{ fontSize: 15 }}>
@@ -253,7 +270,7 @@ function Header() {
                         <ListItemIcon>
                             <Logout fontSize="large" />
                         </ListItemIcon>
-                        Thoát
+                        Đăng xuất
                     </MenuItem>}
                 </Menu>
             </div>
