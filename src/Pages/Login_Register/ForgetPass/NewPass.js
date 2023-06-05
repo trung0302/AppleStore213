@@ -140,7 +140,7 @@ const NewPass = () => {
                 </p>
                 <p style={{ textAlign:"center", fontSize:"16px"}}>
                     <button 
-                            className='mb-5 p-60 active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-2xl'
+                            className='mb-5 px-56 active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-2xl'
 
                      id="sub_btn" type="submit"
                     onClick={handleSubmit}>Đổi mật khẩu</button><br/>
