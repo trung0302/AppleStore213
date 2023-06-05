@@ -176,9 +176,9 @@ function Billdetail() {
                         </li>
                     </ul>
                     <div className="text-center">
-                        <Link to="/customer/history" className="text-blue-500">
+                        {/* <Link to="/customer/history" className="text-blue-500">
                             Nhấp vào đây để xem chi tiết đơn hàng
-                        </Link>
+                        </Link> */}
                         <div className="flex mt-10 justify-around">
                             <Link
                                 to="/"

@@ -43,12 +43,14 @@ export default ({method, tinhtrang, madonhang})=> {
 
     //lấy order bằng transId 
     let order  = {}
+    const [donhang, setDonHang] = useState();
 
     //hàm lấy order bằng transId với momo, để tạo hóa đơn
     const getOrderByMomo = async() =>{
         await axios.get(`http://localhost:3001/don-hang/transid/${orderId}`)
         .then((response) => {
-            order= response.data;
+            order = response.data;
+            setDonHang(response.data);
         })
         .catch((error) => {
             console.log(error);
@@ -59,8 +61,8 @@ export default ({method, tinhtrang, madonhang})=> {
     const getOrderByZalo = async() => {
         await axios.get(`http://localhost:3001/don-hang/transid/${apptransid}`)
         .then((response) => {
-            order= response.data;
-            console.log(response.data)
+            order = response.data;
+            setDonHang(response.data);
         })
         .catch((error) => {
             console.log(error);
@@ -74,7 +76,6 @@ export default ({method, tinhtrang, madonhang})=> {
     const addHoadon = async(hd) => {
         await axios.post('http://localhost:3001/api/hoa-don', hd)
         .then((response) => {
-            console.log("tạo hóa đơn thành công");
         })
         .catch((error) => {
             console.log(error);
@@ -85,7 +86,6 @@ export default ({method, tinhtrang, madonhang})=> {
     const UpdateOrder = async(madh)=>{
         await axios.put(`http://localhost:3001/don-hang/${madh}`, {tinhtrang: "Đã thanh toán"})
         .then((response) => {
-            console.log("Cập nhật order thành công");
         })
         .catch((error) => {
             console.log(error);
@@ -94,7 +94,6 @@ export default ({method, tinhtrang, madonhang})=> {
 
     //Tạo bảo hành cho từng sản phẩm
     const AddBH = async()=>{
-        console.log(order)
         // Duyệt qua từng sản phẩm trong order.products và tạo bảo hành cho từng sản phẩm
         for (const product of order.products) {
             const bhData = {
@@ -105,11 +104,7 @@ export default ({method, tinhtrang, madonhang})=> {
                 thoigian: `${day}/${month}/${year}`,
                 nghethan: `${day}/${month}/${year + 1}`,
             };
-            
-            console.log(bhData)
-
             // Gọi API để tạo bảo hành cho sản phẩm
-            
             await HandleApiBaohanh.addBH(bhData)
             .then((res)=>{
                 console.log("Tạo bảo hành");
@@ -120,6 +115,13 @@ export default ({method, tinhtrang, madonhang})=> {
             })
         }
     }
+
+    //khi thanh toán thất bại thì lấy madh để vào trang chi tiết đơn hàng
+    useEffect(()=>{
+        if(tinhtrang==="thất bại")
+            if(phuongThuc=="momo") getOrderByMomo();
+            else if(phuongThuc=="zalo") getOrderByZalo();
+    },[tinhtrang])
 
     //Hàm Xác nhận thanh toán, dùng để cập nhật giỏ hàng và tạo hóa đơn
     const Confirm= async()=>{
@@ -162,25 +164,37 @@ export default ({method, tinhtrang, madonhang})=> {
 
     return(
         <>
-            <h1 className="text-green-500 font-bold mb-10 text-3xl">Thanh toán qua {method} {tinhtrang}</h1>
-            {isConfirmed ? (
+            {tinhtrang==="thành công" ?
                 <>
-                    <p className="mb-10">Chúng tôi sẽ gửi xác nhận vào email cho bạn khi việc thanh toán được hoàn tất</p>
-                    <strong className="mb-10">SỐ ĐƠN ĐẶT HÀNG: {madonhang}</strong><br/>
-                    <div className="my-10">
-                        <Link to="/customer/history" className="text-blue-600">Nhấp vào đây để biết chi tiết đơn hàng</Link>
-                    </div>
-                    <div className="mb-10">
-                        <Link to="/" className="border-2 rounded-lg px-8 py-4 mx-auto bg-sky-600 text-white">Tiếp tục mua hàng</Link>
-                    </div>
-                </>
-            ) : (<>
-                    <p className="mb-10">Nhấn nút Xác nhận đã thanh toán để hoàn tất tất cả công đoạn</p>
-                    <button className="border-2 rounded-lg px-8 py-4 mx-auto bg-sky-600 text-white" onClick={handleConfirmation}>
-                        Xác nhận đã thanh toán
-                    </button>
-                </>
-            )}
+                    <h1 className="text-green-500 font-bold mb-10 text-3xl">Thanh toán qua {method} {tinhtrang}</h1>
+                    {isConfirmed ? (
+                        <>
+                            <p className="mb-10">Chúng tôi sẽ gửi xác nhận vào email cho bạn khi việc thanh toán được hoàn tất</p>
+                            <strong className="mb-10">SỐ ĐƠN ĐẶT HÀNG: {madonhang}</strong><br/>
+                            <div className="my-10">
+                                {donhang &&
+                                    <Link to={`/customer/orderdetail/${donhang.madh}`} className="text-blue-600">Nhấp vào đây để biết chi tiết đơn hàng</Link>
+                                }
+                            </div>
+                            <div className="mb-10">
+                                <Link to="/" className="border-2 rounded-lg px-8 py-4 mx-auto bg-sky-600 text-white">Tiếp tục mua hàng</Link>
+                            </div>
+                        </>
+                    ) : (<>
+                            <p className="mb-10">Nhấn nút Xác nhận đã thanh toán để hoàn tất tất cả công đoạn</p>
+                            <button className="border-2 rounded-lg px-8 py-4 mx-auto bg-sky-600 text-white" onClick={handleConfirmation}>
+                                Xác nhận đã thanh toán
+                            </button>
+                        </>
+                    )}            
+                </> : 
+                <div className="my-10">
+                    <h1 className="text-red-500 font-bold mb-10 text-3xl">Thanh toán qua {method} {tinhtrang}</h1>
+                    {donhang !==undefined && 
+                        <Link to={`/customer/orderdetail/${donhang.madh}`}className="text-blue-600">Nhấp vào đây để biết chi tiết đơn hàng và thanh toán lại.</Link>
+                    }
+                </div>
+            }
         </>
     )
 }
