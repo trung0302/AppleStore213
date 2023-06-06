@@ -9,6 +9,7 @@ import StaticRatedStar from "./RatingStar/StaticRatedStar.js";
 import Comment from "./Comment/Comment";
 import Swal from "sweetalert2";
 import axios from "axios";
+import parse from 'html-react-parser'
 function DetailBottom({sp, user}) {
     const navigate = useNavigate()
     const [tongleState, setTongleState] = useState(1);
@@ -55,6 +56,7 @@ function DetailBottom({sp, user}) {
     // Định dạng lại sp
     const demoProduct = {
             name: sp.tensanpham,
+            mota: sp.mota,
             description: {
                 moTaChung: sp.tensanpham + ". Bắt trọn chi tiết ấn tượng với Camera Chính 48MP. Trải nghiệm \
                 iPhone theo cách hoàn toàn mới với Dynamic Island và màn hình Luôn Bật. Công nghệ \
@@ -193,6 +195,7 @@ function DetailBottom({sp, user}) {
         console.log("listDanhGia ",listDanhGia)
     },[listDanhGia])
 
+ if(loading && haveComment)
  {
     return (<div className="w-3/4 mx-auto grid grid-cols-1 my-[50px]">
         
@@ -208,20 +211,14 @@ function DetailBottom({sp, user}) {
                             <div className="tab-item-title">Thông số kỹ thuật</div>
                         </div>
 
-                        <div className={tongleState === 3 ? "tab-item tab-item-active":"tab-item"} 
-                        onClick={() => tongleTab(3)}>
-                            <div className="tab-item-title">Chi tiết sản phẩm</div>
-                        </div>
-                        <div className={tongleState === 4 ? "tab-item tab-item-active":"tab-item"}
-                            onClick={() => tongleTab(4)}>
-                            <div className="tab-item-title">Hỏi đáp</div>
-                        </div>
                         <div className="line"></div>
                     </div>
                     {/* Tab content */}
                     <div class="tab-content w-full">
                         <div class={tongleState === 1 ? "text-ellipsis overflow-hidden block":"hidden"}>
-                                <h1 className="text-[26px] font-bold">{demoProduct.name}</h1>
+                            {
+                                demoProduct?.mota || <>
+                                    <h1 className="text-[26px] font-bold">{demoProduct.name}</h1>
                                 <p className="text-[14px]">{demoProduct.description.moTaChung}</p>
                         
                                 <h2 className="text-[18px] font-bold mt-[10px]">{demoProduct.description.title1}</h2>
@@ -229,6 +226,9 @@ function DetailBottom({sp, user}) {
                         
                                 <h2 className="text-[18px] font-bold mt-[10px]">{demoProduct.description.title2}</h2>
                                 <p className="text-[14px]">{demoProduct.description.des2}</p>
+                                
+                                </>
+                            }                               
                         </div>
                         <div class={tongleState === 2 ? "text-ellipsis overflow-hidden block":"hidden"}>
                             <table className="w-full table-fixed text-[16px] text-slate-600 border-collapse border border-slate-400">
@@ -241,12 +241,6 @@ function DetailBottom({sp, user}) {
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
-                        <div class={tongleState === 3 ? "text-ellipsis overflow-hidden block":"hidden"}>
-                            <p>Chi tiết sản phẩm</p>
-                        </div>
-                        <div class={tongleState === 4 ? "text-ellipsis overflow-hidden block":"hidden"}>
-                            <p>Hỏi đáp</p>
                         </div>
                     </div>
 

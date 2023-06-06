@@ -65,8 +65,13 @@ function Footer() {
                             </a>
                         </li>
                         <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
+                            <a href="/customer/baohanh" className={classes.listItem}>
                                 Bảo hành và sửa chữa
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/khuyenmai" className={classes.listItem}>
+                                Khuyến mãi
                             </a>
                         </li>
                     </ul>
@@ -75,7 +80,7 @@ function Footer() {
                     <div className={classes.title}>Chính sách</div>
                     <ul>
                         <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
+                            <a href="/policy" className={classes.listItem}>
                                 Bảo hành
                             </a>
                         </li>
@@ -85,18 +90,23 @@ function Footer() {
                     <div className={classes.title}>Địa chỉ & Liên hệ</div>
                     <ul>
                         <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
+                            <a href="/customer/info" className={classes.listItem}>
                                 Tài khoản của tôi
                             </a>
                         </li>
                         <li>
-                            <a href="/tin-tuc" className={classes.listItem}>
+                            <a href="/customer/history" className={classes.listItem}>
                                 Đơn đặt hàng
                             </a>
                         </li>
                         <li>
-                            <a href="tel:19006626" className={classes.listItem}>
-                                Mua hàng: <span className={classes.phone}>1900.6626</span>
+                            <a href="/store" className={classes.listItem}>
+                                Hệ thống cửa hàng
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:0826132302" className={classes.listItem}>
+                                Mua hàng: <span className={classes.phone}>0826.132.302</span>
                             </a>
                             <ul>
                                 <li>
@@ -123,9 +133,9 @@ function Footer() {
                             </ul>
                         </li>
                         <li>
-                            <a href="tel:19006626" className={classes.listItem}>
+                            <a href="tel:0826132302" className={classes.listItem}>
                                 Doanh nghiệp:{" "}
-                                <span className={classes.phone}>0822.688.668</span>
+                                <span className={classes.phone}>0826.132.302</span>
                             </a>
                         </li>
                     </ul>
@@ -133,13 +143,11 @@ function Footer() {
             </div>
             <div className={classes.footerLower}>
                 <div className={classes.footerInfo}>
-                    <span className={classes.footerDisclaimer}>
+                    {/* <span className={classes.footerDisclaimer}>
                         © 2016 Công ty Cổ Phần HESMAN Việt Nam GPDKKD: 0107465657 do Sở KH &
                         ĐT TP. Hà Nội cấp ngày 08/06/2016.<br></br>Địa chỉ: Số 76 Thái Hà,
                         phường Trung Liệt, quận Đống Đa, thành phố Hà Nội, Việt Nam<br></br>
-                        Đại diện pháp luật: PHẠM MẠNH HÒA | ĐT: 0247.305.9999 | Email:
-                        lienhe@shopdunk.com{" "}
-                    </span>
+                    </span> */}
                     <a href="http://online.gov.vn/(X(1)S(jfktnnku5rui3vjf5pnk4sgc))/Home/WebDetails/34144?AspxAutoDetectCookieSupport=1">
                         <img
                             src="https://shopdunk.com/images/uploaded-source/Trang%20ch%E1%BB%A7/Bocongthuong.png"

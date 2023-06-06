@@ -2,7 +2,6 @@ import React from 'react'
 import {convertToSlug} from '../../../utils'
 
 export default function ProductCard({ item }) {
-    const numberFormatter = Intl.NumberFormat('en-US');
     return (
         <div className='w-[285px] h-[412px] bg-white p-[7px] rounded-[8px] drop-shadow-[0_1px_8px_rgba(0,0,0,0.025)] cursor-pointer hover:drop-shadow-2xl'>
             <a href={`/detailproduct/${item._id}`}>
@@ -16,7 +15,6 @@ export default function ProductCard({ item }) {
                     <a href={convertToSlug(item.tensanpham)} className="text-[18px] text-[#1b1b1f] font-semibold">{item.tensanpham}</a>
                     <div className='flex items-center'>
                         <span className="text-[#0066CC] text-[15px] mr-[5px]">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.gia)}</span>
-                        <span className="line-through text-[14px] text-[#86868B] mx-[5px] mt-0">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.gia)}</span>
                     </div>
                 </div>
             </a>

@@ -22,6 +22,14 @@ function PromotionItem({
         setSelected(item._id);
     };
 
+    //format lại thời gian bắt đầu
+    const datebd = new Date(item.batdau);
+    const formattedDatebd = `${datebd.getDate()}/${datebd.getMonth() + 1}/${datebd.getFullYear()}`;
+
+    //format thời gian kết thúc
+    const datekt = new Date(item.ketthuc);
+    const formattedDatekt = `${datekt.getDate()}/${datekt.getMonth() + 1}/${datekt.getFullYear()}`;
+
     return (
         <div className="flex items-center justify-center my-10">
             <div className="mr-[16px]">
@@ -39,11 +47,11 @@ function PromotionItem({
                     Giảm giá: {item?.phantramkm}%
                 </div>
                 <span className="text-[15px] text-[#86868B]">
-                    {item?.batdau}
+                    {formattedDatebd}
                 </span>
                 <span className="text-[15px] text-[#86868B]"> &minus; </span>
                 <span className="text-[15px] text-[#86868B]">
-                    {item?.ketthuc}
+                    {formattedDatekt}
                 </span>
             </div>
             <button className={styles} onClick={handleSelectItem}>
