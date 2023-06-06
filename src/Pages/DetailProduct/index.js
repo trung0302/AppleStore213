@@ -307,10 +307,6 @@ function DetailProduct() {
                         
                         
                         <div className={classes.confirm}>
-                            <div className="flex text-[#5353e7]">
-                                <StoreIcon fontSize="large"/>
-                                <a className="text-[13px] mt-[3px] ml-[3px] block">Xem cửa hàng có sẵn sản phẩm</a>
-                            </div>
                             <button onClick={()=>handleMuaNgayClick()}>MUA NGAY</button>
                         </div>
 
