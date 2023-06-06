@@ -161,11 +161,6 @@ function Header() {
                     </a>
                 </li>
                 <li className={styles.menuItem}>
-                    <a href="/iphone" className={styles.menuItemLink}>
-                        Dịch vụ
-                    </a>
-                </li>
-                <li className={styles.menuItem}>
                     <a href="/tin-tuc" className={styles.menuItemLink}>
                         Tin tức
                     </a>

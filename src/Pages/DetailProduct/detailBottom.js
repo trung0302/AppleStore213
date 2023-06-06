@@ -9,6 +9,7 @@ import StaticRatedStar from "./RatingStar/StaticRatedStar.js";
 import Comment from "./Comment/Comment";
 import Swal from "sweetalert2";
 import axios from "axios";
+import parse from 'html-react-parser'
 function DetailBottom({sp, user}) {
     const navigate = useNavigate()
     const [tongleState, setTongleState] = useState(1);
@@ -224,7 +225,8 @@ function DetailBottom({sp, user}) {
                 {/* Tab content */}
                 <div class="tab-content w-full">
                     <div class={tongleState === 1 ? "text-ellipsis overflow-hidden block":"hidden"}>
-                            <h1 className="text-[26px] font-bold">{demoProduct.name}</h1>
+                            {sp.mota ? parse(sp.mota) : <>
+                                <h1 className="text-[26px] font-bold">{demoProduct.name}</h1>
                             <p className="text-[14px]">{demoProduct.description.moTaChung}</p>
                      
                             <h2 className="text-[18px] font-bold mt-[10px]">{demoProduct.description.title1}</h2>
@@ -232,6 +234,7 @@ function DetailBottom({sp, user}) {
                        
                             <h2 className="text-[18px] font-bold mt-[10px]">{demoProduct.description.title2}</h2>
                             <p className="text-[14px]">{demoProduct.description.des2}</p>
+                            </>}
                     </div>
                     <div class={tongleState === 2 ? "text-ellipsis overflow-hidden block":"hidden"}>
                         <table className="w-full table-fixed text-[16px] text-slate-600 border-collapse border border-slate-400">
