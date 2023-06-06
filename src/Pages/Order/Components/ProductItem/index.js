@@ -17,7 +17,7 @@ function ProductItem({
 }) {
     const [addClass, setAddClass] = useState("");
     const [qty, setQty] = useState(Number(item?.soluong) || 1);
-
+    console.log(item);
     const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
@@ -133,7 +133,7 @@ function ProductItem({
         if (e.keyCode === 189 || e.keyCode === 96 || e.keyCode === 48) {
             e.preventDefault();
         }
-    }
+    };
 
     return (
         <tr className="border-solid border-t border-t-[#d9d9d9]" key={index}>
@@ -141,7 +141,7 @@ function ProductItem({
                 <a>
                     <img
                         className="w-[80px] h-[80px]  m-[auto]"
-                        src={images.ip14prm}
+                        src={item.hinh}
                         alt={item.tensp}
                     ></img>
                 </a>
@@ -155,7 +155,7 @@ function ProductItem({
                     <br />
                     Màu sắc: {item.mausac}
                     <br />
-                    Dung lượng: {item.dungluong}
+                    {item.dungluong && <div>Dung lượng: {item?.dungluong}</div>}
                 </div>
             </td>
             <td className="p-[12px] align-top">

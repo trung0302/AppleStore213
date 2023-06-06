@@ -5,40 +5,52 @@ import EastIcon from "@mui/icons-material/East";
 import ItemProduct from "./ItemProduct";
 import images from "../../../../assets/image";
 import "./ProductHint.css";
+import { useEffect, useState } from "react";
+import HandleApiRecommend from "../../../../Apis/HandleApiRecommend";
 
 function ProductHint() {
-    const data = [
-        {
-            image: images.ip14prm,
-            name: "iPhone 14 Pro Leather Case with MagSafe",
-            price: 1590000,
-        },
-        {
-            image: images.airpod2,
-            name: "Airpods Pro 2",
-            price: 5990000,
-        },
-        {
-            image: images.ip14prm,
-            name: "iPhone 14 Pro Leather Case with MagSafe",
-            price: 1590000,
-        },
-        {
-            image: images.airpod2,
-            name: "Airpods Pro 2",
-            price: 5990000,
-        },
-        {
-            image: images.ip14prm,
-            name: "iPhone 14 Pro Leather Case with MagSafe",
-            price: 1590000,
-        },
-        {
-            image: images.airpod2,
-            name: "Airpods Pro 2",
-            price: 5990000,
-        },
-    ];
+    // const data = [
+    //     {
+    //         image: images.ip14prm,
+    //         name: "iPhone 14 Pro Leather Case with MagSafe",
+    //         price: 1590000,
+    //     },
+    //     {
+    //         image: images.airpod2,
+    //         name: "Airpods Pro 2",
+    //         price: 5990000,
+    //     },
+    //     {
+    //         image: images.ip14prm,
+    //         name: "iPhone 14 Pro Leather Case with MagSafe",
+    //         price: 1590000,
+    //     },
+    //     {
+    //         image: images.airpod2,
+    //         name: "Airpods Pro 2",
+    //         price: 5990000,
+    //     },
+    //     {
+    //         image: images.ip14prm,
+    //         name: "iPhone 14 Pro Leather Case with MagSafe",
+    //         price: 1590000,
+    //     },
+    //     {
+    //         image: images.airpod2,
+    //         name: "Airpods Pro 2",
+    //         price: 5990000,
+    //     },
+    // ];
+    const user = JSON.parse(localStorage.getItem("user"));
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        HandleApiRecommend.getRecommends(user?.makh)
+            .then((data) => {
+                setData(data);
+                console.log(data);
+            })
+            .catch((err) => console.log(err));
+    }, []);
 
     const options = {
         rewind: true,
