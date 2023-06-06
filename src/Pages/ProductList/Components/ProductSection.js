@@ -196,7 +196,7 @@ export default function ProductSection({ type, currentCategory = null }) {
                 <div className='flex justify-between'>
                     {type !== "Phụ kiện" ?
                         <>
-                            <div className='flex gap-x-[40px] items-center overflow-x-scroll mr-[40px]'>
+                            <div className='flex gap-x-[40px] items-center overflow-x-scroll mr-[40px] pb-[20px]'>
                                 <a href={initPath} className={`text-[15px] ${currentCategory === null ? 'text-[#0066cc]' : 'text-[#515154]'} shrink-0`}>Tất cả</a>
                                 {subCategories?.map((item, index) => (
                                     <a key={index} href={`${initPath}/${convertToSlug(item)}`} className={`text-[15px] ${currentCategory === item ? 'text-[#0066cc]' : 'text-[#515154]'} hover:text-[#0066cc] shrink-0	`}>{item}</a>
