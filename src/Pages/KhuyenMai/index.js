@@ -102,9 +102,9 @@ function KhuyenMai () {
                 </div>
             </div>
             <div className=" grid grid-cols-2 gap-4 text-2xl justify-items-center px-8 pl-8 pr-8 pb-16 w-[1200px] mx-auto">
-                {khuyenmais.map((khuyenmai) => (
-                    <KhuyenmaiItem khuyenmai={khuyenmai} key={khuyenmai._id}/>
-                ))}
+                {khuyenmais.map((khuyenmai) => {
+                    return <KhuyenmaiItem khuyenmai={khuyenmai} key={khuyenmai._id}/>
+                })}
             </div>
 
             {/* Phân trang */}
