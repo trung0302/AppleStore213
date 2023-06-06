@@ -16,7 +16,6 @@ export default function ProductCard({ item }) {
                     <a href={convertToSlug(item.tensanpham)} className="text-[18px] text-[#1b1b1f] font-semibold">{item.tensanpham}</a>
                     <div className='flex items-center'>
                         <span className="text-[#0066CC] text-[15px] mr-[5px]">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.gia)}</span>
-                        <span className="line-through text-[14px] text-[#86868B] mx-[5px] mt-0">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.gia)}</span>
                     </div>
                 </div>
             </a>
