@@ -2,7 +2,6 @@ import React from 'react'
 import {convertToSlug} from '../../../utils'
 
 export default function ProductCard({ item }) {
-    const numberFormatter = Intl.NumberFormat('en-US');
     return (
         <div className='w-[285px] h-[412px] bg-white p-[7px] rounded-[8px] drop-shadow-[0_1px_8px_rgba(0,0,0,0.025)] cursor-pointer hover:drop-shadow-2xl'>
             <a href={`/detailproduct/${item._id}`}>
