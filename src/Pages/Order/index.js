@@ -140,12 +140,23 @@ function Order() {
 
     // Handle Áp dụng Mã giảm giá bằng input
     const HandleApplyPromotion = () => {
-        HandleApiKM.getKMByMaKM(promotionInput)
-            .then((data) => {
-                setPromotion(data?.data?.phantramkm);
-                setSelected("");
-            })
-            .catch((err) => console.log(err));
+        if (promotionInput.trim() !== "") {
+            HandleApiKM.getKMByMaKM(promotionInput)
+                .then((data) => {
+                    setPromotion(data?.data?.phantramkm);
+                    setSelected("");
+                })
+                .catch((err) => console.log(err));
+        } else {
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Mã giảm giá không đúng!",
+                showConfirmButton: true,
+                timer: 1000,
+                padding: "0 0 20px 0",
+            });
+        }
     };
 
     //  Handle change promotion input
@@ -356,7 +367,7 @@ function Order() {
                             {/* Gợi ý sản phẩm */}
                             <div className={styles.productHint + " col-span-2"}>
                                 <label className="text-[24px] font-semibold">
-                                    Gợi ý phụ kiện đi kèm
+                                    Gợi ý sản phẩm bán chạy
                                 </label>
                                 <ProductHint />
                             </div>
