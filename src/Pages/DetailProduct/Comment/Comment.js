@@ -2,6 +2,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import StaticRatedStar from '../RatingStar/StaticRatedStar';
 import CircleIcon from '@mui/icons-material/Circle';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import moment from 'moment/moment';
 function Comment ({DG}) {
     const tryFunction = () => {
         // console.log(DG.tenkh)
@@ -30,16 +31,15 @@ function Comment ({DG}) {
                         {DG.binhluan}
                     </div>
                     <div className="flex text-[14px]">
-                        <div className="text-gray-400">2 ngày trước</div>
-                        <div className='text-gray-400 mx-[4px]'>
-                            <CircleIcon className='text-[5px]' size="inherit"/>
+                    <div className='text-gray-400 mx-[4px]'>
+                            <CircleIcon size="small"/>
                         </div>
+                        <div className="text-gray-400">{moment(DG.createdAt, 'YYYY-MM-DD').format('DD-MM-YYYY')}</div>
+                        
                         {/* <div onClick={()=>tryFunction()} className='text-blue-700 cursor-pointer'>
                             Thích
                         </div>
-                        <div className='text-gray-400 mx-[4px]'>
-                            <CircleIcon size="small"/>
-                        </div>
+                        
                         <div className='text-blue-700 cursor-pointer'>
                             Trả lời
                         </div> */}

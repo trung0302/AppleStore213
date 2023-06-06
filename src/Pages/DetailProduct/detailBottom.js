@@ -13,15 +13,13 @@ function DetailBottom({sp, user}) {
     const navigate = useNavigate()
     const [tongleState, setTongleState] = useState(1);
     const [filterIndex, setFilterIndex] = useState(6);
-    const [binhluan, setBinhluan] = useState();
     const [listDanhGia, setListDanhGia] = useState([])
     const [allDG, setAllDG] = useState([])
     const [newListDG, setNewListDG] = useState([])
     const [haveComment, setHaveComment] = useState(true)
-    const [dtbDG, setDtbDG] = useState()
+    const [dtbDG, setDtbDG] = useState("...")
     const [soluongDG, setSoLuongDG] = useState()
-    const [loading, setLoading] = useState(false)
-    // const [demoProduct, setDemoProduct] = useState(null)
+    const [loading, setLoading] = useState(true)
 
     // hàm set giá trị cho tab được chon
     const tongleTab = function(index) {
@@ -146,41 +144,40 @@ function DetailBottom({sp, user}) {
     const modalDanhGia = <div className="fixed w-full h-full bg-black opacity-70 z-10014">
     </div>;
 
-    // handle
-    // useEffect(() => {
-    //     console.log(danhGia)
-    // },[ratingOut])
-
     useEffect(() => {
-        let getDgUrl = `http://localhost:3001/api/danhgia/${sp._id}`
-        // console.log(filterIndex)
-        // if(filterIndex !== 6) {
-        //     getDgUrl = `http://localhost:3001/api/danhgia/${sp._id}?rating=${filterIndex}`
-        // }
-        axios.get(getDgUrl)
-        .then( (response) => { 
-            if(response.data !== undefined) {
-                let DGs = response.data.listDanhGia;
-                let sumRating = 0;
-                if(filterIndex === 6) {
-                    setListDanhGia(DGs);     
-                }
-                setAllDG(DGs) 
-                setSoLuongDG(DGs.length)
-                DGs.forEach(dg => {
-                    sumRating = sumRating + dg.rating;
-                });
-                console.log(DGs.length)
-                setDtbDG((sumRating/DGs.length).toFixed(1))
+        const fetchData = async () => {
+          try {
+            setLoading(true);
+      
+            const response = await axios.get(`http://localhost:3001/api/danhgia/${sp._id}`);
+            const data = response.data;
+      
+            if (data !== undefined) {
+              const DGs = data.listDanhGia;
+              let sumRating = 0;
+      
+              if (filterIndex === 6) {
+                setListDanhGia(DGs);
+              }
+              setAllDG(DGs);
+              setSoLuongDG(DGs.length);
+      
+              DGs.forEach(dg => {
+                sumRating = sumRating + dg.rating;
+              });
+      
+              setDtbDG((sumRating / DGs.length).toFixed(1));
+            //   setLoading(false);
             }
-        })
-        .catch(
-            (error) => {
-                console.log(error)
-                setHaveComment(false)
-        }
-        );
-    },[newListDG])
+          } catch (error) {
+            console.log(error);
+            setHaveComment(false);
+            setLoading(false);
+          }
+        };
+      
+        fetchData();
+      }, [newListDG]);
 
     useEffect(()=>{
         if(filterIndex !== 6){
@@ -193,123 +190,124 @@ function DetailBottom({sp, user}) {
     },[filterIndex])
 
     useEffect(()=>{
-        console.log(listDanhGia)
+        console.log("listDanhGia ",listDanhGia)
     },[listDanhGia])
 
-    // if(listDanhGia.length !== 0 || haveComment === false)
-   return (<div className="w-3/4 mx-auto grid grid-cols-1 my-[50px]">
-       
-    <div className="w-[800px] place-self-center">
-                <div className="tab-bar">
-                    <div className={tongleState === 1 ? "tab-item tab-item-active":"tab-item"}
-                        onClick={() => tongleTab(1)}>
-                        <div className="tab-item-title">Mô tả sản phẩm</div>
-                    </div>
-
-                    <div className={tongleState === 2 ? "tab-item tab-item-active":"tab-item"}
-                        onClick={() => tongleTab(2)}>
-                        <div className="tab-item-title">Thông số kỹ thuật</div>
-                    </div>
-
-                    <div className={tongleState === 3 ? "tab-item tab-item-active":"tab-item"} 
-                    onClick={() => tongleTab(3)}>
-                        <div className="tab-item-title">Chi tiết sản phẩm</div>
-                    </div>
-                    <div className={tongleState === 4 ? "tab-item tab-item-active":"tab-item"}
-                        onClick={() => tongleTab(4)}>
-                        <div className="tab-item-title">Hỏi đáp</div>
-                    </div>
-                    <div className="line"></div>
-                </div>
-                {/* Tab content */}
-                <div class="tab-content w-full">
-                    <div class={tongleState === 1 ? "text-ellipsis overflow-hidden block":"hidden"}>
-                            <h1 className="text-[26px] font-bold">{demoProduct.name}</h1>
-                            <p className="text-[14px]">{demoProduct.description.moTaChung}</p>
-                     
-                            <h2 className="text-[18px] font-bold mt-[10px]">{demoProduct.description.title1}</h2>
-                            <p className="text-[14px]">{demoProduct.description.des1}</p>
-                       
-                            <h2 className="text-[18px] font-bold mt-[10px]">{demoProduct.description.title2}</h2>
-                            <p className="text-[14px]">{demoProduct.description.des2}</p>
-                    </div>
-                    <div class={tongleState === 2 ? "text-ellipsis overflow-hidden block":"hidden"}>
-                        <table className="w-full table-fixed text-[16px] text-slate-600 border-collapse border border-slate-400">
-                            <tbody>
-                                {demoProduct.TSKT.map((tskt, index) => (
-                                    tskt?<tr className={(index % 2) === 0 ?"w-full bg-slate-200":"w-full"}>
-                                        <td className="border border-slate-300 py-[6px] px-[16px]">{tskt[0]}</td>
-                                        <td className="border border-slate-300 py-[6px] px-[16px]">{tskt[1]}</td>
-                                    </tr>:""
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class={tongleState === 3 ? "text-ellipsis overflow-hidden block":"hidden"}>
-                        <p>Chi tiết sản phẩm</p>
-                    </div>
-                    <div class={tongleState === 4 ? "text-ellipsis overflow-hidden block":"hidden"}>
-                        <p>Hỏi đáp</p>
-                    </div>
-                </div>
-
-    </div>
-                {/* Đánh giá sản phẩm */}
-                <div className="place-self-center mt-[40px] w-full py-[16px] rounded-[7px] border-[2px] border-slate-300 boder-solid">
-                    {/* Title */}
-                    <div className="px-[16px] pb-[16px] text-[18px] text-slate-700 font-semi-bold border-b-[2px] border-slate-300">Đánh giá sản phẩm</div>
-                    <div className="grid grid-cols-3 justify-items-stretch text-[16px] py-[20px] border-b-[2px] border-slate-100">
-                        <div className="text-center">
-                            <div className="text-slate-700">Đánh giá trung bình</div>
-                            <div className="text-[36px] text-red-600">{dtbDG}/5</div>
-                            <div className="flex justify-center">
-                            <StaticRatedStar
-                                size={16}
-                                rating={5}/>
-                            </div>
-                            <div>{soluongDG} đánh giá</div>
+ {
+    return (<div className="w-3/4 mx-auto grid grid-cols-1 my-[50px]">
+        
+        <div className="w-[800px] place-self-center">
+                    <div className="tab-bar">
+                        <div className={tongleState === 1 ? "tab-item tab-item-active":"tab-item"}
+                            onClick={() => tongleTab(1)}>
+                            <div className="tab-item-title">Mô tả sản phẩm</div>
                         </div>
-                        <div className="my-auto">
-                            <RatedStar allDG = {allDG}
-                                       soluongDG = {soluongDG}/>
+
+                        <div className={tongleState === 2 ? "tab-item tab-item-active":"tab-item"}
+                            onClick={() => tongleTab(2)}>
+                            <div className="tab-item-title">Thông số kỹ thuật</div>
                         </div>
-                        <div className="text-center my-auto">
-                            <div className="text-[16px] my-[10px]">Bạn đã dùng sản phẩm này</div>
-                            <button className="text-[16px] text-white bg-blue-600 rounded-[5px] font-extralight p-[10px]"
-                            onClick={()=>handleClickGuiDG(0)}>GỬI ĐÁNH GIÁ</button>
+
+                        <div className={tongleState === 3 ? "tab-item tab-item-active":"tab-item"} 
+                        onClick={() => tongleTab(3)}>
+                            <div className="tab-item-title">Chi tiết sản phẩm</div>
+                        </div>
+                        <div className={tongleState === 4 ? "tab-item tab-item-active":"tab-item"}
+                            onClick={() => tongleTab(4)}>
+                            <div className="tab-item-title">Hỏi đáp</div>
+                        </div>
+                        <div className="line"></div>
+                    </div>
+                    {/* Tab content */}
+                    <div class="tab-content w-full">
+                        <div class={tongleState === 1 ? "text-ellipsis overflow-hidden block":"hidden"}>
+                                <h1 className="text-[26px] font-bold">{demoProduct.name}</h1>
+                                <p className="text-[14px]">{demoProduct.description.moTaChung}</p>
+                        
+                                <h2 className="text-[18px] font-bold mt-[10px]">{demoProduct.description.title1}</h2>
+                                <p className="text-[14px]">{demoProduct.description.des1}</p>
+                        
+                                <h2 className="text-[18px] font-bold mt-[10px]">{demoProduct.description.title2}</h2>
+                                <p className="text-[14px]">{demoProduct.description.des2}</p>
+                        </div>
+                        <div class={tongleState === 2 ? "text-ellipsis overflow-hidden block":"hidden"}>
+                            <table className="w-full table-fixed text-[16px] text-slate-600 border-collapse border border-slate-400">
+                                <tbody>
+                                    {demoProduct.TSKT.map((tskt, index) => (
+                                        tskt?<tr className={(index % 2) === 0 ?"w-full bg-slate-200":"w-full"}>
+                                            <td className="border border-slate-300 py-[6px] px-[16px]">{tskt[0]}</td>
+                                            <td className="border border-slate-300 py-[6px] px-[16px]">{tskt[1]}</td>
+                                        </tr>:""
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class={tongleState === 3 ? "text-ellipsis overflow-hidden block":"hidden"}>
+                            <p>Chi tiết sản phẩm</p>
+                        </div>
+                        <div class={tongleState === 4 ? "text-ellipsis overflow-hidden block":"hidden"}>
+                            <p>Hỏi đáp</p>
                         </div>
                     </div>
-                    <div className="px-[25px] h-[56px] text-[14px] text-slate-500 bg-slate-100 flex items-center">
-                        <div>Lọc xem theo:</div>
-                        <div className={filterIndex === 6 ? "px-[10px] py-[3px] mx-[10px] rounded-[4px] align-middle cursor-pointer border-[1px] border-blue-400 hover:bg-blue-400 hover:text-white text-blue-400" 
-                        :"px-[10px] py-[3px] mx-[10px] rounded-[4px] align-middle scursor-pointer border-[1px] border-slate-300 hover:bg-slate-300"}
-                            onClick={()=>setFilterIndex(6)}>
-                                <span className={filterIndex === 6 ? "font-bold": "hidden"}><CheckIcon fontSize="20"/></span>
-                                <span>Tất cả đánh giá</span>
-                            </div>
 
-                        {[...Array(5)].map((filterbtn, index) => {
-                            const star = index + 1;
-                            return <div className={filterIndex === star ?"px-[8px] py-[3px] mr-[10px] rounded-[4px] align-middle cursor-pointer border-[1px] border-blue-400 hover:bg-blue-400 hover:text-white text-blue-400" 
-                        :"px-[8px] py-[3px] mr-[10px] rounded-[4px] align-middle cursor-pointer border-[1px] border-slate-300 hover:bg-slate-300"}
-                            onClick={()=> setFilterIndex(star)}>
-                                <span className={filterIndex === star ? "font-bold": "hidden"}><CheckIcon fontSize="20"/></span>
-                                <span className="">{star} sao</span>
+        </div>
+                    {/* Đánh giá sản phẩm */}
+                    <div className="place-self-center mt-[40px] w-full py-[16px] rounded-[7px] border-[2px] border-slate-300 boder-solid">
+                        {/* Title */}
+                        <div className="px-[16px] pb-[16px] text-[18px] text-slate-700 font-semi-bold border-b-[2px] border-slate-300">Đánh giá sản phẩm</div>
+                        <div className="grid grid-cols-3 justify-items-stretch text-[16px] py-[20px] border-b-[2px] border-slate-100">
+                            <div className="text-center">
+                                <div className="text-slate-700">Đánh giá trung bình</div>
+                                <div className="text-[36px] text-red-600">{dtbDG}/5</div>
+                                <div className="flex justify-center">
+                                <StaticRatedStar
+                                    size={16}
+                                    rating={5}/>
+                                </div>
+                                <div>{soluongDG} đánh giá</div>
                             </div>
-                        })}
+                            {<div className="my-auto">
+                                <RatedStar allDG = {allDG}
+                                        soluongDG = {soluongDG}/>
+                            </div>}
+                            <div className="text-center my-auto">
+                                <div className="text-[16px] my-[10px]">Bạn đã dùng sản phẩm này</div>
+                                <button className="text-[16px] text-white bg-blue-600 rounded-[5px] font-extralight p-[10px]"
+                                onClick={()=>handleClickGuiDG(0)}>GỬI ĐÁNH GIÁ</button>
+                            </div>
+                        </div>
+                        <div className="px-[25px] h-[56px] text-[14px] text-slate-500 bg-slate-100 flex items-center">
+                            <div>Lọc xem theo:</div>
+                            <div className={filterIndex === 6 ? "px-[10px] py-[3px] mx-[10px] rounded-[4px] align-middle cursor-pointer border-[1px] border-blue-400 hover:bg-blue-400 hover:text-white text-blue-400" 
+                            :"px-[10px] py-[3px] mx-[10px] rounded-[4px] align-middle scursor-pointer border-[1px] border-slate-300 hover:bg-slate-300"}
+                                onClick={()=>setFilterIndex(6)}>
+                                    <span className={filterIndex === 6 ? "font-bold": "hidden"}><CheckIcon fontSize="20"/></span>
+                                    <span>Tất cả đánh giá</span>
+                                </div>
+
+                            {[...Array(5)].map((filterbtn, index) => {
+                                const star = index + 1;
+                                return <div className={filterIndex === star ?"px-[8px] py-[3px] mr-[10px] rounded-[4px] align-middle cursor-pointer border-[1px] border-blue-400 hover:bg-blue-400 hover:text-white text-blue-400" 
+                            :"px-[8px] py-[3px] mr-[10px] rounded-[4px] align-middle cursor-pointer border-[1px] border-slate-300 hover:bg-slate-300"}
+                                onClick={()=> setFilterIndex(star)}>
+                                    <span className={filterIndex === star ? "font-bold": "hidden"}><CheckIcon fontSize="20"/></span>
+                                    <span className="">{star} sao</span>
+                                </div>
+                            })}
+                        </div>
+                        {listDanhGia.map((DG)=>(
+                                <Comment DG = {DG}/>
+                        ))
+                        }
                     </div>
-                    {listDanhGia.map((DG)=>(
-                            <Comment DG = {DG}/>
-                    ))
-                    }
-                </div>
-            <RatingModal 
-                closeRatingModal = {closeRatingModal}
-                setCloseRatingModal = {setCloseRatingModal}
-                user = {user}
-                sp = {sp}
-                setNewListDG = {setNewListDG}/>
-    </div>);
+                <RatingModal 
+                    closeRatingModal = {closeRatingModal}
+                    setCloseRatingModal = {setCloseRatingModal}
+                    user = {user}
+                    sp = {sp}
+                    setNewListDG = {setNewListDG}/>
+        </div>);
+ }
 }
 
 export default DetailBottom;

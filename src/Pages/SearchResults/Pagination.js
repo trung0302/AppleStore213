@@ -7,6 +7,7 @@ const Pagination = ({
     totalItems,
     itemsPerPage,
     paginate,
+    currentPage,
     previousPage,
     nextPage
 }) => {
@@ -22,15 +23,18 @@ const Pagination = ({
                 <li onClick={previousPage} className="page-number font-bold text-[18px]">
                     <ArrowBackIosNewIcon className="font-bold text-[18px]"/>
                 </li>
-                {pageNumbers.map((number) => (
-                    <li 
+                {pageNumbers.map((number, index) => {
+                    const curPage = index + 1
+
+                    return (<li 
                         key={number} 
                         onClick={() => paginate(number)}
-                        className="page-number"
+                        className={curPage === currentPage ? "page-number active" : "page-number"}
                     >
                         {number}
-                    </li>
-                ))}
+                    </li>)
+                }
+                )}
                 <li onClick={nextPage} className="font-bold text-[18px] page-number">
                     <ArrowForwardIosIcon className="font-bold text-[18px]"/>
                 </li>
