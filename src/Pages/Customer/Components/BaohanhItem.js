@@ -17,7 +17,7 @@ export default ({id, name, ngmua, nghethan})=>{
 
     //lấy thông tin sản phẩm
     useEffect(()=>{
-        HandleApiProduct.getProductById(name)
+        HandleApiProduct.getProductById(id)
         .then((res)=>{
             setProduct(res.data);
         })
