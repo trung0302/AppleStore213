@@ -11,9 +11,11 @@ import PromotionList from "./Components/PromotionList";
 import HandleApiCart from "../../Apis/HandleApiCart";
 import HandleApiKM from "../../Apis/HandleApiKM";
 import ProductItem from "./Components/ProductItem";
+import HandleApiRecommend from "../../Apis/HandleApiRecommend";
 
 function Order() {
     const [data, setData] = useState([]);
+    // const [recommendData, setRecommendData] = useState([]);
     const [isChecked, setIsChecked] = useState(false);
     const [voucherDisplay, setVoucherDisplay] = useState(false);
     const [dataPayment, setDataPayment] = useState(null);
@@ -46,6 +48,15 @@ function Order() {
     useEffect(() => {
         HandleGetCart();
     }, []);
+
+    // Render list recommend product
+    // useEffect(() => {
+    //     HandleApiRecommend.getRecommends(user?.makh)
+    //         .then((data) => {
+    //             setRecommendData(data);
+    //         })
+    //         .catch((err) => console.log(err));
+    // }, []);
 
     // Change total money when select promotion
     useEffect(() => {

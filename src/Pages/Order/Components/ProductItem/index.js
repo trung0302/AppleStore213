@@ -1,4 +1,3 @@
-import images from "../../../../assets/image";
 import styles from "./ProductItem.module.css";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
