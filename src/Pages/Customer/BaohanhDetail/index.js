@@ -11,6 +11,7 @@ import GppGoodIcon from '@mui/icons-material/GppGood';
 import { useParams } from 'react-router-dom'
 import BaohanhDetailItem from "../Components/BaohanhDetailItem";
 import HandleApiBaohanh from "../../../Apis/HandleApiBaohanh";
+import HandleApiProduct from "../../../Apis/HandleApiProduct";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -27,7 +28,7 @@ function BaohanhDetail () {
         .then((res) => {
             setData(res);
             //lấy thông tin sản phẩm
-            axios.get(`https://applestore213.onrender.com/api/product/${res.masp}`)
+            HandleApiProduct.getProductById(res._id)
             .then((res)=>{
                 setProduct(res.data);
             })
