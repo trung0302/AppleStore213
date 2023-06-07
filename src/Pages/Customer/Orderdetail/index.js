@@ -15,7 +15,6 @@ import Orderbilldetail from "../Components/Orderbilldetail";
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import { useState, useEffect } from 'react';
 import HandleApiOrder from '../../../Apis/HandleApiOrder';
-import axios from 'axios';
 
 function Orderdetail () {
     
@@ -26,7 +25,7 @@ function Orderdetail () {
     useEffect(() => {
         HandleApiOrder.getOrderById(id)
         .then((response) => {
-            setOrder(response.data);
+            setOrder(response);
             console.log(or)
         })
         .catch((error) => {

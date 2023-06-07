@@ -26,7 +26,7 @@ export default ({ order }) => {
     const getProduct = async (proId) => {
         try {
           const response = await HandleApiProduct.getProductById(proId);
-            return response.data;
+            return response;
         } catch (error) {
           console.log(error);
           return null;
@@ -46,11 +46,11 @@ export default ({ order }) => {
     //gọi api cập nhật order
     const UpdateOrder = (id, url)=>{
         HandleApiOrder.updateDonHang(order.madh, {
-            transId:id,
+            transId: id,
             orderUrl: url
         })
         .then((response) => {
-            window.open(response.data.orderUrl, "_blank");
+            window.open(response.orderUrl, "_blank");
         })
         .catch((error) => {
             console.log(error);
@@ -71,7 +71,6 @@ export default ({ order }) => {
         else
             HandleApiThanhToan.thanhtoanZalo(order.tongtrigia)
             .then((res)=>{
-                console.log(res.orderUrl)
                 UpdateOrder(res.transId, res.orderUrl);
             })
             .catch((e)=>{

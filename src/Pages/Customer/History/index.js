@@ -76,8 +76,8 @@ function History () {
     useEffect(() => {
         HandleApiOrder.getAllOrders(user.makh, pagesize, currentPage)
         .then((response) => {
-            setOrderlist(response.data.orders);
-            setTotalPage(Math.ceil(response.data.totalOrder/ pagesize));
+            setOrderlist(response.orders);
+            setTotalPage(Math.ceil(response.totalOrder/ pagesize));
         })
         .catch((error) => {
             console.log(error);
