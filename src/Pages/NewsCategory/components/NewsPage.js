@@ -11,7 +11,7 @@ export default function NewsPage() {
     const [data, setData] = useState(null)
 
     useEffect(() => {
-        api.getNewsById(id).then(result => setData(result))
+        api.getNewsById(id).then(result => setData(result.data))
     }, [id])
 
     return (
