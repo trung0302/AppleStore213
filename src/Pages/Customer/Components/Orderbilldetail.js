@@ -5,7 +5,8 @@ import { useState,useEffect } from "react";
 import 'jspdf-autotable';
 import Status from "./Status";
 import HandleApiThanhToan from "../../../Apis/HandleApiThanhtoan"
-import axios from "axios";
+import HandleApiOrder from "../../../Apis/HandleApiOrder";
+import HandleApiProduct from "../../../Apis/HandleApiProduct";
 
 //import hai file script thêm font chữ roboto hỗ trợ tiếng Việt vào trong jspdf
 import "./Roboto-Bold.js";
@@ -24,7 +25,7 @@ export default ({ order }) => {
     //hàm lấy thông tin product theo productId
     const getProduct = async (proId) => {
         try {
-          const response = await axios.get(`http://localhost:3001/api/product/${proId}`);
+          const response = await HandleApiProduct.getProductById(proId);
             return response.data;
         } catch (error) {
           console.log(error);
@@ -44,7 +45,7 @@ export default ({ order }) => {
 
     //gọi api cập nhật order
     const UpdateOrder = (id, url)=>{
-        axios.put(`http://localhost:3001/don-hang/${order.madh}`, {
+        HandleApiOrder.updateDonHang(order.madh, {
             transId:id,
             orderUrl: url
         })

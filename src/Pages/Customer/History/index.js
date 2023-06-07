@@ -9,10 +9,9 @@ import { blue } from "@mui/material/colors";
 import NavTag from "../Components/NavTag";
 import Orderbill from "../Components/Orderbill";
 import GppGoodIcon from '@mui/icons-material/GppGood';
-import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
+import HandleApiOrder from "../../../Apis/HandleApiOrder";
 import { KeyboardArrowLeft, KeyboardArrowRight, KeyboardDoubleArrowLeft, KeyboardDoubleArrowRight } from "@mui/icons-material";
 import { useState,useEffect } from "react";
-import axios from "axios";
 
 function History () {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -75,7 +74,7 @@ function History () {
 
     //api lấy order theo bộ lọc và gán vào data
     useEffect(() => {
-        axios.get(`http://localhost:3001/don-hang?makh=${user.makh}&pageSize=${pagesize}&page=${currentPage}`)
+        HandleApiOrder.getAllOrders(user.makh, pagesize, currentPage)
         .then((response) => {
             setOrderlist(response.data.orders);
             setTotalPage(Math.ceil(response.data.totalOrder/ pagesize));
