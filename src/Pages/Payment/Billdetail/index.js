@@ -2,8 +2,9 @@ import styles from "../Payment.module.css";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import HandleApiThanhtoan from "../../../Apis/HandleApiThanhtoan";
+import HandleApiOrder from "../../../Apis/HandleApiOrder";
+import HandleApiCart from "../../../Apis/HandleApiCart";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 function Billdetail() {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -24,7 +25,7 @@ function Billdetail() {
 
     //Hàm tạo đơn hàng
     const addOrder = (trans, url)=>{
-        axios.post('http://localhost:3001/don-hang', { 
+        HandleApiOrder.addOrder({ 
             makh: location.state.data.order.makh,
             transId: trans,
             orderUrl: url,
@@ -56,7 +57,7 @@ function Billdetail() {
 
     //Hàm xóa sản phẩm trong giỏ hàng sau khi tạo order
     const DeleteAllSPFromCart= async()=>{
-        await axios.delete(`http://localhost:3001/api/cart/deleteAll?makh=${user.makh}`)
+        await HandleApiCart.deleteAllSp()
         .then((response) => {
         })
         .catch((error) => {

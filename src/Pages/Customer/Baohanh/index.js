@@ -10,8 +10,6 @@ import NavTag from "../Components/NavTag";
 import BaohanhItem from "../Components/BaohanhItem";
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import { KeyboardArrowLeft, KeyboardArrowRight, KeyboardDoubleArrowLeft, KeyboardDoubleArrowRight } from "@mui/icons-material"; 
-import SearchIcon from '@mui/icons-material/Search';
-import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
 import HandleApiBaohanh from "../../../Apis/HandleApiBaohanh";
 import { useState,useEffect } from "react";
 

@@ -1,7 +1,5 @@
 import { useLocation } from "react-router-dom";
 import PaymentConfirm from "../Component/PaymentConfirm";
-import { useState } from "react";
-import axios from "axios";
 
 function PaymentFinish () {
     const location = useLocation();
