@@ -11,120 +11,74 @@ const RatedStar = ({allDG, soluongDG}) => {
             }).length;
     }
 
-    const progressBar = (ratingOfStar) => {
+    const progressBar = (star) => {
+        let result
         if(soluongDG !== 0) {
-            return Math.round(280*ratingOfStar/soluongDG);
+            result = Math.round(280*countDGByRating(star)/soluongDG);
+            console.log("result " + result)
+            if(!isNaN(result)&& result!==0) {
+                return result
+            } else return 0
         } else
         return 0;
     }
 
-    const [oneStar, setOneStar] = useState()
-    const [twoStar, setTwoStar] = useState()
-    const [threeStar, setThreeStar] = useState()
-    const [fourStar, setFourStar] = useState()
-    const [fiveStar, setFiveStar] = useState()
-
-    const [oneStarProgress, setOneStarProgress] = useState();
-    const [twoStarProgress, setTwoStarProgress] = useState();
-    const [threeStarProgress, setThreeStarProgress] = useState();
-    const [fourStarProgress,setFourStarProgress] = useState();
-    const [fiveStarProgress, setFiveStarProgress] = useState();
-
-    // const oneStar = countDGByRating(1)
-    // const twoStar = countDGByRating(2)
-    // const threeStar = countDGByRating(3)
-    // const fourStar = countDGByRating(4)
-    // const fiveStar = countDGByRating(5)
-
-    // const oneStarProgress = (progressBar(oneStar) === 0 || isNaN(progressBar(oneStar)))? `0`:`[${progressBar(oneStar)}px]`;
-    // const twoStarProgress = (progressBar(twoStar) === 0 || isNaN(progressBar(twoStar)))? `0`:`[${progressBar(twoStar)}px]`;
-    // const threeStarProgress = (progressBar(threeStar) === 0 || isNaN(progressBar(threeStar)))? `0`:`[${progressBar(threeStar)}px]`;
-    // const fourStarProgress = (progressBar(fourStar) === 0 || isNaN(progressBar(fourStar)))? `0`:`[${progressBar(fourStar)}px]`;
-    // const fiveStarProgress = (progressBar(fiveStar) === 0 || isNaN(progressBar(fiveStar)))? `0`:`[${progressBar(fiveStar)}px]`;
-
     useEffect(()=>{
-        console.log(countDGByRating(1),
-        countDGByRating(2),
-        countDGByRating(3),
-        countDGByRating(4),
-        countDGByRating(5))
+        console.log(allDG)
         setLoading(allDG)
     },[])
 
     useEffect(()=>{
         setDg(true)
-        setOneStar(countDGByRating(1))
-        setTwoStar(countDGByRating(2))
-        setThreeStar(countDGByRating(3))
-        setFourStar(countDGByRating(4))
-        setFiveStar(countDGByRating(5))
-        setOneStarProgress((countDGByRating(1) === 0 || isNaN(countDGByRating(1)))? `0`:`[${progressBar(oneStar)}px]`)
-        setTwoStarProgress((countDGByRating(2) === 0 || isNaN(countDGByRating(2)))? `0`:`[${progressBar(twoStar)}px]`)
-        setThreeStarProgress((countDGByRating(3) === 0 || isNaN(countDGByRating(3)))? `0`:`[${progressBar(threeStar)}px]`)
-        setFourStarProgress((countDGByRating(4) === 0 || isNaN(countDGByRating(4)))? `0`:`[${progressBar(fourStar)}px]`)
-        setFiveStarProgress((countDGByRating(5) === 0 || isNaN(countDGByRating(5)))? `0`:`[${progressBar(fiveStar)}px]`)
     },[loading])
 
-    
-
-    // useEffect(()=>{
-    //     console.log(oneStarProgress, twoStarProgress, threeStarProgress, fourStarProgress, fiveStarProgress)
-    // },[oneStarProgress])
-    
-    const stars = {
-        one: oneStar,
-        two: twoStar,
-        three: threeStar,
-        four: fourStar,
-        five: fiveStar,
-        total: soluongDG
-    }
-
-    if(dg == true && oneStarProgress)
-    {return(
+    if(dg === true)
+    // if(!isNaN(loading))
+    {
+        return (
         <div>
             <div className="flex justify-start">
                 <span className="mr-[2px]">5</span>
                 <FaStar size={16} color={"ffc107"}/>
                 <div className="h-[8px] w-[280px] bg-slate-200 my-auto rounded-full mx-[4px] relative">
-                    <div className={`progress-bar w-${fiveStarProgress} h-[8px] rounded-full bg-green-500 relative`}></div>
+                    <div style={{width: `${progressBar(5)}px`}} className={`progress-bar h-[8px] rounded-full bg-green-500 relative`}></div>
                 </div>
-                <span>{stars.five}</span>
+                <span>{countDGByRating(5)}</span>
             </div>
             <div className="flex justify-start">
                 <span className="mr-[2px]">4</span>
                 <FaStar size={16} color={"ffc107"}/>
                 <div className="h-[8px] w-[280px] bg-slate-200 my-auto rounded-full mx-[4px] relative">
-                    <div className={`progress-bar w-${fourStarProgress} h-[8px] rounded-full bg-green-500 relative`}></div>
+                    <div style={{width: `${progressBar(4)}px`}} className={`progress-bar h-[8px] rounded-full bg-green-500 relative`}></div>
                 </div>
-                <span>{stars.four}</span>
+                <span>{countDGByRating(4)}</span>
             </div>
             <div className="flex justify-start">
                 <span className="mr-[2px]">3</span>
                 <FaStar size={16} color={"ffc107"}/>
                 <div className="h-[8px] w-[280px] bg-slate-200 my-auto rounded-full mx-[4px] relative">
-                    <div className={`progress-bar w-${threeStarProgress} h-[8px] rounded-full bg-green-500 relative`}></div>
+                    <div style={{width: `${progressBar(3)}px`}} className={`progress-bar h-[8px] rounded-full bg-green-500 relative`}></div>
                 </div>
-                <span>{stars.three}</span>
+                <span>{countDGByRating(3)}</span>
             </div>
             <div className="flex justify-start">
                 <span className="mr-[2px]">2</span>
                 <FaStar size={16} color={"ffc107"}/>
                 <div className="h-[8px] w-[280px] bg-slate-200 my-auto rounded-full mx-[4px] relative">
-                    <div className={`progress-bar w-${twoStarProgress} h-[8px] rounded-full bg-green-500 relative`}></div>
+                    <div style={{width: `${progressBar(2)}px`}} className={`progress-bar h-[8px] rounded-full bg-green-500 relative`}></div>
                 </div>
-                <span>{stars.two}</span>
+                <span>{countDGByRating(2)}</span>
             </div>
             <div className="flex justify-start">
                 <span className="mr-[2px]">1</span>
                 <FaStar size={16} color={"ffc107"}/>
                 <div className="h-[8px] w-[280px] bg-slate-200 my-auto rounded-full mx-[4px] relative">
-                    <div className={`progress-bar w-${oneStarProgress} h-[8px] rounded-full bg-green-500 relative`}></div>
+                    <div style={{width: `${progressBar(1)}px`}} className={`progress-bar h-[8px] rounded-full bg-green-500 relative`}></div>
                 </div>
-                <span>{stars.one}</span>
+                <span>{countDGByRating(1)}</span>
             </div>
         </div>
     )
-}}
-
+}
+}
 export default RatedStar;

@@ -1,112 +1,12 @@
-import ProductFilter from "./Product_Filter";
 import ProductCard from "./Product_Card";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import RegisterNotify from "./RegisterNotify";
 import Pagination from "./Pagination";
 import { useEffect } from "react";
 import axios from "axios";
-
+import Swal from "sweetalert2";
 function SearchResults() {
-    const products = [
-        {
-            id: 1,
-            image: "https://shopdunk.com/images/thumbs/0007808_iphone-14-pro-max-128gb_420.png",
-            name: "iPhone 14 Pro Max 128GB",
-            oldPrice: 34990000,
-            newPrice: 27390000,
-            note: ""
-        },
-        {
-            id: 2,
-            image: "https://shopdunk.com/images/thumbs/0008734_iphone-14-pro-128gb_420.png",
-            name: "iPhone 14 Pro 128GB",
-            oldPrice: 30990000,
-            newPrice: 25390000,
-            note: ""
-        },
-        {
-            id: 3,
-            image: "https://shopdunk.com/images/thumbs/0009495_iphone-14-plus-128gb_420.png",
-            name: "iPhone 14 Plus 128GB",
-            oldPrice: 27990000,
-            newPrice: 22490000,
-            note: ""
-        },
-        {
-            id: 4,
-            image: "https://shopdunk.com/images/thumbs/0007808_iphone-14-pro-max-128gb_420.png",
-            name: "iPhone 14 Pro Max 128GB",
-            oldPrice: 34990000,
-            newPrice: 27390000,
-            note: ""
-        },
-        {
-            id: 5,
-            image: "https://shopdunk.com/images/thumbs/0008734_iphone-14-pro-128gb_420.png",
-            name: "iPhone 14 Pro 128GB",
-            oldPrice: 30990000,
-            newPrice: 25390000,
-            note: ""
-        },
-        {
-            id: 6,
-            image: "https://shopdunk.com/images/thumbs/0009495_iphone-14-plus-128gb_420.png",
-            name: "iPhone 14 Plus 128GB",
-            oldPrice: 27990000,
-            newPrice: 22490000,
-            note: ""
-        },
-        {
-            id: 7,
-            image: "https://shopdunk.com/images/thumbs/0007808_iphone-14-pro-max-128gb_420.png",
-            name: "Ipad 14 Pro Max 128GB",
-            oldPrice: 34990000,
-            newPrice: 27390000,
-            note: ""
-        },
-        {
-            id: 8,
-            image: "https://shopdunk.com/images/thumbs/0008734_iphone-14-pro-128gb_420.png",
-            name: "Ipad 14 Pro 128GB",
-            oldPrice: 30990000,
-            newPrice: 25390000,
-            note: ""
-        },
-        {
-            id: 9,
-            image: "https://shopdunk.com/images/thumbs/0009495_iphone-14-plus-128gb_420.png",
-            name: "Ipad 14 Plus 128GB",
-            oldPrice: 27990000,
-            newPrice: 22490000,
-            note: ""
-        },
-        {
-            id: 10,
-            image: "https://shopdunk.com/images/thumbs/0007808_iphone-14-pro-max-128gb_420.png",
-            name: "Ipad 14 Pro Max 128GB",
-            oldPrice: 34990000,
-            newPrice: 27390000,
-            note: ""
-        },
-        {
-            id: 11,
-            image: "https://shopdunk.com/images/thumbs/0008734_iphone-14-pro-128gb_420.png",
-            name: "Ipad 14 Pro 128GB",
-            oldPrice: 30990000,
-            newPrice: 25390000,
-            note: ""
-        },
-        {
-            id: 12,
-            image: "https://shopdunk.com/images/thumbs/0009495_iphone-14-plus-128gb_420.png",
-            name: "Ipad 14 Plus 128GB",
-            oldPrice: 27990000,
-            newPrice: 22490000,
-            note: ""
-        }
-    ]
-    
+   
     const [searchParams, setSearchParams] = useSearchParams();
     
     const [searchKey, setSearchKey] = useState(searchParams.get("q"));
@@ -114,6 +14,7 @@ function SearchResults() {
     const [searchKeyStatic, setSearchKeyStatic] = useState(searchParams.get("q"));
 
     const [items, setItems] = useState([]);
+    const [staticItems, setStaticItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(8);
 
@@ -122,7 +23,8 @@ function SearchResults() {
         axios.get(`http://localhost:3001/api/product?tensanpham=${searchKey}`)
         .then( (response) => { 
             if(response.data !== undefined) {
-                setItems(response.data.listProducts);      
+                setItems(response.data.listProducts); 
+                setStaticItems(response.data.listProducts)     
                 // setLoading(false);
                 console.log(response.data)
             }
@@ -145,28 +47,41 @@ function SearchResults() {
     }
 
     const handleOnclickSearchBtn = () => {
-        if(searchKey === "" || searchKey.length < 3)
-            alert("Vui lòng nhập từ khóa tìm kiếm.")
+        if(searchKey === "") {
+            Swal.fire({
+                title: 'Vui lòng nhập từ khóa tìm kiếm!',
+                icon: 'warning',
+                confirmButtonText: 'OK',
+            })
+        }
+        else if( searchKey.length < 3) {
+            Swal.fire({
+                title: 'Vui lòng nhập tối thiểu 3 từ khóa tìm kiếm!',
+                icon: 'warning',
+                confirmButtonText: 'OK',
+            })
+        }
         else
             window.location.href=`/search?q=${searchKey}`;
     }
 
     const handleSelectedSize = (e) => {
-        console.log(e.target.value)
+        console.log(e.target.value, typeof(e.target.value))
         setItemsPerPage(e.target.value)
     }
 
     const handleSelectedThuTu = (e) => {
-        const sortedItems = [...items].sort((a, b) => a.price - b.price);
-        setItems(sortedItems);
-    }
+        let sortedItems = staticItems
+        console.log(e.target.value, typeof(e.target.value))
+        if(e.target.value === "4") {
+            console.log("bon")
+            sortedItems = [...items].sort((a, b) => a.gia - b.gia);
+        }
+        else if(e.target.value === "1") {
+            sortedItems = [...items].sort((a, b) => b.gia - a.gia);
+        }
 
-    const searchResults = () => {
-        const results = products.filter((item) => {
-            // console.log(item.name.toLowerCase()," và ", typeof searchKey)
-            return item.name.toLowerCase().includes(searchKeyStatic.toLowerCase());
-        })
-        return results;
+        setItems(sortedItems);
     }
 
     const lastItemIndex = currentPage * itemsPerPage;
@@ -245,6 +160,7 @@ function SearchResults() {
                 totalItems={items.length}
                 itemsPerPage={itemsPerPage}
                 paginate={paginate}
+                currentPage = {currentPage}
                 previousPage={previousPage}
                 nextPage={nextPage}
             />
@@ -253,7 +169,6 @@ function SearchResults() {
             <div className={items.length === 0 ? "text-center my-[30px] text-blue-800 text-[18px]" : " hidden"}>Không tìm thấy sản phẩm nào khớp với từ khóa tìm kiếm.</div>
             
         </div>
-        <RegisterNotify/>
     </div>);
 }
 export default SearchResults;
