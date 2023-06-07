@@ -30,19 +30,19 @@ function DetailProduct() {
     let lstColorBG = {
         black: "bg-gray-900",
         gray: "bg-gray-400",
-        pink: "bg-pink-200",
+        silver: "bg-gray-200",
+        pink: "bg-pink-300",
         blue: "bg-blue-900",
         gold: "bg-yellow-600",
-        yellow: "bg-yellow-600"
+        yellow: "bg-yellow-600",
+        green: "bg-green-500",
+        purple: "bg-purple-500",
+        white: "white"
     }
     const navigate = useNavigate()
 
     useEffect( ()=>{
-    //    await HandleApiProduct.getProductById(params.id)
-    //     .then( (res) => {
-    //         console.log(res.tensanpham);
-    //          setSp(res);
-    //     })
+
 
         axios.get(`http://localhost:3001/api/product/${params.id}`)
         .then( (response) => { 
@@ -53,27 +53,11 @@ function DetailProduct() {
                 setLstColor(response.data.mausac.split(",").map(item => item.trim().toLowerCase()))
                 setLstRom(response.data.rom.split(",").map(item => item.trim().toUpperCase()))
                 setLstRam(response.data.ram.split(",").map(item => item.trim().toUpperCase()))
-                // setLstManHinh(response.data.manhinh.split(",").map(item => item.trim().toUpperCase()))
             }
         })
         .catch(error => console.log(error));
         
     },[])
-
-   
-
-    // useEffect(()=>{
-        // console.log(sp)
-        // console.log(user)
-        // console.log(sp.tensanpham)   
-        // try {
-        //     console.log(sp.tensanpham);
-        //   } catch(error) {
-        //     console.log(error);
-        //   }
-    //     lstColor = sp?sp.mausac.split(",").map(item => item.trim()):0
-    //     console.log(lstColor)
-    // },[])
 
     const handleMuaNgayClick = (e) => {
         if(dungluong === "" && lstRom.length !== 0) {
@@ -289,11 +273,14 @@ function DetailProduct() {
                             {
                                 lstColor?.map((color_item, index) =>{
                                     let colorBG = lstColorBG[color_item]
-                                    return (
-                                        <li className={`${color === color_item ? `${colorBG} outline outline-[2px] outline-blue-500` : classes[color_item]}`}
-                                            onClick={()=>setColor(color_item)} value={color_item}>
-                                        </li>
-                                    )
+                                    
+                                    if(classes[color_item] !== undefined){
+                                        return (
+                                            <li title={color_item} className={`${color === color_item ? `${colorBG} outline outline-[2px] outline-blue-500` : classes[color_item]}`}
+                                                onClick={()=>setColor(color_item)} value={color_item}>
+                                            </li>
+                                        )
+                                    }
                                 } )
                             }
 

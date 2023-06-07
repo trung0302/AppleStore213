@@ -125,20 +125,37 @@
 }
 
 .black {
-    background-color: rgb(17 24 39);
+    background-color: rgb(31 41 55);
+}
+
+.white {
+    background-color: rgb(255 255 255);
 }
 
 .gray {
-    background-color: rgb(156 163 175);
+    background-color: rgb(209 213 219);
 }
+
+.silver {
+    background-color: rgb(243 244 246);
+}
+
+.purple {
+    background-color: rgb(192 132 252);
+}
+
 .pink {
     background-color: rgb(251 207 232);
 }
 .blue {
-    background-color: rgb(30 58 138);
+    background-color: rgb(29 78 216);
 }
 .gold, .yellow {
-    background-color: rgb(202 138 4);
+    background-color: rgb(234 179 8);
+}
+
+.green {
+    background-color: rgb(74 222 128);
 }
 
 .black_outline {

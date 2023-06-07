@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./DetailBottom.css";
 import StarRating from "./StarRating";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import RatedStar from "./RatingStar/RatedStar";
 import RatingModal from "./RatingStar/RatingModal";
 import CheckIcon from '@mui/icons-material/Check';
@@ -20,7 +22,8 @@ function DetailBottom({sp, user}) {
     const [haveComment, setHaveComment] = useState(true)
     const [dtbDG, setDtbDG] = useState("...")
     const [soluongDG, setSoLuongDG] = useState()
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
+    const [more, setMore] = useState(0);
 
     // hàm set giá trị cho tab được chon
     const tongleTab = function(index) {
@@ -48,6 +51,11 @@ function DetailBottom({sp, user}) {
                 }
             });
         }
+    }
+
+    // Xem thêm hoặc thu gọn
+    const handleOnclickMoreOrNot = (index) => {
+        setMore(index);
     }
 
     // Lấy giá trị rating
@@ -173,8 +181,8 @@ function DetailBottom({sp, user}) {
             }
           } catch (error) {
             console.log(error);
-            setHaveComment(false);
-            setLoading(false);
+            // setHaveComment(false);
+            setLoading(true);
           }
         };
       
@@ -195,7 +203,7 @@ function DetailBottom({sp, user}) {
         console.log("listDanhGia ",listDanhGia)
     },[listDanhGia])
 
- if(loading && haveComment)
+ if(loading)
  {
     return (<div className="w-3/4 mx-auto grid grid-cols-1 my-[50px]">
         
@@ -215,9 +223,10 @@ function DetailBottom({sp, user}) {
                     </div>
                     {/* Tab content */}
                     <div class="tab-content w-full">
-                        <div class={tongleState === 1 ? "text-ellipsis overflow-hidden block":"hidden"}>
+                        <div class={tongleState === 1 ? "block":"hidden"}>
+                            <div className={more === 0? "text-ellipsis h-[400px] overflow-hidden":""}>
                             {
-                                demoProduct?.mota || <>
+                                demoProduct.mota? parse(demoProduct.mota) : <>
                                     <h1 className="text-[26px] font-bold">{demoProduct.name}</h1>
                                 <p className="text-[14px]">{demoProduct.description.moTaChung}</p>
                         
@@ -229,6 +238,20 @@ function DetailBottom({sp, user}) {
                                 
                                 </>
                             }                               
+                            </div>
+                            <div className="h-[50px] cursor-pointer mt-[15px]">
+                                <div className={more === 0? "shadow-lg py-[12px] text-blue-600 text-center text-[18px]":"hidden"}
+                                onClick={()=>handleOnclickMoreOrNot(1)}>
+                                    Tìm hiểu thêm
+                                    <ExpandMoreIcon sx={{ fontSize: 24 }}/>
+                                </div>
+
+                                <div className={more === 1? "shadow-lg py-[12px] text-blue-600 text-center text-[18px]":"hidden"}
+                                onClick={()=>handleOnclickMoreOrNot(0)}>
+                                    Rút gọn
+                                    <ExpandLessIcon sx={{ fontSize: 24 }}/>
+                                </div>
+                            </div>
                         </div>
                         <div class={tongleState === 2 ? "text-ellipsis overflow-hidden block":"hidden"}>
                             <table className="w-full table-fixed text-[16px] text-slate-600 border-collapse border border-slate-400">
