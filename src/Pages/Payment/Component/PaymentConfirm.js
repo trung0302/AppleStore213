@@ -50,8 +50,8 @@ export default ({method, tinhtrang, madonhang})=> {
     const getOrderByMomo = async() =>{
         await HandleApiOrder.getOrderByTransId(orderId)
         .then((response) => {
-            order = response.data;
-            setDonHang(response.data);
+            order = response;
+            setDonHang(response);
         })
         .catch((error) => {
             console.log(error);
@@ -62,8 +62,8 @@ export default ({method, tinhtrang, madonhang})=> {
     const getOrderByZalo = async() => {
         await HandleApiOrder.getOrderByTransId(apptransid)
         .then((response) => {
-            order = response.data;
-            setDonHang(response.data);
+            order = response;
+            setDonHang(response);
         })
         .catch((error) => {
             console.log(error);
@@ -108,8 +108,6 @@ export default ({method, tinhtrang, madonhang})=> {
             // Gọi API để tạo bảo hành cho sản phẩm
             await HandleApiBaohanh.addBH(bhData)
             .then((res)=>{
-                console.log("Tạo bảo hành");
-                console.log(res);
             })
             .catch ((error)=> {
                 console.log(error);

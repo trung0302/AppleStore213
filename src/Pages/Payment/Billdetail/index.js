@@ -57,7 +57,7 @@ function Billdetail() {
 
     //Hàm xóa sản phẩm trong giỏ hàng sau khi tạo order
     const DeleteAllSPFromCart= async()=>{
-        await HandleApiCart.deleteAllSp()
+        await HandleApiCart.deleteAllSp(user.makh)
         .then((response) => {
         })
         .catch((error) => {
