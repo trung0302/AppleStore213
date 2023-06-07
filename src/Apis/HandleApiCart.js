@@ -20,9 +20,14 @@ const deleteSpFromCart = async (makh, masp, mausac, rom) => {
     return await axiosInstance.delete(`api/cart?makh=${makh}&masp=${masp}&mausac=${mausac}&rom=${rom}`);
 };
 
+const deleteAllSp = async (makh) => {
+    return await axiosInstance.delete(`api/cart/deleteAll?makh=${makh}`);
+};  
+
 export default {
     getCartByMaKH,
     addSpToCart,
     updateCart,
     deleteSpFromCart,
+    deleteAllSp
 };
