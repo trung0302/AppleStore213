@@ -152,9 +152,10 @@ function Order() {
     // Handle Áp dụng Mã giảm giá bằng input
     const HandleApplyPromotion = () => {
         if (promotionInput.trim() !== "") {
-            HandleApiKM.getKMByMaKM(promotionInput)
+            HandleApiKM.getKMByMaKM(promotionInput.toUpperCase())
                 .then((data) => {
-                    setPromotion(data?.data?.phantramkm);
+                    console.log(data);
+                    setPromotion(data.phantramkm);
                     setSelected("");
                 })
                 .catch((err) => console.log(err));
@@ -174,6 +175,7 @@ function Order() {
     const HandleChangePromotionInput = (e) => {
         setPromotionInput(e.target.value);
     };
+    console.log(promotionInput);
 
     // Reload Cart
     const HandleReload = () => {
@@ -232,6 +234,7 @@ function Order() {
                                             {data?.productCart?.map(
                                                 (item, index) => (
                                                     <ProductItem
+                                                        key={index}
                                                         item={item}
                                                         index={index}
                                                         setData={setData}

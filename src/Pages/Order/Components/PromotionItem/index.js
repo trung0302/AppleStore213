@@ -12,9 +12,10 @@ function PromotionItem({
 }) {
     // Select khuyến mãi
     const handleSelectItem = () => {
-        HandleApiKM.getKMByID(item._id)
+        HandleApiKM.getKMByIdCached(item._id)
             .then((data) => {
-                setPromotion(data?.phantramkm);
+                // console.log("DatA" + data.data);
+                setPromotion(data.data.phantramkm);
             })
             .catch((err) => console.log(err));
 

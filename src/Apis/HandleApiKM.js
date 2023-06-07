@@ -9,6 +9,10 @@ const getKMByID = async(id) =>{
     return await axiosInstance.get(`/api/khuyenmai/${id}`);
 }
 
+const getKMByIdCached = async(id) =>{
+    return await axiosInstance.get(`/api/khuyenmai/cached/${id}`);
+}
+
 const getKMByApdung =async (apdung) => {
     return await axiosInstance.get(`/api/khuyenmai/apdung/${apdung}`);
 }
@@ -49,5 +53,6 @@ export default {
     addKM,
     updateKM,
     updateDecreaseSL,
-    deleteKM
+    deleteKM,
+    getKMByIdCached
 };
