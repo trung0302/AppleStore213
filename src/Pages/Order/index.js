@@ -154,7 +154,7 @@ function Order() {
         if (promotionInput.trim() !== "") {
             HandleApiKM.getKMByMaKM(promotionInput.toUpperCase())
                 .then((data) => {
-                    console.log(data);
+                    // console.log(data);
                     setPromotion(data.phantramkm);
                     setSelected("");
                 })
