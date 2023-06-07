@@ -27,7 +27,7 @@ function ChangePassword () {
                 showConfirmButton: true,
             });
         } else {
-        console.log("vào đây");
+        // console.log("vào đây");
          HandleApiCustomer.UpdatePass(user._id,{
             oldPassword: formData.get('oldPassword'),
             newPassword: formData.get('newPassword')

@@ -1,4 +1,3 @@
-import images from "../../../../assets/image";
 import styles from "./ProductItem.module.css";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -17,7 +16,7 @@ function ProductItem({
 }) {
     const [addClass, setAddClass] = useState("");
     const [qty, setQty] = useState(Number(item?.soluong) || 1);
-    console.log(item);
+    // console.log(item);
     const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
@@ -129,7 +128,7 @@ function ProductItem({
     };
 
     const handleKeyDown = (e) => {
-        console.log(e.keyCode);
+        // console.log(e.keyCode);
         if (e.keyCode === 189 || e.keyCode === 96 || e.keyCode === 48) {
             e.preventDefault();
         }
