@@ -28,11 +28,11 @@ function DetailProduct() {
     const [lstColor, setLstColor] = useState([]);
     const [lstManHinh, setLstManHinh] = useState([])
     let lstColorBG = {
-        black: "bg-gray-900",
+        black: "bg-gray-800",
         gray: "bg-gray-400",
         silver: "bg-gray-200",
         pink: "bg-pink-300",
-        blue: "bg-blue-900",
+        blue: "bg-sky-400",
         gold: "bg-yellow-600",
         yellow: "bg-yellow-600",
         green: "bg-green-500",

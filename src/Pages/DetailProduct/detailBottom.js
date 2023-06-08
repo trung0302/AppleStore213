@@ -224,7 +224,7 @@ function DetailBottom({sp, user}) {
                     {/* Tab content */}
                     <div class="tab-content w-full">
                         <div class={tongleState === 1 ? "block":"hidden"}>
-                            <div className={more === 0? "text-ellipsis h-[400px] overflow-hidden":""}>
+                            <div className={more === 0? "text-ellipsis max-h-[400px] overflow-hidden":""}>
                             {
                                 demoProduct.mota? parse(demoProduct.mota) : <>
                                     <h1 className="text-[26px] font-bold">{demoProduct.name}</h1>
