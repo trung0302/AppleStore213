@@ -1,7 +1,6 @@
 import styles from "../Customer.module.css";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import EditIcon from '@mui/icons-material/Edit';
 import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
 import Swal from "sweetalert2";
 

@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom"
 import React, { useState, useEffect } from 'react';
 import HandleApiBaohanh from '../../../Apis/HandleApiBaohanh';
-import axios from "axios";
+import HandleApiOrder from "../../../Apis/HandleApiOrder";
+import HandleApiHoaDon from "../../../Apis/HandleApiHoaDon";
 import Swal from "sweetalert2";
 export default ({method, tinhtrang, madonhang})=> {
     const location = useLocation();
@@ -47,10 +48,10 @@ export default ({method, tinhtrang, madonhang})=> {
 
     //hàm lấy order bằng transId với momo, để tạo hóa đơn
     const getOrderByMomo = async() =>{
-        await axios.get(`http://localhost:3001/don-hang/transid/${orderId}`)
+        await HandleApiOrder.getOrderByTransId(orderId)
         .then((response) => {
-            order = response.data;
-            setDonHang(response.data);
+            order = response;
+            setDonHang(response);
         })
         .catch((error) => {
             console.log(error);
@@ -59,10 +60,10 @@ export default ({method, tinhtrang, madonhang})=> {
 
     //hàm lấy order bằng transId với zalopay, để tạo hóa đơn
     const getOrderByZalo = async() => {
-        await axios.get(`http://localhost:3001/don-hang/transid/${apptransid}`)
+        await HandleApiOrder.getOrderByTransId(apptransid)
         .then((response) => {
-            order = response.data;
-            setDonHang(response.data);
+            order = response;
+            setDonHang(response);
         })
         .catch((error) => {
             console.log(error);
@@ -74,7 +75,7 @@ export default ({method, tinhtrang, madonhang})=> {
     
     //Hàm tạo hóa đơn với data truyền từ giỏ hàng
     const addHoadon = async(hd) => {
-        await axios.post('http://localhost:3001/api/hoa-don', hd)
+        await HandleApiHoaDon.addHoaDon(hd)
         .then((response) => {
         })
         .catch((error) => {
@@ -84,7 +85,7 @@ export default ({method, tinhtrang, madonhang})=> {
 
     //hàm cập nhật lại tình trạng của order
     const UpdateOrder = async(madh)=>{
-        await axios.put(`http://localhost:3001/don-hang/${madh}`, {tinhtrang: "Đã thanh toán"})
+        await HandleApiOrder.updateDonHang(madh, {tinhtrang: "Đã thanh toán"})
         .then((response) => {
         })
         .catch((error) => {
@@ -107,8 +108,6 @@ export default ({method, tinhtrang, madonhang})=> {
             // Gọi API để tạo bảo hành cho sản phẩm
             await HandleApiBaohanh.addBH(bhData)
             .then((res)=>{
-                console.log("Tạo bảo hành");
-                console.log(res);
             })
             .catch ((error)=> {
                 console.log(error);

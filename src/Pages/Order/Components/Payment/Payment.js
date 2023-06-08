@@ -107,7 +107,7 @@ function Payment(props) {
                 `https://provinces.open-api.vn/api/p/${selectedOption.code}?depth=2`
             )
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 const options = response.data.districts.map((item) => ({
                     value: item.code,
                     label: item.name,
@@ -126,7 +126,7 @@ function Payment(props) {
     // Handle change District
     const handleChangeDistrict = (selectedOption) => {
         setSelectedDistrict(selectedOption);
-        console.log(selectedOption);
+        // console.log(selectedOption);
         setSelectedWard(null);
         setSelectedStore(null);
         if (method === "Ship") {
@@ -135,7 +135,7 @@ function Payment(props) {
                     `https://provinces.open-api.vn/api/d/${selectedOption.value}?depth=2`
                 )
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     const options = response.data.wards.map((item) => ({
                         value: item.code,
                         label: item.name,
@@ -172,7 +172,7 @@ function Payment(props) {
         setMethod(e.target.value);
         setShowStore(!showStore);
         setShowAddress(!showAddress);
-        console.log(e.target.value);
+        // console.log(e.target.value);
     };
 
     // Handle change name input

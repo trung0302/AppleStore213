@@ -11,9 +11,11 @@ import PromotionList from "./Components/PromotionList";
 import HandleApiCart from "../../Apis/HandleApiCart";
 import HandleApiKM from "../../Apis/HandleApiKM";
 import ProductItem from "./Components/ProductItem";
+import HandleApiRecommend from "../../Apis/HandleApiRecommend";
 
 function Order() {
     const [data, setData] = useState([]);
+    // const [recommendData, setRecommendData] = useState([]);
     const [isChecked, setIsChecked] = useState(false);
     const [voucherDisplay, setVoucherDisplay] = useState(false);
     const [dataPayment, setDataPayment] = useState(null);
@@ -46,6 +48,15 @@ function Order() {
     useEffect(() => {
         HandleGetCart();
     }, []);
+
+    // Render list recommend product
+    // useEffect(() => {
+    //     HandleApiRecommend.getRecommends(user?.makh)
+    //         .then((data) => {
+    //             setRecommendData(data);
+    //         })
+    //         .catch((err) => console.log(err));
+    // }, []);
 
     // Change total money when select promotion
     useEffect(() => {
@@ -141,9 +152,10 @@ function Order() {
     // Handle Áp dụng Mã giảm giá bằng input
     const HandleApplyPromotion = () => {
         if (promotionInput.trim() !== "") {
-            HandleApiKM.getKMByMaKM(promotionInput)
+            HandleApiKM.getKMByMaKM(promotionInput.toUpperCase())
                 .then((data) => {
-                    setPromotion(data?.data?.phantramkm);
+                    // console.log(data);
+                    setPromotion(data.phantramkm);
                     setSelected("");
                 })
                 .catch((err) => console.log(err));
@@ -163,6 +175,7 @@ function Order() {
     const HandleChangePromotionInput = (e) => {
         setPromotionInput(e.target.value);
     };
+    console.log(promotionInput);
 
     // Reload Cart
     const HandleReload = () => {
@@ -221,6 +234,7 @@ function Order() {
                                             {data?.productCart?.map(
                                                 (item, index) => (
                                                     <ProductItem
+                                                        key={index}
                                                         item={item}
                                                         index={index}
                                                         setData={setData}

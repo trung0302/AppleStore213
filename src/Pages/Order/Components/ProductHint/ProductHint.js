@@ -47,7 +47,7 @@ function ProductHint() {
         HandleApiRecommend.getRecommends(user?.makh)
             .then((data) => {
                 setData(data);
-                console.log(data);
+                // console.log(data);
             })
             .catch((err) => console.log(err));
     }, []);

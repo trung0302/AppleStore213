@@ -5,6 +5,10 @@ const getAllStore = async () => {
     return await axiosInstance.get(`api/store`);
 };
 
+const getAllStoreCached = async () => {
+    return await axiosInstance.get(`api/store/cached`);
+};
+
 const getStoreByDistrict = async (code) => {
     return await axiosInstance.get(`api/store/district?code=${code}`);
 };
@@ -17,4 +21,5 @@ export default {
     getAllStore,
     getStoreByDistrict,
     getStoreByProvince,
+    getAllStoreCached
 };

@@ -7,7 +7,7 @@ function Store() {
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [stores, setStores] = useState([]);
-    const [showStore, setShowStore] = useState(false);
+    const [showStore, setShowStore] = useState(true);
     const [label, setLabel] = useState("");
 
     const [selectedProvince, setSelectedProvince] = useState(null);
@@ -23,6 +23,18 @@ function Store() {
                     label: res.name,
                 }));
                 setProvinces(cities);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
+    // Render all store
+    useEffect(() => {
+        HandleApiStore.getAllStoreCached()
+            .then((response) => {
+                // console.log(response.data);
+                setStores(response.data.listStores);
             })
             .catch((error) => {
                 console.log(error);

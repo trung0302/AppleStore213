@@ -12,7 +12,6 @@ import Notice from "../Components/Notice";
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import HandleApiCustomer from "../../../Apis/HandleApiCustomer";
 import Swal from "sweetalert2";
-import { useState,useEffect } from "react";
 
 function ChangePassword () {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -27,7 +26,7 @@ function ChangePassword () {
                 showConfirmButton: true,
             });
         } else {
-        console.log("vào đây");
+        // console.log("vào đây");
          HandleApiCustomer.UpdatePass(user._id,{
             oldPassword: formData.get('oldPassword'),
             newPassword: formData.get('newPassword')

@@ -16,7 +16,12 @@ const getAllSubCategory = async (loaisanpham) => {
     return await axiosInstance.get(`/api/product/subcategory/${loaisanpham}`);
 }
 
+const getProductById = async (id)=>{
+    return await axiosInstance.get(`/api/product/${id}`);
+}
+
 export default {
     getAllProduct,
-    getAllSubCategory
+    getAllSubCategory,
+    getProductById
 };

@@ -14,7 +14,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Orderbilldetail from "../Components/Orderbilldetail";
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import HandleApiOrder from '../../../Apis/HandleApiOrder';
 
 function Orderdetail () {
     
@@ -23,9 +23,9 @@ function Orderdetail () {
 
     //api lấy order theo id
     useEffect(() => {
-        axios.get(`http://localhost:3001/don-hang/${id}`)
+        HandleApiOrder.getOrderById(id)
         .then((response) => {
-            setOrder(response.data);
+            setOrder(response);
             console.log(or)
         })
         .catch((error) => {

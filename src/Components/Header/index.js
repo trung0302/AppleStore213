@@ -63,7 +63,6 @@ function Header() {
     };
 
     const handleEnter = (e) => {
-        console.log();
         if (e.key === "Enter")
             if (e.target.value === "") alert("Vui lòng nhập từ khóa tìm kiếm.");
             else window.location.href = `/search?q=${e.target.value}`;
@@ -74,7 +73,7 @@ function Header() {
         // var number = 0;
         HandleApiCart.getCartByMaKH(user?.makh)
             .then((data) => {
-                console.log(data.productCart);
+                // console.log(data.productCart);
                 // eslint-disable-next-line react-hooks/exhaustive-deps
                 number = data?.productCart.reduce((acc, currentValue) => {
                     return acc + currentValue.soluong;

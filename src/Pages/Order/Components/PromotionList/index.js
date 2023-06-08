@@ -24,7 +24,7 @@ function PromotionList({
     useEffect(() => {
         HandleApiKM.getKMByApdung(Number(totalMoney))
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 setData(data);
             })
             .catch((err) => console.log(err));

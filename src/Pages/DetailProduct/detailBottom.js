@@ -29,7 +29,7 @@ function DetailBottom({sp, user}) {
     const tongleTab = function(index) {
         setTongleState(index);
         // console.log(user)
-        console.log(sp)
+        // console.log(sp)
     }   
 
     // Biến để quyết định việc bật tắt modal, 1 là tắt, 0 là mở

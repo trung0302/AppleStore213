@@ -24,7 +24,7 @@ function Avatar () {
     useEffect(()=>{
         HandleApiCustomer.GetUserInfor()
         .then((res)=>{
-            console.log(res);
+            // console.log(res);
             if(res.user.image.length !== 0)
             setData(res.user.image[0].url)
 

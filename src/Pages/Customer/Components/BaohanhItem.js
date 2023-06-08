@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "../Customer.module.css";
 import React from 'react';
 import { useState, useEffect } from "react";
-import axios from "axios";
+import HandleApiProduct from "../../../Apis/HandleApiProduct";
 
 export default ({id, name, ngmua, nghethan})=>{
     const dateParts = nghethan.split('/');
@@ -17,9 +17,9 @@ export default ({id, name, ngmua, nghethan})=>{
 
     //lấy thông tin sản phẩm
     useEffect(()=>{
-        axios.get(`http://localhost:3001/api/product/${name}`)
+        HandleApiProduct.getProductById(name)
         .then((res)=>{
-            setProduct(res.data);
+            setProduct(res);
         })
     },[])
     
