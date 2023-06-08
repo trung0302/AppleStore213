@@ -28,7 +28,7 @@ export default function AnotherProductList({ type }) {
                 <TopSection type={type} currentCategory={currentCategory} slug={slug} />
                 <ProductSection type={type} currentCategory={currentCategory} />
                 </>}
-            <SubcribeSection />
+            {/* <SubcribeSection /> */}
         </div >
     )
 }
